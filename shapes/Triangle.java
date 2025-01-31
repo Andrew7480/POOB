@@ -1,5 +1,5 @@
 import java.awt.*;
-
+//import java.math.*;
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
  * 
@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Triangle{
     
-    public static int VERTICES=3;
+    public static final int VERTICES=3;
     
     private int height;
     private int width;
@@ -139,11 +139,18 @@ public class Triangle{
      * @param newHeight the new height in pixels. newHeight must be >=0.
      * @param newWidht the new width in pixels. newWidht must be >=0.
      */
-    public void changeSize(int newHeight, int newWidth) {
-        erase();
-        height = newHeight;
-        width = newWidth;
-        draw();
+    public void changeSize(int newHeight, int newWidth) {  
+        
+        if ((newHeight <=0) || (newWidth <=0)) {
+            System.out.println("La altura y el ancho no puede ser negativa.");
+
+        }
+        else {
+            erase();
+            height = newHeight;
+            width = newWidth;
+            draw();
+        }
     }
     
     /**
@@ -178,4 +185,27 @@ public class Triangle{
             canvas.erase(this);
         }
     }
+    
+    /*
+     * Triangle's area
+     */
+    public int area() {
+        return (height*width)/2;
+    }
+    
+    /*
+     * Determine if a triangle is equilateral.
+     */
+    public boolean isEquilateral(int side1, int side2, int side3){
+        boolean flag = true;
+        if ((side1 != side2) && (side1 != side3)){
+            flag = false;
+        }
+        return flag;
+    }
+    public void equilateral (int side1, int side2, int side3){
+        if (isEquilateral(side1,side2, side3)) {
+            System.out.println("Ya es equilatero.");
+            }
+        }
 }
