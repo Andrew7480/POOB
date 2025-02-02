@@ -186,16 +186,16 @@ public class Triangle{
         }
     }
     
-    /*
+    /**
      * Triangle's area
-     */
+     **/
     public int area() {
         return (height*width)/2;
     }
     
-    /*
+    /**
      * Determine if a triangle is equilateral.
-     */
+     **/
     public double equilateral(){
         int areaOfTriangle = area();
         double side = Math.sqrt((4*areaOfTriangle)/Math.sqrt(3));
@@ -204,9 +204,9 @@ public class Triangle{
     public double verify(){
         return ((Math.pow(equilateral(), 2))*Math.sqrt(3))/4;
     }
-    /*
+    /**
      * it decreases its size times times until it reaches a height.
-       */
+       **/
     public void shrink(int times, int oHeight){
         erase();
         while (times == oHeight){
@@ -214,18 +214,18 @@ public class Triangle{
         }
         draw();
     }
-    /*
+    /**
      * Create a new triangle in a new position.
-       */
+       **/
     public void newPosition(int xPositionN, int yPositionN){
         erase();
         xPosition = xPositionN;
         yPosition = yPositionN;
         draw();
     }
-    /*
+    /**
      * Given area and width is determined the height of triangle.
-       */
+       **/
     public int heightOfTringle(){
         int determineHeight = (2*area())/width; 
         return determineHeight;
