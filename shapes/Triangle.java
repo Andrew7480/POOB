@@ -1,5 +1,5 @@
 import java.awt.*;
-//import java.math.*;
+import java.math.*;
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
  * 
@@ -196,16 +196,38 @@ public class Triangle{
     /*
      * Determine if a triangle is equilateral.
      */
-    public boolean isEquilateral(int side1, int side2, int side3){
-        boolean flag = true;
-        if ((side1 != side2) && (side1 != side3)){
-            flag = false;
-        }
-        return flag;
+    public double equilateral(){
+        int areaOfTriangle = area();
+        double side = Math.sqrt((4*areaOfTriangle)/Math.sqrt(3));
+        return side;
     }
-    public void equilateral (int side1, int side2, int side3){
-        if (isEquilateral(side1,side2, side3)) {
-            System.out.println("Ya es equilatero.");
-            }
+    public double verify(){
+        return ((Math.pow(equilateral(), 2))*Math.sqrt(3))/4;
+    }
+    /*
+     * it decreases its size times times until it reaches a height.
+       */
+    public void shrink(int times, int oHeight){
+        erase();
+        while (times == oHeight){
+            height -= times;
         }
+        draw();
+    }
+    /*
+     * Create a new triangle in a new position.
+       */
+    public void newPosition(int xPositionN, int yPositionN){
+        erase();
+        xPosition = xPositionN;
+        yPosition = yPositionN;
+        draw();
+    }
+    /*
+     * Given area and width is determined the height of triangle.
+       */
+    public int heightOfTringle(){
+        int determineHeight = (2*area())/width; 
+        return determineHeight;
+    }
 }
