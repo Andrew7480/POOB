@@ -209,9 +209,15 @@ public class Triangle{
        **/
     public void shrink(int times, int oHeight){
         erase();
-        while (times == oHeight){
-            height -= times;
+        int count = 0;
+        while (count < times){
+            height = height - times;
+            count ++;
+            if (height == oHeight){
+                count = times;
+            }
         }
+        changeSize(height, width);
         draw();
     }
     /**
