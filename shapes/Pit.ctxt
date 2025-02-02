@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Pit
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pit\ here.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=Pit()
+comment1.params=big
+comment1.target=Pit(boolean)
 comment2.params=seeds
 comment2.target=void\ putSeeds(int)
 comment3.params=seeds

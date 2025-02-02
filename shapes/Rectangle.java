@@ -182,5 +182,20 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
+    public void setPositionX(int xPositionN){
+        xPosition = xPositionN;
+    }
+    public void setPositionY(int yPositionN){
+        yPosition = yPositionN;
+    }
+    public int getPositionX(){
+        return xPosition;
+    }
+    public int getPositionY(){
+        return yPosition;
+    }
+    public void setColor(String colorA){
+        color = colorA;
+    }
 }
 

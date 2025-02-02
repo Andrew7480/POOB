@@ -11,6 +11,6 @@ public class Kalah
     
     
     public Kalah(){
-        pitA = new Pit();
+        pitA = new Pit(true);
     }
 }

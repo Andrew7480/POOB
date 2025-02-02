@@ -8,18 +8,17 @@
 public class Pit
 {
     private boolean isVisible;
-    private int xPosition;
-    private int yPosition;
     private String color;
     private Rectangle square;
     
     
-    public Pit(){
+    public Pit(boolean big){
         square = new Rectangle();
         isVisible = true;
-        color = "blue";
-        xPosition = 10;
-        yPosition = 20;
+        square.setColor("yellow");
+        square.setPositionX(30);
+        square.setPositionY(20);
+        
     }
     public void putSeeds(int seeds){
         
@@ -45,8 +44,8 @@ public class Pit
     }
     public void moveTo(int x, int y){
         square.makeInvisible();
-        xPosition += x;
-        yPosition += y;
+        square.moveHorizontal(x);
+        square.moveVertical(y);
         square.makeVisible();
     }
 }
