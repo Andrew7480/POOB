@@ -1,6 +1,19 @@
 #BlueJ class context
 comment0.target=Pit
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pit\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pit\ here.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=Pit()
-numComments=2
+comment2.params=seeds
+comment2.target=void\ putSeeds(int)
+comment3.params=seeds
+comment3.target=void\ removeSeeds(int)
+comment4.params=
+comment4.target=void\ makeVisible()
+comment4.text=\r\n\ \ \ \ public\ int\ seeds(){\r\n\ \ \ \ \ \ \ \ return\r\n\ \ \ \ }\r\n
+comment5.params=
+comment5.target=void\ makeInvisible()
+comment6.params=pit\ seeds
+comment6.target=void\ changeColors(java.lang.String,\ java.lang.String)
+comment7.params=x\ y
+comment7.target=void\ moveTo(int,\ int)
+numComments=8

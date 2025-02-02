@@ -11,10 +11,15 @@ public class Pit
     private int xPosition;
     private int yPosition;
     private String color;
+    private Rectangle square;
     
     
     public Pit(){
-        
+        square = new Rectangle();
+        isVisible = true;
+        color = "blue";
+        xPosition = 10;
+        yPosition = 20;
     }
     public void putSeeds(int seeds){
         
@@ -22,24 +27,26 @@ public class Pit
     public void removeSeeds(int seeds){
         
     }
+    /*
     public int seeds(){
         return
     }
+    */
     public void makeVisible(){
         isVisible = true;
-        draw();
+        square.makeVisible();
     }
     public void makeInvisible(){
-        erase();
+        square.makeInvisible();
         isVisible = false;
     }
     public void changeColors(String pit, String seeds){
         
     }
     public void moveTo(int x, int y){
-        erase();
+        square.makeInvisible();
         xPosition += x;
         yPosition += y;
-        draw();
+        square.makeVisible();
     }
 }
