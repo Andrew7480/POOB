@@ -27,7 +27,7 @@ public class Triangle{
         xPosition = 140;
         yPosition = 15;
         color = "green";
-        isVisible = false;
+        isVisible = false; 
     }
 
     /**
@@ -194,16 +194,28 @@ public class Triangle{
     }
     
     /**
-     * Determine if a triangle is equilateral.
+     * Determine the side a triangle should have for it to be equilateral.
      **/
-    public double equilateral(){
+    private double sideToEquilateral(){
         int areaOfTriangle = area();
         double side = Math.sqrt((4*areaOfTriangle)/Math.sqrt(3));
         return side;
     }
-    public double verify(){
-        return ((Math.pow(equilateral(), 2))*Math.sqrt(3))/4;
+    
+    private double verify(){
+        return ((Math.pow(sideToEquilateral(), 2))*Math.sqrt(3))/4;
     }
+    
+    public void equilateral(){
+        int areaTriangle = area();
+        double side = sideToEquilateral();
+        int intSide = (int) side;
+        //calcula la altura que deberia tener 
+        double newHeight = (Math.sqrt(3)*side)/2;
+        int intNewHeight = (int) newHeight;
+        changeSize(intNewHeight, intSide);        
+    }
+    
     /**
      * it decreases its size times times until it reaches a height.
        **/
@@ -220,6 +232,19 @@ public class Triangle{
         changeSize(height, width);
         draw();
     }
+    
+        public void shrink2(int times, int oHeight){ //
+        erase();
+        int count = 0;
+        double midHeight = (height-oHeight)/times;
+        
+        while (count < times){
+            height = height - ((int) midHeight);
+            count ++;
+            changeSize(height, width);
+        }
+    }
+    
     /**
      * Create a new triangle in a new position.
        **/

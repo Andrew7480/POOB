@@ -42,6 +42,7 @@ public class Pit
     public void changeColors(String pit, String seeds){
         
     }
+    
     public void moveTo(int x, int y){
         square.makeInvisible();
         square.moveHorizontal(x);
