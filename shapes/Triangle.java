@@ -9,7 +9,7 @@ import java.math.*;
 
 public class Triangle{
     
-    public static final int VERTICES=3;
+    private static final int VERTICES=3;
     
     private int height;
     private int width;
@@ -21,15 +21,26 @@ public class Triangle{
     /**
      * Create a new triangle at default position with default color.
      */
-    public Triangle(){
+    public Triangle(int xPosition, int yPosition){
         height = 30;
         width = 40;
         xPosition = 140;
         yPosition = 15;
+        //this.xPosition = xPosition;
+        //this.yPosition = yPosition;
         color = "green";
-        isVisible = false; 
+        isVisible = false;
     }
-
+   /*
+    public Triangle(int height, int width, int  xPosition, int yPosition, String color, boolean isVisible){
+        this.height = height;
+        this.width = width;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.color = color;
+        this.isVisible = isVisible;
+    }
+    */
     /**
      * Make this triangle visible. If it was already visible, do nothing.
      */
@@ -205,7 +216,9 @@ public class Triangle{
     private double verify(){
         return ((Math.pow(sideToEquilateral(), 2))*Math.sqrt(3))/4;
     }
-    
+    /**
+     * Makes a new triangle equilateral that have the same area equivalent
+       **/
     public void equilateral(){
         int areaTriangle = area();
         double side = sideToEquilateral();
@@ -218,31 +231,19 @@ public class Triangle{
     
     /**
      * it decreases its size times times until it reaches a height.
-       **/
+       **/    
     public void shrink(int times, int oHeight){
         erase();
         int count = 0;
-        while (count < times){
-            height = height - times;
-            count ++;
-            if (height == oHeight){
-                count = times;
-            }
-        }
-        changeSize(height, width);
-        draw();
-    }
-    
-        public void shrink2(int times, int oHeight){ //
-        erase();
-        int count = 0;
         double midHeight = (height-oHeight)/times;
-        
+        /*
+         * Se disminuye la altura times veces, pero en algunos casos se pierde precisión al hacer la conversión.
+           */
         while (count < times){
             height = height - ((int) midHeight);
             count ++;
-            changeSize(height, width);
         }
+        changeSize(height, width);
     }
     
     /**

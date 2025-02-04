@@ -197,5 +197,9 @@ public class Rectangle{
     public void setColor(String colorA){
         color = colorA;
     }
+    public void setChangeSize(int newHeightO, int newWidthO){
+        height = newHeightO;
+        width = newWidthO;
+    }
 }
 

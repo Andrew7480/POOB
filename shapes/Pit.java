@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Write a description of class Pit here.
@@ -7,37 +8,73 @@
  */
 public class Pit
 {
-    private boolean isVisible;
-    private String color;
     private Rectangle square;
-    
-    
-    public Pit(boolean big){
+    private Rectangle square2;
+    private int posX;
+    private int posY;
+    private ArrayList<Rectangle> seedsPit = new ArrayList<>();
+    //boolean big;
+    public Pit(){
         square = new Rectangle();
-        isVisible = true;
         square.setColor("yellow");
-        square.setPositionX(30);
-        square.setPositionY(20);
+        square.setPositionX(90);
+        square.setPositionY(110);
+        square.setChangeSize(180, 180);
+        square2 = new Rectangle();
+        square2.setColor("blue");
+        square2.setPositionX(120);
+        square2.setPositionY(140);
+        square2.setChangeSize(120, 120);
+        posX = square2.getPositionX();
+        posY = square2.getPositionY();
         
     }
     public void putSeeds(int seeds){
-        
+        int distance = 0;
+        ArrayList<Integer> pos = new ArrayList<>();
+        pos.add(120);
+        pos.add(posY);
+        pos.add(distance);
+        for(int i = 0; i < seeds; i++){
+            Rectangle p = new Rectangle();
+            p.setColor("black");
+            p.setChangeSize(15, 15);
+            distance = rangeVerify(posX + distance, pos.get(1), pos, distance);
+            System.out.println(pos.get(0)+" "+" "+pos.get(1)+" "+distance);
+            p.setPositionX(pos.get(0));
+            p.setPositionY(pos.get(1));
+            p.makeVisible();
+            distance += 20;
+            seedsPit.add(p);
+        }
+    }
+    private int rangeVerify(int verifyX, int verifyY, ArrayList<Integer> pos, int distance){
+        if (verifyX >= 240){
+            verifyX = posX;
+            verifyY = pos.get(1) + 18;
+            pos.set(0, verifyX);
+            pos.set(1, verifyY);
+            distance = 0;
+        }
+        else{
+            verifyX = posX + distance;
+        }
+        pos.set(0, verifyX);
+        return distance;
     }
     public void removeSeeds(int seeds){
         
     }
-    /*
     public int seeds(){
-        return
+        return seedsPit.size();
     }
-    */
     public void makeVisible(){
-        isVisible = true;
         square.makeVisible();
+        square2.makeVisible();
     }
     public void makeInvisible(){
         square.makeInvisible();
-        isVisible = false;
+        square2.makeInvisible();
     }
     public void changeColors(String pit, String seeds){
         
@@ -45,8 +82,12 @@ public class Pit
     
     public void moveTo(int x, int y){
         square.makeInvisible();
+        square2.makeInvisible();
+        square2.moveHorizontal(x);
+        square2.moveVertical(y);
         square.moveHorizontal(x);
         square.moveVertical(y);
         square.makeVisible();
+        square2.makeVisible();
     }
 }
