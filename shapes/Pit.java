@@ -32,7 +32,7 @@ public class Pit
     public void putSeeds(int seeds){
         int distance = 0;
         ArrayList<Integer> pos = new ArrayList<>();
-        pos.add(120);
+        pos.add(120); 
         pos.add(posY);
         pos.add(distance);
         for(int i = 0; i < seeds; i++){
@@ -66,6 +66,9 @@ public class Pit
         
     }
     public int seeds(){
+        System.out.println(seedsPit);
+        seedsPit.removeFirst();
+        System.out.println(seedsPit);
         return seedsPit.size();
     }
     public void makeVisible(){
