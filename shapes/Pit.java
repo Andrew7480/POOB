@@ -13,6 +13,7 @@ public class Pit
     private int posX;
     private int posY;
     private ArrayList<Rectangle> seedsPit = new ArrayList<>();
+    private ArrayList<ArrayList<Integer>> positions = new ArrayList<>();
     //boolean big;
     public Pit(){
         square = new Rectangle();
@@ -75,9 +76,8 @@ public class Pit
         System.out.println(seedsPit);
     }
     private void removeSeedsDefinitly(){
-        int count = 0;
         while(seedsPit.get(0) == null){
-            seedsPit.remove(count);
+            seedsPit.remove(0);
         }
     }
     public int seeds(){
