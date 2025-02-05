@@ -5,16 +5,17 @@ dependency1.type=UsesDependency
 dependency2.from=Triangle
 dependency2.to=Canvas
 dependency2.type=UsesDependency
-dependency3.from=Kalah
-dependency3.to=Pit
+dependency3.from=Rectangle
+dependency3.to=Canvas
 dependency3.type=UsesDependency
-dependency4.from=Rectangle
-dependency4.to=Canvas
+dependency4.from=Kalah
+dependency4.to=Pit
 dependency4.type=UsesDependency
 dependency5.from=Pit
 dependency5.to=Rectangle
 dependency5.type=UsesDependency
 editor.fx.0.height=739
+<<<<<<< HEAD
 <<<<<<< HEAD
 editor.fx.0.width=924
 editor.fx.0.x=372
@@ -44,6 +45,21 @@ package.editor.y=78
 package.frame.height=775
 package.frame.width=865
 >>>>>>> 362dbb174eda8166c5d16480795035017de64ccc
+=======
+editor.fx.0.width=1042
+editor.fx.0.x=494
+editor.fx.0.y=88
+objectbench.height=160
+objectbench.width=1239
+package.divider.horizontal=0.6001609010458568
+package.divider.vertical=0.7525925925925926
+package.editor.height=501
+package.editor.width=1123
+package.editor.x=491
+package.editor.y=78
+package.frame.height=775
+package.frame.width=1279
+>>>>>>> parent of 3460616 (Done for today)
 package.numDependencies=5
 package.numTargets=6
 package.showExtends=true
@@ -67,7 +83,7 @@ target2.name=Kalah
 target2.showInterface=false
 target2.type=ClassTarget
 target2.width=120
-target2.x=590
+target2.x=850
 target2.y=20
 target3.height=40
 target3.name=Canvas

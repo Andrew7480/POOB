@@ -24,21 +24,10 @@ public class Triangle{
     public Triangle(int xPosition, int yPosition){
         height = 30;
         width = 40;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        //this.xPosition = xPosition;
-        //this.yPosition = yPosition;
-        color = "green";
-        isVisible = false;
-    }
-    /**
-     * Create a new triangle at default position with default color.
-     */
-    public Triangle(){
-        height = 30;
-        width = 40;
         xPosition = 140;
         yPosition = 15;
+        //this.xPosition = xPosition;
+        //this.yPosition = yPosition;
         color = "green";
         isVisible = false;
     }
@@ -52,7 +41,6 @@ public class Triangle{
         this.isVisible = isVisible;
     }
     */
-   
     /**
      * Make this triangle visible. If it was already visible, do nothing.
      */
