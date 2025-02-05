@@ -184,11 +184,9 @@ public class Rectangle{
     }
     public void setPositionX(int xPositionN){
         xPosition = xPositionN;
-        draw();
     }
     public void setPositionY(int yPositionN){
         yPosition = yPositionN;
-        draw();
     }
     public int getPositionX(){
         return xPosition;

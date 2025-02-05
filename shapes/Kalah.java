@@ -10,7 +10,7 @@ public class Kalah
     private Pit pitA;
     
     
-    public Kalah(){
-        pitA = new Pit(true);
-    }
+    //public Kalah(){
+      //  pitA = new Pit();
+    //}
 }
