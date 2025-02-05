@@ -1,16 +1,24 @@
 #BlueJ class context
 comment0.target=Pit
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pit\ here.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+<<<<<<< HEAD
 comment1.params=big
 comment1.target=Pit(boolean)
 comment10.params=pit\ seeds
 comment10.target=void\ changeColors(java.lang.String,\ java.lang.String)
 comment11.params=x\ y
 comment11.target=void\ moveTo(int,\ int)
+=======
+comment1.params=
+comment1.target=Pit()
+comment10.params=x\ y
+comment10.target=void\ moveTo(int,\ int)
+>>>>>>> 362dbb174eda8166c5d16480795035017de64ccc
 comment2.params=seeds
 comment2.target=void\ putSeeds(int)
 comment3.params=verifyX\ verifyY\ pos\ distance
 comment3.target=int\ rangeVerify(int,\ int,\ java.util.ArrayList,\ int)
+<<<<<<< HEAD
 comment4.params=Seeds
 comment4.target=void\ putSeeds2(int)
 comment5.params=seeds
@@ -24,3 +32,18 @@ comment8.target=void\ makeVisible()
 comment9.params=
 comment9.target=void\ makeInvisible()
 numComments=12
+=======
+comment4.params=seeds
+comment4.target=void\ removeSeeds(int)
+comment5.params=
+comment5.target=void\ removeSeedsDefinitly()
+comment6.params=
+comment6.target=int\ seeds()
+comment7.params=
+comment7.target=void\ makeVisible()
+comment8.params=
+comment8.target=void\ makeInvisible()
+comment9.params=pit\ seeds
+comment9.target=void\ changeColors(java.lang.String,\ java.lang.String)
+numComments=11
+>>>>>>> 362dbb174eda8166c5d16480795035017de64ccc

@@ -13,10 +13,16 @@ public class Pit
     private int posX;
     private int posY;
     private ArrayList<Rectangle> seedsPit = new ArrayList<>();
+<<<<<<< HEAD
     boolean big;
     
     public Pit(boolean big){
         if (big==true) {
+=======
+    private ArrayList<ArrayList<Integer>> positions = new ArrayList<>();
+    //boolean big;
+    public Pit(){
+>>>>>>> 362dbb174eda8166c5d16480795035017de64ccc
         square = new Rectangle();
         square.setColor("yellow");
         square.setPositionX(90);
@@ -81,6 +87,7 @@ public class Pit
         pos.set(0, verifyX);
         return distance;
     }
+<<<<<<< HEAD
     
     public void putSeeds2(int Seeds){
         if (Seeds < 0 || Seeds > 10) {
@@ -116,6 +123,24 @@ public class Pit
         }
             
         
+=======
+    public void removeSeeds(int seeds){
+        int count = 0;
+        for (Rectangle j : seedsPit){
+            if (count < seeds){
+                j.makeInvisible();
+                seedsPit.set(count, null);
+                count ++;
+            }
+        }
+        removeSeedsDefinitly();
+        System.out.println(seedsPit);
+    }
+    private void removeSeedsDefinitly(){
+        while(seedsPit.get(0) == null){
+            seedsPit.remove(0);
+        }
+>>>>>>> 362dbb174eda8166c5d16480795035017de64ccc
     }
     
     public void removeSeeds(int seeds){
