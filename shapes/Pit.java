@@ -13,8 +13,10 @@ public class Pit
     private int posX;
     private int posY;
     private ArrayList<Rectangle> seedsPit = new ArrayList<>();
-    //boolean big;
-    public Pit(){
+    boolean big;
+    
+    public Pit(boolean big){
+        if (big==true) {
         square = new Rectangle();
         square.setColor("yellow");
         square.setPositionX(90);
@@ -26,9 +28,25 @@ public class Pit
         square2.setPositionY(140);
         square2.setChangeSize(120, 120);
         posX = square2.getPositionX();
+        posY = square2.getPositionY();   
+        }
+        else {
+        square = new Rectangle();
+        square.setColor("yellow");
+        square.setPositionX(90);
+        square.setPositionY(110);
+        square.setChangeSize(90, 90);
+        square2 = new Rectangle();
+        square2.setColor("blue");
+        square2.setPositionX(106);
+        square2.setPositionY(125);
+        square2.setChangeSize(60, 60);
+        posX = square2.getPositionX();
         posY = square2.getPositionY();
+        }
         
     }
+    
     public void putSeeds(int seeds){
         int distance = 0;
         ArrayList<Integer> pos = new ArrayList<>();
@@ -40,7 +58,7 @@ public class Pit
             p.setColor("black");
             p.setChangeSize(15, 15);
             distance = rangeVerify(posX + distance, pos.get(1), pos, distance);
-            System.out.println(pos.get(0)+" "+" "+pos.get(1)+" "+distance);
+            //System.out.println(pos.get(0)+" "+" "+pos.get(1)+" "+distance);
             p.setPositionX(pos.get(0));
             p.setPositionY(pos.get(1));
             p.makeVisible();
@@ -48,6 +66,7 @@ public class Pit
             seedsPit.add(p);
         }
     }
+    
     private int rangeVerify(int verifyX, int verifyY, ArrayList<Integer> pos, int distance){
         if (verifyX >= 240){
             verifyX = posX;
@@ -62,23 +81,76 @@ public class Pit
         pos.set(0, verifyX);
         return distance;
     }
-    public void removeSeeds(int seeds){
+    
+    public void putSeeds2(int Seeds){
+        if (Seeds < 0 || Seeds > 10) {
+        System.out.println("El número de semillas debe estar entre 0 y 10.");
+        return;
+        }
+
+        
+            int changeX = 0;//20;
+            int changeY = 0;//18;
+            
+        for(int i = 0; i < Seeds; i++){
+            
+            if (changeX>=100){
+                changeY +=40;
+                changeX = 0;
+            }
+            if (i == 8){
+                changeX =20;
+            }
+            if (i == 9){
+                changeX =70;
+            }
+            Rectangle seed = new Rectangle();
+            seed.setColor("red");
+            seed.setChangeSize(23, 23);
+            seed.setPositionX(120+changeX);
+            seed.setPositionY(140+changeY);
+            seed.makeVisible();
+            seedsPit.add(seed);
+            changeX +=32;
+            //System.out.println("aqui" + seedsPit);
+        }
+            
         
     }
+    
+    public void removeSeeds(int seeds){
+        int count = 0;
+        for (Rectangle j : seedsPit){
+            if (count < seeds){
+                j.makeInvisible();
+                seedsPit.set(count, null);
+                count ++;
+            }
+        }
+        removeSeedsDefinitly();
+        //System.out.println(seedsPit);
+    }
+    
+    private void removeSeedsDefinitly(){
+        while(seedsPit.get(0) == null){
+            seedsPit.remove(0);
+        }
+    }    
+    
     public int seeds(){
-        System.out.println(seedsPit);
-        seedsPit.removeFirst();
-        System.out.println(seedsPit);
         return seedsPit.size();
     }
+    
     public void makeVisible(){
         square.makeVisible();
         square2.makeVisible();
     }
+    
     public void makeInvisible(){
         square.makeInvisible();
         square2.makeInvisible();
     }
+    
     public void changeColors(String pit, String seeds){
         
     }
