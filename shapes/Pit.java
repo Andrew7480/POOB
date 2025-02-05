@@ -63,12 +63,24 @@ public class Pit
         return distance;
     }
     public void removeSeeds(int seeds){
-        
+        int count = 0;
+        for (Rectangle j : seedsPit){
+            if (count < seeds){
+                j.makeInvisible();
+                seedsPit.set(count, null);
+                count ++;
+            }
+        }
+        removeSeedsDefinitly();
+        System.out.println(seedsPit);
+    }
+    private void removeSeedsDefinitly(){
+        int count = 0;
+        while(seedsPit.get(0) == null){
+            seedsPit.remove(count);
+        }
     }
     public int seeds(){
-        System.out.println(seedsPit);
-        seedsPit.removeFirst();
-        System.out.println(seedsPit);
         return seedsPit.size();
     }
     public void makeVisible(){
