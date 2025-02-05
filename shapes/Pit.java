@@ -12,7 +12,7 @@ public class Pit
     private int posX;
     private int posY;
     private ArrayList<Rectangle> seedsPit = new ArrayList<>();
-    boolean big;
+    //boolean big;
     
     public Pit(boolean big){
         if (big==true) {
@@ -31,50 +31,13 @@ public class Pit
         
         }
     }
-    public void putSeeds(int seeds){
-        int distance = 0;
-        ArrayList<Integer> pos = new ArrayList<>();
-        pos.add(120); 
-        pos.add(posY);
-        pos.add(distance);
-        for(int i = 0; i < seeds; i++){
-            Rectangle p = new Rectangle();
-            p.setColor("black");
-            p.setChangeSize(15, 15);
-            distance = rangeVerify(posX + distance, pos.get(1), pos, distance);
-            System.out.println(pos.get(0)+" "+" "+pos.get(1)+" "+distance);
-            p.setPositionX(pos.get(0));
-            p.setPositionY(pos.get(1));
-            p.makeVisible();
-            distance += 20;
-            seedsPit.add(p);
-        }
-    }
-    private int rangeVerify(int verifyX, int verifyY, ArrayList<Integer> pos, int distance){
-        if (verifyX >= 240){
-            verifyX = posX;
-            verifyY = pos.get(1) + 18;
-            pos.set(0, verifyX);
-            pos.set(1, verifyY);
-            distance = 0;
-        }
-        else{
-            verifyX = posX + distance;
-        }
-        pos.set(0, verifyX);
-        return distance;
-    }
     
     public void putSeeds2(int Seeds){
         if (Seeds < 0 || Seeds > 10) {
         System.out.println("El número de semillas debe estar entre 0 y 10.");
-        return;
         }
-
-        
-            int changeX = 0;//20;
-            int changeY = 0;//18;
-            
+        int changeX = 0;//20;
+        int changeY = 0;//18;   
         for(int i = 0; i < Seeds; i++){
             
             if (changeX>=100){
@@ -90,15 +53,17 @@ public class Pit
             Rectangle seed = new Rectangle();
             seed.setColor("red");
             seed.setChangeSize(23, 23);
-            seed.setPositionX(120+changeX);
-            seed.setPositionY(140+changeY);
+            seed.setPositionX(posX+changeX);
+            seed.setPositionY(posY+changeY);
             seed.makeVisible();
             seedsPit.add(seed);
             changeX +=32;
             //System.out.println("aqui" + seedsPit);
             }
         }
-            
+    /**
+     * Method that remove seeds of pit
+       */    
     public void removeSeeds(int seeds){
         int count = 0;
         for (Rectangle j : seedsPit){
@@ -116,33 +81,58 @@ public class Pit
             seedsPit.remove(0);
             }
         }
-
+    /**
+     * Calculate the amount of seeds in the pit.
+       */
     public int seeds(){
-        System.out.println(seedsPit);
-        seedsPit.removeFirst();
-        System.out.println(seedsPit);
         return seedsPit.size();
     }
+    /**
+     * Make visible the pit.
+       */
     public void makeVisible(){
         square.makeVisible();
         square2.makeVisible();
+        for (Rectangle j : seedsPit){
+            j.makeVisible();
+        }
     }
+    /**
+     * Make invisible the pit.
+       */
     public void makeInvisible(){
+        for (Rectangle i : seedsPit){
+            i.makeInvisible();
+        }
         square.makeInvisible();
         square2.makeInvisible();
     }
-    public void changeColors(String pit, String seeds){
-        
+    /**
+     * 
+       */
+    public void changeColors(String background, String seeds){
+        makeInvisible();
+        square.setColor(background);
+        for (Rectangle k : seedsPit){
+            k.setColor(seeds);
+        }
+        makeVisible();
     }
-    
+    /**
+     * Move the square, pit and seeds.
+       */
     public void moveTo(int x, int y){
-        square.makeInvisible();
-        square2.makeInvisible();
+        makeInvisible();
         square2.moveHorizontal(x);
         square2.moveVertical(y);
         square.moveHorizontal(x);
         square.moveVertical(y);
-        square.makeVisible();
-        square2.makeVisible();
+        posX += x;
+        posY += y;
+        for (Rectangle j : seedsPit){
+            j.moveHorizontal(x);
+            j.moveVertical(y);
+        }
+        makeVisible();
     }
 }

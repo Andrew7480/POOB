@@ -21,26 +21,26 @@ public class Triangle{
     /**
      * Create a new triangle at default position with default color.
      */
-    public Triangle(int xPosition, int yPosition){
+    public Triangle(){
         height = 30;
         width = 40;
         xPosition = 140;
         yPosition = 15;
-        //this.xPosition = xPosition;
-        //this.yPosition = yPosition;
         color = "green";
         isVisible = false;
     }
-   /*
-    public Triangle(int height, int width, int  xPosition, int yPosition, String color, boolean isVisible){
-        this.height = height;
-        this.width = width;
+    /**
+     * Creates a new triangle in a new position.
+       */
+    public Triangle(int xPosition, int yPosition){
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        this.color = color;
-        this.isVisible = isVisible;
+        color = "yellow";
+        isVisible = true;
+        height = 30;
+        width = 40;
     }
-    */
+    
     /**
      * Make this triangle visible. If it was already visible, do nothing.
      */
@@ -242,8 +242,8 @@ public class Triangle{
         while (count < times){
             height = height - ((int) midHeight);
             count ++;
+            changeSize(height, width);
         }
-        changeSize(height, width);
     }
     
     /**
@@ -258,8 +258,8 @@ public class Triangle{
     /**
      * Given area and width is determined the height of triangle.
        **/
-    public int heightOfTringle(){
-        int determineHeight = (2*area())/width; 
+    public int heightOfTringle(int areaN, int widthN){
+        int determineHeight = (2*areaN)/widthN; 
         return determineHeight;
     }
 }
