@@ -247,7 +247,7 @@ public class Triangle{
     }
     
     /**
-     * Create a new triangle in a new position.
+     * Move a triangle in a certain position.
        **/
     public void newPosition(int xPositionN, int yPositionN){
         erase();
