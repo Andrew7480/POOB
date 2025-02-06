@@ -1,4 +1,6 @@
 #BlueJ class context
 comment0.target=Kalah
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Kalah\ here.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-numComments=1
+comment1.params=
+comment1.target=Kalah()
+numComments=2
