@@ -24,9 +24,11 @@ public class Pit
           bigToFalse();  
         }
     }
+
     public void putSeeds(int seeds){
-        if (seeds < 0 || seeds > 10) {
-        System.out.println("El número de semillas debe estar entre 0 y 10.");
+        if (seeds < 0) {
+        System.out.println("El número de semillas debe ser positivo");
+        return;
         }
         if (big){
             putSeedsBig(seeds);
@@ -50,13 +52,21 @@ public class Pit
         removeSeedsDefinitly();
         }
     private void removeSeedsDefinitly(){
-        while(seedsPit.get(0) == null){
-            seedsPit.remove(0);
-            if (seedsPit.size() == 0){
+        while(seedsPit.size()>0){
+            if (seedsPit.get(0) != null){
                 return;
             }
+            seedsPit.remove(0);
         }
     }
+    
+    
+    public void addSeed(){
+        int aux = seeds();
+        removeSeeds(aux);
+        putSeeds(aux+1);
+    }
+    
     /**
      * Calculate the amount of seeds in the pit.
        */
@@ -98,13 +108,15 @@ public class Pit
      * Move the square, pit and seeds.
        */
     public void moveTo(int x, int y){
-        posX = x;
-        posY = y;
         makeInvisible();
         if (big){
+            posX = x+30;
+            posY = y+30;
             moveToBig(x, y);
         }
         else{
+            posX = x+15;
+            posY = y+15;
            moveToNoBig(x, y); 
         }
 
@@ -115,11 +127,12 @@ public class Pit
         square2.setPositionY(y+15);
         square.setPositionX(x);
         square.setPositionY(y);
-        posX += x;
-        posY += y;
         aux = seeds();
-        removeSeeds(aux);
-        putSeeds(aux);
+        if (aux >0){
+            removeSeeds(aux);
+            putSeeds(aux);
+        }
+        makeVisible();
         makeVisible();
     }
     private void moveToBig(int x, int y){
@@ -128,11 +141,11 @@ public class Pit
         square2.setPositionY(y+30);
         square.setPositionX(x);
         square.setPositionY(y);
-        posX += x;
-        posY += y;
         aux = seeds();
-        removeSeeds(aux);
-        putSeeds(aux);
+        if (aux >0){
+            removeSeeds(aux);
+            putSeeds(aux);
+        }
         makeVisible();
     }
     private void bigToTrue(){
@@ -164,52 +177,49 @@ public class Pit
         posY = square2.getPositionY();
     }
     private void putSeedsBig(int seeds){
+        if (seeds >25){
+            System.out.println("El número de semillas de un almacen no es mayor a 25.");
+            return;
+        }
         int changeX = 0;
         int changeY = 0;   
         for(int i = 0; i < seeds; i++){
             if (changeX>=100){
-                changeY +=40;
+                changeY +=25;
                 changeX = 0;
             }
-            if (i == 8){
-                changeX =20;
-            }
-            if (i == 9){
-                changeX =70;
-            }
+
             Rectangle seed = new Rectangle();
             seed.setColor("red");
-            seed.setChangeSize(23, 23);
+            seed.setChangeSize(16, 16);
             seed.setPositionX(posX+changeX);
             seed.setPositionY(posY+changeY);
             seed.makeVisible();
             seedsPit.add(seed);
-            changeX +=32;
+            changeX +=24;
             }
         }
         
     private void putSeedsNoBig(int seeds){
+        if (seeds >15){
+            System.out.println("El número de semillas de una casa no es mayor a 15.");
+            return;
+        }
         int changeX = 0;
         int changeY = 0;
         for(int i = 0; i < seeds; i++){
-            if (changeX>=70){
-                changeY +=20;
+            if (changeX>=50){
+                changeY +=17;
                 changeX = 0;
-            }
-            if (i == 8){
-                changeX =10;
-            }
-            if (i == 9){
-                changeX =40;
             }
             Rectangle seed = new Rectangle();
             seed.setColor("red");
-            seed.setChangeSize(9, 9);
+            seed.setChangeSize(8, 8);
             seed.setPositionX(posX+changeX);
             seed.setPositionY(posY+changeY);
             seed.makeVisible();
             seedsPit.add(seed);
-            changeX +=18;
+            changeX +=16;
             }
         }
 }
