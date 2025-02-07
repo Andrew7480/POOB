@@ -13,6 +13,7 @@ public class Pit
     private int posY;
     private ArrayList<Rectangle> seedsPit = new ArrayList<>();
     private boolean big;
+    // Comentario
     
     public Pit(boolean big){
         this.big = big;

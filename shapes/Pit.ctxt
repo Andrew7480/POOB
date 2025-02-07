@@ -1,14 +1,8 @@
 #BlueJ class context
 comment0.target=Pit
-comment0.text=\r\n\ Pit\ es\ una\ clase\ para\ crear\ 'huecos'\ para\ guardar\ semillas.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pit\ here.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=big
 comment1.target=Pit(boolean)
-<<<<<<< HEAD
-comment1.text=\r\n\ Create\ a\ new\ pit.\r\n
-comment2.params=Seeds
-comment2.target=void\ putSeeds(int)
-comment2.text=\r\n\ Put\ seeds\ in\ the\ Pit.\r\n
-=======
 comment10.params=x\ y
 comment10.target=void\ moveToNoBig(int,\ int)
 comment11.params=x\ y
@@ -23,10 +17,9 @@ comment15.params=seeds
 comment15.target=void\ putSeedsNoBig(int)
 comment2.params=seeds
 comment2.target=void\ putSeeds(int)
->>>>>>> 386baf8 (Avance)
 comment3.params=seeds
 comment3.target=void\ removeSeeds(int)
-comment3.text=\r\n\ Method\ that\ remove\ seeds\ of\ a\ Pit.\r\n
+comment3.text=\r\n\ Method\ that\ remove\ seeds\ of\ pit\r\n
 comment4.params=
 comment4.target=void\ removeSeedsDefinitly()
 comment5.params=
