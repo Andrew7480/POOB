@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class Kalah
 {
-    ArrayList<Pit> Jugador_1 = new ArrayList<>();
-    ArrayList<Pit> Jugador_2 = new ArrayList<>();
+    ArrayList<Pit> jugador_1 = new ArrayList<>();
+    ArrayList<Pit> jugador_2 = new ArrayList<>();
     private Rectangle board = new Rectangle();
     
     private Pit almacen_n = new Pit(true);
@@ -32,12 +32,13 @@ public class Kalah
         int distanceYPlayer2 = 657;
         for (int i = 0; i < houses; i++){
             Pit p = new Pit(true);
-            p.moveTo(distancesX, distanceY);
-            p.changeColors("green", "red");
-            Jugador_1.add(p);
             Pit p2 = new Pit(true);
+            p.moveTo(distancesX, distanceY);
             p2.moveTo(distancesX, distanceYPlayer2);
+            p.changeColors("green", "red");
             p2.changeColors("yellow", "red");
+            jugador_1.add(p);
+            jugador_2.add(p2);
             distancesX += 200;
         }
     }

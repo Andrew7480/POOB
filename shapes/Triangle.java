@@ -230,7 +230,7 @@ public class Triangle{
     }
     
     /**
-     * it decreases its size times times until it reaches a height.
+     * it decreases its size times until it reaches a height.
        **/    
     public void shrink(int times, int oHeight){
         erase();
