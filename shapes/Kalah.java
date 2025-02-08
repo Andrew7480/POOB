@@ -34,34 +34,38 @@ public class Kalah
     
     public void inizializarJuego(){
         //siempre comienza playerN
-        System.out.println("Comieza playerN: ");
+        //System.out.println("Comieza player "+timeToPlayer+":" );
+        
         while (housesSeeds()){
+        System.out.println("Ahora player:  "+ timeToPlayer);
         int houseInt1 = texto.nextInt();
-        System.out.println(""+timeToPlayer);
         if(timeToPlayer == 'N'){
-            if (houseInt1<=0 || houseInt1 >= 6){
-                messagesError();
+            if (houseInt1-1<0 || houseInt1-1 > 5){                
+                houseInt1 = messagesError();
             }
-            if (counterclockwise.get(houseInt1).seeds()==0){
-                messagesError2();
+            if (counterclockwise.get(houseInt1-1).seeds()==0){
+                houseInt1 = messagesError2();
             }
+            //System.out.println(timeToPlayer+":" );
             moveSeedsN(houseInt1-1);
             }
-        else{
-            if (houseInt1 <= 7 || houseInt1 >= 13){
-                messagesError();
+        else if(timeToPlayer == 'S'){
+            if (houseInt1-1 <7 || houseInt1-1 >12){
+                houseInt1 = messagesError3();
             }
-            if (counterclockwise.get(houseInt1).seeds()==0){
-                messagesError2();
+            if (counterclockwise.get(houseInt1-1).seeds()==0){
+                houseInt1 = messagesError2();
             }
+            //System.out.println(timeToPlayer+":" );
             moveSeedsS(houseInt1-1);
             }
         }
+        statusGame();
     }
         
     
-    private void moveSeedsN(int houseInt){ //cuando es n o s
-        
+    private void moveSeedsN(int houseInt){ 
+        System.out.println("se supone N  "+ timeToPlayer);
         //n 0-5 6-almacen
         //s 7-12 13-almacen
         int seedsToMove = counterclockwise.get(houseInt).seeds();
@@ -77,19 +81,19 @@ public class Kalah
             counterclockwise.get(houseInt).addSeed();
             houseInt += 1;
             seedsToMove -=1;
-            if (counterclockwise.get(houseInt).equals(warehousePlayerN) && seedsToMove == 0){
-                timeToPlayer = 'N';
-            }
-            if (!(counterclockwise.get(houseInt).equals(warehousePlayerN)) && seedsToMove == 0){
-                timeToPlayer = 'S';
-            }
-            
         }
+        if (counterclockwise.get(houseInt-1).equals(warehousePlayerN)){
+            timeToPlayer = 'N';
+        }
+        else if (!(counterclockwise.get(houseInt-1).equals(warehousePlayerN))){
+            timeToPlayer = 'S';          
+        }
+        //System.out.println("ahora "+timeToPlayer+":" );
+        return;  
     }
-    private void moveSeedsS(int houseInt){ //cuando es n o s
+    private void moveSeedsS(int houseInt){ 
         
-        //n 0-5 6-almacen
-        //s 7-12 13-almacen
+        System.out.println("se supone S  "+ timeToPlayer);
         int seedsToMove = counterclockwise.get(houseInt).seeds();
         counterclockwise.get(houseInt).removeSeeds(seedsToMove);
         houseInt += 1;
@@ -103,14 +107,15 @@ public class Kalah
             counterclockwise.get(houseInt).addSeed();
             houseInt += 1;
             seedsToMove -=1;
-            if (counterclockwise.get(houseInt).equals(warehousePlayerS) && seedsToMove == 0){
-                timeToPlayer = 'S';
-            }
-            if (!(counterclockwise.get(houseInt).equals(warehousePlayerS)) && seedsToMove == 0){
-                timeToPlayer = 'N';
-            }
-            
         }
+        if (counterclockwise.get(houseInt-1).equals(warehousePlayerS)){
+            timeToPlayer = 'S';
+        }
+        else if (!(counterclockwise.get(houseInt-1).equals(warehousePlayerS))){
+            timeToPlayer = 'N';        
+        }
+        //System.out.println("ahora "+timeToPlayer+":" );
+        return;  
     }
 
 
@@ -169,16 +174,13 @@ public class Kalah
         for (int i=5;i>-1 ;i--){
             counterclockwise.add(playerN.get(i));
         }
-        
         counterclockwise.add(warehousePlayerN);
         for (Pit i : playerS){
             counterclockwise.add(i);
         }
         counterclockwise.add(warehousePlayerS);
         
-        for (int i=5;i>-1 ;i--){
-            counterclockwise.add(playerN.get(i));
-        }
+        counterclockwise.addAll(counterclockwise);        
         //System.out.println(counterclockwise);
     }
     
@@ -194,10 +196,19 @@ public class Kalah
             i.makeVisible();
         }
     }
-    private void messagesError(){
-        JOptionPane.showMessageDialog(null, "Solo se hay 6 casas por jugador", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+    private int messagesError(){
+        //JOptionPane.showMessageDialog(null, "El jugador N puede escoger solamente las casas 1 a 6", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+        String number = JOptionPane.showInputDialog("El jugador N puede escoger solamente las casas 1 a 6");
+        return Integer.parseInt(number);
     }
-    private void messagesError2(){
-        JOptionPane.showMessageDialog(null, "Solo se pueden sacar semillas de casas CON semillas", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+    private int messagesError2(){
+        //JOptionPane.showMessageDialog(null, "Solo se pueden sacar semillas de casas CON semillas", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+        String number = JOptionPane.showInputDialog("Solo se pueden sacar semillas de casas CON semillas. Vuelve a intentar");
+        return Integer.parseInt(number);
+    }
+    private int messagesError3(){
+        //JOptionPane.showMessageDialog(null, "El jugador S puede escoger solamente casas del 8 al 13", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+        String number = JOptionPane.showInputDialog("El jugador S puede escoger solamente casas del 8 al 13");
+        return Integer.parseInt(number);
     }
 }
