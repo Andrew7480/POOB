@@ -8,7 +8,7 @@ import javax.swing.*;
  * @author Andrés Cardozo && Tulio Riaño
  * @version (a version number or a date)
  */
-public class kalah
+public class Kalah
 {
     ArrayList<Pit> playerN = new ArrayList<>();
     ArrayList<Pit> playerS = new ArrayList<>();
@@ -18,11 +18,12 @@ public class kalah
     
     private Pit warehousePlayerN = new Pit(true);
     private Pit warehousePlayerS = new Pit(true);
+    private char timeToPlayer = 'N';
     
     private Scanner texto = new Scanner(System.in);
     
    
-    public kalah(){
+    public Kalah(){
         board.setChangeSize(400, 700);
         board.setPositionY(100);
         board.setPositionX(50);
@@ -33,43 +34,81 @@ public class kalah
     
     public void inizializarJuego(){
         //siempre comienza playerN
-        System.out.println("Comieza playerN, ");        
-        int houseInt = texto.nextInt();
-        if (houseInt <0 || houseInt>6){
-            JOptionPane.showMessageDialog(null, "Solo se hay 6 casas por jugador", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
-        }
-        moveSeeds(houseInt-1);    
+        System.out.println("Comieza playerN: ");
         while (housesSeeds()){
-        //int house1 = texto.nextInt();
-        
         int houseInt1 = texto.nextInt();
-        if (houseInt <0 || houseInt>6){
-            JOptionPane.showMessageDialog(null, "Solo se hay 6 casas por jugador", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println(""+timeToPlayer);
+        if(timeToPlayer == 'N'){
+            if (houseInt1<=0 || houseInt1 >= 6){
+                messagesError();
+            }
+            if (counterclockwise.get(houseInt1).seeds()==0){
+                messagesError2();
+            }
+            moveSeedsN(houseInt1-1);
+            }
+        else{
+            if (houseInt1 <= 7 || houseInt1 >= 13){
+                messagesError();
+            }
+            if (counterclockwise.get(houseInt1).seeds()==0){
+                messagesError2();
+            }
+            moveSeedsS(houseInt1-1);
+            }
         }
-        if (counterclockwise.get(houseInt).seeds()==0){
-            JOptionPane.showMessageDialog(null, "Solo se pueden sacar semillas de casas CON semillas", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
-        }
-        moveSeeds(houseInt1-1);
-    }          
-        
     }
+        
     
-    
-    private void moveSeeds(int houseInt){ //cuando es n o s
+    private void moveSeedsN(int houseInt){ //cuando es n o s
         
         //n 0-5 6-almacen
         //s 7-12 13-almacen
-        
-        int seedsToMove = playerN.get(houseInt).seeds();
-        playerN.get(houseInt).removeSeeds(seedsToMove);
-        
+        int seedsToMove = counterclockwise.get(houseInt).seeds();
+        counterclockwise.get(houseInt).removeSeeds(seedsToMove);
+        houseInt += 1;
         for (int i = houseInt; 0!=seedsToMove ;i++){
-            
+            if (counterclockwise.get(houseInt).equals(warehousePlayerS)){
+                houseInt += 1;
+                continue;
+            }
             //Pit house1 = counterclockwise.get(houseInt);
             //house1.addSeed();
             counterclockwise.get(houseInt).addSeed();
             houseInt += 1;
             seedsToMove -=1;
+            if (counterclockwise.get(houseInt).equals(warehousePlayerN) && seedsToMove == 0){
+                timeToPlayer = 'N';
+            }
+            if (!(counterclockwise.get(houseInt).equals(warehousePlayerN)) && seedsToMove == 0){
+                timeToPlayer = 'S';
+            }
+            
+        }
+    }
+    private void moveSeedsS(int houseInt){ //cuando es n o s
+        
+        //n 0-5 6-almacen
+        //s 7-12 13-almacen
+        int seedsToMove = counterclockwise.get(houseInt).seeds();
+        counterclockwise.get(houseInt).removeSeeds(seedsToMove);
+        houseInt += 1;
+        for (int i = houseInt; 0!=seedsToMove ;i++){
+            if (counterclockwise.get(houseInt).equals(warehousePlayerN)){
+                houseInt += 1;
+                continue;
+            }
+            //Pit house1 = counterclockwise.get(houseInt);
+            //house1.addSeed();
+            counterclockwise.get(houseInt).addSeed();
+            houseInt += 1;
+            seedsToMove -=1;
+            if (counterclockwise.get(houseInt).equals(warehousePlayerS) && seedsToMove == 0){
+                timeToPlayer = 'S';
+            }
+            if (!(counterclockwise.get(houseInt).equals(warehousePlayerS)) && seedsToMove == 0){
+                timeToPlayer = 'N';
+            }
             
         }
     }
@@ -137,7 +176,7 @@ public class kalah
         }
         counterclockwise.add(warehousePlayerS);
         
-        for (int i=5;i>3 ;i--){
+        for (int i=5;i>-1 ;i--){
             counterclockwise.add(playerN.get(i));
         }
         //System.out.println(counterclockwise);
@@ -154,5 +193,11 @@ public class kalah
         for (Pit i : playerS){
             i.makeVisible();
         }
+    }
+    private void messagesError(){
+        JOptionPane.showMessageDialog(null, "Solo se hay 6 casas por jugador", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
+    }
+    private void messagesError2(){
+        JOptionPane.showMessageDialog(null, "Solo se pueden sacar semillas de casas CON semillas", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
     }
 }
