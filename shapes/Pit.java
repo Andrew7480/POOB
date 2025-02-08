@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 /**
- * Write a description of class Pit here.
+ * Pits
  * 
- * @author Andrés Cardozo && Tulio Riaño
+ * @author Andrés Cardozo and Tulio Riaño
  * @version (a version number or a date)
  */
 public class Pit
@@ -24,7 +24,9 @@ public class Pit
           bigToFalse();  
         }
     }
-
+    /**
+     * Add seeds to the pit
+       */
     public void putSeeds(int seeds){
         if (seeds < 0) {
         System.out.println("El número de semillas debe ser positivo");
@@ -60,7 +62,9 @@ public class Pit
         }
     }
     
-    
+    /**
+     * Add only one seed to the pit, these makes sense in the game of kalah.
+       */
     public void addSeed(){
         int aux = seeds();
         removeSeeds(aux);
@@ -94,7 +98,7 @@ public class Pit
         square2.makeInvisible();
     }
     /**
-     * 
+     * Method that change the colors of background and seeds.
        */
     public void changeColors(String background, String seeds){
         makeInvisible();
@@ -181,9 +185,13 @@ public class Pit
             System.out.println("El número de semillas de un almacen no es mayor a 25.");
             return;
         }
+        int array = seedsPit.size() + seeds;
         int changeX = 0;
-        int changeY = 0;   
-        for(int i = 0; i < seeds; i++){
+        int changeY = 0;
+        if (seedsPit.size() != 0){
+            removeSeeds(seedsPit.size());
+        }
+        for(int i = 0; i < array; i++){
             if (changeX>=100){
                 changeY +=25;
                 changeX = 0;
@@ -205,9 +213,13 @@ public class Pit
             System.out.println("El número de semillas de una casa no es mayor a 15.");
             return;
         }
+        int array = seedsPit.size() + seeds;
         int changeX = 0;
         int changeY = 0;
-        for(int i = 0; i < seeds; i++){
+        if (seedsPit.size() != 0){
+            removeSeeds(seedsPit.size());
+        }
+        for(int i = 0; i < array; i++){
             if (changeX>=50){
                 changeY +=17;
                 changeX = 0;

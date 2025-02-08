@@ -3,9 +3,9 @@ import java.util.Scanner;
 import javax.swing.*;
 
 /**
- * Write a description of class Kalah here.
+ * Game Kalah
  * 
- * @author Andrés Cardozo && Tulio Riaño
+ * @author Andrés Cardozo and Tulio Riaño
  * @version (a version number or a date)
  */
 public class Kalah
@@ -31,38 +31,48 @@ public class Kalah
         board.makeVisible();
         generatePlayerX();
     }
-    
-    public void inizializarJuego(){
-        //siempre comienza playerN
-        //System.out.println("Comieza player "+timeToPlayer+":" );
-        
-        while (housesSeeds()){
-        System.out.println("Ahora player:  "+ timeToPlayer);
-        int houseInt1 = texto.nextInt();
-        if(timeToPlayer == 'N'){
-            if (houseInt1-1<0 || houseInt1-1 > 5){                
-                houseInt1 = messagesError();
+    /**
+     * Initialize the game Kalah
+       */
+    public void startGame(){
+        while (housesSeedsN() && housesSeedsS()){
+            System.out.println("Ahora player:  "+ timeToPlayer);
+            int houseInt1 = texto.nextInt();
+            if(timeToPlayer == 'N'){
+                if (houseInt1-1<0 || houseInt1-1 > 5){         
+                    houseInt1 = messagesError();
+                }
+                if (counterclockwise.get(houseInt1-1).seeds()==0){
+                    houseInt1 = messagesError2();
+                }
+                moveSeedsN(houseInt1-1);
+                }
+            else if(timeToPlayer == 'S'){
+                if (houseInt1-1 <7 || houseInt1-1 >12){
+                    houseInt1 = messagesError3();
+                }
+                if (counterclockwise.get(houseInt1-1).seeds()==0){
+                    houseInt1 = messagesError2();
+                }
+                moveSeedsS(houseInt1-1);
             }
-            if (counterclockwise.get(houseInt1-1).seeds()==0){
-                houseInt1 = messagesError2();
-            }
-            //System.out.println(timeToPlayer+":" );
-            moveSeedsN(houseInt1-1);
-            }
-        else if(timeToPlayer == 'S'){
-            if (houseInt1-1 <7 || houseInt1-1 >12){
-                houseInt1 = messagesError3();
-            }
-            if (counterclockwise.get(houseInt1-1).seeds()==0){
-                houseInt1 = messagesError2();
-            }
-            //System.out.println(timeToPlayer+":" );
-            moveSeedsS(houseInt1-1);
-            }
+            statusGame();
         }
-        statusGame();
+        if (warehousePlayerN.seeds() > warehousePlayerS.seeds()){
+            messagesCongratsN();
+        }
+        if (warehousePlayerS.seeds() > warehousePlayerN.seeds()){
+            messagesCongratsS();
+        }
     }
-        
+    /**
+     * Restart the game
+       */
+    public void restartGame(){
+        makeInvisible();
+        board.makeVisible();
+        generatePlayerX();
+    }
     
     private void moveSeedsN(int houseInt){ 
         System.out.println("se supone N  "+ timeToPlayer);
@@ -88,8 +98,7 @@ public class Kalah
         else if (!(counterclockwise.get(houseInt-1).equals(warehousePlayerN))){
             timeToPlayer = 'S';          
         }
-        //System.out.println("ahora "+timeToPlayer+":" );
-        return;  
+        //System.out.println("ahora "+timeToPlayer+":" ); 
     }
     private void moveSeedsS(int houseInt){ 
         
@@ -115,32 +124,35 @@ public class Kalah
             timeToPlayer = 'N';        
         }
         //System.out.println("ahora "+timeToPlayer+":" );
-        return;  
     }
 
-
+    /**
+     * Check the amount of seeds in each warehouse
+       */
     public void statusGame(){
         System.out.println("Almacen N:  "+warehousePlayerN.seeds()+ "   Almacen S:  " +warehousePlayerS.seeds());
     }
     
-    public boolean housesSeeds(){
+    private boolean housesSeedsN(){
         int count =0;
         for (Pit i : playerN){
             count += i.seeds();
         }
-        int count2 =0;
-        for (Pit i : playerS){
-            count2 += i.seeds();
-        }
-        System.out.println(count + " " + count2);
-
-        if (count==0 || count2==0){
+        System.out.println(count);
+        if (count==0){
             return false;
-            
         }
         return true;
-
-         
+    }
+    private boolean housesSeedsS(){
+        int count = 0;
+        for (Pit i : playerS){
+            count += i.seeds();
+        }
+        if (count == 0){
+            return false;
+        }
+        return true;
     }
 
     private void generatePlayerX(){
@@ -181,7 +193,7 @@ public class Kalah
         counterclockwise.add(warehousePlayerS);
         
         counterclockwise.addAll(counterclockwise);        
-        //System.out.println(counterclockwise);
+        System.out.println(counterclockwise);
     }
     
     private void makeVisibleBoard(){
@@ -210,5 +222,24 @@ public class Kalah
         //JOptionPane.showMessageDialog(null, "El jugador S puede escoger solamente casas del 8 al 13", "kalah POOB", JOptionPane.INFORMATION_MESSAGE);
         String number = JOptionPane.showInputDialog("El jugador S puede escoger solamente casas del 8 al 13");
         return Integer.parseInt(number);
+    }
+    private void messagesCongratsN(){
+        String Congratulations = JOptionPane.showInputDialog("El jugador N ha ganado, Felicitaciones!");
+    }
+    private void messagesCongratsS(){
+        String Congratulations = JOptionPane.showInputDialog("El jugador S ha ganado, Felicitaciones!");
+    }
+    private void makeInvisible(){
+        warehousePlayerN.makeInvisible();
+        warehousePlayerS.makeInvisible();
+        warehousePlayerN.removeSeeds(warehousePlayerN.seeds());
+        warehousePlayerS.removeSeeds(warehousePlayerS.seeds());
+        board.makeInvisible();
+        for (int i = 0; i < playerN.size(); i++){
+            playerN.get(i).makeInvisible();
+            playerS.get(i).makeInvisible();
+            playerN.get(i).removeSeeds(playerN.get(i).seeds());
+            playerS.get(i).removeSeeds(playerS.get(i).seeds());
+        }
     }
 }
