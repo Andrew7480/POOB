@@ -289,13 +289,15 @@ public class Kalah
         return Integer.parseInt(number);
     }
     private int messagesCongratsN(){
-        String Congratulations = JOptionPane.showInputDialog("El jugador N ha ganado, Felicitaciones!");
-        System.out.println("Si quieres jugar de nuevo, ingresa -3");        
+        System.out.println("Si quieres jugar de nuevo, ingresa -3"); 
+        String Congratulations = JOptionPane.showInputDialog("El jugador N ha ganado, Felicitaciones!"); 
+        timeToPlayer ='N';
         return Integer.parseInt(Congratulations);
     }
     private int messagesCongratsS(){
+        System.out.println("Si quieres jugar de nuevo, ingresa -3"); 
         String Congratulations = JOptionPane.showInputDialog("El jugador S ha ganado, Felicitaciones!");
-        System.out.println("Si quieres jugar de nuevo, ingresa -3");
+        timeToPlayer ='S';
         return Integer.parseInt(Congratulations);
     }
     private void makeInvisible(){
