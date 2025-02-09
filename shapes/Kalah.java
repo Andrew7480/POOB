@@ -35,9 +35,34 @@ public class Kalah
      * Initialize the game Kalah
        */
     public void startGame(){
+        int restartGameInt = 0;
+        
         while (housesSeedsN() && housesSeedsS()){
             System.out.println("Ahora player:  "+ timeToPlayer);
+            System.out.println("-1 -> status. ");
+            System.out.println("-2 -> restart. ");
+            // -1 -> status 
+            // -2 ->restart
+            
             int houseInt1 = texto.nextInt();
+            if (houseInt1<0){
+                if(houseInt1==-1){
+                    statusGame();
+                    System.out.println("Vuelve a ingresar el valor de la casa.");
+                    houseInt1 = texto.nextInt();
+                }
+                if (houseInt1==-2){
+                    restartGame();
+                    System.out.println("Vuelve a ingresar el valor de la casa.");
+                    houseInt1 = texto.nextInt();
+                }
+                else {
+                    System.out.println("Vuelve a ingresar el valor de la casa.");
+                    houseInt1 = texto.nextInt();
+                }
+                }
+            
+            if (houseInt1>0){ 
             if(timeToPlayer == 'N'){
                 if (houseInt1-1<0 || houseInt1-1 > 5){         
                     houseInt1 = messagesError();
@@ -56,13 +81,18 @@ public class Kalah
                 }
                 moveSeedsS(houseInt1-1);
             }
-            statusGame();
         }
+            //statusGame();
+        }
+        
         if (warehousePlayerN.seeds() > warehousePlayerS.seeds()){
-            messagesCongratsN();
+            restartGameInt = messagesCongratsN();
         }
         if (warehousePlayerS.seeds() > warehousePlayerN.seeds()){
-            messagesCongratsS();
+            restartGameInt = messagesCongratsS();
+        }
+        if (restartGameInt==-3){
+            restartGame();
         }
     }
     /**
@@ -72,10 +102,11 @@ public class Kalah
         makeInvisible();
         board.makeVisible();
         generatePlayerX();
+        
     }
     
     private void moveSeedsN(int houseInt){ 
-        System.out.println("se supone N  "+ timeToPlayer);
+        //System.out.println("se supone N  "+ timeToPlayer);
         //n 0-5 6-almacen
         //s 7-12 13-almacen
         int seedsToMove = counterclockwise.get(houseInt).seeds();
@@ -93,16 +124,23 @@ public class Kalah
             seedsToMove -=1;
         }
         if (counterclockwise.get(houseInt-1).equals(warehousePlayerN)){
+            if ((houseInt-1)!=7 || (houseInt-1)!=14 || (houseInt-1)!=21 || (houseInt-1)!=28){
+            emptyHouse(houseInt-1);
+            }
             timeToPlayer = 'N';
+            
         }
         else if (!(counterclockwise.get(houseInt-1).equals(warehousePlayerN))){
-            timeToPlayer = 'S';          
+            if ((houseInt-1)!=7 || (houseInt-1)!=14 || (houseInt-1)!=21 || (houseInt-1)!=28){
+            emptyHouse(houseInt-1);
+            }
+            timeToPlayer = 'S';  
         }
         //System.out.println("ahora "+timeToPlayer+":" ); 
     }
     private void moveSeedsS(int houseInt){ 
         
-        System.out.println("se supone S  "+ timeToPlayer);
+        //System.out.println("se supone S  "+ timeToPlayer);
         int seedsToMove = counterclockwise.get(houseInt).seeds();
         counterclockwise.get(houseInt).removeSeeds(seedsToMove);
         houseInt += 1;
@@ -118,10 +156,16 @@ public class Kalah
             seedsToMove -=1;
         }
         if (counterclockwise.get(houseInt-1).equals(warehousePlayerS)){
+            if ((houseInt-1)!=7 || (houseInt-1)!=14 || (houseInt-1)!=21 || (houseInt-1)!=28){
+            emptyHouse(houseInt-1);
+            }
             timeToPlayer = 'S';
         }
         else if (!(counterclockwise.get(houseInt-1).equals(warehousePlayerS))){
-            timeToPlayer = 'N';        
+            if ((houseInt-1)!=7 || (houseInt-1)!=14 || (houseInt-1)!=21 || (houseInt-1)!=28){
+            emptyHouse(houseInt-1);
+            }
+            timeToPlayer = 'N';
         }
         //System.out.println("ahora "+timeToPlayer+":" );
     }
@@ -138,7 +182,7 @@ public class Kalah
         for (Pit i : playerN){
             count += i.seeds();
         }
-        System.out.println(count);
+        //System.out.println(count);
         if (count==0){
             return false;
         }
@@ -193,7 +237,7 @@ public class Kalah
         counterclockwise.add(warehousePlayerS);
         
         counterclockwise.addAll(counterclockwise);        
-        System.out.println(counterclockwise);
+        //System.out.println(counterclockwise);
     }
     
     private void makeVisibleBoard(){
@@ -223,11 +267,15 @@ public class Kalah
         String number = JOptionPane.showInputDialog("El jugador S puede escoger solamente casas del 8 al 13");
         return Integer.parseInt(number);
     }
-    private void messagesCongratsN(){
+    private int messagesCongratsN(){
         String Congratulations = JOptionPane.showInputDialog("El jugador N ha ganado, Felicitaciones!");
+        System.out.println("Si quieres jugar de nuevo, ingresa -3");        
+        return Integer.parseInt(Congratulations);
     }
-    private void messagesCongratsS(){
+    private int messagesCongratsS(){
         String Congratulations = JOptionPane.showInputDialog("El jugador S ha ganado, Felicitaciones!");
+        System.out.println("Si quieres jugar de nuevo, ingresa -3");
+        return Integer.parseInt(Congratulations);
     }
     private void makeInvisible(){
         warehousePlayerN.makeInvisible();
@@ -235,11 +283,99 @@ public class Kalah
         warehousePlayerN.removeSeeds(warehousePlayerN.seeds());
         warehousePlayerS.removeSeeds(warehousePlayerS.seeds());
         board.makeInvisible();
-        for (int i = 0; i < playerN.size(); i++){
-            playerN.get(i).makeInvisible();
-            playerS.get(i).makeInvisible();
-            playerN.get(i).removeSeeds(playerN.get(i).seeds());
-            playerS.get(i).removeSeeds(playerS.get(i).seeds());
-        }
+        
+        counterclockwise.clear();
+        playerN.clear();
+        playerS.clear();
+        //System.out.println(playerN+""+playerS+""+counterclockwise);
     }
+    
+    private void emptyHouse(int houseL){
+        System.out.println("casa a ver:"+houseL);
+        int seedsNumber =0;
+        if (counterclockwise.get(houseL).seeds()==1){
+            if (timeToPlayer =='S'){ //8--14 y 22 a
+                
+            if (houseL>7 && houseL<13){
+                houseL -=8;
+                seedsNumber +=playerN.get(houseL).seeds();  //encuentra de al frente
+                playerN.get(houseL).removeSeeds(seedsNumber); //las remueve
+                seedsNumber += 1;  // 
+                for (int i = 0;i<seedsNumber;i++){ 
+                    warehousePlayerS.addSeed();
+            }
+                playerS.get(houseL).removeSeeds(1);
+            }
+            
+            if (houseL>21){
+                houseL -=22;
+                seedsNumber +=playerN.get(houseL).seeds();
+                playerN.get(houseL).removeSeeds(seedsNumber);
+                seedsNumber += 1;
+                for (int i = 0;i<seedsNumber;i++){ 
+                    warehousePlayerS.addSeed();
+            }
+                playerS.get(houseL).removeSeeds(1);
+            }
+        }
+            if (timeToPlayer =='N'){ //1-6 y 15 a 20
+                
+            if (houseL<7){
+                if(houseL==6){
+                    houseL = 0;
+                }
+                if(houseL==5){
+                    houseL = 1;
+                }  
+                if(houseL==4){
+                    houseL = 2;
+                }
+                if(houseL==3){
+                    houseL = 3;
+                }
+                if(houseL==2){
+                    houseL = 4;
+                }
+                if(houseL==1){
+                    houseL = 5;
+                }                    
+                seedsNumber += playerS.get(houseL).seeds(); //obtiene la de alfrente
+                playerS.get(houseL).removeSeeds(seedsNumber);
+                seedsNumber +=1;
+                for (int i = 0;i<seedsNumber;i++){ 
+                    warehousePlayerN.addSeed();
+                }
+                playerN.get(houseL).removeSeeds(1);
+            }   
+            if(houseL>14 && houseL<21){
+                if(houseL==15){
+                    houseL = 5;
+                }
+                if(houseL==16){
+                    houseL = 4;
+                }
+                if(houseL==17){
+                    houseL = 3;
+                }
+                if(houseL==18){
+                    houseL = 2;
+                }
+                if(houseL==19){
+                    houseL = 1;
+                }
+                if(houseL==20){
+                    houseL = 0;
+                }
+                seedsNumber += playerS.get(houseL).seeds(); //obtiene la de alfrente
+                playerS.get(houseL).removeSeeds(seedsNumber);
+                seedsNumber +=1;
+                for (int i = 0;i<seedsNumber;i++){ 
+                    warehousePlayerN.addSeed();
+                }
+                playerN.get(houseL).removeSeeds(1);
+            }
+            }
+        }
+        }
 }
+
