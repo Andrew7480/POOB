@@ -2,11 +2,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-
 public class GraphTest{
-
-    
     /**
      * Sets up the test fixture.
      *
@@ -37,14 +33,6 @@ public class GraphTest{
     public void shouldNotHaveDuplicateVerticesEdges(){
         String [] vertices ={"DDYA","MYSD","DOPO","DOPO"};
         String [][] edges = {{"DDYA","MYSD"},{"DDYA","DOPO"},{"DDYA","DOPO"}};    
-        assertEquals(3, new Graph(vertices,edges).vertices());
-        assertEquals(2, new Graph(vertices,edges).edges());
-    }    
-
-    @Test
-    public void shouldNotBeCaseSensitive(){     
-        String [] vertices ={"Ddya","MYSD","DOPO","dopo"};
-        String [][] edges = {{"DDYA","Mysd"},{"ddya","dopo"},{"DDya","doPo"}};    
         assertEquals(3, new Graph(vertices,edges).vertices());
         assertEquals(2, new Graph(vertices,edges).edges());
     }

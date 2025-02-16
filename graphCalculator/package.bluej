@@ -7,16 +7,26 @@ dependency2.to=Graph
 dependency2.type=UsesDependency
 editor.fx.0.height=775
 editor.fx.0.width=1028
+<<<<<<< HEAD
 editor.fx.0.x=149
 editor.fx.0.y=21
+=======
+editor.fx.0.x=419
+editor.fx.0.y=67
+>>>>>>> eab1f35 (Lab 02 Avance Domingo)
 objectbench.height=138
 objectbench.width=578
 package.divider.horizontal=0.6
 package.divider.vertical=0.7575250836120402
 package.editor.height=446
 package.editor.width=855
+<<<<<<< HEAD
 package.editor.x=259
 package.editor.y=34
+=======
+package.editor.x=325
+package.editor.y=143
+>>>>>>> eab1f35 (Lab 02 Avance Domingo)
 package.frame.height=698
 package.frame.width=1011
 package.numDependencies=2
