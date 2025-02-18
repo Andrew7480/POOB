@@ -60,11 +60,11 @@ public class GraphTest{
     public void shouldPass(){
         assertEquals(0,0);
     }
-    
+    @Test
     public void shouldFail(){
         fail();
     }
-    
+    @Test
     public void shouldErr(){
         assertEquals(0,10/0);
     }
