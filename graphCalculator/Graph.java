@@ -41,7 +41,6 @@ public class Graph {
        */
     
     public Graph path(String start, String end){
-        boolean [] isVisited = new boolean[vertex1.length];
         return null;
     }
 
@@ -77,14 +76,5 @@ public class Graph {
     @Override
     public String toString() {
       return "";
-    }
-    private void initAdjList(){
-        adjList = new ArrayList[vertex1.length];
-        for (int i = 0; i < vertex1.length; i++){
-            adjList[i] = new ArrayList<>();
-        }
-    }
-    public void addEdge(String a, String b){
-        //adjList[].add(b);
     }
 }

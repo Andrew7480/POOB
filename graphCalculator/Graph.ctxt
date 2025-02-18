@@ -2,10 +2,6 @@
 comment0.target=Graph
 comment1.params=vertices\ edges
 comment1.target=Graph(java.lang.String[],\ java.lang.String[][])
-comment10.params=aristas
-comment10.target=void\ adjacencyMatrix(java.util.ArrayList)
-comment11.params=aristas\ i\ j
-comment11.target=void\ addEdge(java.util.ArrayList,\ int,\ int)
 comment2.params=vertex
 comment2.target=boolean\ contains(java.lang.String)
 comment2.text=\r\n\ Determine\ if\ a\ vertex\ is\ in\ the\ graph\r\n
@@ -26,4 +22,4 @@ comment8.params=g
 comment8.target=boolean\ equals(java.lang.Object)
 comment9.params=
 comment9.target=java.lang.String\ toString()
-numComments=12
+numComments=10
