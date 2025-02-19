@@ -10,6 +10,7 @@ public class GraphCalculator{
     private TreeMap<String,Graph> variables;
     
     public GraphCalculator(){
+        
     }
 
     //Create a new variable

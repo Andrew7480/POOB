@@ -50,10 +50,12 @@ public class GraphTest{
         String [] vertices ={};
         String [][] edges = {};
         assertEquals(new Graph(vertices,edges),new Graph(vertices,edges));
+        
         String [] verticesA ={"DDYA","MYSD","DOPO"};
-        String [][] edgesA = {{"DDYA","MYSD"},{"DDYA","DOPO"}};      
+        String [][] edgesA = {{"DDYA","MYSD"},{"DDYA","DOPO"}};    
         String [] verticesB ={"Ddya","MYSD","DOPO","dopo"};
         String [][] edgesB = {{"DDYA","Mysd"},{"ddya","dopo"},{"DDya","doPo"}}; 
+        
         assertEquals(new Graph(verticesA,edgesA),new Graph(verticesB,edgesB));
     }    
     @Test
