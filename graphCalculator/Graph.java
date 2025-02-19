@@ -133,6 +133,32 @@ public class Graph {
         return gUnion;
     }
     /**
+     * Calculate the intersection of graphs
+     * @param Graph g
+       */
+    public Graph intersection(Graph g){
+        ArrayList<String> cloone = (ArrayList<String>) vertexGraph.clone();
+        cloone.retainAll(g.vertexGraph); // Obtener la intersección entre listas.
+        ArrayList<ArrayList<String>> clooneEdges = (ArrayList<ArrayList<String>>) aristas.clone();
+        clooneEdges.retainAll(g.aristas);
+        Graph gIntersection = new Graph(cloone, clooneEdges);
+        return gIntersection;
+    }
+    /**
+     * Calculate the difference of graphs
+     * @param Graph g
+       */
+    public Graph difference(Graph g){
+        return null;
+    }
+    /**
+     * Calculate the join of graphs
+     * @param Graph g
+       */
+    public Graph join(Graph g){
+        return null;
+    }
+    /**
      * Calculates the amount of vertices in a graph
        */
     

@@ -78,7 +78,13 @@ public class GraphTest{
     }
     @Test
     public void shoudlMakeTheIntersectionOfGraphs(){
-        
+        String [] verticesA ={"DDYA","MYSD","DOPO"};
+        String [][] edgesA = {{"DDYA","MYSD"},{"MYSD","DOPO"}};
+        String [] verticesB = {"DDYA","MYSD","ABCD"};
+        String [][] edgesB = {{"DDYA","MYSD"},{"MYSD","ABCD"}};
+        String [] verticesAIntersectionB = {"DDYA","MYSD"};
+        String [][] edgesAIntersectionB = {{"DDYA","MYSD"}};
+        assertEquals(new Graph(verticesAIntersectionB, edgesAIntersectionB), new Graph(verticesA,edgesA).intersection(new Graph(verticesB, edgesB)));
     }
     @Test
     public void shouldPass(){
