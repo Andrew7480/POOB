@@ -29,7 +29,7 @@ public class GraphCalculatorTest
     }
 
     @Test
-    public void shouldCreateGraphs(){
+    public void shouldCreateGraphCalculator(){
         String [] vertices ={"DDYA","MYSD","DOPO"};
         String [][] edges = {{"DDYA","MYSD"},{"DDYA","DOPO"}};    
         //assertEquals(3, new GraphCalculator(vertices,edges).vertices());

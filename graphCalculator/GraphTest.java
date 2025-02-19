@@ -57,7 +57,29 @@ public class GraphTest{
         String [][] edgesB = {{"DDYA","Mysd"},{"ddya","dopo"},{"DDya","doPo"}}; 
         
         assertEquals(new Graph(verticesA,edgesA),new Graph(verticesB,edgesB));
-    }    
+    }
+    @Test
+    public void shouldShowThePathOfTheGraph(){
+        String [] vertices ={"DDYA","MYSD","DOPO"};
+        String [][] edges = {{"DDYA","MYSD"},{"MYSD","DOPO"}};  
+        Graph g1 = new Graph(vertices, edges);
+        assertEquals(new Graph(vertices,edges).path("DDYA", "DOPO"), g1.path("DDYA", "DOPO"));
+    }
+    @Test
+    public void shouldMakeTheUnionOfGraphs(){
+        String [] verticesA ={"DDYA","MYSD","DOPO"};
+        String [][] edgesA = {{"DDYA","MYSD"},{"MYSD","DOPO"}};
+        String [] verticesB = {"DDYA","MYSD","ABCD"};
+        String [][] edgesB = {{"MYSD","ABCD"}};
+        String [] verticesAB = {"DDYA","MYSD","DOPO","ABCD"};
+        String [][] edgesAB = {{"DDYA","MYSD"},{"MYSD","DOPO"},{"MYSD","ABCD"}};
+        assertEquals(new Graph(verticesAB, edgesAB), new Graph(verticesA, edgesA).union(new Graph(verticesB,edgesB)));
+        
+    }
+    @Test
+    public void shoudlMakeTheIntersectionOfGraphs(){
+        
+    }
     @Test
     public void shouldPass(){
         assertEquals(0,0);

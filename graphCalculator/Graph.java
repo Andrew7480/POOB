@@ -4,10 +4,12 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class Graph {
     private ArrayList<String> vertexGraph;
     private ArrayList<ArrayList<String>> aristas;
+    private ArrayList<ArrayList<String>> adjacencyMatrix = new ArrayList<ArrayList<String>>();
     private ArrayList <String> pathing = new ArrayList<>();
     //no duplicados inicio fin -->bien
     //vector de parejas  // no meteria cosas que no son tuplas :"
@@ -31,7 +33,22 @@ public class Graph {
         reorganizeVertexGraph(vertexGraph);
         upperCase();
         removeDuplicates();
-            
+        createAdjacencyMatrix();
+        
+        
+        
+        //System.out.println(vertexGraph + ""+aristas);
+    }
+    
+    public Graph(ArrayList<String> vertices, ArrayList<ArrayList<String>> edges){
+        vertexGraph = vertices;
+        aristas = edges;
+        reorganizeEdges(aristas);
+        reorganizeVertexGraph(vertexGraph);
+        upperCase();
+        removeDuplicates();
+        createAdjacencyMatrix();
+        
         
         
         //System.out.println(vertexGraph + ""+aristas);
@@ -51,44 +68,70 @@ public class Graph {
     
     /**
      * Determine path of a graph given a start to end
+     * @param String start
+     * @param String end
        */
-    
     public Graph path(String start, String end){
         // Aplicamos BFS
+        /*
         int pos = 0;
         Queue<String> q = new LinkedList();
-        boolean[] visited = new boolean[vertexGraph.size()];
-        
+        //boolean[] visited = new boolean[vertexGraph.size()];
+        ArrayList<Boolean> visited = new ArrayList<Boolean>(Arrays.asList(new Boolean[vertexGraph.size()]));
+        Collections.fill(visited, Boolean.FALSE);
         for (int i = 0; i < vertexGraph.size(); i++){
-            if (vertexGraph.get(i) == start){
+            if (vertexGraph.get(i).equals(start)){
                 pos = i;
             }
         }
         
-        visited[pos] = true;
+        visited.set(pos, true);
         q.add(start);
         // q.poll retorna la cabeza
         while (!(q.isEmpty())){
             String current = q.poll();
             pathing.add(current);
-            
-            for (String x : aristas.get(aristas.indexOf(current))){
-                if(!visited[aristas.indexOf(x)]){
-                    visited[aristas.indexOf(x)] = true;
+            System.out.println(visited);
+            for (String x : adjacencyMatrix.get(0)){
+                if(!visited.get(adjacencyMatrix.indexOf(x))){
+                    visited.set(adjacencyMatrix.indexOf(x), true);
                     q.add(x);
                 }
             }
         }
         System.out.println(pathing);
+        */
         return null;
     }
-
+    /**
+     * Calculate the union of graphs
+     * @param Graph g
+       */
     public Graph union (Graph g){
-        
-        
-        return null;
+        ArrayList<String> verticesA = new ArrayList<>();
+        for (int i = 0; i < vertexGraph.size(); i++){
+            verticesA.add(vertexGraph.get(i));
+        }
+        for (int j = 0; j < g.vertexGraph.size(); j++){
+            if (verticesA.contains(g.vertexGraph.get(j))){
+                continue;
+            }
+            verticesA.add(g.vertexGraph.get(j));
+        }
+        ArrayList<ArrayList<String>> aristasA = new ArrayList<ArrayList<String>>();
+        for (ArrayList<String> a : aristas){
+            aristasA.add(a);
+        }
+        for (ArrayList<String> b: g.aristas){
+            if (aristasA.contains(b)){
+                continue;
+            }
+            aristasA.add(b);
+        }
+        System.out.println(verticesA);
+        Graph gUnion = new Graph(verticesA, aristasA);
+        return gUnion;
     }
-    
     /**
      * Calculates the amount of vertices in a graph
        */
@@ -147,14 +190,36 @@ public class Graph {
         return texto.toString().trim(); //elimina los espacios en blanco
     }
     
-    public void adjacencyMatrix(ArrayList<ArrayList<String>>aristas){
-        for (ArrayList<String> fila : aristas){
-            for (String val : fila){
-                System.out.println(val + " ");
+    private void createAdjacencyMatrix(){
+       for (int i = 0; i < vertexGraph.size(); i++){
+            ArrayList<String> matriz = new ArrayList<>();
+            for (int j = 0; j < vertexGraph.size(); j++){
+                matriz.add("0");
             }
-        System.out.println();
-        }
+            adjacencyMatrix.add(matriz);
+       }
+       startAdjacencyMatrix();
+       System.out.println(adjacencyMatrix);
     }
+    private void startAdjacencyMatrix(){
+        int indice = 0;
+        int indice1 = 0;
+        for (ArrayList<String> c : aristas){
+            for (int i = 0; i < vertexGraph.size(); i++){
+                if (vertexGraph.get(i).equals(c.get(0))){
+                    indice = i;
+                }
+                if (vertexGraph.get(i).equals(c.get(1))){
+                    indice1 = i;
+                }
+            }
+            adjacencyMatrix.get(indice).set(indice1, "1");
+            indice = 0;
+            indice1 = 0;
+        }
+
+    }
+    
     
     private boolean verifyVertexExist(String a,String b){
         
@@ -233,5 +298,4 @@ public class Graph {
         aristas = prueba;
 
     }
-    
 }
