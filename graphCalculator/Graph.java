@@ -18,9 +18,6 @@ public class Graph {
     public Graph(String [] vertices, String[][] edges){
         vertexGraph = new ArrayList<>(Arrays.asList(vertices));
         aristas = new ArrayList<>();
-        
-        
-            
         for (String [] edge : edges){
             if (edge.length==2){
                 aristas.add(new ArrayList<>(Arrays.asList(edge)));
