@@ -58,30 +58,29 @@ public class GraphCalculator{
      * @param String[] vertices
        */
     public void assignUnary(String a, String b, char op, String[] vertices){ // ["A","B"] ?     // ["A","C","D","F"]
-        Graph g = new Graph();
-        
         Graph g1 = new Graph();
-        for (Map.Entry<String, Graph> entry : variables.entrySet()){ // {"Hola",G}
-            if (entry.getKey() == b){
-                g1 = entry.getValue();
-            }
-        }
+        g1 = variables.get(b);
         if(vertices.length == 2){
+            Graph clone = new Graph(g1);
             if (op == '+'){
-                g1.addEdge(vertices[0], vertices[1]);   
+                clone.addEdge(vertices[0], vertices[1]);
+                assign(a, clone.getVertexGraph(), clone.getAristas());
                 lastActionWasSuccess = true;
             }
             if (op == '-'){
-                g1.removeEdge(vertices[0], vertices[1]);
+                clone.removeEdge(vertices[0], vertices[1]);
+                assign(a, clone.getVertexGraph(), clone.getAristas());
                 lastActionWasSuccess = true;
             }
         }
         if (op == '?'){
-            g.addVertices(vertices);
-            assign(a, g.getVertexGraph(), g.getAristas());
+            Graph clone = new Graph(g1);
+            clone.addVertices(vertices);
+            assign(a, clone.getVertexGraph(), clone.getAristas());
             lastActionWasSuccess = true;
         }
         if (op == 'p'){
+            Graph g = new Graph();
             int lengthV = vertices.length;
             g.path(vertices[0], vertices[lengthV]);
             lastActionWasSuccess = true;
@@ -108,14 +107,8 @@ public class GraphCalculator{
         Graph g = new Graph();
         Graph g1 = new Graph();
         Graph g3 = new Graph();
-        for (Map.Entry<String, Graph> entry : variables.entrySet()){
-            if (entry.getKey() == b){
-                g = entry.getValue();
-            }
-            if (entry.getKey() == c){
-                g1 = entry.getValue();
-            }
-        }
+        g = variables.get(b);
+        g1 = variables.get(c);
         if (op == 'u'){
             g3 = g.union(g1);
             assign(a, g3.getVertexGraph(), g3.getAristas());
@@ -134,6 +127,7 @@ public class GraphCalculator{
         if (op == 'j'){
             g3 = g.join(g1);
             assign(a, g3.getVertexGraph(), g3.getAristas());
+            lastActionWasSuccess = true;
         }
         else{
             lastActionWasSuccess = false;
@@ -158,7 +152,6 @@ public class GraphCalculator{
         return variables;
     }
 }
-    
 
 
 

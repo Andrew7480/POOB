@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=GraphCalculatorTest
+comment0.target=GraphCalculatorFails
 comment0.text=\r\n\ The\ test\ class\ GraphCalculatorTest.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
-comment1.target=GraphCalculatorTest()
+comment1.target=GraphCalculatorFails()
 comment1.text=\r\n\ Default\ constructor\ for\ test\ class\ GraphCalculatorTest\r\n
 comment10.params=
 comment10.target=void\ shouldAssignBinaryIntersection()
@@ -21,9 +21,9 @@ comment2.params=
 comment2.target=void\ setUp()
 comment2.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\r\n\ Called\ before\ every\ test\ case\ method.\r\n
 comment3.params=
-comment3.target=void\ shouldCreateGraphCalculator()
+comment3.target=void\ shouldNotCreateGraphCalculator()
 comment4.params=
-comment4.target=void\ shouldCreateANewVariableInTheTreeMap()
+comment4.target=void\ shouldNotCreateANewVariableInTheTreeMap()
 comment5.params=
 comment5.target=void\ shouldCreateGraphCalculatorAssign()
 comment6.params=

@@ -14,6 +14,15 @@ public class Graph {
     //no duplicados inicio fin -->bien
     //vector de parejas  // no meteria cosas que no son tuplas :"
     //arcos de vertices que existen --> bien
+    public Graph(Graph g){
+        vertexGraph = g.vertexGraph;
+        aristas = g.aristas;
+        reorganizeEdges(aristas);
+        reorganizeVertexGraph(vertexGraph);
+        upperCase();
+        removeDuplicates();
+        createAdjacencyMatrix();
+    }
     public Graph(){
     }
     public Graph(String [] vertices, String[][] edges){
@@ -196,6 +205,9 @@ public class Graph {
      * Calculates the amount of vertices in a graph
     */
     public int vertices(){
+        if (vertexGraph == null){
+            return 0;
+        }
         return vertexGraph.size();
     }
     
@@ -203,18 +215,21 @@ public class Graph {
      * Calculates the amount of edges in a graph
     */   
     public int edges(){
+        if (aristas == null){
+            return 0;
+        }
         return aristas.size();
     }    
     
     
     public boolean equals(Graph g){
-        reorganizeEdges(g.aristas);
-        reorganizeVertexGraph(g.vertexGraph);
-        
         if (g.vertices() != vertices() || g.edges() != edges() ){
             return false;
         }
+        reorganizeVertexGraph(g.vertexGraph);
+        reorganizeEdges(g.aristas);
         
+
         
         for (int i = 0;i< g.vertices();i++){
             if (!(vertexGraph.get(i).equals(g.vertexGraph.get(i) ))){
@@ -223,7 +238,7 @@ public class Graph {
         }
         
         for (int i = 0;i< g.edges();i++ ){
-            if (!(aristas.get(i) .equals( g.aristas.get(i) ))){
+            if (!(aristas.get(i).equals( g.aristas.get(i) ))){
                 return false;
             }
         }
@@ -321,7 +336,7 @@ public class Graph {
         aux.add(a);
         aux.add(b);
         for (int i = 0; i < aristas.size(); i++){
-            if (aristas.get(i) == aux){
+            if (aristas.get(i).equals(aux)){
                     aristas.remove(i);
             }
         }
@@ -338,10 +353,16 @@ public class Graph {
     }
     
     private void reorganizeVertexGraph (ArrayList<String> vertex){
+        if (vertex == null){
+            return;
+        }
         Collections.sort(vertex);
     }
     
     private void reorganizeEdges (ArrayList<ArrayList<String>>aristas){
+        if (aristas == null){
+            return;
+        }
         Collections.sort(aristas, new Comparator<ArrayList<String>>(){ 
             @Override
             // Esto lo sacamos de internet y lo modificamos ejemplo:

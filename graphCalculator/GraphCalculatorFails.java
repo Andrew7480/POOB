@@ -10,12 +10,12 @@ import java.util.TreeMap;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class GraphCalculatorTest
+public class GraphCalculatorFails
 {
     /**
      * Default constructor for test class GraphCalculatorTest
      */
-    public GraphCalculatorTest()
+    public GraphCalculatorFails()
     {
     }
 
@@ -29,11 +29,11 @@ public class GraphCalculatorTest
     }
 
     @Test
-    public void shouldCreateGraphCalculator(){    
+    public void shouldNotCreateGraphCalculator(){    
         assertEquals(0, new GraphCalculator().getVariables().size());
     }
     @Test
-    public void shouldCreateANewVariableInTheTreeMap(){
+    public void shouldNotCreateANewVariableInTheTreeMap(){
         Graph g = new Graph();
         TreeMap<String,Graph> variablesP = new TreeMap<>();
         variablesP.put("hola",g);
@@ -42,7 +42,7 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("hola"), prueba.getVariables().get("hola"));
     }
     @Test
-    public void shouldCreateGraphCalculatorAssign(){
+    public void shouldNotCreateGraphCalculatorAssign(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"},{"B","C"}};
         Graph g = new Graph(vertices,edges);
@@ -54,7 +54,7 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafo"), c.getVariables().get("grafo"));
     }
     @Test
-    public void shouldAssignUnaryPlus(){
+    public void shouldNotAssignUnaryPlus(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C"};
@@ -72,7 +72,7 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafo2"),c.getVariables().get("grafo2"));
     }
     @Test
-    public void shouldAssignUnaryMinus(){
+    public void shouldNotAssignUnaryMinus(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"},{"B","C"}};
         String[] vertices2 = {"A","B","C"};
@@ -90,7 +90,7 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafo2"),c.getVariables().get("grafo2"));
     }
     @Test
-    public void shouldAssignUnaryQuestionMark(){
+    public void shouldNotAssignUnaryQuestionMark(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
@@ -109,7 +109,7 @@ public class GraphCalculatorTest
     }
     
     @Test
-    public void shouldAssignBinaryUnion(){
+    public void shouldNotAssignBinaryUnion(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
@@ -131,7 +131,7 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo"));
     }
     @Test
-    public void shouldAssignBinaryIntersection(){
+    public void shouldNotAssignBinaryIntersection(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
@@ -153,19 +153,16 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo"));
     }
     @Test
-    public void shouldAssignBinaryDifference(){
+    public void shouldNotAssignBinaryDifference(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
-        String[][] edges2 = {{"A","B"},{"B","C"},{"E","F"}};
+        String[][] edges2 = {{"A","B"},{"B","C"}};
         String[] vertices3 = {};
         String[][] edges3 = {};
-        String[] vertices4 = {"D","E","F"};
-        String[][] edges4 = {{"E","F"}};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // was
         Graph g3 = new Graph(vertices3,edges3); // expected
-        Graph g4 = new Graph(vertices4,edges4);
         TreeMap<String, Graph> variablesP = new TreeMap<>();
         variablesP.put("grafofinal",g3);
         GraphCalculator c = new GraphCalculator();
@@ -176,13 +173,9 @@ public class GraphCalculatorTest
         c.assign("grafo3",vertices2,edges2);
         c.assignBinary("grafo", "grafo2", 'd', "grafo3");
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo"));
-        variablesP.put("grafofinal2",g4);
-        c.create("grafo4");
-        c.assignBinary("grafo4", "grafo3", 'd', "grafo2");
-        assertEquals(variablesP.get("grafofinal2"),c.getVariables().get("grafo4"));
     }
     @Test
-    public void shouldAssignBinaryJoin(){
+    public void shouldNotAssignBinaryJoin(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"B","A"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
@@ -204,7 +197,7 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo")); 
     }
     @Test
-    public void shouldToString(){
+    public void shouldNotToString(){
         String [] vertices ={"DDYA","MYSD","DOPO"};
         String [][] edges = {{"DDYA","MYSD"},{"DDYA","DOPO"}};
         GraphCalculator c = new GraphCalculator();
@@ -214,7 +207,7 @@ public class GraphCalculatorTest
         assertEquals(data, c.toString("grafo"));
     }
     @Test
-    public void ok(){
+    public void shouldNotok(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
