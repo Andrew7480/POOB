@@ -29,37 +29,44 @@ public class GraphCalculatorFails
     }
 
     @Test
-    public void shouldNotCreateGraphCalculator(){    
-        assertEquals(0, new GraphCalculator().getVariables().size());
+    public void shouldNotCreateGraphCalculatorWithObjects(){    
+        assertEquals(1, new GraphCalculator().getVariables().size()); //nunca se inicia con algo adentro
     }
+    
     @Test
-    public void shouldNotCreateANewVariableInTheTreeMap(){
-        Graph g = new Graph();
-        TreeMap<String,Graph> variablesP = new TreeMap<>();
-        variablesP.put("hola",g);
-        GraphCalculator prueba = new GraphCalculator();
-        prueba.create("hola");
-        assertEquals(variablesP.get("hola"), prueba.getVariables().get("hola"));
-    }
-    @Test
-    public void shouldNotCreateGraphCalculatorAssign(){
+    public void shouldNotCreateANewVariableInTheTreeMapWithInitialValues(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"},{"B","C"}};
         Graph g = new Graph(vertices,edges);
         TreeMap<String,Graph> variablesP = new TreeMap<>();
         variablesP.put("grafo",g);
+        GraphCalculator prueba = new GraphCalculator();
+        prueba.create("grafo");
+        assertEquals(variablesP.get("grafo"), prueba.getVariables().get("grafo"));  //nunca inicia un grafo con valores
+    }
+    
+    @Test
+    public void shouldNotCreateGraphCalculatorAssignWithOtherValues(){
+        String[] vertices = {"A","B","C"};
+        String[][] edges = {{"A","B"},{"B","C"}};
+        String[] vertices2 = {"A","B","C","D"};
+        String[][] edges2 = {{"A","B"},{"B","C"}};
+        Graph g = new Graph(vertices,edges);
+        TreeMap<String,Graph> variablesP = new TreeMap<>();
+        variablesP.put("grafo",g);
         GraphCalculator c = new GraphCalculator();
         c.create("grafo");
-        c.assign("grafo",vertices,edges);
+        c.assign("grafo",vertices2,edges2);
         assertEquals(variablesP.get("grafo"), c.getVariables().get("grafo"));
     }
+    
     @Test
     public void shouldNotAssignUnaryPlus(){
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C"};
         String[] vertices3 = {"B","C"};
-        String[][] edges2 = {{"A","B"},{"B","C"}};
+        String[][] edges2 = {{"A","B"}};
         TreeMap<String, Graph> variablesP = new TreeMap<>();
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // expected
@@ -76,7 +83,7 @@ public class GraphCalculatorFails
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"},{"B","C"}};
         String[] vertices2 = {"A","B","C"};
-        String[] vertices3 = {"B","C"};
+        String[] vertices3 = {};
         String[][] edges2 = {{"A","B"}};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // expected
@@ -94,7 +101,7 @@ public class GraphCalculatorFails
         String[] vertices = {"A","B","C"};
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
-        String[] vertices3 = {"D","E","F"};
+        String[] vertices3 = {"D","F"};
         String[][] edges2 = {{"A","B"}};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // expected
@@ -114,7 +121,7 @@ public class GraphCalculatorFails
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
         String[][] edges2 = {{"A","B"},{"B","C"}};
-        String[] vertices3 = {"A","B","C","D","E","F"};
+        String[] vertices3 = {"A","B","E","F"};
         String[][] edges3 = {{"A","B"},{"B","C"}};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // was
@@ -136,7 +143,7 @@ public class GraphCalculatorFails
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
         String[][] edges2 = {{"A","B"},{"B","C"}};
-        String[] vertices3 = {"A","B","C"};
+        String[] vertices3 = {"C"};
         String[][] edges3 = {{"A","B"}};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // was
@@ -158,7 +165,7 @@ public class GraphCalculatorFails
         String[][] edges = {{"A","B"}};
         String[] vertices2 = {"A","B","C","D","E","F"};
         String[][] edges2 = {{"A","B"},{"B","C"}};
-        String[] vertices3 = {};
+        String[] vertices3 = {"A"};
         String[][] edges3 = {};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // was
@@ -181,7 +188,7 @@ public class GraphCalculatorFails
         String[] vertices2 = {"A","B","C","D","E","F"};
         String[][] edges2 = {{"D","A"},{"E","B"},{"F","A"}};
         String[] vertices3 = {"A","B","C","D","E","F"};
-        String[][] edges3 = {{"A","C"},{"A","E"},{"B","A"},{"B","C"},{"B","D"},{"B","F"},{"C","D"},{"C","E"},{"C","F"},{"D","A"},{"D","E"},{"D","F"},{"E","B"},{"E","F"},{"F","A"}};
+        String[][] edges3 = {{"B","F"},{"C","D"},{"C","E"},{"C","F"},{"D","A"},{"D","E"},{"D","F"},{"E","B"},{"E","F"},{"F","A"}};
         Graph g = new Graph(vertices,edges); // was
         Graph g1 = new Graph(vertices2,edges2); // was
         Graph g3 = new Graph(vertices3,edges3); // expected
@@ -203,7 +210,7 @@ public class GraphCalculatorFails
         GraphCalculator c = new GraphCalculator();
         c.create("grafo");
         c.assign("grafo", vertices, edges);
-        String data= "(DDYA, DOPO) (DDYA, MYSD)";
+        String data= "";
         assertEquals(data, c.toString("grafo"));
     }
     @Test
@@ -225,7 +232,7 @@ public class GraphCalculatorFails
         c.create("grafo3");
         c.assign("grafo2", vertices, edges);
         c.assign("grafo3",vertices2,edges2);
-        c.assignBinary("grafo", "grafo2", 'x', "grafo3"); // el método ok va a ser falso ya que la operación x no esta definida
+        c.assignBinary("grafo", "grafo2", 'j', "grafo3"); // el método ok va a ser falso ya que la operación x no esta definida
         assertFalse(c.ok());
     }
     /**

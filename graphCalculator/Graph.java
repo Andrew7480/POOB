@@ -103,6 +103,17 @@ public class Graph {
         System.out.println(pathing);
         */
         return null;
+        
+    }
+    
+    /*
+     * 
+     */
+    public Graph path(String start, String end, String[] vertex){  //A  F  [B,C,E]
+        pathing.clear();
+        pathing.add(start);
+        
+        return null;
     }
     /**
      * Calculate the union of graphs

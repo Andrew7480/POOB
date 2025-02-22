@@ -36,10 +36,10 @@ public class GraphCalculatorTest
     public void shouldCreateANewVariableInTheTreeMap(){
         Graph g = new Graph();
         TreeMap<String,Graph> variablesP = new TreeMap<>();
-        variablesP.put("hola",g);
+        variablesP.put("grafo",g);
         GraphCalculator prueba = new GraphCalculator();
-        prueba.create("hola");
-        assertEquals(variablesP.get("hola"), prueba.getVariables().get("hola"));
+        prueba.create("grafo");
+        assertEquals(variablesP.get("grafo"), prueba.getVariables().get("grafo"));
     }
     @Test
     public void shouldCreateGraphCalculatorAssign(){
