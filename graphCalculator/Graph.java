@@ -14,7 +14,8 @@ public class Graph {
     //no duplicados inicio fin -->bien
     //vector de parejas  // no meteria cosas que no son tuplas :"
     //arcos de vertices que existen --> bien
-    
+    public Graph(){
+    }
     public Graph(String [] vertices, String[][] edges){
         vertexGraph = new ArrayList<>(Arrays.asList(vertices));
         aristas = new ArrayList<>();
@@ -24,17 +25,11 @@ public class Graph {
             }
             
         }
-        
-        
         reorganizeEdges(aristas);
         reorganizeVertexGraph(vertexGraph);
         upperCase();
         removeDuplicates();
         createAdjacencyMatrix();
-        
-        
-        
-        //System.out.println(vertexGraph + ""+aristas);
     }
     
     public Graph(ArrayList<String> vertices, ArrayList<ArrayList<String>> edges){
@@ -125,7 +120,6 @@ public class Graph {
             }
             aristasA.add(b);
         }
-        System.out.println(verticesA);
         Graph gUnion = new Graph(verticesA, aristasA);
         return gUnion;
     }
@@ -146,26 +140,71 @@ public class Graph {
      * @param Graph g
        */
     public Graph difference(Graph g){
-        return null;
+        Graph gDifference;
+        ArrayList<String> cloone = (ArrayList<String>) vertexGraph.clone();
+        ArrayList<ArrayList<String>> clooneEdges = (ArrayList<ArrayList<String>>) aristas.clone();
+        cloone.removeAll(g.vertexGraph);
+        if (cloone.size() == 1){
+            clooneEdges.clear();
+            gDifference = new Graph(cloone, clooneEdges);
+        }
+        else{
+            clooneEdges.removeAll(g.aristas);
+            clooneEdges = removeEdgesRelational(cloone, clooneEdges);
+            gDifference = new Graph(cloone, clooneEdges);
+        }
+        return gDifference;
+    }
+    private ArrayList<ArrayList<String>> removeEdgesRelational(ArrayList<String> cloone, ArrayList<ArrayList<String>> clooneEdges){
+        for (int i = 0; i < clooneEdges.size(); i++){
+            if(!cloone.contains(clooneEdges.get(i).get(0)) || !cloone.contains(clooneEdges.get(i).get(1))){
+                clooneEdges.remove(i);
+            }
+        }
+        return clooneEdges;
     }
     /**
      * Calculate the join of graphs
      * @param Graph g
        */
     public Graph join(Graph g){
-        return null;
+        Graph grafo = new Graph(vertexGraph,aristas).union(g);
+        for (int i = 0; i < grafo.vertexGraph.size(); i++){
+            for (int j = i + 1; j < grafo.vertexGraph.size(); j ++){
+                ArrayList<String> a = new ArrayList<>();
+                a.add(grafo.vertexGraph.get(j));
+                a.add(grafo.vertexGraph.get(i));
+                System.out.println(grafo.vertexGraph.get(i) +""+ grafo.vertexGraph.get(j));
+                if(!grafo.aristas.contains(a)){
+                    grafo.addEdge(grafo.vertexGraph.get(i), grafo.vertexGraph.get(j));
+                }
+            }
+            System.out.println("a");
+        }
+        grafo = removeDuplicateGraph2(grafo);
+        System.out.println(grafo.aristas);
+        return grafo;
+    }
+    private Graph removeDuplicateGraph2(Graph g){
+        ArrayList<ArrayList<String>> prueba = new ArrayList<ArrayList<String>>();
+        for (ArrayList<String> element : g.aristas) { // 
+            if (!prueba.contains(element)) {   
+                prueba.add(element); 
+            }
+        }
+        g.aristas = prueba;
+        return g;
     }
     /**
      * Calculates the amount of vertices in a graph
-       */
-    
+    */
     public int vertices(){
         return vertexGraph.size();
     }
     
     /**
      * Calculates the amount of edges in a graph
-       */   
+    */   
     public int edges(){
         return aristas.size();
     }    
@@ -204,7 +243,6 @@ public class Graph {
     @Override
     public String toString() {
         String texto = "";
-        System.out.println(aristas); //{{},{},{}}
         for (ArrayList<String> fila : aristas){
             
             texto += "("+fila.get(0)+", "+fila.get(1)+") ";
@@ -214,15 +252,15 @@ public class Graph {
     }
     
     private void createAdjacencyMatrix(){
-       for (int i = 0; i < vertexGraph.size(); i++){
+        adjacencyMatrix.clear();
+        for (int i = 0; i < vertexGraph.size(); i++){
             ArrayList<String> matriz = new ArrayList<>();
             for (int j = 0; j < vertexGraph.size(); j++){
                 matriz.add("0");
             }
             adjacencyMatrix.add(matriz);
-       }
+        }
        startAdjacencyMatrix();
-       System.out.println(adjacencyMatrix);
     }
     private void startAdjacencyMatrix(){
         int indice = 0;
@@ -242,18 +280,26 @@ public class Graph {
         }
 
     }
+    /**
+     * Checking if vertex exist
+     * @param String a
+     * @param String b
+       */
     
-    
-    private boolean verifyVertexExist(String a,String b){
+    public boolean verifyVertexExist(String a,String b){
         
         if (vertexGraph.contains(a) && vertexGraph.contains(b)){
             return true;
         }
         return false;
     }
+    /**
+     * add edges to the graph
+     * @param String a
+     * @param String b
+       */
     
-    
-    private void addEdge(String a , String b){
+    public void addEdge(String a , String b){
         if (!verifyVertexExist(a, b)){
             return; //jopciotn
         }
@@ -264,6 +310,34 @@ public class Graph {
         aristas.add(aux);        
         reorganizeEdges(aristas);
         reorganizeVertexGraph(vertexGraph);
+        createAdjacencyMatrix();
+    }
+    /**
+     * remove edges of the graph
+     * @param String a
+     * @param String b
+       */
+    public void removeEdge(String a, String b){
+        if(!verifyVertexExist(a,b)){
+            return;
+        }
+        ArrayList<String> aux = new ArrayList<>();
+        aux.add(a);
+        aux.add(b);
+        for (int i = 0; i < aristas.size(); i++){
+            if (aristas.get(i) == aux){
+                    aristas.remove(i);
+            }
+        }
+    }
+    /**
+     * add vertices to the graph
+     * @param String[] vertices
+       */
+    public void addVertices(String [] vertices){
+        for (int i = 0; i < vertices.length; i++){
+            vertexGraph.add(vertices[i]);
+        }
     }
     
     private void reorganizeVertexGraph (ArrayList<String> vertex){
@@ -291,8 +365,6 @@ public class Graph {
         for (ArrayList<String> fila : aristas){
             fila.set(0,fila.get(0).toUpperCase());
             fila.set(1,fila.get(1).toUpperCase());
-            
-            //{{12,2},{1,2}}
         }
         for (int i = 0; i < vertexGraph.size(); i ++){
         vertexGraph.set(i, vertexGraph.get(i).toUpperCase());        
@@ -302,23 +374,32 @@ public class Graph {
     
     private void removeDuplicates() {
         ArrayList<String> newList = new ArrayList<>(); 
-        
         for (String element : vertexGraph) { 
             if (!newList.contains(element)) {   
                 newList.add(element); 
             } 
         }
         vertexGraph = newList;
-        
-        
         ArrayList<ArrayList<String>> prueba = new ArrayList<ArrayList<String>>();
-        
         for (ArrayList<String> element : aristas) { // 
             if (!prueba.contains(element)) {   
                 prueba.add(element); 
             } 
         }
         aristas = prueba;
-
+    }
+    public String[] getVertexGraph(){
+        String [] a = new String[vertices()];
+        for (int i = 0; i < vertices(); i++){
+            a[i] = vertexGraph.get(i);
+        }
+        return a;
+    }
+    public String[][] getAristas(){
+        String[][] b = new String[edges()][];
+        for (int i = 0; i < edges(); i ++){
+            b[i] = aristas.get(i).toArray(new String[0]);
+        }
+        return b;
     }
 }

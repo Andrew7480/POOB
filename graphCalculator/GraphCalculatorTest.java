@@ -1,8 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
+import java.util.TreeMap;
 
 /**
  * The test class GraphCalculatorTest.
@@ -29,13 +30,31 @@ public class GraphCalculatorTest
     }
 
     @Test
-    public void shouldCreateGraphCalculator(){
-        String [] vertices ={"DDYA","MYSD","DOPO"};
-        String [][] edges = {{"DDYA","MYSD"},{"DDYA","DOPO"}};    
-        //assertEquals(3, new GraphCalculator(vertices,edges).vertices());
-        //assertEquals(2, new GraphCalculator(vertices,edges).edges());
-    } 
-    
+    public void shouldCreateGraphCalculator(){    
+        assertEquals(0, new GraphCalculator().getVariables().size());
+    }
+    @Test
+    public void shouldCreateANewVariableInTheTreeMap(){
+        /*
+        Graph g = new Graph();
+        TreeMap<String,Graph> variablesP = new TreeMap<>();
+        variablesP.put("hola",g);
+        assertEquals(variablesP, new GraphCalculator().create("hola"));
+        */
+    }
+    @Test
+    public void shouldCreateGraphCalculatorAssign(){
+        /*
+        String[] vertices = {};
+        String[][] edges = {};
+        Graph g = new Graph();
+        TreeMap<String,Graph> variablesP = new TreeMap<>();
+        variablesP.put("hola",g);
+        GraphCalculator g1 = new GraphCalculator();
+        g1.assign("hola",vertices,edges);
+        assertEquals(variablesP, g1.getVariables());
+        */
+    }
     
     /**
      * Tears down the test fixture.

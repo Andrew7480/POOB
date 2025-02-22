@@ -87,6 +87,33 @@ public class GraphTest{
         assertEquals(new Graph(verticesAIntersectionB, edgesAIntersectionB), new Graph(verticesA,edgesA).intersection(new Graph(verticesB, edgesB)));
     }
     @Test
+    public void shouldMakeTheDifferenceBetweenGraphs(){
+        String [] verticesA ={"DDYA","MYSD","DOPO"};
+        String [][] edgesA = {{"DDYA","MYSD"},{"MYSD","DOPO"}};
+        String [] verticesB = {"DDYA","MYSD","ABCD"};
+        String [][] edgesB = {{"DDYA","MYSD"},{"MYSD","ABCD"}};
+        String [] verticesADifferenceB = {"DOPO"};
+        String [][] edgesADifferenceB = {};
+        String [] verticesC ={"A","B","C","D"};
+        String [][] edgesC = {{"A","B"},{"C","B"},{"C","D"}};
+        String [] verticesD = {"C","D","E","F"};
+        String [][] edgesD = {{"D","E"},{"C","D"}};
+        String [] verticesCDifferenceD = {"A","B"};
+        String [][] edgesCDifferenceD = {{"A","B"}};
+        assertEquals(new Graph(verticesADifferenceB, edgesADifferenceB), new Graph(verticesA,edgesA).difference(new Graph(verticesB, edgesB)));
+        assertEquals(new Graph(verticesCDifferenceD, edgesCDifferenceD), new Graph(verticesC,edgesC).difference(new Graph(verticesD, edgesD)));
+    }
+    @Test
+    public void shouldMakeTheJoinOfGraphs(){
+        String [] verticesA ={"A","B","C","D"};
+        String [][] edgesA = {{"A","B"},{"C","B"},{"C","D"}};
+        String [] verticesB = {"C","D","E","F"};
+        String [][] edgesB = {{"D","E"},{"C","D"}};
+        String [] verticesAJoinB = {"A","B","C","D","E","F"};
+        String [][] edgesAJoinB = {{"A","B"},{"A","C"},{"A","D"},{"A","E"},{"A","F"},{"B","D"},{"B","E"},{"B","F"},{"C","B"},{"C","D"},{"C","E"},{"C","F"},{"D","E"},{"D","F"},{"E","F"}};
+        assertEquals(new Graph(verticesAJoinB, edgesAJoinB), new Graph(verticesA,edgesA).join(new Graph(verticesB, edgesB)));
+    }
+    @Test
     public void shouldPass(){
         assertEquals(0,0);
     }
