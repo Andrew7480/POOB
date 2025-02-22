@@ -244,8 +244,7 @@ public class Graph {
     public String toString() {
         String texto = "";
         for (ArrayList<String> fila : aristas){
-            
-            texto += "("+fila.get(0)+", "+fila.get(1)+") ";
+            texto += "("+fila.get(0)+", "+fila.get(1)+") "; //
         }
         
         return texto.toString().trim(); //elimina los espacios en blanco
@@ -338,6 +337,7 @@ public class Graph {
         for (int i = 0; i < vertices.length; i++){
             vertexGraph.add(vertices[i]);
         }
+        removeDuplicates();
     }
     
     private void reorganizeVertexGraph (ArrayList<String> vertex){
@@ -347,6 +347,10 @@ public class Graph {
     private void reorganizeEdges (ArrayList<ArrayList<String>>aristas){
         Collections.sort(aristas, new Comparator<ArrayList<String>>(){ 
             @Override
+            // Esto lo sacamos de internet y lo modificamos ejemplo:
+            // Si es {{A, C},{A, B}}
+            // Entonces compara la siguiente letra es decir
+            // C - B
             public int compare(ArrayList<String> one, ArrayList<String> two) {
                 //one.get(1).compareTo(two.get(1));
                 //one.get(0).compareTo(two.get(0));

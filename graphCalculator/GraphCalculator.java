@@ -60,7 +60,7 @@ public class GraphCalculator{
     public void assignUnary(String a, String b, char op, String[] vertices){ // ["A","B"] ? 
         Graph g = new Graph();
         Graph g1 = new Graph();
-        for (Map.Entry<String, Graph> entry : variables.entrySet()){
+        for (Map.Entry<String, Graph> entry : variables.entrySet()){ // {"Hola",G}
             if (entry.getKey() == b){
                 g1 = entry.getValue();
             }
