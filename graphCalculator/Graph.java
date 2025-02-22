@@ -174,15 +174,12 @@ public class Graph {
                 ArrayList<String> a = new ArrayList<>();
                 a.add(grafo.vertexGraph.get(j));
                 a.add(grafo.vertexGraph.get(i));
-                System.out.println(grafo.vertexGraph.get(i) +""+ grafo.vertexGraph.get(j));
                 if(!grafo.aristas.contains(a)){
                     grafo.addEdge(grafo.vertexGraph.get(i), grafo.vertexGraph.get(j));
                 }
             }
-            System.out.println("a");
         }
         grafo = removeDuplicateGraph2(grafo);
-        System.out.println(grafo.aristas);
         return grafo;
     }
     private Graph removeDuplicateGraph2(Graph g){

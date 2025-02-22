@@ -22,8 +22,8 @@ public class GraphCalculator{
             lastActionWasSuccess = false;
         }
         else{
-            lastActionWasSuccess = true;
             variables.put(nombre, new Graph());
+            lastActionWasSuccess = true;
         }
     }
      
@@ -57,8 +57,9 @@ public class GraphCalculator{
      * @param char op
      * @param String[] vertices
        */
-    public void assignUnary(String a, String b, char op, String[] vertices){ // ["A","B"] ? 
+    public void assignUnary(String a, String b, char op, String[] vertices){ // ["A","B"] ?     // ["A","C","D","F"]
         Graph g = new Graph();
+        
         Graph g1 = new Graph();
         for (Map.Entry<String, Graph> entry : variables.entrySet()){ // {"Hola",G}
             if (entry.getKey() == b){
@@ -88,6 +89,7 @@ public class GraphCalculator{
         
         else{
             lastActionWasSuccess = false;
+        
         }
     }
       
@@ -103,9 +105,9 @@ public class GraphCalculator{
      * @param String c
        */
     public void assignBinary(String a, String b, char op, String c){
-        Graph g3 = new Graph();
         Graph g = new Graph();
         Graph g1 = new Graph();
+        Graph g3 = new Graph();
         for (Map.Entry<String, Graph> entry : variables.entrySet()){
             if (entry.getKey() == b){
                 g = entry.getValue();
