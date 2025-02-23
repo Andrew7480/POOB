@@ -107,7 +107,24 @@ public class GraphCalculatorTest
         c.assignUnary("grafo2", "grafo", '?', vertices3);
         assertEquals(variablesP.get("grafo2"),c.getVariables().get("grafo2"));
     }
-    
+    @Test
+    public void shouldAssignUnaryP(){
+        String[] vertices = {"A","B","C","D","E"};
+        String[][] edges = {{"A","B"},{"B","D"},{"D","C"}};
+        String[] vertices1 = {"A","B","C","D"};
+        String[][] edges1 = {{"A","B"},{"B","D"},{"D","C"}};
+        String[] vertices3 = {"A","C"};
+        Graph g = new Graph(vertices, edges);
+        Graph g1 = new Graph(vertices1, edges1);
+        TreeMap<String, Graph> variablesP = new TreeMap<>();
+        variablesP.put("grafo",g1);
+        GraphCalculator c = new GraphCalculator();
+        c.create("grafo1");
+        c.create("grafo2");
+        c.assign("grafo1",vertices,edges);
+        c.assignUnary("grafo2","grafo1", 'p',vertices3);
+        assertTrue(variablesP.get("grafo").equals(c.getVariables().get("grafo2")));
+    }
     @Test
     public void shouldAssignBinaryUnion(){
         String[] vertices = {"A","B","C"};
@@ -202,6 +219,23 @@ public class GraphCalculatorTest
         c.assign("grafo3",vertices2,edges2);
         c.assignBinary("grafo", "grafo2", 'j', "grafo3");
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo")); 
+    }
+    @Test
+    public void shouldAssignBinaryComplement(){
+        String[] vertices = {"A","B","C","D"};
+        String[][] edges = {{"A","B"},{"B","C"},{"C","D"}};
+        String[] vertices1 = {"A","B","C","D"};
+        String[][] edges1 = {{"A","C"},{"A","D"},{"B","D"}};
+        Graph g = new Graph(vertices,edges);
+        Graph g1 = new Graph(vertices1,edges1);
+        TreeMap<String, Graph> variablesP = new TreeMap<>();
+        variablesP.put("grafofinal",g1);
+        GraphCalculator c = new GraphCalculator();
+        c.create("grafo");
+        c.create("grafo2");
+        c.assign("grafo", vertices, edges);
+        c.assignComplement("grafo","grafo2");
+        assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo2"));
     }
     @Test
     public void shouldToString(){

@@ -80,9 +80,10 @@ public class GraphCalculator{
             lastActionWasSuccess = true;
         }
         if (op == 'p'){
-            Graph g = new Graph();
+            Graph clone = new Graph(g1);
             int lengthV = vertices.length;
-            g.path(vertices[0], vertices[lengthV]);
+            clone.path(vertices[0], vertices[lengthV - 1]);
+            assign(a, clone.getVertexGraph(), clone.getAristas());
             lastActionWasSuccess = true;
         }
         
@@ -132,6 +133,14 @@ public class GraphCalculator{
         else{
             lastActionWasSuccess = false;
         }
+    }
+    public void assignComplement(String a, String b){
+        Graph g3 = new Graph();
+        Graph g1 = new Graph();
+        g1 = variables.get(a);
+        g3 = g1.complement();
+        assign(b, g3.getVertexGraph(), g3.getAristas());
+        lastActionWasSuccess = true;
     }
     //Returns the graph with the edges in uppercase in alphabetical order.
     /**

@@ -5,12 +5,13 @@ import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Graph {
     private ArrayList<String> vertexGraph;
     private ArrayList<ArrayList<String>> aristas;
     private ArrayList<ArrayList<String>> adjacencyMatrix = new ArrayList<ArrayList<String>>();
-    private ArrayList <String> pathing = new ArrayList<>();
     //no duplicados inicio fin -->bien
     //vector de parejas  // no meteria cosas que no son tuplas :"
     //arcos de vertices que existen --> bien
@@ -73,47 +74,60 @@ public class Graph {
      * @param String end
        */
     public Graph path(String start, String end){
-        // Aplicamos BFS
-        /*
-        int pos = 0;
-        Queue<String> q = new LinkedList();
-        //boolean[] visited = new boolean[vertexGraph.size()];
-        ArrayList<Boolean> visited = new ArrayList<Boolean>(Arrays.asList(new Boolean[vertexGraph.size()]));
-        Collections.fill(visited, Boolean.FALSE);
-        for (int i = 0; i < vertexGraph.size(); i++){
-            if (vertexGraph.get(i).equals(start)){
-                pos = i;
+        boolean[] visited = new boolean[vertexGraph.size()];
+        Arrays.fill(visited, false);
+        Map<Integer, Integer> parentMap = new HashMap<>();
+        Queue<Integer> queue = new LinkedList<>();
+        int startIdx = vertexGraph.indexOf(start);
+        int endIdx = vertexGraph.indexOf(end);
+        visited[startIdx] = true;
+        queue.add(startIdx);
+        parentMap.put(startIdx, -1);
+    
+        boolean found = false;
+    
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            if (current == endIdx) {
+                found = true;
+                break;
             }
-        }
-        
-        visited.set(pos, true);
-        q.add(start);
-        // q.poll retorna la cabeza
-        while (!(q.isEmpty())){
-            String current = q.poll();
-            pathing.add(current);
-            System.out.println(visited);
-            for (String x : adjacencyMatrix.get(0)){
-                if(!visited.get(adjacencyMatrix.indexOf(x))){
-                    visited.set(adjacencyMatrix.indexOf(x), true);
-                    q.add(x);
+    
+            for (int neighbor = 0; neighbor < vertexGraph.size(); neighbor++) {
+                if (adjacencyMatrix.get(current).get(neighbor).equals("1") && !visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.add(neighbor);
+                    parentMap.put(neighbor, current);
                 }
             }
         }
-        System.out.println(pathing);
-        */
-        return null;
-        
+        if (!found) {
+            return null;
+        }
+        List<Integer> pathNodes = new ArrayList<>();
+        for (int at = endIdx; at != -1; at = parentMap.get(at)) {
+            pathNodes.add(at);
+        }
+        Collections.reverse(pathNodes);   //idea sacada de internet y ha sido acomodada para que funcione a esta clase
+        ArrayList<String> auxiliarVertices= new ArrayList <String>(); // [0,1,3,2]  -> [A,B,D,C]
+        for(int a: pathNodes){
+            auxiliarVertices.add(vertexGraph.get(a));
+        }
+        ArrayList<ArrayList<String>> aristasGrafo= new ArrayList<ArrayList<String>>();
+        for (int i = 0; i < auxiliarVertices.size()-1; i++){
+            ArrayList arista = new ArrayList<String>();
+            arista.add(auxiliarVertices.get(i));
+            arista.add(auxiliarVertices.get(i+1));
+            aristasGrafo.add(arista);
+            }
+        Graph grafo2 = new Graph(auxiliarVertices,aristasGrafo);
+        return grafo2;
     }
-    
-    /*
-     * 
-     */
-    public Graph path(String start, String end, String[] vertex){  //A  F  [B,C,E]
-        pathing.clear();
-        pathing.add(start);
-        
-        return null;
+    public Graph path(String start, String end, String[] vertex){
+      ArrayList<ArrayList<String>> pathing = new ArrayList<ArrayList<String>>();
+      
+
+      return null;
     }
     /**
      * Calculate the union of graphs
@@ -202,6 +216,26 @@ public class Graph {
         grafo = removeDuplicateGraph2(grafo);
         return grafo;
     }
+    /**
+     * Calculate the complement of the graph
+       */
+    public Graph complement(){
+        ArrayList<ArrayList<String>> aristasC = new ArrayList<ArrayList<String>>();
+        for (int i = 0; i < vertexGraph.size(); i++){
+            for (int j = i + 1; j < vertexGraph.size(); j++){
+                ArrayList<String> a = new ArrayList<>(); // A - B - B - C B - D A - C A - D
+                a.add(vertexGraph.get(i));
+                a.add(vertexGraph.get(j));
+                if (!aristas.contains(a)){
+                    aristasC.add(a);
+                }
+            }
+        }
+        System.out.println(aristasC);
+        Graph grafo = new Graph(vertexGraph,aristasC);
+        return grafo;
+    }
+    
     private Graph removeDuplicateGraph2(Graph g){
         ArrayList<ArrayList<String>> prueba = new ArrayList<ArrayList<String>>();
         for (ArrayList<String> element : g.aristas) { // 
@@ -269,6 +303,15 @@ public class Graph {
         for (ArrayList<String> fila : aristas){
             texto += "("+fila.get(0)+", "+fila.get(1)+") "; //
         }
+        
+        return texto.toString().trim(); //elimina los espacios en blanco
+    }
+    public String toStringToPath() {
+        String texto = "";
+        for (ArrayList<String> fila : aristas){
+            texto += fila.get(0)+" "; //
+        }
+        texto += aristas.get(edges()-1).get(1);
         
         return texto.toString().trim(); //elimina los espacios en blanco
     }

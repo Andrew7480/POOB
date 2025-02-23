@@ -61,9 +61,12 @@ public class GraphTest{
     @Test
     public void shouldShowThePathOfTheGraph(){
         String [] vertices ={"DDYA","MYSD","DOPO"};
-        String [][] edges = {{"DDYA","MYSD"},{"MYSD","DOPO"}};  
+        String [][] edges = {{"DDYA","MYSD"},{"MYSD","DOPO"}};
+        String path1 = "DDYA MYSD DOPO";
         Graph g1 = new Graph(vertices, edges);
-        assertEquals(new Graph(vertices,edges).path("DDYA", "DOPO"), g1.path("DDYA", "DOPO"));
+        Graph g2 = new Graph();
+        g2=g1.path("DDYA", "DOPO");
+        assertEquals(path1,g2.toStringToPath());
     }
     @Test
     public void shouldMakeTheUnionOfGraphs(){
@@ -112,6 +115,15 @@ public class GraphTest{
         String [] verticesAJoinB = {"A","B","C","D","E","F"};
         String [][] edgesAJoinB = {{"A","B"},{"A","C"},{"A","D"},{"A","E"},{"A","F"},{"B","D"},{"B","E"},{"B","F"},{"C","B"},{"C","D"},{"C","E"},{"C","F"},{"D","E"},{"D","F"},{"E","F"}};
         assertEquals(new Graph(verticesAJoinB, edgesAJoinB), new Graph(verticesA,edgesA).join(new Graph(verticesB, edgesB)));
+    }
+    @Test
+    public void shouldMakeTheComplement(){
+        String[] vertices = {"A","B","C","D"};
+        String[][] edges = {{"A","B"},{"B","C"},{"C","D"}};
+        String[] vertices1 = {"A","B","C","D"};
+        String[][] edges1 = {{"A","C"},{"A","D"},{"B","D"}};
+        Graph g1 = new Graph(vertices1,edges1);
+        assertEquals(g1,new Graph(vertices,edges).complement());
     }
     @Test
     public void shouldPass(){
