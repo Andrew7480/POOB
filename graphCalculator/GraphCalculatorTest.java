@@ -123,6 +123,7 @@ public class GraphCalculatorTest
         c.create("grafo2");
         c.assign("grafo1",vertices,edges);
         c.assignUnary("grafo2","grafo1", 'p',vertices3);
+        assertEquals(variablesP.get("grafo"),c.getVariables().get("grafo2"));
         assertTrue(variablesP.get("grafo").equals(c.getVariables().get("grafo2")));
     }
     @Test

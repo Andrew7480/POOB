@@ -253,11 +253,11 @@ public class GraphCalculatorFails
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo2"));
     }
     @Test
-    public void shouldAssignUnaryP(){
+    public void shouldNotAssignUnaryP(){
         String[] vertices = {"A","B","C","D","E"};
         String[][] edges = {{"A","B"},{"B","D"},{"D","C"}};
         String[] vertices1 = {"A","B","C","D"};
-        String[][] edges1 = {{"A","B"},{"B","D"},{"D","C"}};
+        String[][] edges1 = {{"A","B"},{"D","C"}};
         String[] vertices3 = {"A","C"};
         Graph g = new Graph(vertices, edges);
         Graph g1 = new Graph(vertices1, edges1);

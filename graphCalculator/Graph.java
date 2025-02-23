@@ -123,12 +123,7 @@ public class Graph {
         Graph grafo2 = new Graph(auxiliarVertices,aristasGrafo);
         return grafo2;
     }
-    public Graph path(String start, String end, String[] vertex){
-      ArrayList<ArrayList<String>> pathing = new ArrayList<ArrayList<String>>();
-      
-
-      return null;
-    }
+    
     /**
      * Calculate the union of graphs
      * @param Graph g
@@ -189,6 +184,11 @@ public class Graph {
         }
         return gDifference;
     }
+    /**
+     * Remove edges that already exits 
+     * @param ArrayList<String> clone
+     * @param ArrayList<ArrayList<String>> cloneEdges
+     */
     private ArrayList<ArrayList<String>> removeEdgesRelational(ArrayList<String> cloone, ArrayList<ArrayList<String>> clooneEdges){
         for (int i = 0; i < clooneEdges.size(); i++){
             if(!cloone.contains(clooneEdges.get(i).get(0)) || !cloone.contains(clooneEdges.get(i).get(1))){
@@ -231,11 +231,13 @@ public class Graph {
                 }
             }
         }
-        System.out.println(aristasC);
         Graph grafo = new Graph(vertexGraph,aristasC);
         return grafo;
     }
-    
+    /**
+     * remove duplicates from a Graph
+     * @param Graph g
+     */
     private Graph removeDuplicateGraph2(Graph g){
         ArrayList<ArrayList<String>> prueba = new ArrayList<ArrayList<String>>();
         for (ArrayList<String> element : g.aristas) { // 
@@ -266,15 +268,15 @@ public class Graph {
         return aristas.size();
     }    
     
-    
+    /**
+     * determinate if two graph are equal
+     */
     public boolean equals(Graph g){
         if (g.vertices() != vertices() || g.edges() != edges() ){
             return false;
         }
         reorganizeVertexGraph(g.vertexGraph);
         reorganizeEdges(g.aristas);
-        
-
         
         for (int i = 0;i< g.vertices();i++){
             if (!(vertexGraph.get(i).equals(g.vertexGraph.get(i) ))){
@@ -306,6 +308,9 @@ public class Graph {
         
         return texto.toString().trim(); //elimina los espacios en blanco
     }
+    /**
+     * get the path in String
+     */
     public String toStringToPath() {
         String texto = "";
         for (ArrayList<String> fila : aristas){
@@ -315,7 +320,7 @@ public class Graph {
         
         return texto.toString().trim(); //elimina los espacios en blanco
     }
-    
+    //create asjacencyMAtrix
     private void createAdjacencyMatrix(){
         adjacencyMatrix.clear();
         for (int i = 0; i < vertexGraph.size(); i++){
@@ -327,6 +332,7 @@ public class Graph {
         }
        startAdjacencyMatrix();
     }
+    //start the adjacencyMatrix
     private void startAdjacencyMatrix(){
         int indice = 0;
         int indice1 = 0;
@@ -405,14 +411,14 @@ public class Graph {
         }
         removeDuplicates();
     }
-    
+    //reorganize vertex
     private void reorganizeVertexGraph (ArrayList<String> vertex){
         if (vertex == null){
             return;
         }
         Collections.sort(vertex);
     }
-    
+    //reorganize aristas
     private void reorganizeEdges (ArrayList<ArrayList<String>>aristas){
         if (aristas == null){
             return;
@@ -436,7 +442,7 @@ public class Graph {
         );
     
     }
-    
+    //convert all aristas in uppercase
     private void upperCase(){
         for (ArrayList<String> fila : aristas){
             fila.set(0,fila.get(0).toUpperCase());
@@ -447,7 +453,7 @@ public class Graph {
         }
     }
     
-    
+    //remove duplicate in vertex and aristas
     private void removeDuplicates() {
         ArrayList<String> newList = new ArrayList<>(); 
         for (String element : vertexGraph) { 
@@ -464,6 +470,7 @@ public class Graph {
         }
         aristas = prueba;
     }
+    
     public String[] getVertexGraph(){
         String [] a = new String[vertices()];
         for (int i = 0; i < vertices(); i++){
