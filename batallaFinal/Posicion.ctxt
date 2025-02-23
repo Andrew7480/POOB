@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Posicion
+comment1.params=a\ b
+comment1.target=Posicion(int,\ int)
+comment2.params=
+comment2.target=int\ getLongitud()
+comment3.params=
+comment3.target=int\ getLatitud()
+comment4.params=lon
+comment4.target=void\ setLongitud(int)
+comment5.params=lat
+comment5.target=void\ setLatitud(int)
+comment6.params=pos
+comment6.target=boolean\ equals(Posicion)
+comment7.params=g
+comment7.target=boolean\ equals(java.lang.Object)
+numComments=8

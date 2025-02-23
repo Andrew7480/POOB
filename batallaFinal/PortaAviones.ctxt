@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=PortaAviones
+comment1.params=
+comment1.target=java.util.ArrayList\ getAviones()
+comment2.params=
+comment2.target=int\ getCapacidad()
+comment3.params=
+comment3.target=Posicion\ getUbicacion()
+numComments=4

@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Tablero
+comment1.params=
+comment1.target=Tablero()
+comment2.params=
+comment2.target=java.util.ArrayList\ getFlotas()
+comment2.text=\r\n\ return\ all\ the\ flotas\r\n
+comment3.params=
+comment3.target=int\ getFlotasSize()
+comment4.params=
+comment4.target=int\ getLongitud()
+comment5.params=
+comment5.target=int\ getLatitud()
+numComments=6

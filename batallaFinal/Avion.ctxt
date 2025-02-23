@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Avion
+comment1.params=
+comment1.target=java.lang.String\ getPlaca()
+comment2.params=
+comment2.target=boolean\ getEnAire()
+comment3.params=
+comment3.target=Posicion\ getUbicacion()
+numComments=4
