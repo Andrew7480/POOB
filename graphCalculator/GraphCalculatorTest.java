@@ -239,6 +239,28 @@ public class GraphCalculatorTest
         assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo2"));
     }
     @Test
+    public void shouldAssignBinaryComplete(){
+        String[] vertices = {"A","B","C"};
+        String[][] edges = {};
+        
+        String[] vertices1 = {"A","B","C",};
+        String[][] edges1 = {{"A","C"},{"A","B"},{"B","C"}};
+        
+        Graph g = new Graph(vertices,edges);
+        Graph g1 = new Graph(vertices1,edges1);
+        
+        TreeMap<String, Graph> variablesP = new TreeMap<>();
+        variablesP.put("grafofinal",g1);
+        
+        GraphCalculator c = new GraphCalculator();
+        c.create("grafo");
+        c.create("grafo2");
+        c.assign("grafo", vertices, edges);
+        c.assignComplete("grafo","grafo2");
+        
+        assertEquals(variablesP.get("grafofinal"),c.getVariables().get("grafo2"));
+    }
+    @Test
     public void shouldToString(){
         String [] vertices ={"DDYA","MYSD","DOPO"};
         String [][] edges = {{"DDYA","MYSD"},{"DDYA","DOPO"}};

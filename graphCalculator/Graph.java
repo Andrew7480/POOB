@@ -235,6 +235,27 @@ public class Graph {
         return grafo;
     }
     /**
+     * Calculate the complete of the graph
+       */
+    public Graph complete(){
+        
+        Graph grafo = new Graph(vertexGraph,aristas);
+        
+        for (int i = 0; i < vertexGraph.size(); i++){
+            for (int j = i + 1; j < vertexGraph.size(); j ++){ 
+                ArrayList<String> a = new ArrayList<>();
+                a.add(vertexGraph.get(i));
+                a.add(vertexGraph.get(j));
+                if(!grafo.aristas.contains(a)){
+                    grafo.addEdge(vertexGraph.get(i), vertexGraph.get(j));
+                }
+            }
+        }
+        grafo = removeDuplicateGraph2(grafo);
+        
+        return grafo;
+    }
+    /**
      * remove duplicates from a Graph
      * @param Graph g
      */

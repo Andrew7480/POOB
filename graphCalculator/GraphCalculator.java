@@ -134,12 +134,27 @@ public class GraphCalculator{
             lastActionWasSuccess = false;
         }
     }
+    // b = a op 
+    /**
+     * assign a complement operation
+     */
     public void assignComplement(String a, String b){
         Graph g3 = new Graph();
         Graph g1 = new Graph();
         g1 = variables.get(a);
         g3 = g1.complement();
         assign(b, g3.getVertexGraph(), g3.getAristas());
+        lastActionWasSuccess = true;
+    }
+    /**
+     * assign a complete operation
+     */
+    public void assignComplete(String a, String b){
+        Graph g2 = new Graph();
+        Graph g1 = new Graph();
+        g1 = variables.get(a);
+        g2 = g1.complete();
+        assign(b, g2.getVertexGraph(), g2.getAristas());
         lastActionWasSuccess = true;
     }
     //Returns the graph with the edges in uppercase in alphabetical order.

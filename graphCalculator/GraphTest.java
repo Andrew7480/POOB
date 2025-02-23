@@ -126,6 +126,18 @@ public class GraphTest{
         assertEquals(g1,new Graph(vertices,edges).complement());
     }
     @Test
+    public void shouldMakeTheComplete(){
+        String[] vertices = {"A","B","C"};
+        String[][] edges = {};
+        
+        String[] vertices1 = {"A","B","C",};
+        String[][] edges1 = {{"A","C"},{"A","B"},{"B","C"}};
+        Graph g = new Graph(vertices,edges);
+        Graph g1 = new Graph(vertices1,edges1);
+        
+        assertEquals(g1,g.complete());
+    }
+    @Test
     public void shouldPass(){
         assertEquals(0,0);
     }
