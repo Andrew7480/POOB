@@ -10,14 +10,12 @@ public class Flota {
     private ArrayList <Barco> barcos;
     private ArrayList <Marino> marinos;
     
-    
-    /*
-    Flota (int codigoFlota, Tablero tab){
+    public Flota (int codigoFlota){
+        codigo = codigoFlota;
+    }
+    public Flota (int codigoFlota, Tablero tab){
         codigo = codigoFlota;
         tablero = tab;
-    }*/
-    Flota (int codigoFlota){
-        codigo = codigoFlota;
     }
     
     
@@ -62,9 +60,9 @@ public class Flota {
     /**
      * Consulta la placa de los aviones enemigos que están en el aire
      */
-    public ArrayList<Avion> enAire(){
+    public ArrayList<String> enAire(){
         ArrayList <Flota> flotasEnemigas = listFlotasEnemies();
-        ArrayList <Avion> avionesEnAire = new ArrayList<Avion>();
+        ArrayList <String> avionesEnAire = new ArrayList<String>();
         if (flotasEnemigas.isEmpty()){
             return null;
             }
@@ -72,7 +70,7 @@ public class Flota {
             
             for (Avion a: flotaEnemiga.getAviones()){
                 if (a.getEnAire()){
-                    avionesEnAire.add(a);
+                    avionesEnAire.add(a.getPlaca());
                 }
             }
         }
@@ -230,6 +228,9 @@ public class Flota {
      * Consulta si cuenta con suficientes marinos para conducir sus máquinas.
      */
     public boolean suficientesMarinos(){
+        if (marinos == null){
+            return false;
+        }
         int cantidadMarinos = marinos.size();
         int marinosNecesarios=0;
         if (aviones != null){

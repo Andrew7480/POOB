@@ -4,17 +4,11 @@ public class Tablero {
     private ArrayList <Flota> flotas = new ArrayList <Flota>();
     private int longitud;
     private int latitud;
-    Tablero(){
-    }
-    /*
-    Tablero (int i){
+    public Tablero (){
         longitud=100;
         latitud=100;
-        for (int j =0;j<i;j++ ){
-            Flota f = new Flota(j,this);
-            flotas.add(f);
-        }
-    }*/
+        
+    }
     
     /*
      * return all the flotas
@@ -22,7 +16,9 @@ public class Tablero {
     public ArrayList<Flota> getFlotas(){
         return flotas;
     }
-    
+    public void addFlota(Flota a){
+        getFlotas().add(a);
+    }
     public int getFlotasSize(){
         return flotas.size();
     }
