@@ -223,7 +223,7 @@ public class Graph {
         ArrayList<ArrayList<String>> aristasC = new ArrayList<ArrayList<String>>();
         for (int i = 0; i < vertexGraph.size(); i++){
             for (int j = i + 1; j < vertexGraph.size(); j++){
-                ArrayList<String> a = new ArrayList<>(); // A - B - B - C B - D A - C A - D
+                ArrayList<String> a = new ArrayList<>(); // A - B - B - C -- B - D A - C A - D
                 a.add(vertexGraph.get(i));
                 a.add(vertexGraph.get(j));
                 if (!aristas.contains(a)){
