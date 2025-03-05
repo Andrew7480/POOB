@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
 /**
  * Write a description of class demonFace here.
  * 
@@ -7,32 +5,25 @@ import java.awt.*;
  * @version (a version number or a date)
  */
 public class DemonFace
-{   
+{
+    private Circle faceDemon = new Circle();
     private int posD;
-    private boolean isVisible;
-    private String demonImage = "C:\\Users\\RYZEN\\Documents\\POOB\\POOB\\Proyecto\\hellish-grin-aggressive-devil-s-face-logo-design-demonic-impression-black-icon-of-devil-s-sinister-visage-vector.jpg";
-    private Canvas canvas;
-    public DemonFace(int xPosition, int yPosition,int w, int h, int d){
-        canvas = Canvas.getCanvas();
-        if (d > yPosition && d < yPosition + h){
+    public DemonFace(int xPosition, int yPosition, int width, int height, int d){
+        if (d > yPosition && d < yPosition + height){
             posD = d;
-            canvas.drawImage(demonImage,xPosition+w-(w/8)+5,yPosition+d,w/4,h/4);
-            makeVisible(xPosition+w-(w/8)+5,yPosition+d,w/4,h/4);
+            faceDemon.changeSize(width/8);
+            faceDemon.moveHorizontal(xPosition+width-(width/8)+2);
+            faceDemon.moveVertical(d);
+            makeVisible();
         }
     }
     public int getD(){
         return posD;
     }
-   public void makeVisible(int xPosition, int yPosition, int w, int h) {
-        if (!isVisible) {
-            canvas.drawImage(demonImage,xPosition,yPosition,w,h);
-            isVisible = true;
-        }
+    public void makeVisible(){
+        faceDemon.makeVisible();
     }
-    public void makeInvisible() {
-        if (isVisible) {
-            canvas.erase(demonImage);
-            isVisible = false;
-        }
+    public void makeInvisible(){
+        faceDemon.makeInvisible();
     }
 }

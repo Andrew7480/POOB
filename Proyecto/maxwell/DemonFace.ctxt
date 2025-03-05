@@ -1,13 +1,12 @@
 #BlueJ class context
 comment0.target=DemonFace
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ demonFace\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=xPosition\ yPosition\ w\ h\ d
+comment1.params=xPosition\ yPosition\ width\ height\ d
 comment1.target=DemonFace(int,\ int,\ int,\ int,\ int)
 comment2.params=
 comment2.target=int\ getD()
-comment3.params=xPosition\ yPosition\ w\ h
-comment3.target=void\ makeVisible(int,\ int,\ int,\ int)
-comment3.text=\r\n\ \ \ \ public\ void\ makeVisible(int\ xPosition,\ int\ yPosition,\ int\ w,\ int\ h)\ {\r\n\ \ \ \ \ \ \ \ if\ (\!isVisible)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ canvas.drawImage(demonImage,xPosition,yPosition,w,h);\r\n\ \ \ \ \ \ \ \ \ \ \ \ isVisible\ \=\ true;\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ }\r\n\ \ \ \ public\ void\ makeInvisible()\ {\r\n\ \ \ \ \ \ \ \ if\ (isVisible)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ canvas.erase(demonImage);\r\n\ \ \ \ \ \ \ \ \ \ \ \ isVisible\ \=\ false;\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ }\r\n
+comment3.params=
+comment3.target=void\ makeVisible()
 comment4.params=
 comment4.target=void\ makeInvisible()
 numComments=5

@@ -162,12 +162,12 @@ public class Rectangle{
     }
     
     public void addParticle(String color, int px, int py, int vx, int vy){
-        Circle c = new Circle();
+        Circle c = new Circle(vx,vy);
         c.changeColor(color);
         if(((xPosition < px) && (px < (width + xPosition))) && ((yPosition < py) && (py < (height + yPosition)))){
-            particules.add(c);
             c.setPosition(px,py);
             c.makeVisible();
+            particules.add(c);
         }
         else{
             return;
@@ -204,6 +204,9 @@ public class Rectangle{
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
         }
+    }
+    public ArrayList<Circle> getParticules(){
+        return particules;
     }
 }
 

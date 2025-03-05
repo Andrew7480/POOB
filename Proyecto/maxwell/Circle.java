@@ -17,6 +17,8 @@ public class Circle{
     private int yPosition;
     private String color;
     private boolean isVisible;
+    private int velocityX;
+    private int velocityY;
     
 
     public Circle(){
@@ -26,7 +28,16 @@ public class Circle{
         color = "blue";
         isVisible = false;
     }
-
+    
+    public Circle(int vx, int vy){
+        diameter = 30;
+        xPosition = 20;
+        yPosition = 15;
+        color = "blue";
+        isVisible = false;
+        velocityX = vx;
+        velocityY = vy;
+    }
 
        
     public void makeVisible(){
@@ -168,7 +179,11 @@ public class Circle{
         xPosition = px;
         yPosition = py;
     }
-
+    
+    public String getColor(){
+        return color;
+    }
+    
 
 
 }
