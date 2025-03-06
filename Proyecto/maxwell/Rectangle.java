@@ -20,7 +20,7 @@ public class Rectangle{
     private int yPosition;
     private String color;
     private boolean isVisible;
-    private ArrayList<Circle> particules = new ArrayList<>();
+    private ArrayList<Particle> particules = new ArrayList<>();
 
     /**
      * Create a new rectangle at default position with default color.
@@ -33,7 +33,14 @@ public class Rectangle{
         color = "white";
         isVisible = false;
     }
-    
+    public Rectangle (int newXPosition, int newYPosition, int newWidth, int newHeight){
+        xPosition = newXPosition;
+        yPosition = newYPosition;
+        width = newWidth;
+        height = newHeight;
+        color = "green";
+        isVisible = false;
+    }
 
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
@@ -162,11 +169,10 @@ public class Rectangle{
     }
     
     public void addParticle(String color, int px, int py, int vx, int vy){
-        Circle c = new Circle(vx,vy);
-        c.changeColor(color);
+        Particle c = new Particle(color, px, py, vx,vy);
         if(((xPosition < px) && (px < (width + xPosition))) && ((yPosition < py) && (py < (height + yPosition)))){
-            c.setPosition(px,py);
-            c.makeVisible();
+            c.setPositionParticle(px,py);
+            c.makeVisibleParticle();
             particules.add(c);
         }
         else{
@@ -181,6 +187,10 @@ public class Rectangle{
         return yPosition;
     }
     
+    public void setPosition(int px, int py){
+        xPosition = px;
+        yPosition = py;
+    }
     
     /*
      * Draw the rectangle with current specifications on screen.
@@ -205,7 +215,7 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
-    public ArrayList<Circle> getParticules(){
+    public ArrayList<Particle> getParticules(){
         return particules;
     }
 }

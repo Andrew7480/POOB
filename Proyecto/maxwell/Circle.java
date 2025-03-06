@@ -17,35 +17,26 @@ public class Circle{
     private int yPosition;
     private String color;
     private boolean isVisible;
-    private int velocityX;
-    private int velocityY;
     
 
     public Circle(){
-        diameter = 30;
+        diameter = 15;
         xPosition = 20;
         yPosition = 15;
         color = "blue";
         isVisible = false;
     }
-    
-    public Circle(int vx, int vy){
-        diameter = 30;
-        xPosition = 20;
-        yPosition = 15;
-        color = "blue";
+    public Circle(String newColor, int newXPosition, int newYPosition){
+        diameter = 15;
+        xPosition = newXPosition;
+        yPosition = newYPosition;
+        color = newColor;
         isVisible = false;
-        velocityX = vx;
-        velocityY = vy;
     }
-
-       
     public void makeVisible(){
         isVisible = true;
         draw();
     }
-    
-
     public void makeInvisible(){
         erase();
         isVisible = false;

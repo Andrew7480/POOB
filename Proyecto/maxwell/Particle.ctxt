@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Particle
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Particle\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=color\ newXPosition\ newYPosition\ vx\ vy
+comment1.target=Particle(java.lang.String,\ int,\ int,\ int,\ int)
+comment2.params=color
+comment2.target=void\ changeColorParticle(java.lang.String)
+comment3.params=px\ py
+comment3.target=void\ setPositionParticle(int,\ int)
+comment4.params=
+comment4.target=void\ makeVisibleParticle()
+comment5.params=
+comment5.target=void\ makeInvisibleParticle()
+comment6.params=
+comment6.target=java.lang.String\ getColor()
+numComments=7

@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Hole
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Holes\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=xPosition\ yPosition\ width\ height
+comment1.target=Hole(int,\ int,\ int,\ int)
+comment2.params=
+comment2.target=void\ makeVisibleHole()
+comment3.params=
+comment3.target=void\ makeInvisibleHole()
+comment4.params=px\ py
+comment4.target=void\ setPositionHole(int,\ int)
+comment5.params=particles1
+comment5.target=void\ addParticles(int)
+numComments=6

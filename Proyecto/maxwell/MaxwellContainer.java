@@ -12,6 +12,7 @@ public class MaxwellContainer
     private Rectangle chamberRight = new Rectangle();
     private ArrayList<Circle> particules = new ArrayList<>();
     private ArrayList<DemonFace> devils = new ArrayList<>();
+    private ArrayList<Hole> holes = new ArrayList<>();
     private int width;
     private int height;
     public MaxwellContainer(int h, int w){
@@ -59,22 +60,27 @@ public class MaxwellContainer
         // w ++ vy
     }
     public void delParticle(String color){
-        ArrayList<Circle> particules_left = chamberLeft.getParticules();
-        ArrayList<Circle> particules_right = chamberRight.getParticules();
+        ArrayList<Particle> particules_left = chamberLeft.getParticules();
+        ArrayList<Particle> particules_right = chamberRight.getParticules();
         particules_left.addAll(particules_right);
         for (int i = 0; i < particules_left.size(); i++){
             if (particules_left.get(i).getColor() == color){
-                particules_left.get(i).makeInvisible();
-                particules.remove(i);
+                particules_left.get(i).makeInvisibleParticle();
                 theLastActionWasSuccess = true;
             }
             else{
                 theLastActionWasSuccess = false;
             }
         }
-    }
+    }    
     public void addHole(int px, int py, int particles){
-        
+        if((px < 70 + 2*width) && (px > 70) && (py < 15 + height) && (py > 15)){
+            Hole h = new Hole(px,py,width,height);
+            h.setPositionHole(px,py);
+            h.makeVisibleHole();
+            holes.add(h);
+            h.addParticles(particles);
+        }
     }
     public void start(int ticks){
         
