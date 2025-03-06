@@ -83,7 +83,9 @@ public class MaxwellContainer
         }
     }
     public void start(int ticks){
-        
+        //metodo verificar?
+        //check hole - demons
+        //delay -- wait -- thread.sleep(1).
     }
     public boolean isGoal(){
         return true;
