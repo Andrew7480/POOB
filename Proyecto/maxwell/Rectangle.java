@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * A rectangle that can be manipulated and that draws itself on a canvas.
@@ -20,7 +22,6 @@ public class Rectangle{
     private int yPosition;
     private String color;
     private boolean isVisible;
-    private ArrayList<Particle> particules = new ArrayList<>();
 
     /**
      * Create a new rectangle at default position with default color.
@@ -33,12 +34,31 @@ public class Rectangle{
         color = "white";
         isVisible = false;
     }
+    
     public Rectangle (int newXPosition, int newYPosition, int newWidth, int newHeight){
         xPosition = newXPosition;
         yPosition = newYPosition;
         width = newWidth;
         height = newHeight;
         color = "green";
+        isVisible = false;
+    }
+    
+    public Rectangle (int newXPosition, int newYPosition, int newWidth, int newHeight, String newColor){
+        xPosition = newXPosition;
+        yPosition = newYPosition;
+        width = newWidth;
+        height = newHeight;
+        color = newColor;
+        isVisible = false;
+    }
+    
+    public Rectangle(int h, int w){
+        height = h;
+        width = w;
+        xPosition = 100;
+        yPosition = 100;
+        color = "white";
         isVisible = false;
     }
 
@@ -57,6 +77,8 @@ public class Rectangle{
         erase();
         isVisible = false;
     }
+    
+    
     
     /**
      * Move the rectangle a few pixels to the right.
@@ -96,6 +118,13 @@ public class Rectangle{
         draw();
     }
 
+    public void moveTo(int newX, int newY){
+        erase();
+        xPosition = newX;
+        yPosition = newY;
+        draw();
+    }
+    
     /**
      * Move the rectangle vertically.
      * @param distance the desired distance in pixels
@@ -168,17 +197,6 @@ public class Rectangle{
         draw();
     }
     
-    public void addParticle(String color, int px, int py, int vx, int vy){
-        Particle c = new Particle(color, px, py, vx,vy);
-        if(((xPosition < px) && (px < (width + xPosition))) && ((yPosition < py) && (py < (height + yPosition)))){
-            c.setPositionParticle(px,py);
-            c.makeVisibleParticle();
-            particules.add(c);
-        }
-        else{
-            return;
-        }
-    }
     
     public int getXPosition(){
         return xPosition;
@@ -215,8 +233,16 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
-    public ArrayList<Particle> getParticules(){
-        return particules;
+    
+    public void showCenter(){
+        Canvas canvas= Canvas.getCanvas();
+        canvas.drawCartesianPlane();
+    }
+    public ArrayList<Integer> getCenterXY(){
+        Canvas canvas= Canvas.getCanvas();
+        int centerX = canvas.getCenterX();
+        int centerY = canvas.getCenterY();
+        return new ArrayList<>(Arrays.asList(centerX,centerY));
     }
 }
 

@@ -22,13 +22,42 @@ public class Canvas{
     // shape objects in this project clean and simple for educational purposes.
 
     private static Canvas canvasSingleton;
+        int centerX;
+        int centerY;
+    
+    public void drawCartesianPlane() {
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        centerX = width / 2;
+        centerY = height / 2;
+        
+        graphic.setColor(Color.white);
+        graphic.drawLine(0, centerY, width, centerY);
+        graphic.drawLine(centerX, 0, centerX, height);
+        canvas.repaint();
+    }
+    
+    public int getCenterX(){
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        centerX = width / 2;
+        centerY = height / 2;
+        return centerX;
+    }
+    public int getCenterY(){
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        centerX = width / 2;
+        centerY = height / 2;
+        return centerY;
+    }
 
     /**
      * Factory method to get the canvas singleton object.
      */
     public static Canvas getCanvas(){
         if(canvasSingleton == null) {
-            canvasSingleton = new Canvas("BlueJ Shapes Demo", 1500, 1000, 
+            canvasSingleton = new Canvas("BlueJ Shapes Demo", 700, 800, 
                                          Color.black);
         }
         canvasSingleton.setVisible(true);

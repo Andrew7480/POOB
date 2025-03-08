@@ -10,11 +10,16 @@ public class Particle
     private int velocityX;
     private int velocityY;
     private Circle c;
-    public Particle(String color, int newXPosition, int newYPosition, int vx, int vy){
+    private boolean isLeft;
+    public Particle(String color, int newXPosition, int newYPosition, int vx, int vy, boolean newIsLeft){
         velocityX =  vx;
         velocityY = vy;
         c = new Circle(color, newXPosition, newYPosition);
+        isLeft = newIsLeft;
+        c.makeVisible();
+        makeVisibleParticle();
     }
+    
     public void changeColorParticle(String color){
         c.changeColor(color);
     }

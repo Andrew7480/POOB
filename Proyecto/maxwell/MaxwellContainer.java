@@ -8,61 +8,63 @@ import java.util.*;
 public class MaxwellContainer
 {
     private boolean theLastActionWasSuccess;
-    private Rectangle chamberLeft = new Rectangle();
-    private Rectangle chamberRight = new Rectangle();
-    private ArrayList<Circle> particules = new ArrayList<>();
-    private ArrayList<DemonFace> devils = new ArrayList<>();
-    private ArrayList<Hole> holes = new ArrayList<>();
+    
+    private Chamber chamber;
     private int width;
     private int height;
+    private int xPosition;
+    private int yPosition;
+    
     public MaxwellContainer(int h, int w){
         if (h < 0 && w < 0) theLastActionWasSuccess = false;
-        chamberLeft.changeSize(h,w);
-        chamberRight.changeSize(h,w);
-        chamberRight.moveHorizontal(w+10);
+        chamber = new Chamber(h, 2*w);
         theLastActionWasSuccess = true;
         width = w;
         height = h;
+        makeVisible();
     }
+    
+    public MaxwellContainer(){
+        int h =200;
+        int w=300;
+        if (h < 0 && w < 0) theLastActionWasSuccess = false;
+        
+        chamber = new Chamber(h, 2*w);
+        theLastActionWasSuccess = true;
+        width = w;
+        height = h;
+        makeVisible();
+    }
+    
+    
     public MaxwellContainer(int h, int w, int d, int b, int r, ArrayList<ArrayList<Integer>> particles){
         
     }
+    
     public void addDemon(int d){
-        boolean test = true;
-        for (DemonFace de : devils){
-            if(de.getD() == d){
-                test = false;
-                theLastActionWasSuccess = false;
-            }
+        if (d>=0) {
+            theLastActionWasSuccess = chamber.addDemon(d);   
         }
-        if (test == true){
-            DemonFace demon = new DemonFace(chamberLeft.getXPosition(), chamberLeft.getYPosition(),width, height, d);
-            devils.add(demon);
-            theLastActionWasSuccess = true;
+        else {
+            theLastActionWasSuccess =false;    
         }
     }
+    
     public void delDemon(int d){
-        for (int i = 0; i < devils.size(); i++){
-            if(devils.get(i).getD() == d){
-                devils.get(i).makeInvisible();
-                devils.remove(i);
-                theLastActionWasSuccess = true;
-            }
-        }
-        
+        theLastActionWasSuccess = chamber.delDemon(d);
     }
+    
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         // w ++ vx
-        if (isRed) chamberLeft.addParticle(color,px,py,vx,vy);
-        else{
-            chamberRight.addParticle(color,px,py,vx,vy);
+        if (py<0){
+            theLastActionWasSuccess=false;
+            return;    
         }
-        // w ++ vy
+        
+        chamber.addParticle(color,isRed,px,py,vx,vy);
     }
     public void delParticle(String color){
-        ArrayList<Particle> particules_left = chamberLeft.getParticules();
-        ArrayList<Particle> particules_right = chamberRight.getParticules();
-        particules_left.addAll(particules_right);
+        ArrayList<Particle> particules_left = chamber.getParticules();
         for (int i = 0; i < particules_left.size(); i++){
             if (particules_left.get(i).getColor() == color){
                 particules_left.get(i).makeInvisibleParticle();
@@ -74,13 +76,12 @@ public class MaxwellContainer
         }
     }    
     public void addHole(int px, int py, int particles){
-        if((px < 70 + 2*width) && (px > 70) && (py < 15 + height) && (py > 15)){
-            Hole h = new Hole(px,py,width,height);
-            h.setPositionHole(px,py);
-            h.makeVisibleHole();
-            holes.add(h);
-            h.addParticles(particles);
-        }
+        if (py<0){
+            theLastActionWasSuccess=false;
+            return;
+        }        
+        //System.out.println("vamos bien??");
+        theLastActionWasSuccess = chamber.addHole(px,py,particles);
     }
     public void start(int ticks){
         //metodo verificar?
@@ -91,14 +92,9 @@ public class MaxwellContainer
         return true;
     }
     public ArrayList<Integer> demons(){ // [0,1];
-        ArrayList<Integer> posDemons = new ArrayList<>();
-        for (int i = 0; i < devils.size(); i ++){
-            posDemons.add(devils.get(i).getD());
-        }
-        Collections.sort(posDemons);
-        return posDemons;
+        return chamber.demons();
     }
-    public ArrayList<ArrayList<Integer>> particles(){ // [[0,1]];
+    public ArrayList<ArrayList<Integer>> particles(){ // [[px,py,vx,vy]];
         return null;
     }
     public ArrayList<ArrayList<Integer>> holes(){
@@ -108,15 +104,13 @@ public class MaxwellContainer
      * 
        */
     public void makeVisible(){
-        chamberLeft.makeVisible();
-        chamberRight.makeVisible();
+        chamber.makeVisible();
     }
     /**
      * 
         */
     public void makeInvisible(){
-        chamberLeft.makeInvisible();
-        chamberRight.makeInvisible();
+        chamber.makeInvisible();
     }
     public void finish(){
         
@@ -124,7 +118,7 @@ public class MaxwellContainer
     public boolean ok(){
         return theLastActionWasSuccess;
     }
-    public int sizeOf(){
-        return devils.size();
+    public void showCenter(){
+        chamber.showCenter();   
     }
 }

@@ -6,14 +6,16 @@
  */
 public class DemonFace
 {
-    private Circle faceDemon = new Circle();
+    private Circle faceDemon;
     private int posD;
     public DemonFace(int xPosition, int yPosition, int width, int height, int d){
-        if (d > yPosition && d < yPosition + height){
+        int newYPos = yPosition+height;
+        int auxYMin=0;
+        int auxYMax=height; //newYPos-yPosition;        
+        if (d >= auxYMin && d <= auxYMax){
+            faceDemon = new Circle("yellow",xPosition,yPosition+auxYMax-d);
             posD = d;
-            faceDemon.changeSize(width/8);
-            faceDemon.moveHorizontal(xPosition+width-(width/8)+2);
-            faceDemon.moveVertical(d);
+            faceDemon.changeSize(10);
             makeVisible();
         }
     }

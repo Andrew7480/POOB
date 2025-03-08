@@ -27,12 +27,13 @@ public class Circle{
         isVisible = false;
     }
     public Circle(String newColor, int newXPosition, int newYPosition){
-        diameter = 15;
+        diameter = 5;
         xPosition = newXPosition;
         yPosition = newYPosition;
         color = newColor;
         isVisible = false;
     }
+    
     public void makeVisible(){
         isVisible = true;
         draw();

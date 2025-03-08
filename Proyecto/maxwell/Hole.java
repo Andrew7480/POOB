@@ -10,9 +10,14 @@ public class Hole
 {
     private Rectangle blackHole;
     private ArrayList<Particle> particles = new ArrayList<>();
-    public Hole(int xPosition, int yPosition, int width, int height){
-        blackHole = new Rectangle(xPosition, yPosition, width/8, height/8);
+    private int maxParticles;
+    
+    public Hole(int xPosition, int yPosition, int particles){
+        blackHole = new Rectangle(xPosition, yPosition, 10, 10);
+        maxParticles = particles;
+        makeVisibleHole();
     }
+    
     public void makeVisibleHole(){
         blackHole.makeVisible();
     }
@@ -24,11 +29,17 @@ public class Hole
         blackHole.setPosition(px, py);
         blackHole.makeVisible();
     }
-    public void addParticles(int particles1){
-        for (int i = 0; i < particles1; i ++){
-            Particle p = new Particle("Yellow",0,0,0,0);
-            particles.add(p);
-        }
+    public int getMaxParticles(){
+        return maxParticles;
+    }
+    public int getParticlesSize(){
+        return particles.size();   
+    }
+    public void addParticles(int particles1){ //mal
+        
+        //Particle p = new Particle("Yellow",0,0,0,0);
+        return;    
+        
         
     }
 }
