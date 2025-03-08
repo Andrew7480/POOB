@@ -71,7 +71,7 @@ public class Chamber
     
     public boolean addDemon(int d){ // va de 0 a h
         for (DemonFace de : devils){
-            if(de.getD() == d){
+            if(de.getPosD() == d){
                 
                 return false;
             }
@@ -83,7 +83,7 @@ public class Chamber
     public boolean delDemon(int d){
         boolean theLastActionWasSucces = false;
         for (int i = 0; i < devils.size(); i++){
-            if(devils.get(i).getD() == d){
+            if(devils.get(i).getPosD() == d){
                 devils.get(i).makeInvisible();
                 devils.remove(i);
                 theLastActionWasSucces = true;
@@ -96,7 +96,6 @@ public class Chamber
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=-width/2;  //-(chamberXPos-(width/2));
         int auxXMax=width/2; //chamberXPos+(width/2); 
-        //System.out.println(auxXMin+" "+ auxXMax);
         int auxYMin=0;
         int auxYMax= height;  // -(chamberYPos-height-chamberYPos); 
         if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){ 
@@ -107,13 +106,12 @@ public class Chamber
             holes.add(h);
             return true;
         }
-        //System.out.println("salto");
         return false;
     }
     public ArrayList<Integer> demons(){ // [0,1];
         ArrayList<Integer> posDemons = new ArrayList<>();
         for (int i = 0; i < devils.size(); i ++){
-            posDemons.add(devils.get(i).getD());
+            posDemons.add(devils.get(i).getPosD());
         }
         Collections.sort(posDemons);
         return posDemons;
@@ -163,26 +161,18 @@ public class Chamber
     public void movement(Particle p){
         int chamberXPos = chamberCenter.getXPosition()+1;
         int chamberYPos =chamberCenter.getYPosition()+height;
-        int positionEsperadaX = p.getXPositionC();
-        int positionEsperadaY = p.getYPositionC();
-        if (p.getIsLeft()){
-            positionEsperadaX = -(chamberXPos - positionEsperadaX); 
-            positionEsperadaY = chamberYPos - positionEsperadaY;
-        }
-        if(!p.getIsLeft()){
-            positionEsperadaX = positionEsperadaX - chamberXPos; 
-            positionEsperadaY = chamberYPos - positionEsperadaY;
-        }
-        System.out.println((positionEsperadaX + p.getVelocityX()) + " " + (positionEsperadaY + p.getVelocityY()));
-        if (verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() > 0)){
+        int positionEsperadaX = p.getXPositionC()- chamberXPos;
+        int positionEsperadaY = chamberYPos - p.getYPositionC() ;
+        boolean verify = verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
+        if (verify){
             p.moveHorizontal(p.getVelocityX());
-            p.moveVertical(p.getVelocityY()*-1);
+            p.moveVertical(-p.getVelocityY());
         }
-        if (!verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY())){
-            bounce(p);
+        
+        if (!verify){
+            bounce(p,positionEsperadaX+ p.getVelocityX(),positionEsperadaY+ p.getVelocityY());
             p.moveHorizontal(p.getVelocityX());
-            p.moveVertical(p.getVelocityY()*-1);
-            System.out.println("!VerifyLimits");
+            p.moveVertical(-p.getVelocityY());
         }
     }
     public boolean verifyLimits(Particle p, int x, int y){
@@ -192,42 +182,152 @@ public class Chamber
         int auxYMax = height;
         if (p.getIsLeft()){
             auxXMin=-width/2;
-            auxXMax=0;         
-            if (x > auxXMin  && auxXMax > x  && y > auxYMin  && y < auxYMax){
-                return true;
-            }
-        }
-        else{
+            auxXMax=0;
+            return  x > auxXMin  && x < auxXMax  && y > auxYMin  && y < auxYMax;
+        }        
+        if (!p.getIsLeft()){
             auxXMin=0;  
             auxXMax=width/2; 
-            if (x > auxXMin  && auxXMax > x  && y > auxYMin  && y < auxYMax){
-                return true;
-            }
+            return x > auxXMin  && x < auxXMax  && y > auxYMin  && y < auxYMax;
+
         }
         return false;
     }
     
-    public void bounce(Particle p){
+    public void bounce(Particle p, int x, int y){
         // SOBREPASAR
         if (p.getIsLeft()){
-            bounceLeft(p);
+            
+            bounceLeft(p,x,y);
+        }
+        if (!p.getIsLeft()){
+            bounceRight(p,x,y);
         }
     }
-    public void bounceLeft(Particle p) {
-        int x = p.getXPositionC();
-        int y = p.getYPositionC();
-    
-        // Rebote en las paredes verticales (línea verde en x = 0 o pared izquierda en x = -width/2)
-        if (x >= 0 || x <= -width / 2) {
-            p.setVelocityX(-p.getVelocityX()); // Invierte la velocidad en X
-            System.out.println("Rebote en pared vertical: Nueva VelocidadX = " + p.getVelocityX());
+    public void bounceRight(Particle p,int espeX, int espeY){
+        int velociX = p.getVelocityX();
+        int velociY = p.getVelocityY();
+        if (espeX >= width/2){ // PARED
+            if (velociX > 0 && velociY > 0){ 
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
+            }
+            else if (velociX > 0 && velociY < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la x positiva
+            }
         }
-    
-        // Rebote en las paredes horizontales (parte superior en y = height o suelo en y = 0)
-        if (y >= height || y <= 0) {
-            p.setVelocityY(-p.getVelocityY()); // Invierte la velocidad en Y
-            System.out.println("Rebote en pared horizontal: Nueva VelocidadY = " + p.getVelocityY());
+        else if (espeX <= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
+            if (velociX < 0 && velociY < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
+            }
+            else if (velociX < 0 && velociY > 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+            }
         }
+        else if ((espeY < 0 || espeY >= height) && (espeX >= 0 && espeX <= width/2)){
+            if (velociX < 0 && velociY < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (velociX > 0 && velociY < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la x positiva
+            }
+            else if (velociX > 0 && velociY > 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
+            }
+            else if (velociX < 0 && velociY > 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo Y POSITIVA    
+            }
+        }
+                
     }
-
+    public void bounceInCorner(Particle p, int x,int y){
+        p.setVelocityX(p.getVelocityX()*(-1));
+        p.setVelocityY(p.getVelocityY()*(-1));
+    }
+    public void bounceLeft(Particle p,int espeX, int espeY){
+        int velociX = p.getVelocityX();
+        int velociY = p.getVelocityY();
+        
+        if ((espeX == 0 || espeX == -width/2) && (espeY == 0 || espeY == height)){
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX > 0 ) && (espeY > height)){
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX > 0 ) && (espeY < 0)){
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX < -width/2 ) && (espeY > height)){
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX < -width/2 ) && (espeY < 0)){
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if (espeX <= -width/2){ // PARED
+            if (velociX > 0 && velociY > 0){ 
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
+            }
+            else if (velociX< 0 && velociY < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
+            }
+            else if (velociX > 0 && velociY < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (velociX < 0 && velociY > 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+            }
+        }
+        
+        else if (espeX >= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
+            if (velociX > 0 && velociY > 0){ 
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
+            }
+            else if (velociX < 0 && velociY < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
+            }
+            else if (velociX > 0 && velociY < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la x positiva
+            }
+            else if (velociX < 0 && velociY > 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+            }
+        }
+        else if ((espeY < 0 || espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
+            if (velociX > 0 && velociY > 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
+            }
+            else if (velociX < 0 && velociY < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (velociX > 0 && velociY < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (velociX < 0 && velociY > 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo Y POSITIVA    
+            }
+        }
+        
+    }
+    public ArrayList<ArrayList<Integer>> getParticlesInfo(){
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(Particle p :particules){
+            ArrayList <Integer> info = new ArrayList<>();
+            info.add(p.getXPositionC());
+            info.add(p.getYPositionC());
+            info.add(p.getVelocityX());
+            info.add(p.getVelocityY());
+            list.add(info);
+        }
+        return list;
+    }
+    public ArrayList<ArrayList<Integer>> getHolesInfo(){
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(Hole h :holes){
+            ArrayList <Integer> info = new ArrayList<>();
+            info.add(h.getMaxParticles());
+            info.add(h.getXPosition());
+            info.add(h.getYPosition());
+            list.add(info);
+        }
+        return list;
+    }
 }

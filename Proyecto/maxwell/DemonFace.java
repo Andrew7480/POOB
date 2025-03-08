@@ -13,13 +13,13 @@ public class DemonFace
         int auxYMin=0;
         int auxYMax=height; //newYPos-yPosition;        
         if (d >= auxYMin && d <= auxYMax){
-            faceDemon = new Circle("yellow",xPosition,yPosition+auxYMax-d);
+            faceDemon = new Circle("magenta",xPosition,yPosition+auxYMax-d,10);
             posD = d;
             faceDemon.changeSize(10);
             makeVisible();
         }
     }
-    public int getD(){
+    public int getPosD(){
         return posD;
     }
     public void makeVisible(){

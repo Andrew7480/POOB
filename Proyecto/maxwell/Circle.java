@@ -26,8 +26,8 @@ public class Circle{
         color = "blue";
         isVisible = false;
     }
-    public Circle(String newColor, int newXPosition, int newYPosition){
-        diameter = 5;
+    public Circle(String newColor, int newXPosition, int newYPosition, int ra){
+        diameter = ra;  //5
         xPosition = newXPosition;
         yPosition = newYPosition;
         color = newColor;

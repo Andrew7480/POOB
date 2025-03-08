@@ -35,11 +35,18 @@ public class Hole
     public int getParticlesSize(){
         return particles.size();   
     }
+    public int getXPosition(){
+        return blackHole.getXPosition();
+    }
+    public int getYPosition(){
+        return blackHole.getYPosition();
+    }
+    
     public void addParticles(int particles1){ //mal
         
         //Particle p = new Particle("Yellow",0,0,0,0);
         return;    
         
         
-    }
+        }
 }
