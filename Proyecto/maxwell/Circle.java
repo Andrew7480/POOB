@@ -176,6 +176,13 @@ public class Circle{
         return color;
     }
     
+    public int getXPosition(){
+        return xPosition;
+    }
+    
+    public int getYPosition(){
+        return yPosition;
+    }
 
 
 }

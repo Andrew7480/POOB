@@ -52,9 +52,7 @@ public class Chamber
             c.makeVisibleParticle();
             particules.add(c);
             
-        }
-       
-        
+        }        
     }
     public void addParticleNoRed(String color,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition()+1;
@@ -69,8 +67,6 @@ public class Chamber
             c.makeVisibleParticle();
             particules.add(c);
         }
-       
-        
     }
     
     public boolean addDemon(int d){ // va de 0 a h
@@ -105,7 +101,7 @@ public class Chamber
         int auxYMax= height;  // -(chamberYPos-height-chamberYPos); 
         if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){ 
             px = chamberXPos + px; 
-            py = chamberYPos - py; 
+            py = chamberYPos - py;
             Hole h = new Hole(px,py, particles);
             h.makeVisibleHole();
             holes.add(h);
@@ -147,5 +143,126 @@ public class Chamber
     public void showCenter(){
         chamberCenter.showCenter();
     }
+    public void movement(Particle p){
+        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberYPos =chamberCenter.getYPosition()+height;
+        int positionEsperadaX = p.getXPositionC();
+        int positionEsperadaY = p.getYPositionC();
+        if (p.getIsLeft()){
+            positionEsperadaX = -(chamberXPos - positionEsperadaX); 
+            positionEsperadaY = chamberYPos - positionEsperadaY;
+        }
+        if(!p.getIsLeft()){
+            positionEsperadaX = positionEsperadaX - chamberXPos; 
+            positionEsperadaY = chamberYPos - positionEsperadaY;
+        }
+        System.out.println(positionEsperadaX + p.getVelocityX() + " " + positionEsperadaY + p.getVelocityY());
+        if (verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() > 0)){
+            p.moveHorizontal(p.getVelocityX());
+            p.moveVertical(p.getVelocityY()*-1);
+        }
+        if (!verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY())){
+            bounce(p);
+            p.moveHorizontal(p.getVelocityX());
+            p.moveVertical(p.getVelocityY()*-1);
+            System.out.println("!VerifyLimits");
+        }
+    }
+    public boolean verifyLimits(Particle p, int x, int y){
+        int auxXMin;
+        int auxXMax;
+        int auxYMin = 0;
+        int auxYMax = height;
+        if (p.getIsLeft()){
+            auxXMin=-width/2;
+            auxXMax=0;         
+            if (x > auxXMin  && auxXMax > x  && y > auxYMin  && y < auxYMax){
+                return true;
+            }
+        }
+        else{
+            auxXMin=0;  
+            auxXMax=width/2; 
+            if (x > auxXMin  && auxXMax > x  && y > auxYMin  && y < auxYMax){
+                return true;
+            }
+        }
+        return false;
+    }
     
+    public void bounce(Particle p){
+        // SOBREPASAR
+        if ((p.getXPositionC() == 0 || p.getXPositionC() == width/2 || p.getXPositionC() == -width/2) && (p.getYPositionC() == 0 || p.getYPositionC() == height)){
+            p.setVelocityX(p.getVelocityX()*(-1));
+            p.setVelocityY(p.getVelocityY()*(-1));
+            System.out.println(p.getVelocityX()+"COMPARACION"+p.getVelocityY());
+        }
+        else if (p.getXPositionC() == 0 || p.getXPositionC() >= width/2 || p.getXPositionC() <= -width/2 ){
+            System.out.println("bbbbb");
+            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){ // PAREDES
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
+                System.out.println(p.getVelocityX()+"COMPARACION 1"+p.getVelocityY());
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
+                System.out.println(p.getVelocityX()+"COMPARACION 2"+p.getVelocityY());
+            }
+            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+            }
+        }
+        else if (p.getYPositionC() >= 0 || p.getYPositionC() <= height){
+            System.out.println("eeeeeeeeeee");
+            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+                System.out.println("Deberia");
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo Y NEGATIVA
+            }
+        }
+        else if (p.getIsLeft() && (p.getXPositionC() >= 0)){
+            System.out.println("cccccccc");
+            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){ // PAREDES
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
+                System.out.println(p.getVelocityX()+"COMPARACION 1"+p.getVelocityY());
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
+                System.out.println(p.getVelocityX()+"COMPARACION 2"+p.getVelocityY());
+            }
+            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+            }
+        }
+        else if ((!p.getIsLeft()) && (p.getXPositionC() <= 0)){
+            System.out.println("ddddddd");
+            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){ // PAREDES
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
+                System.out.println(p.getVelocityX()+"COMPARACION 1"+p.getVelocityY());
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
+                System.out.println(p.getVelocityX()+"COMPARACION 2"+p.getVelocityY());
+            }
+            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
+                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
+            }
+            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+            }
+        }
+    }
 }

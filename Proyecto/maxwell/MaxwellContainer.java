@@ -87,6 +87,12 @@ public class MaxwellContainer
         //metodo verificar?
         //check hole - demons
         //delay -- wait -- thread.sleep(1).
+        ArrayList<Particle> p = chamber.getParticules();
+        for (int i = 0; i < ticks; i++){
+            for (Particle h : p){
+                chamber.movement(h);
+            }
+        }
     }
     public boolean isGoal(){
         return true;
