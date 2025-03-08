@@ -19,7 +19,6 @@ public class Particle
         c.makeVisible();
         makeVisibleParticle();
     }
-    
     public void changeColorParticle(String color){
         c.changeColor(color);
     }

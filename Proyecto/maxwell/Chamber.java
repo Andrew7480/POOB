@@ -128,9 +128,26 @@ public class Chamber
     public void makeVisible(){
         chamberForm.makeVisible();
         chamberCenter.makeVisible();
-        //chamberForm.showCenter();
+        for (Particle h : particules){
+            h.makeVisibleParticle();
+        }
+        for (DemonFace c : devils){
+            c.makeVisible();
+        }
+        for (Hole o : holes){
+            o.makeVisibleHole();
+        }
     }
     public void makeInvisible(){
+        for (Particle h : particules){
+            h.makeInvisibleParticle();
+        }
+        for (DemonFace c : devils){
+            c.makeInvisible();
+        }
+        for (Hole o : holes){
+            o.makeInvisibleHole();
+        }
         chamberForm.makeInvisible();
         chamberCenter.makeInvisible();
     }
@@ -156,7 +173,7 @@ public class Chamber
             positionEsperadaX = positionEsperadaX - chamberXPos; 
             positionEsperadaY = chamberYPos - positionEsperadaY;
         }
-        System.out.println(positionEsperadaX + p.getVelocityX() + " " + positionEsperadaY + p.getVelocityY());
+        System.out.println((positionEsperadaX + p.getVelocityX()) + " " + (positionEsperadaY + p.getVelocityY()));
         if (verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() > 0)){
             p.moveHorizontal(p.getVelocityX());
             p.moveVertical(p.getVelocityY()*-1);
@@ -192,77 +209,25 @@ public class Chamber
     
     public void bounce(Particle p){
         // SOBREPASAR
-        if ((p.getXPositionC() == 0 || p.getXPositionC() == width/2 || p.getXPositionC() == -width/2) && (p.getYPositionC() == 0 || p.getYPositionC() == height)){
-            p.setVelocityX(p.getVelocityX()*(-1));
-            p.setVelocityY(p.getVelocityY()*(-1));
-            System.out.println(p.getVelocityX()+"COMPARACION"+p.getVelocityY());
-        }
-        else if (p.getXPositionC() == 0 || p.getXPositionC() >= width/2 || p.getXPositionC() <= -width/2 ){
-            System.out.println("bbbbb");
-            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){ // PAREDES
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-                System.out.println(p.getVelocityX()+"COMPARACION 1"+p.getVelocityY());
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-                System.out.println(p.getVelocityX()+"COMPARACION 2"+p.getVelocityY());
-            }
-            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
-            }
-        }
-        else if (p.getYPositionC() >= 0 || p.getYPositionC() <= height){
-            System.out.println("eeeeeeeeeee");
-            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-                System.out.println("Deberia");
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo Y NEGATIVA
-            }
-        }
-        else if (p.getIsLeft() && (p.getXPositionC() >= 0)){
-            System.out.println("cccccccc");
-            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){ // PAREDES
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-                System.out.println(p.getVelocityX()+"COMPARACION 1"+p.getVelocityY());
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-                System.out.println(p.getVelocityX()+"COMPARACION 2"+p.getVelocityY());
-            }
-            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
-            }
-        }
-        else if ((!p.getIsLeft()) && (p.getXPositionC() <= 0)){
-            System.out.println("ddddddd");
-            if (p.getXPositionC() > 0 && p.getYPositionC() > 0){ // PAREDES
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-                System.out.println(p.getVelocityX()+"COMPARACION 1"+p.getVelocityY());
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-                System.out.println(p.getVelocityX()+"COMPARACION 2"+p.getVelocityY());
-            }
-            else if (p.getXPositionC() > 0 && p.getYPositionC() < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (p.getXPositionC() < 0 && p.getYPositionC() > 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
-            }
+        if (p.getIsLeft()){
+            bounceLeft(p);
         }
     }
+    public void bounceLeft(Particle p) {
+        int x = p.getXPositionC();
+        int y = p.getYPositionC();
+    
+        // Rebote en las paredes verticales (línea verde en x = 0 o pared izquierda en x = -width/2)
+        if (x >= 0 || x <= -width / 2) {
+            p.setVelocityX(-p.getVelocityX()); // Invierte la velocidad en X
+            System.out.println("Rebote en pared vertical: Nueva VelocidadX = " + p.getVelocityX());
+        }
+    
+        // Rebote en las paredes horizontales (parte superior en y = height o suelo en y = 0)
+        if (y >= height || y <= 0) {
+            p.setVelocityY(-p.getVelocityY()); // Invierte la velocidad en Y
+            System.out.println("Rebote en pared horizontal: Nueva VelocidadY = " + p.getVelocityY());
+        }
+    }
+
 }
