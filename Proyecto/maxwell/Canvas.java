@@ -22,8 +22,8 @@ public class Canvas{
     // shape objects in this project clean and simple for educational purposes.
 
     private static Canvas canvasSingleton;
-    int centerX;
-    int centerY;
+    public int centerX;
+    public int centerY;
     
     public void drawCartesianPlane() {
         int width = canvas.getWidth();
