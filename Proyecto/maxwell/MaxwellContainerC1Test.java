@@ -76,6 +76,14 @@ public class MaxwellContainerC1Test
         
     }
     @Test
+    public void shouldNotAddDemon(){
+        MaxwellContainer a = new MaxwellContainer(100,200);
+        a.addDemon(-20);
+        a.finish();
+        assertFalse(a.ok());
+        
+    }
+    @Test
     public void shouldDelDemon(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(20);
@@ -87,9 +95,17 @@ public class MaxwellContainerC1Test
     @Test
     public void shouldAddParticle(){
         MaxwellContainer a = new MaxwellContainer(100,200);
-        a.addParticle("green", true, 20, 20, 5, 4);
+        a.addParticle("green", true, -20, 20, 5, 4);
         a.finish();
         assertTrue(a.ok());
+        
+    }
+    @Test
+    public void shouldNotAddParticle(){
+        MaxwellContainer a = new MaxwellContainer(100,200);
+        a.addParticle("green", false, 20, -20, 5, 4);
+        a.finish();
+        assertFalse(a.ok());
         
     }
     @Test
@@ -110,7 +126,14 @@ public class MaxwellContainerC1Test
         assertTrue(a.ok());
         
     }
-    
+    @Test
+    public void shouldNotAddHole(){
+        MaxwellContainer a = new MaxwellContainer(100,200);
+        a.addHole(50, -5000, 7);
+        a.finish();
+        assertFalse(a.ok());
+        
+    }    
     @Test
     public void shouldStart(){
         MaxwellContainer a = new MaxwellContainer(100,200);

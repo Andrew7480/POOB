@@ -117,7 +117,7 @@ public class MaxwellContainer
        */
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
-            theLastActionWasSuccess=false;
+            theLastActionWasSuccess = false;
             JOptionPane.showMessageDialog(null, "py can't be negative");
             return;    
         }
@@ -259,7 +259,7 @@ public class MaxwellContainer
        */
     public void finish(){
         Canvas.getCanvas().close();
-        theLastActionWasSuccess=true;
+        //theLastActionWasSuccess=true;
     }
     /**
      * determine if the action was success
