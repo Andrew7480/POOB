@@ -8,6 +8,13 @@ public class DemonFace
 {
     private Circle faceDemon;
     private int posD;
+    /**
+     * Constructor of demon face
+     * @param int xPosition
+     * @param int yPosition
+     * @param int width
+     * @param int d
+       */
     public DemonFace(int xPosition, int yPosition, int width, int height, int d){
         int newYPos = yPosition+height;
         int auxYMin=0;
@@ -19,12 +26,21 @@ public class DemonFace
             makeVisible();
         }
     }
+    /**
+     * return the position of the demon
+       */
     public int getPosD(){
         return posD;
     }
+    /**
+     * make visible of the face demon
+       */
     public void makeVisible(){
         faceDemon.makeVisible();
     }
+    /**
+     * make invisible of the face demon
+       */
     public void makeInvisible(){
         faceDemon.makeInvisible();
     }

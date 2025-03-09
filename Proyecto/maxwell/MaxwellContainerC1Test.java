@@ -27,7 +27,20 @@ public class MaxwellContainerC1Test
     public void setUp()
     {
     }
-
+    @Test
+    public void accordingCRShouldCreateMaxwellContainer(){
+        MaxwellContainer a = new MaxwellContainer();
+        MaxwellContainer b = new MaxwellContainer(200,300);
+        assertTrue(a.equals(b));
+    }
+    @Test
+    public void accordingCRShouldStart(){
+        MaxwellContainer a = new MaxwellContainer();
+        MaxwellContainer b = new MaxwellContainer();
+        a.start(100);
+        b.start(100);
+        assertEquals(a.particles(),b.particles());
+    }
     /**
      * Tears down the test fixture.
      *

@@ -22,8 +22,8 @@ public class Canvas{
     // shape objects in this project clean and simple for educational purposes.
 
     private static Canvas canvasSingleton;
-        int centerX;
-        int centerY;
+    int centerX;
+    int centerY;
     
     public void drawCartesianPlane() {
         int width = canvas.getWidth();
@@ -212,6 +212,13 @@ public class Canvas{
         } catch (IOException e) {
             System.out.println("Error cargando la imagen: " + e.getMessage());
         }
+    }
+    /**
+     * close the canvas
+       */
+    public void close(){
+        frame.dispose();
+        canvasSingleton = null;
     }
 
     /************************************************************************

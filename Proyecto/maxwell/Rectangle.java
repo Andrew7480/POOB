@@ -34,7 +34,13 @@ public class Rectangle{
         color = "white";
         isVisible = false;
     }
-    
+    /**
+     * Create a new rectangle
+     * @param int newXPosition
+     * @param int newYPosition
+     * @param int newWidth
+     * @param int newHeight
+       */
     public Rectangle (int newXPosition, int newYPosition, int newWidth, int newHeight){
         xPosition = newXPosition;
         yPosition = newYPosition;
@@ -43,7 +49,14 @@ public class Rectangle{
         color = "green";
         isVisible = false;
     }
-    
+    /**
+     * Create a new rectangle
+     * @param int newXPosition
+     * @param int newYPosition
+     * @param int newWidth
+     * @param int newHeight
+     * @param String newColor
+       */
     public Rectangle (int newXPosition, int newYPosition, int newWidth, int newHeight, String newColor){
         xPosition = newXPosition;
         yPosition = newYPosition;
@@ -52,7 +65,11 @@ public class Rectangle{
         color = newColor;
         isVisible = false;
     }
-    
+    /**
+     * Create a new rectangle
+     * @param int h
+     * @param int w
+       */
     public Rectangle(int h, int w){
         height = h;
         width = w;
@@ -117,7 +134,11 @@ public class Rectangle{
         xPosition += distance;
         draw();
     }
-
+    /**
+     * Move the rectangle to new positions in x or y
+     * @param int newX
+     * @param int newY
+       */
     public void moveTo(int newX, int newY){
         erase();
         xPosition = newX;
@@ -196,15 +217,23 @@ public class Rectangle{
         color = newColor;
         draw();
     }
-    
-    
+    /**
+     * return the position in x of the rectangle
+       */
     public int getXPosition(){
         return xPosition;
     }
+    /**
+     * return the position in y of the rectangle
+       */
     public int getYPosition(){
         return yPosition;
     }
-    
+    /**
+     * set the position of the rectangle
+     * @param int px
+     * @param int py
+       */
     public void setPosition(int px, int py){
         xPosition = px;
         yPosition = py;
@@ -233,11 +262,16 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
-    
+    /**
+     * Shows the cartesian plane of canva
+       */
     public void showCenter(){
         Canvas canvas= Canvas.getCanvas();
         canvas.drawCartesianPlane();
     }
+    /**
+     * Method that determines the center of the rectangle
+       */
     public ArrayList<Integer> getCenterXY(){
         Canvas canvas= Canvas.getCanvas();
         int centerX = canvas.getCenterX();

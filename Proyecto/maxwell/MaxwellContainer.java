@@ -14,7 +14,11 @@ public class MaxwellContainer
     private int height;
     private int xPosition;
     private int yPosition;
-    
+    /**
+     * Constructor of MaxwellContainer
+     * @param int h
+     * @param int w
+       */
     public MaxwellContainer(int h, int w){
         if (h < 0 ) theLastActionWasSuccess = false;
         chamber = new Chamber(h, 2*w);
@@ -23,7 +27,7 @@ public class MaxwellContainer
         height = h;
         makeVisible();
     }
-    
+    //PARA LA SUSTENTACIÓN
     public MaxwellContainer(){
         int h =200;
         int w=300;
@@ -35,8 +39,15 @@ public class MaxwellContainer
         height = h;
         makeVisible();
     }
-    
-    
+    /**
+     * Constructor of MaxwellContainer
+     * @param int h
+     * @param int w
+     * @param int d
+     * @param int b
+     * @param int r
+     * @param ArrayList<ArrayList<Integer>> particles
+       */
     public MaxwellContainer(int h, int w, int d, int b, int r, ArrayList<ArrayList<Integer>> particles){
         if (h < 0 ) theLastActionWasSuccess = false;
         chamber = new Chamber(h, 2*w);
@@ -57,7 +68,10 @@ public class MaxwellContainer
         }
         
     }
-    
+    /**
+     * add demons in the container
+     * @param int d
+       */
     public void addDemon(int d){
         if (d>=0) {
             theLastActionWasSuccess = chamber.addDemon(d);   
@@ -66,6 +80,7 @@ public class MaxwellContainer
             theLastActionWasSuccess =false;    
         }
     }
+    // ESTO ES PARA LA SUSTENTACIÓN
     public void addDemons(){
         theLastActionWasSuccess = chamber.addDemon(60);   
         theLastActionWasSuccess = chamber.addDemon(20);   
@@ -74,10 +89,22 @@ public class MaxwellContainer
         theLastActionWasSuccess = chamber.addDemon(140);   
         
     }
-    
+    /**
+     * delete demons of the container
+     * @param int d
+       */
     public void delDemon(int d){
         theLastActionWasSuccess = chamber.delDemon(d);
     }
+    /**
+     * add particles depends of is red or not to the container
+     * @param String color
+     * @param boolean isRed
+     * @param int px
+     * @param int py
+     * @param int vx
+     * @param int vy
+       */
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
             theLastActionWasSuccess=false;
@@ -86,6 +113,7 @@ public class MaxwellContainer
         
         chamber.addParticle(color,isRed,px,py,vx,vy);
     }
+    // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
         boolean isRed=true;
         chamber.addParticle("red",isRed,-100,150,5,5);
@@ -101,6 +129,10 @@ public class MaxwellContainer
         chamber.addParticle("green",!isRed,1,199,-1,1);
     
     }
+    /**
+     * deletes the particules depends of the color
+     * @param String color
+       */
     public void delParticle(String color){
         ArrayList<Particle> particules_left = chamber.getParticules();
         for (int i = 0; i < particules_left.size(); i++){
@@ -112,7 +144,13 @@ public class MaxwellContainer
                 theLastActionWasSuccess = false;
             }
         }
-    }    
+    }
+    /**
+     * add holes to the container
+     * @param int px
+     * @param int py
+     * @param int particles
+       */
     public void addHole(int px, int py, int particles){
         if (py<0){
             theLastActionWasSuccess=false;
@@ -120,6 +158,7 @@ public class MaxwellContainer
         }        
         theLastActionWasSuccess = chamber.addHole(px,py,particles);
     }
+    // ESTO ES PARA LA SUSTENTACIÓN
     public void addHoles(){
         theLastActionWasSuccess = chamber.addHole(100,100,7);
         theLastActionWasSuccess = chamber.addHole(-100,100,90);
@@ -127,6 +166,10 @@ public class MaxwellContainer
         theLastActionWasSuccess = chamber.addHole(-180,10,89);
         theLastActionWasSuccess = chamber.addHole(10,189,42);
     }
+    /**
+     * start the simulation ticks time
+     * @param int ticks
+       */
     public void start(int ticks){
         //metodo verificar?
         //check hole - demons
@@ -144,36 +187,90 @@ public class MaxwellContainer
     public boolean isGoal(){
         return true;
     }
+    /**
+     * return the positions of the demons from lowest to highest.
+       */
     public ArrayList<Integer> demons(){ // [0,1];
         return chamber.demons();
     }
+    /**
+     * return the positions and velocity of each particle [px,py,vx,vy] in order from lowest to highest.
+       */
     public ArrayList<ArrayList<Integer>> particles(){ // [[px,py,vx,vy]];
-        //System.out.println(chamber.getParticlesInfp());
-        return chamber.getParticlesInfo();
-    }
-    public ArrayList<ArrayList<Integer>> holes(){
-        System.out.println(chamber.getHolesInfo());
-        return chamber.getHolesInfo();
+        ArrayList<ArrayList<Integer>> particlesInfo = chamber.getParticlesInfo();
+        Collections.sort(particlesInfo, new Comparator<ArrayList<Integer>>(){
+            @Override
+            public int compare(ArrayList<Integer> list1, ArrayList<Integer> list2){
+                return list1.get(0).compareTo(list2.get(0));
+            }
+        });
+        System.out.println(particlesInfo);
+        return particlesInfo;
     }
     /**
-     * 
+     * return the positions and particules remains [px, py, particles] in order from lowest to highest
+       */
+    public ArrayList<ArrayList<Integer>> holes(){
+        ArrayList<ArrayList<Integer>> holesInfo = chamber.getHolesInfo();
+        Collections.sort(holesInfo, new Comparator<ArrayList<Integer>>(){
+            @Override
+            public int compare(ArrayList<Integer> list1, ArrayList<Integer> list2){
+                return list1.get(0).compareTo(list2.get(0));
+            }
+        });
+        System.out.println(holesInfo);
+        return holesInfo;
+    }
+    /**
+     * makes visible the Maxwell Container
        */
     public void makeVisible(){
         chamber.makeVisible();
     }
     /**
-     * 
+     * makes invisible the Maxwell Container
         */
     public void makeInvisible(){
         chamber.makeInvisible();
     }
+    /**
+     * finish the simulation of maxwell container
+       */
     public void finish(){
-        
+        Canvas.getCanvas().close();
     }
+    /**
+     * determine if the action was success
+       */
     public boolean ok(){
         return theLastActionWasSuccess;
     }
+    /**
+     * gives the center of the chamber
+       */
     public void showCenter(){
         chamber.showCenter();   
+    }
+    /**
+     * gives the width of the container
+       */
+    public int getWidthContainer(){
+        return width;
+    }
+    /**
+     * gives the height of the container
+       */
+    public int getHeightContainer(){
+        return height;
+    }
+    @Override
+    public boolean equals(Object obj){
+        return equals((MaxwellContainer) obj);
+    }
+    /**
+     * compare equals
+       */
+    public boolean equals(MaxwellContainer a){
+        return a.getWidthContainer() == width && a.getHeightContainer() == height;
     }
 }
