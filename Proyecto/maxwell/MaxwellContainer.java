@@ -31,8 +31,10 @@ public class MaxwellContainer
     public MaxwellContainer(){
         int h =200;
         int w=300;
-        if (h < 0 ) theLastActionWasSuccess = false;
-        
+        if (h < 0 ){ 
+            theLastActionWasSuccess = false;
+            return;
+        }
         chamber = new Chamber(h, 2*w);
         theLastActionWasSuccess = true;
         width = w;
@@ -49,7 +51,10 @@ public class MaxwellContainer
      * @param ArrayList<ArrayList<Integer>> particles
        */
     public MaxwellContainer(int h, int w, int d, int b, int r, ArrayList<ArrayList<Integer>> particles){
-        if (h < 0 ) theLastActionWasSuccess = false;
+        if (h < 0 ) {
+            theLastActionWasSuccess = false;
+            return;
+        }
         chamber = new Chamber(h, 2*w);
         theLastActionWasSuccess = true;
         width = w;
@@ -134,16 +139,7 @@ public class MaxwellContainer
      * @param String color
        */
     public void delParticle(String color){
-        ArrayList<Particle> particules_left = chamber.getParticules();
-        for (int i = 0; i < particules_left.size(); i++){
-            if (particules_left.get(i).getColor() == color){
-                particules_left.get(i).makeInvisibleParticle();
-                theLastActionWasSuccess = true;
-            }
-            else{
-                theLastActionWasSuccess = false;
-            }
-        }
+        theLastActionWasSuccess = chamber.delParticle(color);
     }
     /**
      * add holes to the container
@@ -158,6 +154,7 @@ public class MaxwellContainer
         }        
         theLastActionWasSuccess = chamber.addHole(px,py,particles);
     }
+    
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addHoles(){
         theLastActionWasSuccess = chamber.addHole(100,100,7);

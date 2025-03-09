@@ -93,6 +93,21 @@ public class Chamber
         }
     }
     /**
+     * deletes the particules depends of the color
+     * @param String color
+       */
+    public boolean delParticle(String color){
+        boolean theLastActionWasSuccess = false;
+        for (int i = 0; i < particules.size(); i++){
+            if (particules.get(i).getColor() == color){
+                particules.get(i).makeInvisibleParticle();
+                theLastActionWasSuccess = true;
+            }
+        }
+        return theLastActionWasSuccess;
+    }
+    
+    /**
      * if the position is no repeated creates a new demon in d
      * @param int d
        */
