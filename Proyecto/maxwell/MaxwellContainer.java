@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.JOptionPane;
 /**
  * Write a description of class MaxwellContainer here.
  * 
@@ -20,26 +21,28 @@ public class MaxwellContainer
      * @param int w
        */
     public MaxwellContainer(int h, int w){
-        if (h < 0 ) theLastActionWasSuccess = false;
-        chamber = new Chamber(h, 2*w);
-        theLastActionWasSuccess = true;
-        width = w;
-        height = h;
-        makeVisible();
-    }
-    //PARA LA SUSTENTACIÓN
-    public MaxwellContainer(){
-        int h =200;
-        int w=300;
-        if (h < 0 ){ 
+        if (h < 0 ||  w <0){
             theLastActionWasSuccess = false;
+            //JOptionPane.showMessageDialog(null, "Negative values ");
             return;
         }
         chamber = new Chamber(h, 2*w);
         theLastActionWasSuccess = true;
         width = w;
         height = h;
-        makeVisible();
+        makeInvisible();
+        //makeVisible();
+    }
+    //PARA LA SUSTENTACIÓN
+    public MaxwellContainer(){
+        int h =200;
+        int w=300;
+        chamber = new Chamber(h, 2*w);
+        theLastActionWasSuccess = true;
+        width = w;
+        height = h;
+        makeInvisible();
+        //makeVisible();
     }
     /**
      * Constructor of MaxwellContainer
@@ -51,15 +54,16 @@ public class MaxwellContainer
      * @param ArrayList<ArrayList<Integer>> particles
        */
     public MaxwellContainer(int h, int w, int d, int b, int r, ArrayList<ArrayList<Integer>> particles){
-        if (h < 0 ) {
+        if (h < 0 || w<0) {
             theLastActionWasSuccess = false;
+            //JOptionPane.showMessageDialog(null, "Negative values ");
             return;
         }
         chamber = new Chamber(h, 2*w);
         theLastActionWasSuccess = true;
         width = w;
         height = h;
-        makeVisible();
+        //makeVisible();
         addDemon(d);
         int total = b+r;
         
@@ -71,7 +75,7 @@ public class MaxwellContainer
             addParticle("red", true, particles.get(i).get(0),particles.get(i).get(1),particles.get(i).get(2), particles.get(i).get(3));
             total -=1;
         }
-        
+        makeInvisible();
     }
     /**
      * add demons in the container
@@ -79,11 +83,13 @@ public class MaxwellContainer
        */
     public void addDemon(int d){
         if (d>=0) {
-            theLastActionWasSuccess = chamber.addDemon(d);   
+            theLastActionWasSuccess = chamber.addDemon(d);
+            //JOptionPane.showMessageDialog(null, "d can't be negative");
+            return;
         }
-        else {
-            theLastActionWasSuccess =false;    
-        }
+        
+        theLastActionWasSuccess =false;    
+        
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addDemons(){
@@ -113,10 +119,12 @@ public class MaxwellContainer
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
             theLastActionWasSuccess=false;
+            //JOptionPane.showMessageDialog(null, "py can't be negative");
             return;    
         }
         
         chamber.addParticle(color,isRed,px,py,vx,vy);
+        theLastActionWasSuccess=true;
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
@@ -150,6 +158,7 @@ public class MaxwellContainer
     public void addHole(int px, int py, int particles){
         if (py<0){
             theLastActionWasSuccess=false;
+            //JOptionPane.showMessageDialog(null, "py can't be negative");
             return;
         }        
         theLastActionWasSuccess = chamber.addHole(px,py,particles);
@@ -201,7 +210,7 @@ public class MaxwellContainer
                 return list1.get(0).compareTo(list2.get(0));
             }
         });
-        System.out.println(particlesInfo);
+        //System.out.println(particlesInfo);
         return particlesInfo;
     }
     /**
@@ -215,7 +224,8 @@ public class MaxwellContainer
                 return list1.get(0).compareTo(list2.get(0));
             }
         });
-        System.out.println(holesInfo);
+        //System.out.println(holesInfo);
+        theLastActionWasSuccess=true;
         return holesInfo;
     }
     /**
@@ -223,18 +233,21 @@ public class MaxwellContainer
        */
     public void makeVisible(){
         chamber.makeVisible();
+        theLastActionWasSuccess=true;
     }
     /**
      * makes invisible the Maxwell Container
         */
     public void makeInvisible(){
         chamber.makeInvisible();
+        theLastActionWasSuccess=true;
     }
     /**
      * finish the simulation of maxwell container
        */
     public void finish(){
         Canvas.getCanvas().close();
+        theLastActionWasSuccess=true;
     }
     /**
      * determine if the action was success
@@ -246,18 +259,21 @@ public class MaxwellContainer
      * gives the center of the chamber
        */
     public void showCenter(){
-        chamber.showCenter();   
+        chamber.showCenter();
+        theLastActionWasSuccess=true;
     }
     /**
      * gives the width of the container
        */
     public int getWidthContainer(){
+        theLastActionWasSuccess=true;
         return width;
     }
     /**
      * gives the height of the container
        */
     public int getHeightContainer(){
+        theLastActionWasSuccess=true;
         return height;
     }
     @Override

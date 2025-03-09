@@ -114,7 +114,7 @@ public class Chamber
     public boolean addDemon(int d){ // va de 0 a h
         for (DemonFace de : devils){
             if(de.getPosD() == d){
-                JOptionPane.showMessageDialog(null, "There is already a demon in that position");
+                //JOptionPane.showMessageDialog(null, "There is already a demon in that position");
                 return false;
             }
         }
@@ -287,9 +287,7 @@ public class Chamber
      * @param int y
        */
     public void bounce(Particle p, int x, int y){
-        // SOBREPASAR
         if (p.getIsLeft()){
-            
             bounceLeft(p,x,y);
         }
         if (!p.getIsLeft()){
