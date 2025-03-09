@@ -16,6 +16,8 @@ public class Chamber
     private ArrayList<Hole> holes = new ArrayList<>();
     private int width;
     private int height;
+    
+    private boolean isVisible = false;
     //private boolean theLastActionWasSucces = false;
     /**
      * create a chamber
@@ -65,7 +67,9 @@ public class Chamber
         int auxYMax= height; 
         if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){
             Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true);
-            c.makeVisibleParticle();
+            if(isVisible){
+                c.makeVisibleParticle();
+            }
             particules.add(c);
             
         }        
@@ -88,7 +92,9 @@ public class Chamber
         
         if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){
             Particle c = new Particle(color, px+ chamberXPos, chamberYPos - py, vx, vy, false);
-            c.makeVisibleParticle();
+            if(isVisible){
+                c.makeVisibleParticle();
+            }
             particules.add(c);
         }
     }
@@ -114,12 +120,17 @@ public class Chamber
     public boolean addDemon(int d){ // va de 0 a h
         for (DemonFace de : devils){
             if(de.getPosD() == d){
-                //JOptionPane.showMessageDialog(null, "There is already a demon in that position");
+                if (!isVisible){
+                    JOptionPane.showMessageDialog(null, "There is already a demon in that position");
+                }
                 return false;
             }
         }
         DemonFace demon = new DemonFace(chamberCenter.getXPosition(), chamberCenter.getYPosition(),width, height, d);
-        devils.add(demon);  
+        devils.add(demon);
+        if(isVisible){
+                demon.makeVisible();
+            }
         return true;
     }
     /**
@@ -154,7 +165,9 @@ public class Chamber
             px = chamberXPos + px; 
             py = chamberYPos - py;
             Hole h = new Hole(px,py, particles);
-            h.makeVisibleHole();
+            if (isVisible){
+                h.makeVisibleHole();
+            }
             holes.add(h);
             return true;
         }
@@ -200,6 +213,7 @@ public class Chamber
         for (Hole o : holes){
             o.makeVisibleHole();
         }
+        isVisible = true;
     }
     /**
      * make invisible everything in the chamber
@@ -216,6 +230,7 @@ public class Chamber
         }
         chamberForm.makeInvisible();
         chamberCenter.makeInvisible();
+        isVisible = false;
     }
     /**
      * return the amount of demons in the maxwell container
@@ -442,5 +457,8 @@ public class Chamber
             list.add(info);
         }
         return list;
+    }
+    public boolean getIsVisible(){
+        return isVisible;
     }
 }

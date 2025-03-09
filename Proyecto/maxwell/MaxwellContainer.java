@@ -23,7 +23,7 @@ public class MaxwellContainer
     public MaxwellContainer(int h, int w){
         if (h < 0 ||  w <0){
             theLastActionWasSuccess = false;
-            //JOptionPane.showMessageDialog(null, "Negative values ");
+            JOptionPane.showMessageDialog(null, "Negative values ");
             return;
         }
         chamber = new Chamber(h, 2*w);
@@ -56,7 +56,7 @@ public class MaxwellContainer
     public MaxwellContainer(int h, int w, int d, int b, int r, ArrayList<ArrayList<Integer>> particles){
         if (h < 0 || w<0) {
             theLastActionWasSuccess = false;
-            //JOptionPane.showMessageDialog(null, "Negative values ");
+            JOptionPane.showMessageDialog(null, "Negative values ");
             return;
         }
         chamber = new Chamber(h, 2*w);
@@ -84,10 +84,9 @@ public class MaxwellContainer
     public void addDemon(int d){
         if (d>=0) {
             theLastActionWasSuccess = chamber.addDemon(d);
-            //JOptionPane.showMessageDialog(null, "d can't be negative");
             return;
         }
-        
+        JOptionPane.showMessageDialog(null, "d can't be negative");
         theLastActionWasSuccess =false;    
         
     }
@@ -119,7 +118,7 @@ public class MaxwellContainer
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
             theLastActionWasSuccess=false;
-            //JOptionPane.showMessageDialog(null, "py can't be negative");
+            JOptionPane.showMessageDialog(null, "py can't be negative");
             return;    
         }
         
@@ -158,7 +157,7 @@ public class MaxwellContainer
     public void addHole(int px, int py, int particles){
         if (py<0){
             theLastActionWasSuccess=false;
-            //JOptionPane.showMessageDialog(null, "py can't be negative");
+            JOptionPane.showMessageDialog(null, "py can't be negative");
             return;
         }        
         theLastActionWasSuccess = chamber.addHole(px,py,particles);
@@ -191,6 +190,19 @@ public class MaxwellContainer
         isGoal();
     }
     public boolean isGoal(){
+        ArrayList<Particle> particle = chamber.getParticules();
+        for(Particle par: particle) {
+            if (par.getIsLeft()){
+                if(!par.getColorForBoolean().equalsIgnoreCase("red")){
+                    return false;
+                }
+            }
+            if (!par.getIsLeft()){
+                if(!par.getColorForBoolean().equalsIgnoreCase("azul")){
+                    return false;
+                }
+            }
+        }
         return true;
     }
     /**

@@ -23,7 +23,7 @@ public class DemonFace
             faceDemon = new Circle("magenta",xPosition,yPosition+auxYMax-d,10);
             posD = d;
             faceDemon.changeSize(10);
-            makeVisible();
+            
         }
     }
     /**

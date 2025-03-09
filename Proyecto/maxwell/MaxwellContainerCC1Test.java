@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class MaxwellContainerC1Test
+public class MaxwellContainerCC1Test
 {
     /**
      * Default constructor for test class MaxwellContainerC1Test
      */
-    public MaxwellContainerC1Test()
+    public MaxwellContainerCC1Test()
     {
     }
 
@@ -28,33 +28,30 @@ public class MaxwellContainerC1Test
     {
     }
     @Test
-    public void ShouldCreateMaxwellContainer(){
+    public void accordingCRShouldCreateMaxwellContainer(){
         MaxwellContainer a = new MaxwellContainer();
         MaxwellContainer b = new MaxwellContainer(200,300);
-        a.finish();
-        b.finish();
+        
         assertTrue(a.equals(b));
     }
     @Test
-    public void ShouldStart(){
+    public void accordingCRShouldStart(){
         MaxwellContainer a = new MaxwellContainer();
         MaxwellContainer b = new MaxwellContainer();
         a.start(100);
         b.start(100);
-        a.finish();
-        b.finish();
+        
         assertEquals(a.particles(),b.particles());
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
     @Test
-    public void CreateMaxwellContainer(){
+    public void accordingCRshouldCreateMaxwellContainer(){
         MaxwellContainer a = new MaxwellContainer(100,200);
-        a.finish();
         assertTrue(a.ok());
     }
     @Test
-    public void CreateMaxwellContainerTest(){
+    public void accordingCRshouldCreateMaxwellContainerTest(){
         MaxwellContainer a = new MaxwellContainer(100,200,80,5,3,new java.util.ArrayList<>(java.util.Arrays.asList(  
         new java.util.ArrayList<>(java.util.Arrays.asList(-80, 100, 4, 1)),  
         new java.util.ArrayList<>(java.util.Arrays.asList(-30, 180, 2, 1)),  
@@ -64,137 +61,122 @@ public class MaxwellContainerC1Test
         new java.util.ArrayList<>(java.util.Arrays.asList(187, 8, -15, -20)),  
         new java.util.ArrayList<>(java.util.Arrays.asList(100, 190, 30, 40)),  
         new java.util.ArrayList<>(java.util.Arrays.asList(11, 22, 33, 30))  )) );
-        a.finish();
         assertTrue(a.ok());
     }
     @Test
-    public void shouldAddDemon(){
+    public void accordingCRshouldAddDemon(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(20);
-        a.finish();
         assertTrue(a.ok());
         
     }
     @Test
-    public void shouldDelDemon(){
+    public void accordingCRshouldDelDemon(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(20);
         a.delDemon(20);
-        a.finish();
         assertTrue(a.ok());
         
     }
     @Test
-    public void shouldAddParticle(){
+    public void accordingCRshouldAddParticle(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addParticle("green", true, 20, 20, 5, 4);
-        a.finish();
         assertTrue(a.ok());
         
     }
     @Test
-    public void shouldDelParticle(){
+    public void accordingCRshouldDelParticle(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addParticle("green", false, 20, 20, 5, 4);
         a.delParticle("green");
-        a.finish();
         assertTrue(a.ok());
         
     }
 
     @Test
-    public void shouldAddHole(){
+    public void accordingCRshouldAddHole(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addHole(50, 50, 7);
-        a.finish();
         assertTrue(a.ok());
         
     }
     
     @Test
-    public void shouldStart(){
+    public void accordingCRshouldStart(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addHole(100, 100, 7);
         a.addParticle("green", true, 20, 20, 5, 4);
         a.addDemon(20);
         a.start(20);
-        a.finish();
         assertTrue(a.ok());
         
     }
     @Test
-    public void shouldIsGoal(){
+    public void accordingCRshouldIsGoal(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addHole(100, 100, 7);
         a.addParticle("green", true, 20, 20, 5, 4);
         a.addDemon(20);
         a.start(20);
         a.isGoal();
-        a.finish();
         assertTrue(a.ok());
         
     }
     @Test
-    public void shouldShowDemons(){
+    public void accordingCRshouldShowDemons(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(20);
         a.demons();
-        a.finish();
         assertTrue(a.ok());
     }
     
     @Test
-    public void shouldShowParticles(){
+    public void accordingCRshouldShowParticles(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addParticle("green", true, 20, 20, 5, 4);
         a.particles();
-        a.finish();
         assertTrue(a.ok());
     }
     
     @Test
-    public void shouldShowHoles(){
+    public void accordingCRshouldShowHoles(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addHole(100, 100, 7);
         a.holes();
-        a.finish();
         assertTrue(a.ok());
     }
     
     @Test
-    public void shouldMakeVisible(){
+    public void accordingCRshouldMakeVisible(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.makeVisible();
-        a.finish();
         assertTrue(a.ok());
     }
     @Test
-    public void shouldMakeInvisible(){
+    public void accordingCRshouldMakeInvisible(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.makeInvisible();
-        a.finish();
         assertTrue(a.ok());
     }
     @Test
-    public void shouldFinish(){
+    public void accordingCRshouldFinish(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.finish();
         assertTrue(a.ok());
     }
     
     @Test
-    public void shouldGetWidthContainer(){
+    public void accordingCRshouldGetWidthContainer(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.getWidthContainer();
-        a.finish();
         assertTrue(a.ok());
     }
     
     @Test
-    public void shouldGetHeightContainer(){
+    public void accordingCRshouldGetHeightContainer(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.getHeightContainer();
-        a.finish();
         assertTrue(a.ok());
     }
     

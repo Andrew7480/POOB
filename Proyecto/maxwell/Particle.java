@@ -71,6 +71,9 @@ public class Particle
     public String getColor(){
         return c.getColor();
     }
+    public String getColorForBoolean(){
+        return c1.getColor();
+    }
     /**
      * move horizontal the particle
      * @param int distance
