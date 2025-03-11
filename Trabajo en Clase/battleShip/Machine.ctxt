@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Machine
+comment1.params=longitude\ latitude
+comment1.target=boolean\ isDestroyed(int,\ int)
+comment2.params=
+comment2.target=boolean\ isWeakMachine()
+numComments=3

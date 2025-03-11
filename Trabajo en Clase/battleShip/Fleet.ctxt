@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Fleet
+comment1.params=longitude\ latitude
+comment1.target=java.util.ArrayList\ willBeDestroyed(int,\ int)
+comment2.params=
+comment2.target=java.util.ArrayList\ weakMachines()
+numComments=3

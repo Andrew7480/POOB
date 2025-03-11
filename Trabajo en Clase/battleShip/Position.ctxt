@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Position
+comment1.params=
+comment1.target=int\ getLongitude()
+comment2.params=
+comment2.target=int\ getLatitude()
+numComments=3
