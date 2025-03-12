@@ -2,6 +2,8 @@
 comment0.target=Position
 comment1.params=
 comment1.target=int\ getLongitude()
+comment1.text=\r\n\ return\ the\ longitude\ of\ the\ position.\r\n
 comment2.params=
 comment2.target=int\ getLatitude()
+comment2.text=\r\n\ return\ the\ latitude\ of\ the\ position.\r\n
 numComments=3
