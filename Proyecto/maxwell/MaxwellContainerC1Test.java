@@ -45,8 +45,6 @@ public class MaxwellContainerC1Test
         b.finish();
         assertEquals(a.particles(),b.particles());
     }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
     @Test
     public void CreateMaxwellContainer(){
         MaxwellContainer a = new MaxwellContainer(100,200);

@@ -53,13 +53,14 @@ public class MaxwellContainer
      * @param int r
      * @param ArrayList<ArrayList<Integer>> particles
        */
-    public MaxwellContainer(int h, int w, int d, int b, int r, ArrayList<ArrayList<Integer>> particles){
+    public MaxwellContainer(int h, int w, int d, int b, int r, int[][] particles){
         if (h < 0 || w<0) {
             theLastActionWasSuccess = false;
             JOptionPane.showMessageDialog(null, "Negative values ");
             return;
         }
         chamber = new Chamber(h, 2*w);
+        ArrayList<ArrayList<Integer>> particules = convertToArrayListArrayList(particles);
         theLastActionWasSuccess = true;
         width = w;
         height = h;
@@ -68,12 +69,12 @@ public class MaxwellContainer
         int total = b+r;
         
         
-        for (int i=0;i<particles.size();i++){
+        for (int i=0;i<particules.size();i++){
             if (total <=r){
-                addParticle("blue", false, particles.get(i).get(0),particles.get(i).get(1),particles.get(i).get(2), particles.get(i).get(3));
+                addParticle("blue", false, particules.get(i).get(0),particules.get(i).get(1),particules.get(i).get(2), particules.get(i).get(3));
                 continue;
             }
-            addParticle("red", true, particles.get(i).get(0),particles.get(i).get(1),particles.get(i).get(2), particles.get(i).get(3));
+            addParticle("red", true, particules.get(i).get(0),particules.get(i).get(1),particules.get(i).get(2), particules.get(i).get(3));
             total -=1;
         }
         makeInvisible();
@@ -307,4 +308,24 @@ public class MaxwellContainer
     public boolean equals(MaxwellContainer a){
         return a.getWidthContainer() == width && a.getHeightContainer() == height;
     }
+    
+    private ArrayList<ArrayList<Integer>> convertToArrayListArrayList(int [][] m){
+        ArrayList<ArrayList<Integer>> l = new ArrayList<>();
+        for (int [] fila : m){
+            ArrayList<Integer> f = new ArrayList<>();
+            for (int e : fila){
+                f.add(e);
+            }
+            l.add(f);
+        }
+        return l;
+    }
+    private ArrayList<Integer> convertoToArrayList(int [] m){
+        ArrayList<Integer> l = new ArrayList<>();
+        for (int e : m){
+            l.add(e);
+        }
+        return l;
+    }
+    
 }
