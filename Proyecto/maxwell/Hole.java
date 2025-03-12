@@ -20,7 +20,7 @@ public class Hole
     public Hole(int xPosition, int yPosition, int particles){
         blackHole = new Rectangle(xPosition, yPosition, 10, 10);
         maxParticles = particles;
-        makeVisibleHole();
+        
     }
     /**
      * Method that make visible of hole

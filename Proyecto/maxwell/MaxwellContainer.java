@@ -41,7 +41,7 @@ public class MaxwellContainer
         theLastActionWasSuccess = true;
         width = w;
         height = h;
-        makeInvisible();
+        //makeInvisible();
         //makeVisible();
     }
     /**
@@ -66,6 +66,7 @@ public class MaxwellContainer
         //makeVisible();
         addDemon(d);
         int total = b+r;
+        
         
         for (int i=0;i<particles.size();i++){
             if (total <=r){
@@ -93,10 +94,15 @@ public class MaxwellContainer
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addDemons(){
         theLastActionWasSuccess = chamber.addDemon(60);   
+        theLastActionWasSuccess = chamber.addDemon(70);   
+        theLastActionWasSuccess = chamber.addDemon(80);   
         theLastActionWasSuccess = chamber.addDemon(20);   
-        theLastActionWasSuccess = chamber.addDemon(100);   
+        theLastActionWasSuccess = chamber.addDemon(100);  
+        theLastActionWasSuccess = chamber.addDemon(110);
+        theLastActionWasSuccess = chamber.addDemon(120);   
         theLastActionWasSuccess = chamber.addDemon(200);   
         theLastActionWasSuccess = chamber.addDemon(140);   
+        theLastActionWasSuccess = chamber.addDemon(150);   
         
     }
     /**
@@ -139,7 +145,10 @@ public class MaxwellContainer
         chamber.addParticle("orange",!isRed,20,180,9,-4);
         chamber.addParticle("green",!isRed,200,199,-10,10);
         chamber.addParticle("green",!isRed,1,199,-1,1);
-    
+        
+        chamber.addParticle("blue",!isRed,5,65,-5,-5);
+        chamber.addParticle("blue",!isRed,10,65,-5,-5);
+        chamber.addParticle("blue",!isRed,5,55,5,5);
     }
     /**
      * deletes the particules depends of the color

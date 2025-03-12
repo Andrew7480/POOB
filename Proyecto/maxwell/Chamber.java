@@ -58,7 +58,7 @@ public class Chamber
      * @param int vx
      * @param int vy
        */
-    public void addParticleRed(String color,int px, int py, int vx, int vy){
+    private void addParticleRed(String color,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition()+1;
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=-width/2;  //-300 
@@ -82,7 +82,7 @@ public class Chamber
      * @param int vx
      * @param int vy
        */
-    public void addParticleNoRed(String color,int px, int py, int vx, int vy){
+    private void addParticleNoRed(String color,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition()+1;
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=0;  
@@ -277,11 +277,16 @@ public class Chamber
      * @param int x
      * @param int y
        */
-    public boolean verifyLimits(Particle p, int x, int y){
+    private boolean verifyLimits(Particle p, int x, int y){
         int auxXMin;
         int auxXMax;
         int auxYMin = 0;
         int auxYMax = height;
+        if (isInDemonPos(x,y)){
+            p.changeIsLeft();
+            return true;
+        }
+        
         if (p.getIsLeft()){
             auxXMin=-width/2;
             auxXMax=0;
@@ -301,7 +306,7 @@ public class Chamber
      * @param int x
      * @param int y
        */
-    public void bounce(Particle p, int x, int y){
+    private void bounce(Particle p, int x, int y){
         if (p.getIsLeft()){
             bounceLeft(p,x,y);
         }
@@ -315,7 +320,7 @@ public class Chamber
      * @param int espeX
      * @param int espeY
        */
-    public void bounceRight(Particle p,int espeX, int espeY){
+    private void bounceRight(Particle p,int espeX, int espeY){
         int velociX = p.getVelocityX();
         int velociY = p.getVelocityY();
         if (espeX >= width/2){ // PARED
@@ -356,7 +361,7 @@ public class Chamber
      * @param int x
      * @param int y
        */
-    public void bounceInCorner(Particle p, int x,int y){
+    private void bounceInCorner(Particle p, int x,int y){
         p.setVelocityX(p.getVelocityX()*(-1));
         p.setVelocityY(p.getVelocityY()*(-1));
     }
@@ -366,7 +371,7 @@ public class Chamber
      * @param int espeX
      * @param int espeY
        */
-    public void bounceLeft(Particle p,int espeX, int espeY){
+    private void bounceLeft(Particle p,int espeX, int espeY){
         int velociX = p.getVelocityX();
         int velociY = p.getVelocityY();
         if ((espeX == 0 || espeX == -width/2) && (espeY == 0 || espeY == height)){
@@ -385,14 +390,8 @@ public class Chamber
             bounceInCorner(p, espeX,espeY);
         }
         else if (espeX <= -width/2){ // PARED
-            if (velociX > 0 && velociY > 0){ 
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-            }
-            else if (velociX< 0 && velociY < 0){
+             if (velociX< 0 && velociY < 0){
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-            }
-            else if (velociX > 0 && velociY < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
             }
             else if (velociX < 0 && velociY > 0){
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
@@ -403,14 +402,8 @@ public class Chamber
             if (velociX > 0 && velociY > 0){ 
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
             }
-            else if (velociX < 0 && velociY < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-            }
             else if (velociX > 0 && velociY < 0){
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la x positiva
-            }
-            else if (velociX < 0 && velociY > 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
             }
         }
         else if ((espeY < 0 || espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
@@ -461,4 +454,16 @@ public class Chamber
     public boolean getIsVisible(){
         return isVisible;
     }
+    
+    private boolean isInDemonPos(int x, int y){
+        for (DemonFace d:devils){
+            if (x==0){
+                if (d.getPosD()==y){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 }

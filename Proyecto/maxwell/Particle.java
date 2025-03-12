@@ -33,7 +33,7 @@ public class Particle
         if (!isLeft){
             c1 = new Circle("blue",newXPosition,newYPosition,8);
         }
-        makeVisibleParticle();
+        
     }
     /**
      * change color of the particles 
@@ -133,5 +133,9 @@ public class Particle
        */
     public void setVelocityY(int y){
         velocityY = y;
+    }
+    
+    public void changeIsLeft(){
+        isLeft = !isLeft;
     }
 }
