@@ -164,7 +164,7 @@ public class Canvas{
         else if(colorString.equals("pink"))
             graphic.setColor(Color.pink);
         else
-            graphic.setColor(Color.black);
+            graphic.setColor(Color.black); //RGB EXTENDER
     }
 
     /**

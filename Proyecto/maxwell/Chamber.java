@@ -282,10 +282,12 @@ public class Chamber
         int auxXMax;
         int auxYMin = 0;
         int auxYMax = height;
+        /*
         if (isInDemonPos(x,y)){
             p.changeIsLeft();
             return true;
         }
+        */
         
         if (p.getIsLeft()){
             auxXMin=-width/2;
@@ -326,7 +328,7 @@ public class Chamber
         if (espeX >= width/2){ // PARED
             if (velociX > 0 && velociY > 0){ 
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-            }
+            } // O
             else if (velociX > 0 && velociY < 0){
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la x positiva
             }
