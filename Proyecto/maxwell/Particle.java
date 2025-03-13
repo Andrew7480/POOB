@@ -12,6 +12,7 @@ public class Particle
     private Circle c;
     private Circle c1;
     private boolean isLeft;
+    private boolean isRed;
     /**
      * Constructor of Particle
      * @param String color
@@ -21,16 +22,16 @@ public class Particle
      * @param int vy
      * @param boolean newIsLeft
        */
-    public Particle(String color, int newXPosition, int newYPosition, int vx, int vy, boolean newIsLeft){
+    public Particle(String color, int newXPosition, int newYPosition, int vx, int vy, boolean newIsLeft, boolean newIsRed){
         velocityX =  vx;
         velocityY = vy;
         c = new Circle(color, newXPosition+2, newYPosition+2, 4);
         isLeft = newIsLeft;
-        
-        if (isLeft){
+        isRed = newIsRed;
+        if (newIsRed){
             c1 = new Circle("red",newXPosition,newYPosition,8);
         }
-        if (!isLeft){
+        if (!newIsRed){
             c1 = new Circle("blue",newXPosition,newYPosition,8);
         }
         
@@ -106,14 +107,21 @@ public class Particle
      * return the position in X of the particle
        */
     public int getXPositionC(){
-        return c.getXPosition();
+        return c1.getXPosition();
     }
     /**
      * return the position in Y of the particle
        */
     public int getYPositionC(){
-        return c.getYPosition();
+        return c1.getYPosition();
     }
+    /**
+     * return if is red
+       */
+    public boolean getIsRed(){
+        return isRed;
+    }
+    
     /**
      * return if is in the left
        */

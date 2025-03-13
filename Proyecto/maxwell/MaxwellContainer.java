@@ -23,7 +23,9 @@ public class MaxwellContainer
     public MaxwellContainer(int h, int w){
         if (h < 0 ||  w <0){
             theLastActionWasSuccess = false;
-            JOptionPane.showMessageDialog(null, "Negative values ");
+            if (!chamber.getIsVisible()){
+                JOptionPane.showMessageDialog(null, "Negative values ");
+            }
             return;
         }
         chamber = new Chamber(h, 2*w);
@@ -31,7 +33,6 @@ public class MaxwellContainer
         width = w;
         height = h;
         makeInvisible();
-        //makeVisible();
     }
     //PARA LA SUSTENTACIÓN
     public MaxwellContainer(){
@@ -41,8 +42,7 @@ public class MaxwellContainer
         theLastActionWasSuccess = true;
         width = w;
         height = h;
-        //makeInvisible();
-        //makeVisible();
+        makeVisible();
     }
     /**
      * Constructor of MaxwellContainer
@@ -56,15 +56,17 @@ public class MaxwellContainer
     public MaxwellContainer(int h, int w, int d, int b, int r, int[][] particles){
         if (h < 0 || w<0) {
             theLastActionWasSuccess = false;
-            JOptionPane.showMessageDialog(null, "Negative values ");
+            if (!chamber.getIsVisible()){
+                JOptionPane.showMessageDialog(null, "Negative values ");
+            }
             return;
         }
+
         chamber = new Chamber(h, 2*w);
         ArrayList<ArrayList<Integer>> particules = convertToArrayListArrayList(particles);
         theLastActionWasSuccess = true;
         width = w;
         height = h;
-        //makeVisible();
         addDemon(d);
         int total = b+r;
         
@@ -84,27 +86,22 @@ public class MaxwellContainer
      * @param int d
        */
     public void addDemon(int d){
-        if (d>=0) {
-            theLastActionWasSuccess = chamber.addDemon(d);
+        if (d<0) {
+            if (!chamber.getIsVisible()){
+                JOptionPane.showMessageDialog(null, "d can't be negative");
+            }
+            theLastActionWasSuccess = false;  
             return;
         }
-        JOptionPane.showMessageDialog(null, "d can't be negative");
-        theLastActionWasSuccess =false;    
+         
+        theLastActionWasSuccess = chamber.addDemon(d);
         
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addDemons(){
-        theLastActionWasSuccess = chamber.addDemon(60);   
-        theLastActionWasSuccess = chamber.addDemon(70);   
-        theLastActionWasSuccess = chamber.addDemon(80);   
+         
         theLastActionWasSuccess = chamber.addDemon(20);   
-        theLastActionWasSuccess = chamber.addDemon(100);  
-        theLastActionWasSuccess = chamber.addDemon(110);
-        theLastActionWasSuccess = chamber.addDemon(120);   
-        theLastActionWasSuccess = chamber.addDemon(200);   
-        theLastActionWasSuccess = chamber.addDemon(140);   
-        theLastActionWasSuccess = chamber.addDemon(150);   
-        
+           
     }
     /**
      * delete demons of the container
@@ -125,7 +122,9 @@ public class MaxwellContainer
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
             theLastActionWasSuccess = false;
-            JOptionPane.showMessageDialog(null, "py can't be negative");
+            if (!chamber.getIsVisible()){
+               JOptionPane.showMessageDialog(null, "py can't be negative");
+            }
             return;    
         }
         
@@ -134,22 +133,23 @@ public class MaxwellContainer
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
-        boolean isRed=true;
-        chamber.addParticle("red",isRed,-100,150,5,5);
-        chamber.addParticle("blue",isRed,-180,40,-10,-10);
-        chamber.addParticle("yellow",isRed,-80,40,-4,9);
-        chamber.addParticle("orange",isRed,-20,180,9,-4);
-        chamber.addParticle("green",isRed,-200,199,-10,10);
-        chamber.addParticle("red",!isRed,-100,150,5,5);
-        chamber.addParticle("blue",!isRed,180,40,-10,-10);
-        chamber.addParticle("yellow",!isRed,80,40,-4,9);
-        chamber.addParticle("orange",!isRed,20,180,9,-4);
-        chamber.addParticle("green",!isRed,200,199,-10,10);
-        chamber.addParticle("green",!isRed,1,199,-1,1);
         
-        chamber.addParticle("blue",!isRed,5,65,-5,-5);
-        chamber.addParticle("blue",!isRed,10,65,-5,-5);
-        chamber.addParticle("blue",!isRed,5,55,5,5);
+        chamber.addParticle("red",true,-100,150,5,15);
+        chamber.addParticle("turquoise",false,-180,40,-10,-10);
+        chamber.addParticle("yellow",true,-80,40,-4,9);
+        chamber.addParticle("orange",false,-20,180,9,-4);
+        chamber.addParticle("green",true,-200,199,-10,10);
+        chamber.addParticle("charcoal",true,-100,150,-15,5);
+        chamber.addParticle("pastel blue",false,180,40,-10,-10);
+        chamber.addParticle("bronze",false,80,40,-4,9);
+        chamber.addParticle("orange",true,20,180,9,-4);
+        chamber.addParticle("green",true,200,199,-10,10);
+        chamber.addParticle("neon yellow",false,1,199,-1,1);
+        
+        chamber.addParticle("slime",true,5,65,5,-5);
+        chamber.addParticle("ivory",true,10,65,-5,-5);
+        chamber.addParticle("golden",false,5,55,5,5);
+        chamber.addParticle("ivory",true,-10,10,5,5);
     }
     /**
      * deletes the particules depends of the color
@@ -167,7 +167,9 @@ public class MaxwellContainer
     public void addHole(int px, int py, int particles){
         if (py<0){
             theLastActionWasSuccess=false;
-            JOptionPane.showMessageDialog(null, "py can't be negative");
+            if (!chamber.getIsVisible()){
+                JOptionPane.showMessageDialog(null, "py can't be negative");
+            }
             return;
         }        
         theLastActionWasSuccess = chamber.addHole(px,py,particles);
@@ -186,9 +188,6 @@ public class MaxwellContainer
      * @param int ticks
        */
     public void start(int ticks){
-        //metodo verificar?
-        //check hole - demons
-        //delay -- wait -- thread.sleep(1).
         ArrayList<Particle> p = chamber.getParticules();
         for (int i = 0; i < ticks; i++){
             for (Particle h : p){
@@ -232,7 +231,6 @@ public class MaxwellContainer
                 return list1.get(0).compareTo(list2.get(0));
             }
         });
-        //System.out.println(particlesInfo);
         return particlesInfo;
     }
     /**
@@ -246,7 +244,6 @@ public class MaxwellContainer
                 return list1.get(0).compareTo(list2.get(0));
             }
         });
-        //System.out.println(holesInfo);
         theLastActionWasSuccess=true;
         return holesInfo;
     }
@@ -269,7 +266,7 @@ public class MaxwellContainer
        */
     public void finish(){
         Canvas.getCanvas().close();
-        //theLastActionWasSuccess=true;
+        theLastActionWasSuccess=true;
     }
     /**
      * determine if the action was success
@@ -320,12 +317,6 @@ public class MaxwellContainer
         }
         return l;
     }
-    private ArrayList<Integer> convertoToArrayList(int [] m){
-        ArrayList<Integer> l = new ArrayList<>();
-        for (int e : m){
-            l.add(e);
-        }
-        return l;
-    }
+    
     
 }

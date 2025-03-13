@@ -1,68 +1,104 @@
-Project documentation
+Class documentation
 <---- javadoc command: ---->
-C:\Archivos de programa\Java\jdk1.6.0_24\bin\javadoc.exe
--sourcepath
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes
--source
-1.6
--classpath
-C:\Archivos de programa\BlueJ\lib\bluejcore.jar;C:\Archivos de programa\BlueJ\lib\junit-4.8.2.jar;C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes
--d
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc
--encoding
-windows-1252
--charset
-windows-1252
--docletpath
-C:\Archivos de programa\BlueJ\lib\bjdoclet.jar
--doclet
-bluej.doclet.doclets.formats.html.HtmlDoclet
--doctitle
-shapes
--windowtitle
-shapes
+C:\Program Files\BlueJ\jdk\bin\javadoc.exe
 -author
 -version
 -nodeprecated
 -package
--link
-http://download.oracle.com/javase/6/docs/api/
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Triangle.java
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Canvas.java
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Rectangle.java
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Circle.java
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+21
+-classpath
+C:\Program Files\BlueJ\lib\bluejcore.jar;C:\Program Files\BlueJ\lib\javafx-base-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-controls-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-fxml-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-graphics-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-media-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-swing-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-web-21.0.3-win.jar;C:\Program Files\BlueJ\lib\junit-4.12.jar;C:\Program Files\BlueJ\lib\junit-jupiter-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-api-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-params-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-commons-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-engine-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-launcher-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-suite-api-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-vintage-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ\lib\opentest4j-1.2.0.jar;C:\Program Files\BlueJ\lib\lang-stride.jar;C:\Program Files\BlueJ\lib\javafx\javafx.base.jar;C:\Program Files\BlueJ\lib\javafx\javafx.controls.jar;C:\Program Files\BlueJ\lib\javafx\javafx.fxml.jar;C:\Program Files\BlueJ\lib\javafx\javafx.graphics.jar;C:\Program Files\BlueJ\lib\javafx\javafx.media.jar;C:\Program Files\BlueJ\lib\javafx\javafx.properties.jar;C:\Program Files\BlueJ\lib\javafx\javafx.swing.jar;C:\Program Files\BlueJ\lib\javafx\javafx.web.jar;C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell
+-d
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\doc
+-encoding
+UTF-8
+-charset
+UTF-8
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java
 <---- end of javadoc command ---->
-Loading source file C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Triangle.java...
-Loading source file C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Canvas.java...
-Loading source file C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Rectangle.java...
-Loading source file C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes/Circle.java...
+Loading source file C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java...
 Constructing Javadoc information...
-Standard Doclet version 1.6.0_24
+Standard Doclet version 21.0.4+7-LTS
 Building tree for all the packages and classes...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\Canvas.html...
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Canvas.java:16: warning - @author: is an unknown tag.
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Canvas.java:16: warning - @author: is an unknown tag.
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Canvas.java:16: warning - @version: is an unknown tag.
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Canvas.java:116: warning - @param argument "newColour" is not a parameter name.
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\Circle.html...
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Circle.java:151: warning - @param argument "color" is not a parameter name.
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\Rectangle.html...
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Rectangle.java:155: warning - @param argument "color" is not a parameter name.
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Rectangle.java:143: warning - @param argument "newWidht" is not a parameter name.
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\Triangle.html...
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Triangle.java:151: warning - @param argument "color" is not a parameter name.
-C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\Triangle.java:139: warning - @param argument "newWidht" is not a parameter name.
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\package-frame.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\package-summary.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\package-tree.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\constant-values.html...
-Building index for all the packages and classes...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\overview-tree.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\index-all.html...
-Building index for all classes...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\allclasses-frame.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\allclasses-noframe.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\index.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\help-doc.html...
-Generating C:\Documents and Settings\jalbornoz\Mis documentos\JUAN\ECI\POOB-2012-1\laboratorios\lab01\shapes\shapes\doc\stylesheet.css...
-9 warnings
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\doc\MaxwellContainer.html...
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:6: warning: invalid input: '&'
+ * @author Andrés Cardozo && Tulio Riaño
+                          ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:6: warning: invalid input: '&'
+ * @author Andrés Cardozo && Tulio Riaño
+                           ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:20: warning: @param argument "int" is not a parameter name.
+     * @param int h
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:21: warning: @param argument "int" is not a parameter name.
+     * @param int w
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:49: warning: @param argument "int" is not a parameter name.
+     * @param int h
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:50: warning: @param argument "int" is not a parameter name.
+     * @param int w
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:51: warning: @param argument "int" is not a parameter name.
+     * @param int d
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:52: warning: @param argument "int" is not a parameter name.
+     * @param int b
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:53: warning: @param argument "int" is not a parameter name.
+     * @param int r
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:54: warning: @param argument "ArrayList" is not a parameter name.
+     * @param ArrayList<ArrayList<Integer>> particles
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:54: warning: invalid input: '<'
+     * @param ArrayList<ArrayList<Integer>> particles
+                       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:86: warning: @param argument "int" is not a parameter name.
+     * @param int d
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:116: warning: @param argument "int" is not a parameter name.
+     * @param int d
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:123: warning: @param argument "String" is not a parameter name.
+     * @param String color
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:124: warning: @param argument "boolean" is not a parameter name.
+     * @param boolean isRed
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:125: warning: @param argument "int" is not a parameter name.
+     * @param int px
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:126: warning: @param argument "int" is not a parameter name.
+     * @param int py
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:127: warning: @param argument "int" is not a parameter name.
+     * @param int vx
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:128: warning: @param argument "int" is not a parameter name.
+     * @param int vy
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:163: warning: @param argument "String" is not a parameter name.
+     * @param String color
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:170: warning: @param argument "int" is not a parameter name.
+     * @param int px
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:171: warning: @param argument "int" is not a parameter name.
+     * @param int py
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:172: warning: @param argument "int" is not a parameter name.
+     * @param int particles
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\MaxwellContainer.java:195: warning: @param argument "int" is not a parameter name.
+     * @param int ticks
+       ^
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\doc\package-summary.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\Proyecto\maxwell\doc\index.html...
+24 warnings

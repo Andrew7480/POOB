@@ -8,6 +8,9 @@ public class DemonFace
 {
     private Circle faceDemon;
     private int posD;
+    
+    private int xPosition;
+    private int yPosition;
     /**
      * Constructor of demon face
      * @param int xPosition
@@ -15,19 +18,23 @@ public class DemonFace
      * @param int width
      * @param int d
        */
-    public DemonFace(int xPosition, int yPosition, int width, int height, int d){
-        int newYPos = yPosition+height;
+    public DemonFace(int newXPosition, int newYPosition, int width, int height, int d){
+        int newYPos = newYPosition + height;
         int auxYMin=0;
-        int auxYMax=height; //newYPos-yPosition;        
+        int auxYMax=height; //newYPos-yPosition;  
+        
+        
         if (d >= auxYMin && d <= auxYMax){
-            faceDemon = new Circle("magenta",xPosition,yPosition+auxYMax-d,10);
+            faceDemon = new Circle("dark red",newXPosition,newYPosition+auxYMax-d,10);
             posD = d;
             faceDemon.changeSize(10);
+            xPosition = newXPosition;
+            yPosition = newYPosition;
             
         }
     }
     /**
-     * return the position of the demon
+     * return the position of the demon in the board
        */
     public int getPosD(){
         return posD;
@@ -43,5 +50,12 @@ public class DemonFace
        */
     public void makeInvisible(){
         faceDemon.makeInvisible();
+    }
+    
+    public int getPosX(){
+        return xPosition;
+    }
+    public int getPosY(){
+        return yPosition;
     }
 }

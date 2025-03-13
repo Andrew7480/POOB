@@ -46,7 +46,7 @@ public class Rectangle{
         yPosition = newYPosition;
         width = newWidth;
         height = newHeight;
-        color = "green";
+        color = "burnt yellow";
         isVisible = false;
     }
     /**

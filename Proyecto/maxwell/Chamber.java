@@ -43,60 +43,68 @@ public class Chamber
      * @param int vy
        */
     public void addParticle(String color,boolean isRed, int px, int py, int vx, int vy){
-        if (isRed){
-            addParticleRed( color, px,  py,  vx,  vy); 
+        if (isInLeft(px,py)){
+            CreateInLeft(color,isRed, px,py,vx,vy);
         }
-        else{
-            addParticleNoRed( color, px,  py,  vx,  vy);
+        else if (isInRight(px,py)){
+            createInRight(color, isRed, px,py,vx,vy);
         }
+        
     }
-    /**
-     * In case the particle is red add to the left chamber
-     * @param String color
-     * @param int px
-     * @param int py
-     * @param int vx
-     * @param int vy
-       */
-    private void addParticleRed(String color,int px, int py, int vx, int vy){
+    private boolean isInLeft(int px, int py){
         int chamberXPos = chamberCenter.getXPosition()+1;
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=-width/2;  //-300 
         int auxXMax=0;         //0
         int auxYMin=0;
         int auxYMax= height; 
-        if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){
-            Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true);
-            if(isVisible){
-                c.makeVisibleParticle();
-            }
-            particules.add(c);
-            
-        }        
+        return (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  );
     }
-    /**
-     * In the other case creates the particle in the right chamber
-     * @param String color
-     * @param int px
-     * @param int py
-     * @param int vx
-     * @param int vy
-       */
-    private void addParticleNoRed(String color,int px, int py, int vx, int vy){
+    
+    private boolean isInRight(int px, int py){
         int chamberXPos = chamberCenter.getXPosition()+1;
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=0;  
         int auxXMax=width/2; 
         int auxYMin=0;
         int auxYMax= height; 
-        
-        if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){
-            Particle c = new Particle(color, px+ chamberXPos, chamberYPos - py, vx, vy, false);
-            if(isVisible){
-                c.makeVisibleParticle();
-            }
-            particules.add(c);
+        return (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax);
+    }
+    
+    /**
+     * In case the particle is in Left, add it in chamber
+     * @param String color
+     * @param int px
+     * @param int py
+     * @param int vx
+     * @param int vy
+       */
+    private void CreateInLeft(String color,boolean isRed,int px, int py, int vx, int vy){
+        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberYPos =chamberCenter.getYPosition()+height;
+        Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true,isRed);
+        if(isVisible){
+            c.makeVisibleParticle();
         }
+        particules.add(c);              
+    }
+    /**
+     * In case the particle is in Right, add it in chamber
+     * @param String color
+     * @param int px
+     * @param int py
+     * @param int vx
+     * @param int vy
+       */
+    private void createInRight(String color,boolean isRed,int px, int py, int vx, int vy){
+        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberYPos =chamberCenter.getYPosition()+height;
+        Particle c = new Particle(color, px+ chamberXPos, chamberYPos - py, vx, vy, false,isRed);
+        if(isVisible){
+            c.makeVisibleParticle();
+        }
+        particules.add(c);
+        
     }
     /**
      * deletes the particules depends of the color
@@ -259,13 +267,23 @@ public class Chamber
         int chamberYPos =chamberCenter.getYPosition()+height;
         int positionEsperadaX = p.getXPositionC()- chamberXPos;
         int positionEsperadaY = chamberYPos - p.getYPositionC() ;
+        if  (positionEsperadaX > -width/4 ||positionEsperadaX < width/4){
+            if (isInDemonPos(p,positionEsperadaX,positionEsperadaY)){
+                p.changeIsLeft();
+                System.out.println(p.getIsLeft());
+                p.moveHorizontal(p.getVelocityX());
+                p.moveVertical(-p.getVelocityY());
+                return;
+            }
+        }
         boolean verify = verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
+        
         if (verify){
             p.moveHorizontal(p.getVelocityX());
             p.moveVertical(-p.getVelocityY());
         }
         
-        if (!verify){
+        else if (!verify){
             bounce(p,positionEsperadaX+ p.getVelocityX(),positionEsperadaY+ p.getVelocityY());
             p.moveHorizontal(p.getVelocityX());
             p.moveVertical(-p.getVelocityY());
@@ -282,13 +300,6 @@ public class Chamber
         int auxXMax;
         int auxYMin = 0;
         int auxYMax = height;
-        /*
-        if (isInDemonPos(x,y)){
-            p.changeIsLeft();
-            return true;
-        }
-        */
-        
         if (p.getIsLeft()){
             auxXMin=-width/2;
             auxXMax=0;
@@ -326,33 +337,18 @@ public class Chamber
         int velociX = p.getVelocityX();
         int velociY = p.getVelocityY();
         if (espeX >= width/2){ // PARED
-            if (velociX > 0 && velociY > 0){ 
+            if (velociX > 0 && velociY > 0 || (velociX > 0 && velociY < 0)){ 
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-            } // O
-            else if (velociX > 0 && velociY < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la x positiva
             }
         }
         else if (espeX <= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
-            if (velociX < 0 && velociY < 0){
+            if (velociX < 0 && velociY < 0 || (velociX < 0 && velociY > 0)){
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-            }
-            else if (velociX < 0 && velociY > 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
             }
         }
         else if ((espeY < 0 || espeY >= height) && (espeX >= 0 && espeX <= width/2)){
-            if (velociX < 0 && velociY < 0){
+            if (velociX < 0 && velociY < 0 || (velociX > 0 && velociY < 0) || (velociX > 0 && velociY > 0) || (velociX < 0 && velociY > 0)){
                 p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (velociX > 0 && velociY < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la x positiva
-            }
-            else if (velociX > 0 && velociY > 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
-            }
-            else if (velociX < 0 && velociY > 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo Y POSITIVA    
             }
         }
                 
@@ -392,34 +388,19 @@ public class Chamber
             bounceInCorner(p, espeX,espeY);
         }
         else if (espeX <= -width/2){ // PARED
-             if (velociX< 0 && velociY < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-            }
-            else if (velociX < 0 && velociY > 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo X positiva
+             if (velociX< 0 && velociY < 0 || (velociX < 0 && velociY > 0)){
+                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva 
             }
         }
         
         else if (espeX >= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
-            if (velociX > 0 && velociY > 0){ 
+            if (velociX > 0 && velociY > 0  || velociX > 0 && velociY < 0){ 
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-            }
-            else if (velociX > 0 && velociY < 0){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la x positiva
             }
         }
         else if ((espeY < 0 || espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
-            if (velociX > 0 && velociY > 0){
+            if (velociX > 0 && velociY > 0 || velociX < 0 && velociY < 0 ||velociX > 0 && velociY < 0 || velociX < 0 && velociY > 0){
                 p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
-            }
-            else if (velociX < 0 && velociY < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (velociX > 0 && velociY < 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
-            else if (velociX < 0 && velociY > 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo Y POSITIVA    
             }
         }
         
@@ -457,15 +438,64 @@ public class Chamber
         return isVisible;
     }
     
-    private boolean isInDemonPos(int x, int y){
-        for (DemonFace d:devils){
-            if (x==0){
-                if (d.getPosD()==y){
+    private boolean isInDemonPos(Particle p ,int x, int y){
+        Canvas canvas = Canvas.getCanvas();
+        boolean isLeft = p.getIsLeft();
+        int posXaf = x+p.getVelocityX();
+        int posYaf = y+p.getVelocityY();
+
+        for (DemonFace d : devils){
+            if (posXaf==0 && posYaf == d.getPosD()){
                     return true;
                 }
+            //System.out.println("De particula "+ x +  "  " + y + " " );
+            //System.out.println("De se supone "+ posXaf +  "  " + posYaf + " " );
+
+            if (isLeft){
+                if (p.getVelocityY() <0){
+                    while (x< posXaf && y< posYaf){
+                        x +=1;
+                        y -=1;
+                        if (x==0 && y== d.getPosD()){
+                        return true;
+                    }
+                    }
+                }
+                else if (p.getVelocityY() >0){
+                    while (x< posXaf && y< posYaf){
+                        x +=1;
+                        y +=1;
+                        if (x==0 && y== d.getPosD()){
+                        return true;
+                    }
+                    }
+                }
             }
+            if (!isLeft){
+                if (p.getVelocityY() <0){
+                    while (x< posXaf && y< posYaf){
+                        x -=1;
+                        y -=1;
+                        if (x==0 && y== d.getPosD()){
+                        return true;
+                    }
+                    }
+                }
+                else if (p.getVelocityY() >0){
+                    while (x< posXaf && y< posYaf){
+                        x -=1;
+                        y +=1;
+                        if (x==0 && y== d.getPosD()){
+                        return true;
+                    }
+                    }
+                }
+            }
+
         }
         return false;
-    }
+        }
+
+
     
 }
