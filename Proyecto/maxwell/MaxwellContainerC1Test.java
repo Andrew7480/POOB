@@ -32,8 +32,6 @@ public class MaxwellContainerC1Test
     public void ShouldCreateMaxwellContainer(){
         MaxwellContainer a = new MaxwellContainer();
         MaxwellContainer b = new MaxwellContainer(200,300);
-        a.finish();
-        b.finish();
         assertTrue(a.equals(b));
     }
     @Test
@@ -42,18 +40,16 @@ public class MaxwellContainerC1Test
         MaxwellContainer b = new MaxwellContainer();
         a.start(100);
         b.start(100);
-        a.finish();
-        b.finish();
         assertEquals(a.particles(),b.particles());
     }
     @Test
     public void CreateMaxwellContainer(){
         MaxwellContainer a = new MaxwellContainer(100,200);
-        a.finish();
         assertTrue(a.ok());
     }
     @Test
-    /*public void CreateMaxwellContainerTest(){
+    public void CreateMaxwellContainerTest(){
+        /*
         MaxwellContainer a = new MaxwellContainer(100,200,80,5,3,new java.util.ArrayList<>(java.util.Arrays.asList(  
         new java.util.ArrayList<>(java.util.Arrays.asList(-80, 100, 4, 1)),  
         new java.util.ArrayList<>(java.util.Arrays.asList(-30, 180, 2, 1)),  
@@ -65,21 +61,23 @@ public class MaxwellContainerC1Test
         new java.util.ArrayList<>(java.util.Arrays.asList(11, 22, 33, 30))  )) );
         a.finish();
         assertTrue(a.ok());
+        */
     }
     @Test
     public void shouldAddDemon(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(20);
-        a.finish();
-        assertTrue(a.ok());
+        int posDemon = 20;
+        int posX = 200;
+        int posY = (100/2)+20;
+        assertEquals(posY,a.demons().get(0));
         
     }
     @Test
     public void shouldNotAddDemon(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(-20);
-        a.finish();
-        assertFalse(a.ok());
+        assertTrue(a.demons().size() == 0);
         
     }
     @Test
@@ -87,15 +85,13 @@ public class MaxwellContainerC1Test
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addDemon(20);
         a.delDemon(20);
-        a.finish();
-        assertTrue(a.ok());
+        assertTrue(a.demons().size() == 0); 
         
     }
     @Test
     public void shouldAddParticle(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addParticle("green", true, -20, 20, 5, 4);
-        a.finish();
         assertTrue(a.ok());
         
     }
@@ -103,7 +99,6 @@ public class MaxwellContainerC1Test
     public void shouldNotAddParticle(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addParticle("green", false, 20, -20, 5, 4);
-        a.finish();
         assertFalse(a.ok());
         
     }
@@ -112,7 +107,6 @@ public class MaxwellContainerC1Test
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addParticle("green", false, 20, 20, 5, 4);
         a.delParticle("green");
-        a.finish();
         assertTrue(a.ok());
         
     }

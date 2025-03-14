@@ -42,6 +42,8 @@ public class MaxwellContainer
         theLastActionWasSuccess = true;
         width = w;
         height = h;
+        addParticles();
+        addDemons();
         makeVisible();
     }
     /**
@@ -134,8 +136,8 @@ public class MaxwellContainer
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
         
-        chamber.addParticle("red",true,-100,150,5,15);
-        chamber.addParticle("turquoise",false,-180,40,-10,-10);
+        chamber.addParticle("red",true,-100,150,20,20);
+        /*chamber.addParticle("turquoise",false,-180,40,-10,-10);
         chamber.addParticle("yellow",true,-80,40,-4,9);
         chamber.addParticle("orange",false,-20,180,9,-4);
         chamber.addParticle("green",true,-200,199,-10,10);
@@ -150,6 +152,7 @@ public class MaxwellContainer
         chamber.addParticle("ivory",true,10,65,-5,-5);
         chamber.addParticle("golden",false,5,55,5,5);
         chamber.addParticle("ivory",true,-10,10,5,5);
+        */
     }
     /**
      * deletes the particules depends of the color

@@ -269,11 +269,14 @@ public class Chamber
         int positionEsperadaY = chamberYPos - p.getYPositionC() ;
         if  (positionEsperadaX > -width/4 ||positionEsperadaX < width/4){
             if (isInDemonPos(p,positionEsperadaX,positionEsperadaY)){
-                p.changeIsLeft();
-                System.out.println(p.getIsLeft());
-                p.moveHorizontal(p.getVelocityX());
-                p.moveVertical(-p.getVelocityY());
-                return;
+                if(!(p.getIsRed() == p.getIsLeft())) {
+                    p.changeIsLeft();
+                    System.out.println(p.getIsLeft());
+                    p.moveHorizontal(p.getVelocityX());
+                    p.moveVertical(-p.getVelocityY());
+                    return;
+                }
+                
             }
         }
         boolean verify = verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
@@ -450,7 +453,7 @@ public class Chamber
                 }
             //System.out.println("De particula "+ x +  "  " + y + " " );
             //System.out.println("De se supone "+ posXaf +  "  " + posYaf + " " );
-
+            
             if (isLeft){
                 if (p.getVelocityY() <0){
                     while (x< posXaf && y< posYaf){
