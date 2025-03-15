@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class Holes here.
  * 
- * @author (your name) 
+ * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
  */
 public class Hole

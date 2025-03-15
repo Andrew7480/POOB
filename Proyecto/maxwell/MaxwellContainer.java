@@ -98,11 +98,7 @@ public class MaxwellContainer
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addDemons(){
-         
-        theLastActionWasSuccess = chamber.addDemon(180);
-        theLastActionWasSuccess = chamber.addDemon(50);
         theLastActionWasSuccess = chamber.addDemon(100);   
-           
     }
     /**
      * delete demons of the container
@@ -134,25 +130,20 @@ public class MaxwellContainer
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
-        
-        chamber.addParticle("red",true,50,50,-10,10);
+        chamber.addParticle("red",true,50,50,-10,10); // Prueba para el demonio
+        chamber.addParticle("blue",false,280,80,10,10); // Bounce
         /*
-        chamber.addParticle("blue",false,-50,120,5,5);
         chamber.addParticle("turquoise",false,-250,40,-5,5);
         chamber.addParticle("yellow",false,-210,90,5,-5);
-        
         chamber.addParticle("yellow",true,80,40,-4,9);
         chamber.addParticle("orange",true,20,180,9,-4);
         chamber.addParticle("green",true,200,199,-10,10);
         chamber.addParticle("charcoal",true,100,150,-15,5);
-        */
-        /*
         chamber.addParticle("pastel blue",false,180,40,-10,-10);
         chamber.addParticle("bronze",false,80,40,-4,9);
         chamber.addParticle("orange",true,20,180,9,-4);
         chamber.addParticle("green",true,200,199,-10,10);
         chamber.addParticle("neon yellow",false,1,199,-1,1);
-        
         chamber.addParticle("slime",true,5,65,5,-5);
         chamber.addParticle("ivory",true,10,65,-5,-5);
         chamber.addParticle("golden",false,5,55,5,5);
@@ -351,5 +342,23 @@ public class MaxwellContainer
        */
     public ArrayList<Particle> getParticulesChamber(){
         return chamber.getParticules();
+    }
+    /**
+     * Makes the right convertion to coordenates canvas to board (chamber)
+     * @param int x - is the position of the particle in the x-axis
+     * @param int y - is the position of the particle in the y-axis
+       */
+    public ArrayList<Integer> convertionsCanvasToBoard(int x, int y){
+        return chamber.convertionsCanvasToBoard(x, y);
+    }
+    /**
+     * Makes the right convertion to coordenates board(chamber) to canvas
+     * @param int x - is the position of the particle in board
+     * @param int y - is the position of the particle in canvas*/
+    public ArrayList<Integer> convertionsBoardToCanvas(int x, int y){
+        return chamber.convertionsBoardToCanvas(x, y);
+    }
+    public ArrayList<DemonFace> getDemonFaces(){
+        return chamber.getDevils();
     }
 }

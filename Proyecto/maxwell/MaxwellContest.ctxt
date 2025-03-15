@@ -1,8 +1,12 @@
 #BlueJ class context
 comment0.target=MaxwellContest
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MaxwellContest\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ MaxwellContest\ here.\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=h\ w\ d\ b\ r\ particles
 comment1.target=float\ solve(int,\ int,\ int,\ int,\ int,\ java.util.ArrayList)
 comment2.params=h\ w\ d\ b\ r\ particles
 comment2.target=float\ simulate(int,\ int,\ int,\ int,\ int,\ java.util.ArrayList)
-numComments=3
+comment3.params=h\ w\ particles
+comment3.target=void\ bounce(int,\ int,\ java.util.ArrayList)
+comment4.params=b\ r\ particles
+comment4.target=boolean\ verifyIfIsDone(int,\ int,\ java.util.ArrayList)
+numComments=5

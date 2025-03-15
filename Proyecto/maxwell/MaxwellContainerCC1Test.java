@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The test class MaxwellContainerC1Test.
  *
- * @author  (your name)
+ * @author  Andrés Cardozo && Tulio Riaño
  * @version (a version number or a date)
  */
 public class MaxwellContainerCC1Test
@@ -61,7 +61,7 @@ public class MaxwellContainerCC1Test
     }
     @Test
     public void accordingCRShouldMakeTheRightConvertion(){
-        Chamber a = new Chamber(200,600);
+        MaxwellContainer a = new MaxwellContainer();
         int newX = a.convertionsBoardToCanvas(0,0).get(0);
         int newY = a.convertionsBoardToCanvas(0,0).get(1);
         //Deberia hacer la conversión con el objetivo de que se muestren las coordenadas del centro de canvas.
@@ -76,12 +76,44 @@ public class MaxwellContainerCC1Test
     public void accordingCRShouldBeInTheRightPositionTheDemon(){
         MaxwellContainer a = new MaxwellContainer();
         a.addDemons();
-        assertEquals(300,400-a.demons().get(0));
-        
+        DemonFace d = a.getDemonFaces().get(0);
+        //Verifica la posición en la que se encuentra el demonio en el tablero de canvas.
+        assertEquals(0,a.convertionsCanvasToBoard(d.getPosX(),d.getPosY()).get(0));
+        assertEquals(100,a.convertionsCanvasToBoard(d.getPosX(),d.getPosY()).get(1));
     }
     @Test
-    public void accordingCRShouldVerifyIfTheParticleIsInTheDemonPosition(){
-        Chamber a = new Chamber(200,600);
+    public void accordingCRShouldVerifyIfTheParticleIsInTheDemonPositionCanvas(){
+        MaxwellContainer a = new MaxwellContainer();
+        a.addParticles();
+        a.addDemons();
+        a.start(5);
+        DemonFace d = a.getDemonFaces().get(0);
+        Particle p = a.getParticulesChamber().get(0);
+        assertEquals(p.getXPositionC(),d.getPosX());
+        assertEquals(p.getYPositionC(),d.getPosY());
+    }
+    @Test
+    public void accordingCRShouldVerifyIfTheParticleIsInTheDemonPositionBoard(){
+        MaxwellContainer a = new MaxwellContainer();
+        a.addParticles();
+        a.addDemons();
+        a.start(5);
+        DemonFace d = a.getDemonFaces().get(0);
+        Particle p = a.getParticulesChamber().get(0);
+        assertEquals(a.convertionsCanvasToBoard(p.getXPositionC(),p.getYPositionC()),a.convertionsCanvasToBoard(d.getPosX(), d.getPosY()));
+        assertEquals(a.convertionsCanvasToBoard(p.getXPositionC(),p.getYPositionC()),a.convertionsCanvasToBoard(d.getPosX(),d.getPosY()));
+    }
+    @Test
+    public void accordingCRShouldDoTheBounceRight(){
+        MaxwellContainer a = new MaxwellContainer();
+        a.addParticles();
+        a.start(2);
+        Particle p = a.getParticulesChamber().get(1);
+        assertEquals(a.convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(0),300);
+        assertEquals(a.convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(1),100);
+        a.start(1);
+        assertEquals(a.convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(0),290);
+        assertEquals(a.convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(1),110);
     }
     /**
      * Tears down the test fixture.

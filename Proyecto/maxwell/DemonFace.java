@@ -1,16 +1,13 @@
 /**
  * Write a description of class demonFace here.
  * 
- * @author (your name) 
+ * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
  */
 public class DemonFace
 {
     private Circle faceDemon;
     private int posD;
-    
-    private int xPosition;
-    private int yPosition;
     /**
      * Constructor of demon face
      * @param int xPosition
@@ -28,9 +25,6 @@ public class DemonFace
             faceDemon = new Circle("dark red",newXPosition,newYPosition+auxYMax-d,10);
             posD = d;
             faceDemon.changeSize(10);
-            xPosition = newXPosition;
-            yPosition = newYPosition;
-            
         }
     }
     /**
@@ -53,9 +47,9 @@ public class DemonFace
     }
     
     public int getPosX(){
-        return xPosition;
+        return faceDemon.getXPosition();
     }
     public int getPosY(){
-        return yPosition;
+        return faceDemon.getYPosition();
     }
 }

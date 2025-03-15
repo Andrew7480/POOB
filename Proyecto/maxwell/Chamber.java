@@ -606,4 +606,7 @@ public class Chamber
         }
         return false;
     }
+    public ArrayList<DemonFace> getDevils(){
+        return devils;
+    }
 }

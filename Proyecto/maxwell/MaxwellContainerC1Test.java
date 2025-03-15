@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The test class MaxwellContainerC1Test.
  *
- * @author  (your name)
+ * @author  Andrés Cardozo && Tulio Riaño
  * @version (a version number or a date)
  *
  */
