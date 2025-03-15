@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=City
+comment0.text=No\ olviden\ adicionar\ la\ documentacion
+comment1.params=
+comment1.target=City()
+comment2.params=
+comment2.target=int\ getSize()
+comment3.params=r\ c
+comment3.target=Item\ getItem(int,\ int)
+comment4.params=r\ c\ e
+comment4.target=void\ setItem(int,\ int,\ Item)
+comment5.params=
+comment5.target=void\ someItems()
+comment6.params=r\ c
+comment6.target=int\ neighborsEquals(int,\ int)
+comment7.params=r\ c
+comment7.target=boolean\ isEmpty(int,\ int)
+comment8.params=r\ c
+comment8.target=boolean\ inLocations(int,\ int)
+comment9.params=
+comment9.target=void\ ticTac()
+numComments=10

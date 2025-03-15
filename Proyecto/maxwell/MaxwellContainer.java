@@ -42,9 +42,6 @@ public class MaxwellContainer
         theLastActionWasSuccess = true;
         width = w;
         height = h;
-        addParticles();
-        addDemons();
-        makeVisible();
     }
     /**
      * Constructor of MaxwellContainer
@@ -136,7 +133,8 @@ public class MaxwellContainer
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
         
-        chamber.addParticle("red",true,-100,150,20,20);
+        chamber.addParticle("red",true,280,100,30,40);
+        chamber.addParticle("blue",true,250,50,20,30);
         /*chamber.addParticle("turquoise",false,-180,40,-10,-10);
         chamber.addParticle("yellow",true,-80,40,-4,9);
         chamber.addParticle("orange",false,-20,180,9,-4);
@@ -197,6 +195,11 @@ public class MaxwellContainer
                 h.makeInvisibleParticle();
                 chamber.movement(h);
                 h.makeVisibleParticle();
+                try{
+                    Thread.sleep(500);
+                } catch (InterruptedException e){
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         isGoal();
@@ -320,6 +323,7 @@ public class MaxwellContainer
         }
         return l;
     }
-    
-    
+    public ArrayList<Particle> getParticulesChamber(){
+        return chamber.getParticules();
+    }
 }

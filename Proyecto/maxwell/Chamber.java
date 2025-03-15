@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.*;
 import javax.swing.JOptionPane;
+import java.math.*;
 /**
  * Write a description of class Chamber here.
  *
@@ -31,7 +32,7 @@ public class Chamber
         ArrayList<Integer> position = getCenter();
         
         chamberForm.moveTo(position.get(0)-w/2, position.get(1)-h);
-        chamberCenter = new Rectangle(chamberForm.getXPosition()-1+(w/2),chamberForm.getYPosition(),2,h,"green");
+        chamberCenter = new Rectangle(chamberForm.getXPosition()+(w/2),chamberForm.getYPosition(),2,h,"green");
     }
     /**
      * Add particles to the chamber
@@ -52,7 +53,7 @@ public class Chamber
         
     }
     private boolean isInLeft(int px, int py){
-        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=-width/2;  //-300 
         int auxXMax=0;         //0
@@ -62,7 +63,7 @@ public class Chamber
     }
     
     private boolean isInRight(int px, int py){
-        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=0;  
         int auxXMax=width/2; 
@@ -80,7 +81,7 @@ public class Chamber
      * @param int vy
        */
     private void CreateInLeft(String color,boolean isRed,int px, int py, int vx, int vy){
-        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true,isRed);
         if(isVisible){
@@ -97,7 +98,7 @@ public class Chamber
      * @param int vy
        */
     private void createInRight(String color,boolean isRed,int px, int py, int vx, int vy){
-        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         Particle c = new Particle(color, px+ chamberXPos, chamberYPos - py, vx, vy, false,isRed);
         if(isVisible){
@@ -263,7 +264,7 @@ public class Chamber
      * @param Particle p
        */
     public void movement(Particle p){
-        int chamberXPos = chamberCenter.getXPosition()+1;
+        int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         int positionEsperadaX = p.getXPositionC()- chamberXPos;
         int positionEsperadaY = chamberYPos - p.getYPositionC() ;
@@ -288,8 +289,10 @@ public class Chamber
         
         else if (!verify){
             bounce(p,positionEsperadaX+ p.getVelocityX(),positionEsperadaY+ p.getVelocityY());
+            p.makeInvisibleParticle();
             p.moveHorizontal(p.getVelocityX());
             p.moveVertical(-p.getVelocityY());
+            p.makeVisibleParticle();
         }
     }
     /**
@@ -306,12 +309,12 @@ public class Chamber
         if (p.getIsLeft()){
             auxXMin=-width/2;
             auxXMax=0;
-            return  x > auxXMin  && x < auxXMax  && y > auxYMin  && y < auxYMax;
+            return  x >= auxXMin  && x <= auxXMax  && y >= auxYMin  && y <= auxYMax;
         }        
         if (!p.getIsLeft()){
             auxXMin=0;  
             auxXMax=width/2; 
-            return x > auxXMin  && x < auxXMax  && y > auxYMin  && y < auxYMax;
+            return x >= auxXMin  && x <= auxXMax  && y >= auxYMin  && y <= auxYMax;
 
         }
         return false;
@@ -330,6 +333,28 @@ public class Chamber
             bounceRight(p,x,y);
         }
     }
+    // X Y Y SON LOS VALORES DEL CANVAS
+    private ArrayList<Integer> convertionsCanvasToBoard(int x, int y){
+        ArrayList<Integer> convertions = new ArrayList<>();
+        int chamberXPos = chamberCenter.getXPosition();
+        int chamberYPos =chamberCenter.getYPosition()+height;
+        int positionEsperadaX = x - chamberXPos;
+        int positionEsperadaY = chamberYPos - y;
+        convertions.add(positionEsperadaX);
+        convertions.add(positionEsperadaY);
+        return convertions;
+    }
+    // X Y Y SON LOS VALORES DEL BOARD
+    private ArrayList<Integer> convertionsBoardToCanvas(int x, int y){
+        ArrayList<Integer> convertions = new ArrayList<>();
+        int chamberXPos = chamberCenter.getXPosition();
+        int chamberYPos =chamberCenter.getYPosition()+height;
+        int positionEsperadaX = x + chamberXPos;
+        int positionEsperadaY = chamberYPos - y;
+        convertions.add(positionEsperadaX);
+        convertions.add(positionEsperadaY);
+        return convertions;
+    }
     /**
      * if bounce is in the right, evaluates the possible cases and make the respective bounce
      * @param Particle p
@@ -339,22 +364,39 @@ public class Chamber
     private void bounceRight(Particle p,int espeX, int espeY){
         int velociX = p.getVelocityX();
         int velociY = p.getVelocityY();
-        if (espeX >= width/2){ // PARED
-            if (velociX > 0 && velociY > 0 || (velociX > 0 && velociY < 0)){ 
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
-            }
+        int newWidth = width/2;
+        int convertXBoard = convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(0);
+        int convertYBoard = convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(1);
+        if (espeX >= width/2){ // PARED DERECHA
+                float t = ((float)(newWidth - convertXBoard) / velociX);
+                int  n = chamberCenter.getYPosition() + height  -((int)(convertYBoard + (velociY * t)));
+                p.setPositionParticle(chamberCenter.getXPosition() + width/2, n);
+                p.setVelocityX(velociX*(-1));
         }
-        else if (espeX <= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
-            if (velociX < 0 && velociY < 0 || (velociX < 0 && velociY > 0)){
-                p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva Y Negativa
-            }
+        else if (espeX <= 0 && (espeY <= height && espeY >= 0)){ // PARED IZQUIERDA
+                float t = ((float)(0 - convertXBoard) / velociX);
+                //float t = (float) (-p.getXPositionC()) / velociX);
+                int  n = chamberCenter.getYPosition() + height - ((int)(convertYBoard + (velociY * t)));
+                p.setPositionParticle(chamberCenter.getXPosition(), n);
+                p.setVelocityX(velociX*(-1));
         }
-        else if ((espeY < 0 || espeY >= height) && (espeX >= 0 && espeX <= width/2)){
-            if (velociX < 0 && velociY < 0 || (velociX > 0 && velociY < 0) || (velociX > 0 && velociY > 0) || (velociX < 0 && velociY > 0)){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y positiva
-            }
+        
+        else if ((espeY < 0) && (espeX >= 0 && espeX <= width/2)){ // - PISO
+            float t = (float) (-p.getYPositionC()) / velociY;
+            int  n = chamberCenter.getXPosition() - ((int)(convertXBoard + (velociX * t)));
+            p.setPositionParticle(n, chamberCenter.getYPosition()+height);
+            try{
+                    Thread.sleep(500);
+                } catch (InterruptedException e){
+                    Thread.currentThread().interrupt();
+                }
+            p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
         }
-                
+        else if ((espeY >= height) && (espeX >= 0 && espeX <= width/2)){ // TECHO
+            float t = (float) Math.abs((height - p.getYPositionC()) / velociY);
+            p.setPositionParticle((int) (p.getXPositionC() + velociX * t), height);
+            p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
+        }
     }
     /**
      * if the bounce is in the corner makes the right movement

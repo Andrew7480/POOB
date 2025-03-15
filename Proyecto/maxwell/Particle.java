@@ -49,8 +49,10 @@ public class Particle
      * @param int py
        */
     public void setPositionParticle(int px, int py){
-        c.setPosition(px,py);
-        c1.setPosition(px+2,py+2);
+        makeInvisibleParticle();
+        c.setPosition(px+2,py+2);
+        c1.setPosition(px,py);
+        makeVisibleParticle();
     }
     /**
      * make visible the particle
@@ -82,6 +84,12 @@ public class Particle
     public void moveHorizontal(int distance){
         c.moveHorizontal(distance);
         c1.moveHorizontal(distance);
+        /*
+        for (int i = 0; i < distance; i++){
+            c.moveHorizontal(1);
+            c1.moveHorizontal(1);
+        }
+        */
     }
     /**
      * move vertical the particle
@@ -90,6 +98,13 @@ public class Particle
     public void moveVertical(int distance){
         c.moveVertical(distance);
         c1.moveVertical(distance);
+        /*
+        for (int i = 0; i < distance; i++){
+            c.moveVertical(1);
+            c1.moveVertical(1);
+            
+        }
+        */
     }
     /**
      * return the velocity in X of the particle
