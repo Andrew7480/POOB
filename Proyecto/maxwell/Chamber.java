@@ -22,8 +22,8 @@ public class Chamber
     //private boolean theLastActionWasSucces = false;
     /**
      * create a chamber
-     * @param int h
-     * @param int w
+     * @param int h is the height of the chamber
+     * @param int w is the width of the chamber
        */
     public Chamber(int h, int w){
         width=w;
@@ -38,10 +38,10 @@ public class Chamber
      * Add particles to the chamber
      * @param String color
      * @param boolean isRed
-     * @param int px
-     * @param int py
-     * @param int vx
-     * @param int vy
+     * @param int px - position in x of the particle
+     * @param int py - position in y of the particle
+     * @param int vx - velocity in x of the particle
+     * @param int vy - velocity in y of the particle
        */
     public void addParticle(String color,boolean isRed, int px, int py, int vx, int vy){
         if (isInLeft(px,py)){
@@ -52,6 +52,10 @@ public class Chamber
         }
         
     }
+    /*
+     * Verify if the particle is in the left
+     * px, py are the positions of the particle (x,y)
+       */
     private boolean isInLeft(int px, int py){
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
@@ -61,7 +65,10 @@ public class Chamber
         int auxYMax= height; 
         return (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  );
     }
-    
+    /*
+     * Verify if the particle is in the right
+     * px, py are the positions of the particle (x,y)
+       */
     private boolean isInRight(int px, int py){
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
@@ -72,13 +79,13 @@ public class Chamber
         return (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax);
     }
     
-    /**
+    /*
      * In case the particle is in Left, add it in chamber
-     * @param String color
-     * @param int px
-     * @param int py
-     * @param int vx
-     * @param int vy
+     * @param String color - is the color of the particle (blue - red)
+     * @param int px - position of the particle in x
+     * @param int py - position of the particle in y
+     * @param int vx - velocity of the particle in x
+     * @param int vy - velocity of the particle in y
        */
     private void CreateInLeft(String color,boolean isRed,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition();
@@ -89,13 +96,13 @@ public class Chamber
         }
         particules.add(c);              
     }
-    /**
+    /*
      * In case the particle is in Right, add it in chamber
      * @param String color
-     * @param int px
-     * @param int py
-     * @param int vx
-     * @param int vy
+     * @param int px - position of the particle in x
+     * @param int py - position of the particle in y
+     * @param int vx - velocity of the particle in x
+     * @param int vy - velocity of the particle in y
        */
     private void createInRight(String color,boolean isRed,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition();
@@ -109,7 +116,7 @@ public class Chamber
     }
     /**
      * deletes the particules depends of the color
-     * @param String color
+     * @param String color (depends of the color delete the particle (red-blue))
        */
     public boolean delParticle(String color){
         boolean theLastActionWasSuccess = false;
@@ -124,7 +131,7 @@ public class Chamber
     
     /**
      * if the position is no repeated creates a new demon in d
-     * @param int d
+     * @param int d - is the position in y-axis this number cannot be negative and cant be in the same position of the another demon.
        */
     public boolean addDemon(int d){ // va de 0 a h
         for (DemonFace de : devils){
@@ -139,12 +146,12 @@ public class Chamber
         devils.add(demon);
         if(isVisible){
                 demon.makeVisible();
-            }
+        }
         return true;
     }
     /**
      * deletes the demon in the position d
-     * @param int d
+     * @param int d - is the position in y-axis this number cannot be negative.
        */
     public boolean delDemon(int d){
         boolean theLastActionWasSucces = false;
@@ -159,9 +166,9 @@ public class Chamber
     }
     /**
      * add hole in a certain position return if its possible to add
-     * @param int px
-     * @param int py
-     * @param int particles
+     * @param int px - position in x of the particle.
+     * @param int py - position in y of the particle.
+     * @param int particles - amount of particles.
        */
     public boolean addHole(int px, int py, int particles){
         int chamberXPos = chamberCenter.getXPosition()+1;
@@ -201,8 +208,8 @@ public class Chamber
     }
     /**
      * change size of the chamber
-     * @param int newHeight
-     * @param int newWidth
+     * @param int newHeight - this number cannot be negative.
+     * @param int newWidth - this number cannot be negative.
        */
     public void changeSize(int newHeight, int newWidth){
         chamberForm.changeSize(newHeight,newWidth);
@@ -281,7 +288,6 @@ public class Chamber
             }
         }
         boolean verify = verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
-        
         if (verify){
             p.moveHorizontal(p.getVelocityX());
             p.moveVertical(-p.getVelocityY());
@@ -295,11 +301,11 @@ public class Chamber
             p.makeVisibleParticle();
         }
     }
-    /**
+    /*
      * verify limits of the movement of each particle
      * @param Particle p
-     * @param int x
-     * @param int y
+     * @param int x is the position of x plus the velocity x
+     * @param int y is the position of y plus the velocity y
        */
     private boolean verifyLimits(Particle p, int x, int y){
         int auxXMin;
@@ -322,8 +328,8 @@ public class Chamber
     /**
      * if bounce is in the left or right
      * @param Particle p
-     * @param int x
-     * @param int y
+     * @param int x is the position of x plus the velocity x
+     * @param int y is the position of y plus the velocity y
        */
     private void bounce(Particle p, int x, int y){
         if (p.getIsLeft()){
@@ -334,7 +340,12 @@ public class Chamber
         }
     }
     // X Y Y SON LOS VALORES DEL CANVAS
-    private ArrayList<Integer> convertionsCanvasToBoard(int x, int y){
+    /**
+     * Makes the right convertion to coordenates canvas to board (chamber)
+     * @param int x - is the position of the particle in the x-axis
+     * @param int y - is the position of the particle in the y-axis
+       */
+    public ArrayList<Integer> convertionsCanvasToBoard(int x, int y){
         ArrayList<Integer> convertions = new ArrayList<>();
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
@@ -345,7 +356,12 @@ public class Chamber
         return convertions;
     }
     // X Y Y SON LOS VALORES DEL BOARD
-    private ArrayList<Integer> convertionsBoardToCanvas(int x, int y){
+    /**
+     * Makes the right convertion to coordenates board(chamber) to canvas
+     * @param int x - is the position of the particle in board
+     * @param int y - is the position of the particle in canvas
+       */
+    public ArrayList<Integer> convertionsBoardToCanvas(int x, int y){
         ArrayList<Integer> convertions = new ArrayList<>();
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
@@ -357,9 +373,9 @@ public class Chamber
     }
     /**
      * if bounce is in the right, evaluates the possible cases and make the respective bounce
-     * @param Particle p
-     * @param int espeX
-     * @param int espeY
+     * @param Particle p - is the current particle of the array.
+     * @param int espeX - is the position plus the velocity in x
+     * @param int espeY - is the position plus the velocity in y
        */
     private void bounceRight(Particle p,int espeX, int espeY){
         int velociX = p.getVelocityX();
@@ -413,21 +429,21 @@ public class Chamber
         }
         p.makeVisibleParticle();
     }
-    /**
+    /*
      * if the bounce is in the corner makes the right movement
-     * @param Particle p
-     * @param int x
-     * @param int y
+     * @param Particle p - is the current particle of the array
+     * @param int x - is the position plus the velocity in x
+     * @param int y - is the position plus the velocity in y
        */
     private void bounceInCorner(Particle p, int x,int y){
         p.setVelocityX(p.getVelocityX()*(-1));
         p.setVelocityY(p.getVelocityY()*(-1));
     }
-    /**
+    /*
      * if the bounce is in the left evaluates the cases and make the movement
-     * @param Particle p
-     * @param int espeX
-     * @param int espeY
+     * @param Particle p - is the current particle of the array
+     * @param int espeX - is the position plus the velocity in x
+     * @param int espeY - is the position plus the velocity in y
        */
     private void bounceLeft(Particle p,int espeX, int espeY){
         int velociX = p.getVelocityX();
@@ -490,6 +506,10 @@ public class Chamber
     }
     /**
      * return the array list of the particles with a certain information (px,py,vx,vy)
+     * px is the position in x-axis of the particle
+     * py is the position in y-axis of the particle
+     * vx is the velocity in x-axis of the particle
+     * vy is the velocity in y-axis of the particle
        */
     public ArrayList<ArrayList<Integer>> getParticlesInfo(){
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
@@ -505,6 +525,9 @@ public class Chamber
     }
     /**
      * return the matrix of holes with a specific information (px, py, particles)
+     * px is the position in x-axis of the particle
+     * py is the position in y-axis of the particle
+     * particles -> amount of particles that can hold the hole.
        */
     public ArrayList<ArrayList<Integer>> getHolesInfo(){
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
@@ -517,10 +540,18 @@ public class Chamber
         }
         return list;
     }
+    /**
+     * return if the chamber is visible or not
+       */
     public boolean getIsVisible(){
         return isVisible;
     }
-    
+    /*
+     * verify if the particle is in the demon position
+     * @param Particle p -> current particle of the array
+     * @param int x -> position of the particle plus velocity in x
+     * @param int y -> position of the particle plush velocity in y
+       */
     private boolean isInDemonPos(Particle p ,int x, int y){
         Canvas canvas = Canvas.getCanvas();
         boolean isLeft = p.getIsLeft();
@@ -531,9 +562,6 @@ public class Chamber
             if (posXaf==0 && posYaf == d.getPosD()){
                     return true;
                 }
-            //System.out.println("De particula "+ x +  "  " + y + " " );
-            //System.out.println("De se supone "+ posXaf +  "  " + posYaf + " " );
-            
             if (isLeft){
                 if (p.getVelocityY() <0){
                     while (x< posXaf && y< posYaf){
@@ -577,8 +605,5 @@ public class Chamber
 
         }
         return false;
-        }
-
-
-    
+    }
 }

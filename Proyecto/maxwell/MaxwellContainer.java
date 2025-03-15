@@ -17,8 +17,8 @@ public class MaxwellContainer
     private int yPosition;
     /**
      * Constructor of MaxwellContainer
-     * @param int h
-     * @param int w
+     * @param int h -> height of MaxwellContainer
+     * @param int w -> width of MaxwellContainer
        */
     public MaxwellContainer(int h, int w){
         if (h < 0 ||  w <0){
@@ -45,11 +45,11 @@ public class MaxwellContainer
     }
     /**
      * Constructor of MaxwellContainer
-     * @param int h
-     * @param int w
-     * @param int d
-     * @param int b
-     * @param int r
+     * @param int h - height of the MaxwellContainer
+     * @param int w - width of the MaxwellContainer
+     * @param int d - position of the demon in MaxwellContainer
+     * @param int b - amount of particles blue
+     * @param int r - amount of particles red
      * @param ArrayList<ArrayList<Integer>> particles
        */
     public MaxwellContainer(int h, int w, int d, int b, int r, int[][] particles){
@@ -82,7 +82,7 @@ public class MaxwellContainer
     }
     /**
      * add demons in the container
-     * @param int d
+     * @param int d -> this number cannot be negative or be the same of any of the demons in the board.
        */
     public void addDemon(int d){
         if (d<0) {
@@ -106,19 +106,19 @@ public class MaxwellContainer
     }
     /**
      * delete demons of the container
-     * @param int d
+     * @param int d -> this number cannot be negative.
        */
     public void delDemon(int d){
         theLastActionWasSuccess = chamber.delDemon(d);
     }
     /**
      * add particles depends of is red or not to the container
-     * @param String color
-     * @param boolean isRed
-     * @param int px
-     * @param int py
-     * @param int vx
-     * @param int vy
+     * @param String color -> color of the particle
+     * @param boolean isRed -> verify if is red
+     * @param int px -> position in x-axis of the particle
+     * @param int py -> position in y-axis of the particle
+     * @param int vx -> velocity in x of the particle
+     * @param int vy -> velocity in y of the particle
        */
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
@@ -168,9 +168,9 @@ public class MaxwellContainer
     }
     /**
      * add holes to the container
-     * @param int px
-     * @param int py
-     * @param int particles
+     * @param int px -> position of the hole in x-axis
+     * @param int py -> position of the hole in y-axis
+     * @param int particles -> amount particles that can hold the hole
        */
     public void addHole(int px, int py, int particles){
         if (py<0){
@@ -193,7 +193,7 @@ public class MaxwellContainer
     }
     /**
      * start the simulation ticks time
-     * @param int ticks
+     * @param int ticks -> times to move of the each particle.
        */
     public void start(int ticks){
         ArrayList<Particle> p = chamber.getParticules();
@@ -214,6 +214,9 @@ public class MaxwellContainer
         }
         isGoal();
     }
+    /**
+     * After the movement in the MaxwellContainer verify if all particles in the left chamber are red or if all particles in the right are blue.
+       */
     public boolean isGoal(){
         ArrayList<Particle> particle = chamber.getParticules();
         for(Particle par: particle) {
@@ -238,6 +241,10 @@ public class MaxwellContainer
     }
     /**
      * return the positions and velocity of each particle [px,py,vx,vy] in order from lowest to highest.
+     * px -> position in x-axis
+     * py -> position in y-axis
+     * vx -> velocity in x-axis
+     * vy -> velocity in y-axis
        */
     public ArrayList<ArrayList<Integer>> particles(){ // [[px,py,vx,vy]];
         ArrayList<ArrayList<Integer>> particlesInfo = chamber.getParticlesInfo();
@@ -251,6 +258,9 @@ public class MaxwellContainer
     }
     /**
      * return the positions and particules remains [px, py, particles] in order from lowest to highest
+     * px -> position of the hole in x-axis
+     * py -> position of the hole in y-axis
+     * particles -> amount of particles that can hold the hole.
        */
     public ArrayList<ArrayList<Integer>> holes(){
         ArrayList<ArrayList<Integer>> holesInfo = chamber.getHolesInfo();
@@ -321,7 +331,10 @@ public class MaxwellContainer
     public boolean equals(MaxwellContainer a){
         return a.getWidthContainer() == width && a.getHeightContainer() == height;
     }
-    
+    /*
+     * Method that convert to ArrayList of ArrayList
+     * @param int [][] m -> vector 2D
+       */
     private ArrayList<ArrayList<Integer>> convertToArrayListArrayList(int [][] m){
         ArrayList<ArrayList<Integer>> l = new ArrayList<>();
         for (int [] fila : m){
@@ -333,6 +346,9 @@ public class MaxwellContainer
         }
         return l;
     }
+    /**
+     * return the amount of particles in the chamber
+       */
     public ArrayList<Particle> getParticulesChamber(){
         return chamber.getParticules();
     }

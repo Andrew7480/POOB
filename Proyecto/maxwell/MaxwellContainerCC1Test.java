@@ -59,6 +59,30 @@ public class MaxwellContainerCC1Test
         a.addParticle("red", true, -185, 85, -5, 5);
         assertEquals(a.particles().get(4),a.particles().get(5));
     }
+    @Test
+    public void accordingCRShouldMakeTheRightConvertion(){
+        Chamber a = new Chamber(200,600);
+        int newX = a.convertionsBoardToCanvas(0,0).get(0);
+        int newY = a.convertionsBoardToCanvas(0,0).get(1);
+        //Deberia hacer la conversión con el objetivo de que se muestren las coordenadas del centro de canvas.
+        assertEquals(350,newX);
+        assertEquals(400,newY);
+        newX = a.convertionsCanvasToBoard(350,400).get(0);
+        newY = a.convertionsCanvasToBoard(350,400).get(1);
+        assertEquals(0,newX);
+        assertEquals(0,newY);
+    }
+    @Test
+    public void accordingCRShouldBeInTheRightPositionTheDemon(){
+        MaxwellContainer a = new MaxwellContainer();
+        a.addDemons();
+        assertEquals(300,400-a.demons().get(0));
+        
+    }
+    @Test
+    public void accordingCRShouldVerifyIfTheParticleIsInTheDemonPosition(){
+        Chamber a = new Chamber(200,600);
+    }
     /**
      * Tears down the test fixture.
      *
