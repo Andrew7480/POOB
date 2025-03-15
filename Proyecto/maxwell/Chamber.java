@@ -367,6 +367,26 @@ public class Chamber
         int newWidth = width/2;
         int convertXBoard = convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(0);
         int convertYBoard = convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(1);
+        p.makeInvisibleParticle();
+        if ((espeX == 0  || espeX == width/2) && (espeY == 0  || espeY == height)){
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX > width/2 ) && (espeY > height)){
+            p.setPositionParticle(chamberCenter.getXPosition()+(width/2),chamberCenter.getYPosition());
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX > width/2 ) && (espeY < 0)){
+            p.setPositionParticle(chamberCenter.getXPosition()+(width/2),chamberCenter.getYPosition()+height);
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX < 0 ) && (espeY > height)){
+            p.setPositionParticle(chamberCenter.getXPosition(),chamberCenter.getYPosition());
+            bounceInCorner(p, espeX,espeY);
+        }
+        else if ((espeX < 0) && (espeY < 0)){
+            p.setPositionParticle(chamberCenter.getXPosition(),chamberCenter.getYPosition()+height);
+            bounceInCorner(p, espeX,espeY);
+        }
         if (espeX >= width/2){ // PARED DERECHA
                 float t = ((float)(newWidth - convertXBoard) / velociX);
                 int  n = chamberCenter.getYPosition() + height  -((int)(convertYBoard + (velociY * t)));
@@ -375,21 +395,15 @@ public class Chamber
         }
         else if (espeX <= 0 && (espeY <= height && espeY >= 0)){ // PARED IZQUIERDA
                 float t = ((float)(0 - convertXBoard) / velociX);
-                //float t = (float) (-p.getXPositionC()) / velociX);
                 int  n = chamberCenter.getYPosition() + height - ((int)(convertYBoard + (velociY * t)));
                 p.setPositionParticle(chamberCenter.getXPosition(), n);
                 p.setVelocityX(velociX*(-1));
         }
-        
         else if ((espeY < 0) && (espeX >= 0 && espeX <= width/2)){ // - PISO
-            float t = (float) (-p.getYPositionC()) / velociY;
-            int  n = chamberCenter.getXPosition() - ((int)(convertXBoard + (velociX * t)));
+            float t = -((float) (convertYBoard-0) / velociY);
+            System.out.println(t);
+            int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
             p.setPositionParticle(n, chamberCenter.getYPosition()+height);
-            try{
-                    Thread.sleep(500);
-                } catch (InterruptedException e){
-                    Thread.currentThread().interrupt();
-                }
             p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
         }
         else if ((espeY >= height) && (espeX >= 0 && espeX <= width/2)){ // TECHO
@@ -397,6 +411,7 @@ public class Chamber
             p.setPositionParticle((int) (p.getXPositionC() + velociX * t), height);
             p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
         }
+        p.makeVisibleParticle();
     }
     /**
      * if the bounce is in the corner makes the right movement
@@ -417,35 +432,58 @@ public class Chamber
     private void bounceLeft(Particle p,int espeX, int espeY){
         int velociX = p.getVelocityX();
         int velociY = p.getVelocityY();
-        if ((espeX == 0 || espeX == -width/2) && (espeY == 0 || espeY == height)){
+        int newWidth = width/2;
+        int convertXBoard = convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(0);
+        int convertYBoard = convertionsCanvasToBoard(p.getXPositionC(), p.getYPositionC()).get(1);
+        if ((espeX == 0 || espeX == -width/2) && (espeY == 0  || espeY == height)){
             bounceInCorner(p, espeX,espeY);
         }
         else if ((espeX > 0 ) && (espeY > height)){
+            p.setPositionParticle(chamberCenter.getXPosition(),chamberCenter.getYPosition());
             bounceInCorner(p, espeX,espeY);
         }
         else if ((espeX > 0 ) && (espeY < 0)){
+            p.setPositionParticle(chamberCenter.getXPosition(),chamberCenter.getYPosition()+height);
             bounceInCorner(p, espeX,espeY);
         }
         else if ((espeX < -width/2 ) && (espeY > height)){
+            p.setPositionParticle(chamberCenter.getXPosition()-(width/2),chamberCenter.getYPosition());
             bounceInCorner(p, espeX,espeY);
         }
         else if ((espeX < -width/2 ) && (espeY < 0)){
+            p.setPositionParticle(chamberCenter.getXPosition()-(width/2),chamberCenter.getYPosition()+height);
             bounceInCorner(p, espeX,espeY);
         }
         else if (espeX <= -width/2){ // PARED
              if (velociX< 0 && velociY < 0 || (velociX < 0 && velociY > 0)){
+                float t = ((float)(convertXBoard + newWidth) / velociX);
+                int  n = chamberCenter.getYPosition() + height  -((int)(convertYBoard + (velociY * t)));
+                p.setPositionParticle(chamberCenter.getXPosition() - width/2, n);
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X Positiva 
             }
         }
-        
         else if (espeX >= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
-            if (velociX > 0 && velociY > 0  || velociX > 0 && velociY < 0){ 
+            if (velociX > 0 && velociY > 0  || velociX > 0 && velociY < 0){
+                float t = ((float)(convertXBoard-0) / velociX);
+                int  n = chamberCenter.getYPosition() + height - ((int)(convertYBoard + (velociY * t)));
+                p.setPositionParticle(chamberCenter.getXPosition(), n);
                 p.setVelocityX(p.getVelocityX()*(-1)); // termina siendo la X negativa
             }
         }
-        else if ((espeY < 0 || espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
-            if (velociX > 0 && velociY > 0 || velociX < 0 && velociY < 0 ||velociX > 0 && velociY < 0 || velociX < 0 && velociY > 0){
-                p.setVelocityY(p.getVelocityY()*(-1)); // termina siendo la y negativa
+        else if((espeY < 0 && ((espeX <= 0) && espeX >= -width/2))){ // PISO
+            if(velociX > 0 && velociY < 0 || velociX < 0 && velociY < 0 ){
+                float t = -((float) (0-convertYBoard) / velociY);
+                System.out.println(t);
+                int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
+                p.setPositionParticle(n, chamberCenter.getYPosition()+height);
+                p.setVelocityY(p.getVelocityY()*(-1));
+            }
+        }
+        else if ((espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
+            if (velociX > 0 && velociY > 0 || velociX < 0 && velociY > 0 ){
+                float t = (float) Math.abs((p.getYPositionC()-height)/velociY);
+                p.setPositionParticle((int) (p.getXPositionC() + velociX * t), height);
+                p.setVelocityY(p.getVelocityY()*(-1));
             }
         }
         

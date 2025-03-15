@@ -99,7 +99,9 @@ public class MaxwellContainer
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addDemons(){
          
-        theLastActionWasSuccess = chamber.addDemon(20);   
+        theLastActionWasSuccess = chamber.addDemon(180);
+        theLastActionWasSuccess = chamber.addDemon(50);
+        theLastActionWasSuccess = chamber.addDemon(100);   
            
     }
     /**
@@ -133,13 +135,18 @@ public class MaxwellContainer
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
         
-        chamber.addParticle("red",true,280,100,30,40);
-        chamber.addParticle("blue",true,250,50,20,30);
-        /*chamber.addParticle("turquoise",false,-180,40,-10,-10);
-        chamber.addParticle("yellow",true,-80,40,-4,9);
-        chamber.addParticle("orange",false,-20,180,9,-4);
-        chamber.addParticle("green",true,-200,199,-10,10);
-        chamber.addParticle("charcoal",true,-100,150,-15,5);
+        chamber.addParticle("red",true,50,50,-10,10);
+        /*
+        chamber.addParticle("blue",false,-50,120,5,5);
+        chamber.addParticle("turquoise",false,-250,40,-5,5);
+        chamber.addParticle("yellow",false,-210,90,5,-5);
+        
+        chamber.addParticle("yellow",true,80,40,-4,9);
+        chamber.addParticle("orange",true,20,180,9,-4);
+        chamber.addParticle("green",true,200,199,-10,10);
+        chamber.addParticle("charcoal",true,100,150,-15,5);
+        */
+        /*
         chamber.addParticle("pastel blue",false,180,40,-10,-10);
         chamber.addParticle("bronze",false,80,40,-4,9);
         chamber.addParticle("orange",true,20,180,9,-4);
@@ -195,11 +202,14 @@ public class MaxwellContainer
                 h.makeInvisibleParticle();
                 chamber.movement(h);
                 h.makeVisibleParticle();
+                /*
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (InterruptedException e){
                     Thread.currentThread().interrupt();
                 }
+                */
+                
             }
         }
         isGoal();
