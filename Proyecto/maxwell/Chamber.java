@@ -417,7 +417,6 @@ public class Chamber
         }
         else if ((espeY < 0) && (espeX >= 0 && espeX <= width/2)){ // - PISO
             float t = -((float) (convertYBoard-0) / velociY);
-            System.out.println(t);
             int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
             p.setPositionParticle(n, chamberCenter.getYPosition()+height);
             p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
@@ -553,7 +552,7 @@ public class Chamber
      * @param int y -> position of the particle plush velocity in y
        */
     private boolean isInDemonPos(Particle p ,int x, int y){
-        Canvas canvas = Canvas.getCanvas();
+        //Canvas canvas = Canvas.getCanvas();
         boolean isLeft = p.getIsLeft();
         int posXaf = x+p.getVelocityX();
         int posYaf = y+p.getVelocityY();
