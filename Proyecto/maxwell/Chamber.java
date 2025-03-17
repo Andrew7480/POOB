@@ -30,7 +30,6 @@ public class Chamber
         height=h;
         chamberForm = new Rectangle(h,w);
         ArrayList<Integer> position = getCenter();
-        
         chamberForm.moveTo(position.get(0)-w/2, position.get(1)-h);
         chamberCenter = new Rectangle(chamberForm.getXPosition()+(w/2),chamberForm.getYPosition(),2,h,"green");
     }

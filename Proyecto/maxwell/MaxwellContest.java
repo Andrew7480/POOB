@@ -9,13 +9,17 @@ import java.util.Collection;
  */
 public class MaxwellContest
 {
+    private int blue;
+    private int red;
     public float solve(int h, int w,int d, int b, int r, int [][] particles){ //[PX,PY,VX,VY] - PX += VX, PY += VY
+        blue = b;
+        red = r;
         ArrayList<ArrayList<Integer>> parti = convertToArrayListArrayList(particles);
         System.out.println(parti.get(0));
-        System.out.println(parti.get(1));
+        //System.out.println(parti.get(1));
         int ticks = 0;
-        int limit = 5;
-        if (verifyIfIsDone(b,r,parti)){
+        int limit = 30;
+        if (verifyIfIsDone(h,w,parti)){
             return (float)ticks;
         }
         while (ticks < limit){
@@ -34,15 +38,21 @@ public class MaxwellContest
                 ArrayList<Integer> particle = parti.get(k);
                 System.out.println("Partícula " + k + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
             }
-            if (verifyIfIsDone(b,r,parti)){
+            if (verifyIfIsDone(h,w,parti)){
                 return (float)ticks;
             }
+        }
+        if (ticks == limit){
+            return (float)-1.0;
         }
         return (float)ticks;
     }
     public void simulate(int h,int w, int d, int b, int r, int [][] particles){ //PX PY VX VY
-        if (solve(h,w,d,b,r,particles) > 0.0){
+        float t = solve(h,w,d,b,r,particles);
+        if (t != (float)-1.0){
             MaxwellContainer solution = new MaxwellContainer(h,w,d,b,r,particles);
+            solution.makeVisible();
+            solution.start((int)t);
         }
         else{
             System.out.println("impossible");
@@ -115,6 +125,14 @@ public class MaxwellContest
                     }
                 }
             }
+            else if (vy == 0){
+                while (x < espeX && y == espeY){
+                    x += 1;
+                    if (x == 0 && y == d){
+                        return true;
+                    }
+                }
+            }
         }
         if (!isLeft){
             if (vy <0){
@@ -131,6 +149,14 @@ public class MaxwellContest
                     x -=1;
                     y +=1;
                     if (x==0 && y== d){
+                        return true;
+                    }
+                }
+            }
+            else if (vy == 0){
+                while (x > espeX && y == espeY){
+                    x -= 1;
+                    if (x == 0 && y == d){
                         return true;
                     }
                 }
@@ -282,28 +308,30 @@ public class MaxwellContest
             }
         }
     }
-    private boolean verifyIfIsDone(int b, int r, ArrayList<ArrayList<Integer>> particles){
-        int total = b+r-1;
+    private boolean verifyIfIsDone(int h, int w, ArrayList<ArrayList<Integer>> particles) {
         boolean verify = true;
-        while(total > 0){
-            if (total <= r){
-                //empezamos las azules
-                if (!(particles.get(total).get(0) >= 0)){
-                    verify = false;
-                }
-            }
-            //Rojas
-            if (!(particles.get(total).get(0) <= 0)){
+        for (int i = 0; i < blue; i++){
+            int x = particles.get(i).get(0);
+            if (x < 0 || x > w) {
                 verify = false;
+                break;
             }
-            total -= 1;
+        }
+        for (int i = blue; i < blue + red; i++){
+            int x = particles.get(i).get(0);
+            if (x < -w || x > 0) {
+                verify = false;
+                break;
+            }
         }
         return verify;
     }
     public static void main(String args[]){
-        int [][] vector2D = {{-3,1,2,0},{2,1,4,1}};
+        int [][] vector2D = {{-3,1,2,0},{2,1,-4,0}};
+        int [][] vector2D1 = {{3,1,2,2},{-2,3,-2,-1},{3,2,1,-2},{-2,2,2,2}};
         MaxwellContest b = new MaxwellContest();
-        System.out.println(b.solve(4,7,1,1,1,vector2D));
+        //System.out.println(b.solve(4,7,1,1,1,vector2D));
+        System.out.println(b.solve(4,4,1,2,2,vector2D1));
     }
     /*
      * Method that convert to ArrayList of ArrayList
