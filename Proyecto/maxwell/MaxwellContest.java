@@ -27,9 +27,9 @@ public class MaxwellContest
                 ArrayList<Integer> particle = parti.get(j);
                 int espeX = particle.get(0) + particle.get(2);
                 int espeY = particle.get(1) + particle.get(3);
-                System.out.println("Antes de mover la partícula " + j + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
+                //System.out.println("Antes de mover la partícula " + j + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
                 movement(h,w,d,particle,whereIs(particle.get(0)));
-                System.out.println("Después de mover la partícula " + j + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
+                //System.out.println("Después de mover la partícula " + j + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
                 System.out.println(particle);
             }
             ticks++;
@@ -39,9 +39,14 @@ public class MaxwellContest
                 System.out.println("Partícula " + k + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
             }
             if (verifyIfIsDone(h,w,parti)){
+                System.out.println("////////////////////////////////////////////////////////////////////////");
+                System.out.println(ticks);
                 return (float)ticks;
             }
         }
+        System.out.println("////////////////////////////////////////////////////////////////////////");
+        System.out.println(ticks);
+
         if (ticks == limit){
             return (float)-1.0;
         }
@@ -329,9 +334,13 @@ public class MaxwellContest
     public static void main(String args[]){
         int [][] vector2D = {{-3,1,2,0},{2,1,-4,0}};
         int [][] vector2D1 = {{3,1,2,2},{-2,3,-2,-1},{3,2,1,-2},{-2,2,2,2}};
+        int [][] vector2D2 = {{-1,1,2,2}};
+        int [][] vector2D3 = {{-3,4,-1,-1}};
         MaxwellContest b = new MaxwellContest();
         //System.out.println(b.solve(4,7,1,1,1,vector2D));
-        System.out.println(b.solve(4,4,1,2,2,vector2D1));
+        //System.out.println(b.solve(4,4,1,2,2,vector2D1));
+        //System.out.println(b.solve(4,4,2,1,0,vector2D2));
+        System.out.println(b.solve(5,4,1,1,0,vector2D3));
     }
     /*
      * Method that convert to ArrayList of ArrayList

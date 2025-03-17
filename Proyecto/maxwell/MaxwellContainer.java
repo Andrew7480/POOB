@@ -217,7 +217,7 @@ public class MaxwellContainer
                 }
             }
             if (!par.getIsLeft()){
-                if(!par.getColorForBoolean().equalsIgnoreCase("azul")){
+                if(!par.getColorForBoolean().equalsIgnoreCase("blue")){
                     return false;
                 }
             }

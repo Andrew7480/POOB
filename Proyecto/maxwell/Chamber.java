@@ -278,7 +278,7 @@ public class Chamber
             if (isInDemonPos(p,positionEsperadaX,positionEsperadaY)){
                 if(!(p.getIsRed() == p.getIsLeft())) {
                     p.changeIsLeft();
-                    System.out.println(p.getIsLeft());
+                    //System.out.println(p.getIsLeft());
                     p.moveHorizontal(p.getVelocityX());
                     p.moveVertical(-p.getVelocityY());
                     return;
