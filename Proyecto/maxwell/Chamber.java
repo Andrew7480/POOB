@@ -62,7 +62,7 @@ public class Chamber
         int auxXMax=0;         //0
         int auxYMin=0;
         int auxYMax= height; 
-        return (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  );
+        return (px> auxXMin  && auxXMax>px  && py>= auxYMin  && py <= auxYMax  );
     }
     /*
      * Verify if the particle is in the right
@@ -274,11 +274,15 @@ public class Chamber
         int chamberYPos =chamberCenter.getYPosition()+height;
         int positionEsperadaX = p.getXPositionC()- chamberXPos;
         int positionEsperadaY = chamberYPos - p.getYPositionC() ;
-        if  (positionEsperadaX > -width/4 ||positionEsperadaX < width/4){
+        if  (positionEsperadaX > -width/4 || positionEsperadaX < width/4){
+            System.out.println(p.getColor());
+            System.out.println(p.getIsLeft());
             if (isInDemonPos(p,positionEsperadaX,positionEsperadaY)){
+                System.out.println(p.getColor());
+                System.out.println(p.getIsLeft());
                 if(!(p.getIsRed() == p.getIsLeft())) {
+                    System.out.println(p.getIsLeft());
                     p.changeIsLeft();
-                    //System.out.println(p.getIsLeft());
                     p.moveHorizontal(p.getVelocityX());
                     p.moveVertical(-p.getVelocityY());
                     return;
@@ -487,7 +491,6 @@ public class Chamber
         else if((espeY < 0 && ((espeX <= 0) && espeX >= -width/2))){ // PISO
             if(velociX > 0 && velociY < 0 || velociX < 0 && velociY < 0 ){
                 float t = -((float) (0-convertYBoard) / velociY);
-                System.out.println(t);
                 int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
                 p.setPositionParticle(n, chamberCenter.getYPosition()+height);
                 p.setVelocityY(p.getVelocityY()*(-1));
@@ -547,16 +550,17 @@ public class Chamber
     /*
      * verify if the particle is in the demon position
      * @param Particle p -> current particle of the array
-     * @param int x -> position of the particle plus velocity in x
-     * @param int y -> position of the particle plush velocity in y
+     * @param int x -> position of the particle in x
+     * @param int y -> position of the particle in y
        */
     private boolean isInDemonPos(Particle p ,int x, int y){
         //Canvas canvas = Canvas.getCanvas();
         boolean isLeft = p.getIsLeft();
         int posXaf = x+p.getVelocityX();
         int posYaf = y+p.getVelocityY();
-
+        int positionInChamberX = chamberCenter.getXPosition();
         for (DemonFace d : devils){
+            int positionInChamberY = convertionsBoardToCanvas(x,d.getPosD()).get(1);
             if (posXaf==0 && posYaf == d.getPosD()){
                     return true;
                 }
@@ -565,7 +569,7 @@ public class Chamber
                     while (x< posXaf && y< posYaf){
                         x +=1;
                         y -=1;
-                        if (x==0 && y== d.getPosD()){
+                        if (x == 0 && y == d.getPosD()){
                         return true;
                     }
                     }
@@ -574,31 +578,56 @@ public class Chamber
                     while (x< posXaf && y< posYaf){
                         x +=1;
                         y +=1;
-                        if (x==0 && y== d.getPosD()){
+                        if (x== 0 && y== d.getPosD()){
                         return true;
                     }
                     }
                 }
+                /*
+                else if (p.getVelocityY() == 0){
+                    while (x < posXaf && y == posYaf){
+                        x += 1;
+                        System.out.println("ENTRO1111?");
+                        System.out.println(x + " " + posXaf);
+                        System.out.println(y + " " + d.getPosD());
+                        System.out.println(positionInChamberX);
+                        if (x == 0 && y == d.getPosD()){
+                            System.out.println("ENTRO?");
+                            return true;
+                        }
+                    }
+                }
+                */
             }
             if (!isLeft){
                 if (p.getVelocityY() <0){
                     while (x< posXaf && y< posYaf){
-                        x -=1;
-                        y -=1;
-                        if (x==0 && y== d.getPosD()){
+                    x -=1;
+                    y -=1;
+                    if (x== 0 && y== d.getPosD()){
                         return true;
-                    }
+                        }
                     }
                 }
                 else if (p.getVelocityY() >0){
                     while (x< posXaf && y< posYaf){
                         x -=1;
                         y +=1;
-                        if (x==0 && y== d.getPosD()){
-                        return true;
-                    }
+                        if (x== 0 && y== d.getPosD()){
+                            return true;
+                        }
                     }
                 }
+                /*
+                else if(p.getVelocityY() == 0){
+                    while (x > posXaf && y == posYaf){
+                        x -= 1;
+                        if (x == 0 && y == d.getPosD()){
+                            return true;
+                        }
+                    }
+                }
+                */
             }
 
         }

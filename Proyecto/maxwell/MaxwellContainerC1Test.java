@@ -70,8 +70,8 @@ public class MaxwellContainerC1Test
         int posDemon = 20;
         int posX = 200;
         int posY = (100/2)+20;
-        assertEquals(posY,a.demons().get(0));
-        
+        assertEquals(20,a.demons().get(0));
+        assertEquals(400-20,a.convertionsBoardToCanvas(200,a.demons().get(0)).get(1));
     }
     @Test
     public void shouldNotAddDemon(){

@@ -132,6 +132,7 @@ public class MaxwellContainer
     public void addParticles(){
         chamber.addParticle("red",true,50,50,-10,10); // Prueba para el demonio
         chamber.addParticle("blue",false,280,80,10,10); // Bounce
+        //chamber.addParticle("red",true,-100,100,20,0); // vy = 0
         /*
         chamber.addParticle("turquoise",false,-250,40,-5,5);
         chamber.addParticle("yellow",false,-210,90,5,-5);

@@ -11,6 +11,16 @@ public class MaxwellContest
 {
     private int blue;
     private int red;
+    /**
+     * Find the solution of the Maxwell Demon's problem
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param int d -> position of the demon (0,d)
+     * @param int b -> amount of blue particles
+     * @param int r -> amount of red particles
+     * @param int [][] -> vector 2D of particles [px,py,vx,vy]
+     * return the amount of ticks where all particles are in the right chamber.
+       */
     public float solve(int h, int w,int d, int b, int r, int [][] particles){ //[PX,PY,VX,VY] - PX += VX, PY += VY
         blue = b;
         red = r;
@@ -52,6 +62,15 @@ public class MaxwellContest
         }
         return (float)ticks;
     }
+    /**
+     * if exist a solution of the Maxwell Demon's problem make a simulation with maxwell container
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param int d -> position of the demon (0,d)
+     * @param int b -> amount of blue particles
+     * @param int r -> amount of red particles
+     * @param int [][] -> vector 2D of particles [px,py,vx,vy]
+       */
     public void simulate(int h,int w, int d, int b, int r, int [][] particles){ //PX PY VX VY
         float t = solve(h,w,d,b,r,particles);
         if (t != (float)-1.0){
@@ -63,6 +82,14 @@ public class MaxwellContest
             System.out.println("impossible");
         }
     }
+    /*
+     * Makes the movement of the particle
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param int d -> position of the demon
+     * @param ArrayList<Integer> particles -> 1D ArrayList [px,py,vx,vy]
+     * @param boolean isRed -> define if the particle is red or not.
+       */
     private void movement(int h, int w,int d, ArrayList<Integer> particles, boolean isRed){
         int velociX = particles.get(2);
         int velociY = particles.get(3);
@@ -88,6 +115,15 @@ public class MaxwellContest
             bounce(h,w,particles);
         }
     }
+    /*
+     * verify limits of the container
+     * @param int espeX -> is the position plus the velocityX
+     * @param int espeY -> is the position plus the velocityY
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param int px -> position of the particle in x
+     * @param int py -> position of the particle in y
+       */
     private boolean verifyLimits(int espeX, int espeY, int h, int w, int px, int py){
         System.out.println("VERIFY?");
         int auxXMin;
@@ -106,6 +142,16 @@ public class MaxwellContest
         }
         return false;
     }
+    /*
+     * verify if is in the demon position
+     * @param int d -> position of the demon
+     * @param int espeX -> is the position plus the velocityX
+     * @param int espeY -> is the position plus the velocityY
+     * @param int px -> position of the particle in x
+     * @param int py -> position of the particle in y
+     * @param int vx -> velocity in x 
+     * @param int vy -> velocity in y
+       */
     private boolean isInDemonPosition(int d, int espeX, int espeY, int x, int y, int vx, int vy){
         boolean isLeft = whereIs(x);
         if (espeX==0 && espeY == d){
@@ -169,9 +215,19 @@ public class MaxwellContest
         }
         return false;
     }
+    /*
+     * Find where is the particle (left - right)
+     * @param int x -> position in x of the particle
+       */
     private boolean whereIs(int x){
         return x < 0;
     }
+    /*
+     * verify where the bounce is doing
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param ArrayList<Integer> -> list of particles [px,py,vx,vy]
+       */
     private void bounce(int h, int w, ArrayList<Integer> particles){
         if (whereIs(particles.get(0))){
             bounceLeft(h,w,particles);
@@ -180,10 +236,20 @@ public class MaxwellContest
             bounceRight(h,w,particles);
         }
     }
+    /*
+     * do the bounce in the corner
+     * @param ArrayList<Integer> -> list of particles [px,py,vx,vy]
+       */
     private void bounceInCorner(ArrayList<Integer> particles){
         particles.set(2, -particles.get(2));
         particles.set(3, -particles.get(3));
     }
+    /*
+     * Makes the bounce in the right
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param ArrayList<Integer> -> list of particles [px,py,vx,vy]
+       */
     private void bounceRight(int h, int w, ArrayList<Integer> particles){
         int velociX = particles.get(2);
         int velociY = particles.get(3);
@@ -245,7 +311,12 @@ public class MaxwellContest
             particles.set(3, -velociY);// termina siendo la y positiva
         }
     }
-
+    /*
+     * Makes the bounce in the left
+     * @param int h -> height of the container
+     * @param int w -> width of the container
+     * @param ArrayList<Integer> -> list of particles [px,py,vx,vy]
+       */
     private void bounceLeft(int h, int w, ArrayList<Integer> particles){
         int espeX = particles.get(0) + particles.get(2);
         int espeY = particles.get(1) + particles.get(3);
@@ -313,6 +384,12 @@ public class MaxwellContest
             }
         }
     }
+    /*
+     * verify if is red particles are in the left chamber and all blue particles are in the right chamber
+     * @param int h -> height of container
+     * @param int w -> width of container
+     * @param ArrayList<ArrayList<Integer>> particles -> List2D of particles [px,py,vx,vy]
+       */
     private boolean verifyIfIsDone(int h, int w, ArrayList<ArrayList<Integer>> particles) {
         boolean verify = true;
         for (int i = 0; i < blue; i++){
