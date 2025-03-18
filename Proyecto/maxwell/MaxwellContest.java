@@ -25,7 +25,7 @@ public class MaxwellContest
         blue = b;
         red = r;
         ArrayList<ArrayList<Integer>> parti = convertToArrayListArrayList(particles);
-        System.out.println(parti.get(0));
+        //System.out.println(parti.get(0));
         //System.out.println(parti.get(1));
         int ticks = 0;
         int limit = 30;
@@ -40,22 +40,22 @@ public class MaxwellContest
                 //System.out.println("Antes de mover la partícula " + j + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
                 movement(h,w,d,particle,whereIs(particle.get(0)));
                 //System.out.println("Después de mover la partícula " + j + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
-                System.out.println(particle);
+                //System.out.println(particle);
             }
             ticks++;
-            System.out.println("Estado de las partículas después del tick " + ticks + ": ");
+            //System.out.println("Estado de las partículas después del tick " + ticks + ": ");
             for (int k = 0; k < parti.size(); k++) {
                 ArrayList<Integer> particle = parti.get(k);
                 System.out.println("Partícula " + k + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
             }
             if (verifyIfIsDone(h,w,parti)){
-                System.out.println("////////////////////////////////////////////////////////////////////////");
+                //System.out.println("////////////////////////////////////////////////////////////////////////");
                 System.out.println(ticks);
                 return (float)ticks;
             }
         }
-        System.out.println("////////////////////////////////////////////////////////////////////////");
-        System.out.println(ticks);
+        //System.out.println("////////////////////////////////////////////////////////////////////////");
+        //System.out.println(ticks);
 
         if (ticks == limit){
             return (float)-1.0;
