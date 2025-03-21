@@ -55,7 +55,7 @@ public class MaxwellContest
             }
         }
         //System.out.println("////////////////////////////////////////////////////////////////////////");
-        //System.out.println(ticks);
+        System.out.println(ticks);
 
         if (ticks == limit){
             return (float)-1.0;
@@ -106,12 +106,12 @@ public class MaxwellContest
         }
         boolean verify = verifyLimits(espeX,espeY, h, w, x, y) && (y + velociY >= 0);
         if (verify){
-            System.out.println("ENTRO");
+            //System.out.println("ENTRO");
             particles.set(0,espeX);
             particles.set(1,espeY);
         }
         else if (!verify){
-            System.out.println("SE SALE -> BOUNCE");
+            //System.out.println("SE SALE -> BOUNCE");
             bounce(h,w,particles);
         }
     }
@@ -125,7 +125,7 @@ public class MaxwellContest
      * @param int py -> position of the particle in y
        */
     private boolean verifyLimits(int espeX, int espeY, int h, int w, int px, int py){
-        System.out.println("VERIFY?");
+        //System.out.println("VERIFY?");
         int auxXMin;
         int auxXMax;
         int auxYMin = 0;

@@ -7,8 +7,8 @@ import java.awt.Color;
 <br>
  */
 public class Person extends Agent implements Item{
-    private City city;
-    private int row,column;    
+    protected City city;
+    protected int row,column;    
     protected Color color;
     
     /**Create a new person (<b>row,column</b>) in the city <b>ac</b>..
@@ -20,7 +20,7 @@ public class Person extends Agent implements Item{
         this.city=city;
         this.row=row;
         this.column=column;
-        this.city.setItem(row,column,(Item)this);    
+        this.city.setItem(row,column,(Item)this); 
         color=Color.blue;
     }
     
@@ -52,6 +52,9 @@ public class Person extends Agent implements Item{
      */
     public void decide(){
          state=(getSteps() % 3 == 0 ? Agent.HAPPY: (getSteps() % 3 == 1 ? Agent.INDIFFERENT: Agent.DISSATISFIED));
+         if (state == 'h') setColor(Color.yellow);
+         if (state == 'i') setColor(Color.lightGray);
+         if (state == 'd') setColor(Color.ORANGE);
     }
 
     /**Change its actual state
@@ -59,5 +62,7 @@ public class Person extends Agent implements Item{
     public final void change(){
         step();
     }
-        
+    public void setColor(Color newColor){
+        color = newColor;
+    }
 }

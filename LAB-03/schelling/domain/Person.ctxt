@@ -19,4 +19,6 @@ comment5.text=Act\r\n
 comment6.params=
 comment6.target=void\ change()
 comment6.text=Change\ its\ actual\ state\r\n
-numComments=7
+comment7.params=newColor
+comment7.target=void\ setColor(java.awt.Color)
+numComments=8
