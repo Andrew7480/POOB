@@ -10,7 +10,6 @@ import java.awt.Color;
  */
 public class Walker extends Person
 {
-    public final int SQUARE = 2;
     public Walker(City city, int row, int column){
         super(city,row,column);
         color = Color.green;
@@ -21,16 +20,12 @@ public class Walker extends Person
         if (city.isEmpty(row-1, column)){
             city.changeItemPosition(row,column,row-1,column,(Item)this);
             row --;
-            if (city.neighborsEquals(row, column) >= 1){
+            if (city.neighbors(row, column) >= 1){
                 state = HAPPY;
             }
         }
         else{
             state = DISSATISFIED;
         }
-    }
-    @Override
-    public int shape(){
-        return SQUARE;
     }
 }

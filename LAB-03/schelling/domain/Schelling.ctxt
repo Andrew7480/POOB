@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Schelling
+comment1.params=city\ row\ column
+comment1.target=Schelling(City,\ int,\ int)
+comment2.params=
+comment2.target=void\ decide()
+comment3.params=
+comment3.target=void\ planningRoute()
+numComments=4

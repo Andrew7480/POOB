@@ -12,8 +12,7 @@ public class TrafficLight implements Item
 {
    private City city;
    private int row, column;
-   private Color color;
-   private int count;
+   private int count = 1;
    public final static char YELLOW='y', RED='r', GREEN='g';
    public TrafficLight(City city, int row, int column){
        this.city=city;
@@ -23,10 +22,24 @@ public class TrafficLight implements Item
    }
    @Override
    public void decide(){
-       
+       count ++;
+       if (count > 4) count =1;
    }
    @Override
    public Color getColor(){
-       return Color.red;
+       if (count == 1){
+           return Color.red;
+       }
+       if (count == 2){
+           return Color.yellow;
+       }
+       if (count == 3){
+           return Color.green;
+       }
+       if (count == 4){
+           return Color.yellow;
+       }
+       
+       return Color.black;
    }
 }

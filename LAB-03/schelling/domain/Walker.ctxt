@@ -5,6 +5,4 @@ comment1.params=city\ row\ column
 comment1.target=Walker(City,\ int,\ int)
 comment2.params=
 comment2.target=void\ decide()
-comment3.params=
-comment3.target=int\ shape()
-numComments=4
+numComments=3
