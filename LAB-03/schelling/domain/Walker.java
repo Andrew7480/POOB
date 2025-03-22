@@ -28,4 +28,8 @@ public class Walker extends Person
             state = DISSATISFIED;
         }
     }
+    @Override
+    public int shape(){
+        return SQUARE;
+    }
 }
