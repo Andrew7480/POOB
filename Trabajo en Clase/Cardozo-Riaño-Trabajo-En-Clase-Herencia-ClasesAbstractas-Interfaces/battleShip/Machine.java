@@ -9,8 +9,11 @@ public abstract class Machine {
         return longitude == location.getLongitude() && latitude == location.getLatitude();
     }
     /**
-     * return if a machine is weak
+     * Method abstract that returns if a machine is weak
        */
     public abstract boolean isWeakMachine();
+    /**
+     * Method abstract that returns the number of sailor
+       */
     public abstract int getSailorNumber();
 }
