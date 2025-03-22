@@ -43,6 +43,7 @@ public class Person extends Agent implements Item{
     /**Returns the color
     @return 
      */
+    @Override
     public final Color getColor(){
         return color;
     }
@@ -51,10 +52,10 @@ public class Person extends Agent implements Item{
     /**Act
      */
     public void decide(){
-         state=(getSteps() % 3 == 0 ? Agent.HAPPY: (getSteps() % 3 == 1 ? Agent.INDIFFERENT: Agent.DISSATISFIED));
-         if (state == 'h') setColor(Color.magenta);
-         if (state == 'i') setColor(Color.orange);
-         if (state == 'd') setColor(Color.blue);
+        state=(getSteps() % 3 == 0 ? Agent.HAPPY: (getSteps() % 3 == 1 ? Agent.INDIFFERENT: Agent.DISSATISFIED));
+        if (state == 'h') setColor(Color.magenta);
+          if (state == 'i') setColor(Color.orange);
+          if (state == 'd') setColor(Color.blue);
     }
 
     /**Change its actual state
@@ -62,7 +63,8 @@ public class Person extends Agent implements Item{
     public final void change(){
         step();
     }
+
     public void setColor(Color newColor){
-        color = newColor;
-    }
+         color = newColor;
+     }
 }

@@ -1,5 +1,5 @@
 package Test;
-
+import domain.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,6 +30,7 @@ public class CTest
     @BeforeEach
     public void setUp()
     {
+        City Thecity = new City();
     }
 
     /**

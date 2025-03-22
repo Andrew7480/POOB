@@ -52,7 +52,6 @@ public class City{
           Road sanchez = new Road(this,23,0);
           Schelling tulio = new Schelling(this,16,16 );
           
-          
           Person tulio2 = new Person(this,15,0);
           Schelling tulio3 = new Schelling(this,16,0 );
           Schelling tulio4 = new Schelling(this,16,1 );
@@ -104,8 +103,8 @@ public class City{
         }
         
         for (Item i: items){
-            i.decide();
             i.change();
+            i.decide();
         }
     }
 

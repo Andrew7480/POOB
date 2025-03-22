@@ -22,7 +22,7 @@ public class Road implements Item
    @Override
    public void decide(){
        if (city.isEmpty(row, column+1)){
-           Road cardozo = new Road(city,row,column+1 );
+           Road cr = new Road(city,row,column+1 );
        }
    }
    @Override
