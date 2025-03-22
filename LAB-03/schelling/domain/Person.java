@@ -24,7 +24,6 @@ public class Person extends Agent implements Item{
         color=Color.blue;
     }
     
-
     /**Returns the row
     @return 
      */
@@ -38,8 +37,7 @@ public class Person extends Agent implements Item{
     public final int getColumn(){
         return column;
     }
-
-    
+   
     /**Returns the color
     @return 
      */
@@ -48,14 +46,13 @@ public class Person extends Agent implements Item{
         return color;
     }
 
-
     /**Act
      */
     public void decide(){
         state=(getSteps() % 3 == 0 ? Agent.HAPPY: (getSteps() % 3 == 1 ? Agent.INDIFFERENT: Agent.DISSATISFIED));
         if (state == 'h') setColor(Color.magenta);
-          if (state == 'i') setColor(Color.orange);
-          if (state == 'd') setColor(Color.blue);
+        if (state == 'i') setColor(Color.orange);
+        if (state == 'd') setColor(Color.blue);
     }
 
     /**Change its actual state
@@ -63,7 +60,9 @@ public class Person extends Agent implements Item{
     public final void change(){
         step();
     }
-
+    /**Set color of the person
+     * @param Color newColor
+       */
     public void setColor(Color newColor){
          color = newColor;
      }

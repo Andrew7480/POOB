@@ -21,4 +21,5 @@ comment6.target=void\ change()
 comment6.text=Change\ its\ actual\ state\r\n
 comment7.params=newColor
 comment7.target=void\ setColor(java.awt.Color)
+comment7.text=Set\ color\ of\ the\ person\r\n\ @param\ Color\ newColor\r\n
 numComments=8

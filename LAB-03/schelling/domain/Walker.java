@@ -10,11 +10,21 @@ import java.awt.Color;
  */
 public class Walker extends Person
 {
+    /**
+     * Create a new Kind of person (Walker) in the city
+     * @param City city
+     * @param int row
+     * @param int column
+    */
     public Walker(City city, int row, int column){
         super(city,row,column);
         color = Color.green;
         state = INDIFFERENT;
     }
+    /**
+     * Begins to move north without leaving the grid, if it has neighbors it change its state to happy
+     * if cant make a move change state to dissatisfied.
+       */
     @Override
     public void decide(){
         if (city.isEmpty(row-1, column)){
@@ -28,6 +38,9 @@ public class Walker extends Person
             state = DISSATISFIED;
         }
     }
+    /**
+     * returns the shape of the walker (SQUARE)
+       */
     @Override
     public int shape(){
         return SQUARE;
