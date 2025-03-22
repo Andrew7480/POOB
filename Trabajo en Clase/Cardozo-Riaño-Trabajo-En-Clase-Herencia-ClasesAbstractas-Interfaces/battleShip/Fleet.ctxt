@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Fleet
+comment1.params=longitude\ latitude
+comment1.target=java.util.ArrayList\ willBeDestroyed(int,\ int)
+comment1.text=\r\n\ Consults\ the\ machines\ that\ may\ be\ affected\ by\ an\ explosion\ at\ the\ given\r\n\ position.\ Many\ machines\ can\ be\ at\ one\ coordinate.\ Airplanes\ in\ the\ air\r\n\ are\ not\ destroyed.\r\n\ @param\ int\ longitude\r\n\ @param\ int\ latitude\r\n\ return\ machines\ in\ position\r\n
+comment2.params=
+comment2.target=java.util.ArrayList\ weakMachines()
+comment2.text=\r\n\ Consults\ the\ weak\ machines\ of\ a\ fleet.\ A\ ship\ is\ weak\ if\ it\ has\ fewer\r\n\ than\ five\ sailors;\ an\ airplane,\ if\ it\ has\ no\ main\ pilot;\ and\ an\ aircraft\r\n\ carrier,\ if\ it\ is\ a\ weak\ ship\ or\ any\ of\ its\ airplanes\ in\ the\ air\ is\ weak.\r\n\ \r\n\ return\ the\ weak\ machines.\r\n
+comment3.params=
+comment3.target=int\ power()
+comment4.params=
+comment4.target=void\ moveNorth()
+numComments=5

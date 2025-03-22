@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=AircraftCarrier
+comment1.params=
+comment1.target=boolean\ isWeakMachine()
+comment1.text=\r\n\ return\ if\ a\ aircraft\ carrier\ is\ a\ weak\ machine\r\n
+numComments=2
