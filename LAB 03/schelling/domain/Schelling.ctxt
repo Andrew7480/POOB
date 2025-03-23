@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Schelling
+comment1.params=city\ row\ column
+comment1.target=Schelling(City,\ int,\ int)
+comment1.text=\r\n\ Create\ a\ new\ Kind\ of\ person\ (Slider)\ in\ the\ city\r\n\ @param\ City\ city\r\n\ @param\ int\ row\r\n\ @param\ int\ column\r\n
+comment2.params=
+comment2.target=void\ decideState()
+comment2.text=\r\n\ The\ schelling\ person\ decide\ how\ to\ feel\ for\ his/her\ neighborhood\r\n
+comment3.params=
+comment3.target=void\ decide()
+comment3.text=\r\n\ They\ only\ move\ if\ they\ are\ dissatisfied\ with\ their\ neighbors,\ if\ the\ are\ fine\ where\ they\ are\ they\ do\ not\ move,\ their\ state\ changes\ to\ indifferent\r\n\ if\ the\ neighbors,\ they\ are\ dissatisfied\ if\ less\ than\ 1/3\ of\ the\ neighbors\ are\ not\ like\ them,\ they\ are\ satisfied\ if\ more\ than\ 1/3\ of\ the\ neighbors\r\n\ are\ like\ them\ and\ not\ all\ are\ like\ them.\r\n
+numComments=4
