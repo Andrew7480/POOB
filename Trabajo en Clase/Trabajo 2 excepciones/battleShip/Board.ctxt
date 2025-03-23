@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Board
+comment1.params=
+comment1.target=int[]\ getLongitudRange()
+comment1.text=\r\n\ returns\ the\ range\ fot\ longitudee\ \r\n
+comment2.params=
+comment2.target=int[]\ getLatitudRange()
+comment2.text=\r\n\ returns\ the\ range\ fot\ latituee\ \r\n
+comment3.params=
+comment3.target=int\ toNorth()
+comment3.text=\r\n\ Consults\ the\ number\ of\ fleets\ that\ completed\ a\ full\ movement\r\n\ return\ the\ number\ of\ fleets\ that\ completed\ a\ full\ movement\r\n
+numComments=4

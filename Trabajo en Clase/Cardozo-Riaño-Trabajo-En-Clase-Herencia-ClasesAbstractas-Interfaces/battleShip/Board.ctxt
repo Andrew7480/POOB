@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Board
-comment1.params=
-comment1.target=int[]\ getLongitudRange()
-comment2.params=
-comment2.target=int[]\ getLatitudRange()
-numComments=3

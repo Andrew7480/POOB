@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=UnderwaterCapsule
+comment1.params=longitude\ latitude
+comment1.target=boolean\ isDestroyed(int,\ int)
+comment1.text=\r\n\ The\ UnderwaterCapsule\ are\ immune\ to\ attacks\r\n\ @int\ longitudee\r\n\ @int\ latitudee\r\n
+comment2.params=
+comment2.target=boolean\ isWeakMachine()
+comment2.text=\r\n\ The\ UnderwaterCapsule\ are\ not\ a\ weak\ Machine\r\n
+comment3.params=
+comment3.target=int\ getSailorNumber()
+comment3.text=\r\n\ The\ UnderwaterCapsule\ have\ 0\ sailors\r\n
+numComments=4

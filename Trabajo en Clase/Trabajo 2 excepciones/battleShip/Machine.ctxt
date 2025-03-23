@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Machine
+comment1.params=longitude\ latitude
+comment1.target=boolean\ isDestroyed(int,\ int)
+comment1.text=\r\n\ return\ if\ the\ machine\ is\ destroyed\ in\ a\ certain\ position.\r\n\ @param\ int\ longitude\r\n\ @param\ int\ latitude\r\n
+comment2.params=
+comment2.target=boolean\ isWeakMachine()
+comment2.text=\r\n\ Method\ abstract\ that\ returns\ if\ a\ machine\ is\ weak\r\n
+comment3.params=
+comment3.target=int\ getSailorNumber()
+comment3.text=\r\n\ Method\ abstract\ that\ returns\ the\ number\ of\ sailor\r\n
+comment4.params=
+comment4.target=void\ moveNorth()
+comment4.text=\r\n\ Method\ that\ moves\ the\ fleet\ one\ machine\ north.\r\n
+comment5.params=
+comment5.target=Position\ getPosition()
+comment5.text=\r\n\ Method\ that\ get\ the\ location\r\n
+numComments=6
