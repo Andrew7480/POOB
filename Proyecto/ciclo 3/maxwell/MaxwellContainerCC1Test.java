@@ -17,7 +17,7 @@ public class MaxwellContainerCC1Test
     public MaxwellContainerCC1Test()
     {
     }
-    // EL CENTRO EN EL MAXWELL CONTAINER SIEMPRE VA A SER 350 - 400
+    // EL CENTRO EN EL MAXWELL CONTAINER SIEMPRE VA A SER 350 - 350
     /**
      * Sets up the test fixture.
      *
@@ -66,9 +66,9 @@ public class MaxwellContainerCC1Test
         int newY = a.convertionsBoardToCanvas(0,0).get(1);
         //Deberia hacer la conversión con el objetivo de que se muestren las coordenadas del centro de canvas.
         assertEquals(350,newX);
-        assertEquals(400,newY);
-        newX = a.convertionsCanvasToBoard(350,400).get(0);
-        newY = a.convertionsCanvasToBoard(350,400).get(1);
+        assertEquals(350,newY);
+        newX = a.convertionsCanvasToBoard(350,350).get(0);
+        newY = a.convertionsCanvasToBoard(350,350).get(1);
         assertEquals(0,newX);
         assertEquals(0,newY);
     }
