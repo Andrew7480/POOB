@@ -92,7 +92,7 @@ public class Fleet {
                 
         if (doTheLastMovement){
             for(Machine m:machines){
-            m.moveNorth();
+                m.moveNorth();
             }
         }
     }
