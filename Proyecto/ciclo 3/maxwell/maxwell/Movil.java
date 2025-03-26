@@ -9,7 +9,11 @@ package maxwell;
  */
 public class Movil extends Hole
 {
-    public Movil(int xPosition, int yPosition, int particles){
-        super(xPosition,yPosition, particles);
+    public Movil(int xPosition, int yPosition, int particles,boolean whereIs){
+        super(xPosition,yPosition, particles,whereIs);
+        blackHole.changeColor("charcoal");
+        state = MOVIL;
     }
+    
+    
 }

@@ -17,6 +17,7 @@ public class Chamber
     private ArrayList<Particle> particules = new ArrayList<>();
     private ArrayList<DemonFace> devils = new ArrayList<>();
     private ArrayList<Hole> holes = new ArrayList<>();
+    private ArrayList<Particle> particulesDelete = new ArrayList<>();
     private int width;
     private int height;
     
@@ -132,20 +133,41 @@ public class Chamber
     }
     
     private boolean delOneParticle(Particle p){
+        System.out.println("ENTRO?");
         boolean theLastActionWasSuccess = false;
         for (int i = 0; i < particules.size(); i++){
             if (particules.get(i).equals(p)){
-                particules.remove(i);
+                p.makeInvisibleParticle();
+                particulesDelete.add(particules.get(i));
+                particules.set(i,null);
+                delDefinitive();
                 theLastActionWasSuccess = true;
             }
         }
         return theLastActionWasSuccess;
     }
+    
+    private void delDefinitive(){
+        boolean theLastActionWasSuccess = false;
+        for (int i = 0; i < particules.size(); i++){
+            if(particules.get(i) == null){
+                particules.remove(i);
+                theLastActionWasSuccess = true;
+            }
+        }
+    }
+    
+    public void getParticulesDelete(){
+        for (Particle a : particulesDelete){
+            a.makeInvisibleParticle();
+        }
+    }
+    
     /**
      * if the position is no repeated creates a new demon in d
      * @param int d - is the position in y-axis this number cannot be negative and cant be in the same position of the another demon.
        */
-    public boolean addDemon(int d){ // va de 0 a h
+    public boolean addDemon(String type, int d){ // va de 0 a h
         for (DemonFace de : devils){
             if(de.getPosD() == d){
                 if (!isVisible){
@@ -153,6 +175,22 @@ public class Chamber
                 }
                 return false;
             }
+        }
+        if (type == "Blue"){
+            Blue demon = new Blue(chamberCenter.getXPosition(), chamberCenter.getYPosition(),width, height, d);
+            devils.add(demon);
+            if(isVisible){
+                demon.makeVisible();
+            }
+            return true;
+        }
+        if (type == "Weak"){
+            Weak demon = new Weak(chamberCenter.getXPosition(), chamberCenter.getYPosition(),width, height, d);
+            devils.add(demon);
+            if(isVisible){
+                demon.makeVisible();
+            }
+            return true;
         }
         DemonFace demon = new DemonFace(chamberCenter.getXPosition(), chamberCenter.getYPosition(),width, height, d);
         devils.add(demon);
@@ -182,25 +220,38 @@ public class Chamber
      * @param int py - position in y of the particle.
      * @param int particles - amount of particles.
        */
-    public boolean addHole(int px, int py, int particles){
-        int chamberXPos = chamberCenter.getXPosition()+1;
+    public boolean addHole(String type, int px, int py, int particles){
+        boolean left = isInLeft(px,py);
+        int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=-width/2;  //-(chamberXPos-(width/2));
         int auxXMax=width/2; //chamberXPos+(width/2); 
         int auxYMin=0;
-        int auxYMax= height;  // -(chamberYPos-height-chamberYPos); 
+        int auxYMax= height;  // -(chamberYPos-height-chamberYPos);
         if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){ 
             px = chamberXPos + px; 
             py = chamberYPos - py;
-            Hole h = new Hole(px,py, particles);
-            if (isVisible){
-                h.makeVisibleHole();
+            if (type == "Movil"){
+                Movil h = new Movil(px,py, particles,left);
+                if (isVisible){
+                    h.makeVisibleHole();
+                }
+                holes.add(h);
+                return true;
             }
-            holes.add(h);
-            return true;
+            else{
+                Hole h = new Hole(px,py, particles,left);
+                if (isVisible){
+                    h.makeVisibleHole();
+                }
+                holes.add(h);
+                return true;
+            }
         }
         return false;
     }
+    
+    
     /**
      * return the array list of integers in order of lowest to highest
        */
@@ -212,6 +263,7 @@ public class Chamber
         Collections.sort(posDemons);
         return posDemons;
     }
+    
     /**
      * return the total amount of the particles
        */
@@ -278,6 +330,16 @@ public class Chamber
     public void showCenter(){
         chamberCenter.showCenter();
     }
+    
+    public void movementMoviles(Hole m){
+        int posX = convertionsCanvasToBoard(m.getXPosition(), m.getYPosition()).get(0);
+        int posY = convertionsCanvasToBoard(m.getXPosition(), m.getYPosition()).get(1);
+        if (verifyLimits(m.getWhereIs(), posX, posY)){
+            m.moveHorizontal(1);
+            m.moveVertical(-1);
+        }
+    }
+    
     /**
      * makes the movement of a certain particle
      * @param Particle p
@@ -286,7 +348,7 @@ public class Chamber
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
         int positionEsperadaX = p.getXPositionC()- chamberXPos;
-        int positionEsperadaY = chamberYPos - p.getYPositionC() ;
+        int positionEsperadaY = chamberYPos - p.getYPositionC();
         
         if  (positionEsperadaX > -width/4 || positionEsperadaX < width/4){
             if (isInDemonPos(p,positionEsperadaX,positionEsperadaY)){
@@ -300,7 +362,7 @@ public class Chamber
                 
             }
         }
-        boolean verify = verifyLimits(p, positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
+        boolean verify = verifyLimits(p.getIsLeft(), positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
         if (verify){
             p.moveHorizontal(p.getVelocityX());
             p.moveVertical(-p.getVelocityY());
@@ -318,11 +380,33 @@ public class Chamber
     private void inHole(Particle p){
         int xPos = p.getXPositionC();
         int yPos = p.getYPositionC();
+        int vX = p.getVelocityX();
+        int vY = p.getVelocityY();
         for (Hole h:holes){
-            if (xPos == h.getXPosition() && yPos == h.getYPosition() && h.getMaxParticles()>0)
+            int xPos2 = h.getXPosition();
+            int yPos2 = h.getYPosition();
+            if (h.getMaxParticles()>0 && ((xPos == xPos2 && yPos == yPos2) || ((xPos < xPos2 + 10 && xPos > xPos2) && (yPos < yPos2 + 10 && yPos > yPos2)))){
                 h.reduceMaxParticles();
                 delOneParticle(p);
             }
+            else{
+                float posFx = (float)xPos;
+                float posFy = (float)yPos;
+                float vXt = (float)vX/30;
+                float vYt = (float)vY/30;
+                int count = 0;
+                while (count < 30){
+                    posFx += vXt;
+                    posFy += vYt;
+                    if (h.getMaxParticles()>0 && ((posFx == xPos2 && posFy == yPos2) || ((posFx < xPos2 + 10 && posFx > xPos2) && (posFy < yPos2 + 10 && posFy > yPos2)))){
+                        h.reduceMaxParticles();
+                        delOneParticle(p);
+                        count = 40;
+                    }
+                    count++;
+                }
+            }
+        }
     }
     /*
      * verify limits of the movement of each particle
@@ -330,17 +414,17 @@ public class Chamber
      * @param int x is the position of x plus the velocity x
      * @param int y is the position of y plus the velocity y
        */
-    private boolean verifyLimits(Particle p, int x, int y){
+    private boolean verifyLimits(boolean isLeft, int x, int y){
         int auxXMin;
         int auxXMax;
         int auxYMin = 0;
         int auxYMax = height;
-        if (p.getIsLeft()){
+        if (isLeft){
             auxXMin=-width/2;
             auxXMax=0;
             return  x >= auxXMin  && x <= auxXMax  && y >= auxYMin  && y <= auxYMax;
         }        
-        if (!p.getIsLeft()){
+        if (!isLeft){
             auxXMin=0;  
             auxXMax=width/2; 
             return x >= auxXMin  && x <= auxXMax  && y >= auxYMin  && y <= auxYMax;
@@ -581,79 +665,163 @@ public class Chamber
         int positionInChamberX = chamberCenter.getXPosition();
         for (DemonFace d : devils){
             int positionInChamberY = convertionsBoardToCanvas(x,d.getPosD()).get(1);
-            if (posXaf==0 && posYaf == d.getPosD()){
+            if ((d.isBlue() && (!p.getIsRed())) || (d.isNormal())){
+                if (posXaf==0 && posYaf == d.getPosD()){
                     return true;
                 }
-            if (isLeft){
-                if (p.getVelocityY() <0){
-                    while (x< posXaf && y< posYaf){
-                        x +=1;
-                        y -=1;
-                        if (x == 0 && y == d.getPosD()){
-                        return true;
-                    }
-                    }
-                }
-                else if (p.getVelocityY() >0){
-                    while (x< posXaf && y< posYaf){
-                        x +=1;
-                        y +=1;
-                        if (x== 0 && y== d.getPosD()){
-                        return true;
-                    }
-                    }
-                }
-                /*
-                else if (p.getVelocityY() == 0){
-                    while (x < posXaf && y == posYaf){
-                        x += 1;
-                        System.out.println("ENTRO1111?");
-                        System.out.println(x + " " + posXaf);
-                        System.out.println(y + " " + d.getPosD());
-                        System.out.println(positionInChamberX);
-                        if (x == 0 && y == d.getPosD()){
-                            System.out.println("ENTRO?");
+                if (isLeft){
+                    if (p.getVelocityY() <0){
+                        while (x< posXaf && y< posYaf){
+                            x +=1;
+                            y -=1;
+                            if (x == 0 && y == d.getPosD()){
                             return true;
                         }
-                    }
-                }
-                */
-            }
-            if (!isLeft){
-                if (p.getVelocityY() <0){
-                    while (x< posXaf && y< posYaf){
-                    x -=1;
-                    y -=1;
-                    if (x== 0 && y== d.getPosD()){
-                        return true;
                         }
                     }
+                    else if (p.getVelocityY() >0){
+                        while (x< posXaf && y< posYaf){
+                            x +=1;
+                            y +=1;
+                            if (x== 0 && y== d.getPosD()){
+                            return true;
+                        }
+                        }
+                    }
+                    /*
+                    else if (p.getVelocityY() == 0){
+                        while (x < posXaf && y == posYaf){
+                            x += 1;
+                            System.out.println("ENTRO1111?");
+                            System.out.println(x + " " + posXaf);
+                            System.out.println(y + " " + d.getPosD());
+                            System.out.println(positionInChamberX);
+                            if (x == 0 && y == d.getPosD()){
+                                System.out.println("ENTRO?");
+                                return true;
+                            }
+                        }
+                    }
+                    */
                 }
-                else if (p.getVelocityY() >0){
-                    while (x< posXaf && y< posYaf){
+                if (!isLeft){
+                    if (p.getVelocityY() <0){
+                        while (x< posXaf && y< posYaf){
                         x -=1;
-                        y +=1;
+                        y -=1;
                         if (x== 0 && y== d.getPosD()){
                             return true;
+                            }
                         }
                     }
-                }
-                /*
-                else if(p.getVelocityY() == 0){
-                    while (x > posXaf && y == posYaf){
-                        x -= 1;
-                        if (x == 0 && y == d.getPosD()){
-                            return true;
+                    else if (p.getVelocityY() >0){
+                        while (x< posXaf && y< posYaf){
+                            x -=1;
+                            y +=1;
+                            if (x== 0 && y== d.getPosD()){
+                                return true;
+                            }
                         }
                     }
+                    /*
+                    else if(p.getVelocityY() == 0){
+                        while (x > posXaf && y == posYaf){
+                            x -= 1;
+                            if (x == 0 && y == d.getPosD()){
+                                return true;
+                            }
+                        }
+                    }
+                    */
                 }
-                */
             }
-
+            if (d.isWeak()){
+                if (posXaf==0 && posYaf == d.getPosD()){
+                    delDemon(d.getPosD());
+                    return true;
+                }
+                if (isLeft){
+                    if (p.getVelocityY() <0){
+                        while (x< posXaf && y< posYaf){
+                            x +=1;
+                            y -=1;
+                            if (x == 0 && y == d.getPosD()){
+                                delDemon(d.getPosD());
+                                return true;
+                            }
+                        }
+                    }
+                    else if (p.getVelocityY() >0){
+                        while (x< posXaf && y< posYaf){
+                            x +=1;
+                            y +=1;
+                            if (x== 0 && y== d.getPosD()){
+                                delDemon(d.getPosD());
+                                return true;
+                            }
+                        }
+                    }
+                    /*
+                    else if (p.getVelocityY() == 0){
+                        while (x < posXaf && y == posYaf){
+                            x += 1;
+                            System.out.println("ENTRO1111?");
+                            System.out.println(x + " " + posXaf);
+                            System.out.println(y + " " + d.getPosD());
+                            System.out.println(positionInChamberX);
+                            if (x == 0 && y == d.getPosD()){
+                                System.out.println("ENTRO?");
+                                return true;
+                            }
+                        }
+                    }
+                    */
+                }
+                if (!isLeft){
+                    if (p.getVelocityY() <0){
+                        while (x< posXaf && y< posYaf){
+                        x -=1;
+                        y -=1;
+                        if (x== 0 && y== d.getPosD()){
+                                delDemon(d.getPosD());
+                                return true;
+                            }
+                        }
+                    }
+                    else if (p.getVelocityY() >0){
+                        while (x< posXaf && y< posYaf){
+                            x -=1;
+                            y +=1;
+                            if (x== 0 && y== d.getPosD()){
+                                delDemon(d.getPosD());
+                                return true;
+                            }
+                        }
+                    }
+                    /*
+                    else if(p.getVelocityY() == 0){
+                        while (x > posXaf && y == posYaf){
+                            x -= 1;
+                            if (x == 0 && y == d.getPosD()){
+                                return true;
+                            }
+                        }
+                    }
+                    */
+                }
+            }
         }
         return false;
     }
     public ArrayList<DemonFace> getDevils(){
         return devils;
+    }
+    
+    public ArrayList<Hole> getHolesMoviles(){
+        ArrayList<Hole> holesMoviles = new ArrayList<>();
+        for (Hole h : holes){
+            if (h.isMovil()) holesMoviles.add(h);
+        }
+        return holesMoviles;
     }
 }

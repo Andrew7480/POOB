@@ -10,18 +10,22 @@ import java.util.ArrayList;
  */
 public class Hole
 {
-    private Rectangle blackHole;
-    private int maxParticles;
+    protected Rectangle blackHole;
+    protected int maxParticles;
+    public static final char MOVIL = 'm';
+    protected boolean isLeft;
+    protected char state;
     /**
      * Constructor of Hole
      * @param int xPosition
      * @param int yPosition
      * @param int particles
        */
-    public Hole(int xPosition, int yPosition, int particles){
+    public Hole(int xPosition, int yPosition, int particles, boolean whereIs){
         blackHole = new Rectangle(xPosition, yPosition, 10, 10);
         maxParticles = particles;
-        
+        state = 'n';
+        isLeft = whereIs;
     }
     public void reduceMaxParticles(){
         maxParticles--;
@@ -67,4 +71,20 @@ public class Hole
     public int getYPosition(){
         return blackHole.getYPosition();
     }
+    
+    public boolean isMovil(){
+        return state == MOVIL;
+    }
+    
+    public boolean getWhereIs(){
+        return isLeft;
+    }
+    
+    public void moveHorizontal(int distance){
+        blackHole.moveHorizontal(distance);
+    }
+    public void moveVertical(int distance){
+        blackHole.moveVertical(distance);
+    }
+    
 }

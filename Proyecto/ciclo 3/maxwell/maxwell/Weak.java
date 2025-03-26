@@ -11,5 +11,7 @@ public class Weak extends DemonFace
 {
     public Weak(int newXPosition, int newYPosition, int width, int height, int d){
         super(newXPosition,newYPosition, width, height, d);
+        faceDemon.changeColor("olive");
+        state = 'w';
     }
 }

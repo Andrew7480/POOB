@@ -8,8 +8,10 @@ import shapes.*;
  */
 public class DemonFace
 {
-    private Circle faceDemon;
-    private int posD;
+    protected Circle faceDemon;
+    public static final char BLUE = 'b', WEAK = 'w', NORMAL = 'n';
+    protected char state;
+    protected int posD;
     /**
      * Constructor of demon face
      * @param int xPosition
@@ -21,13 +23,12 @@ public class DemonFace
         int newYPos = newYPosition + height;
         int auxYMin=0;
         int auxYMax=height; //newYPos-yPosition;  
-        
-        
         if (d >= auxYMin && d <= auxYMax){
             faceDemon = new Circle("dark red",newXPosition,newYPosition+auxYMax-d,10);
             posD = d;
             faceDemon.changeSize(10);
         }
+        state = NORMAL;
     }
     /**
      * return the position of the demon in the board
@@ -54,4 +55,18 @@ public class DemonFace
     public int getPosY(){
         return faceDemon.getYPosition();
     }
+    
+    public boolean isBlue(){
+        return state == BLUE;
+    }
+    
+    public boolean isWeak(){
+        return state == WEAK;
+    }
+    
+    public boolean isNormal(){
+        return state == NORMAL;
+    }
+    
+    
 }
