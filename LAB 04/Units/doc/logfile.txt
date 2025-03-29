@@ -1,14 +1,14 @@
 Project documentation
 <---- javadoc command: ---->
-/usr/lib/jvm/java-8-oracle/bin/javadoc
+C:\Program Files\BlueJ\jdk\bin\javadoc.exe
 -sourcepath
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units
 -source
-1.8
+21
 -classpath
-/usr/share/bluej/bluejcore.jar:/usr/share/bluej/junit-4.11.jar:/usr/share/bluej/hamcrest-core-1.3.jar:/usr/share/bluej/lang-stride.jar:/usr/share/bluej/userlib/pi4j-core.jar:/usr/share/bluej/userlib/pi4j-service.jar:/usr/share/bluej/userlib/pi4j-device.jar:/usr/share/bluej/userlib/pi4j-gpio-extension.jar:/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units
+C:\Program Files\BlueJ\lib\bluejcore.jar;C:\Program Files\BlueJ\lib\javafx-base-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-controls-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-fxml-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-graphics-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-media-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-swing-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-web-21.0.3-win.jar;C:\Program Files\BlueJ\lib\junit-4.12.jar;C:\Program Files\BlueJ\lib\junit-jupiter-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-api-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-params-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-commons-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-engine-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-launcher-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-suite-api-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-vintage-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ\lib\opentest4j-1.2.0.jar;C:\Program Files\BlueJ\lib\lang-stride.jar;C:\Program Files\BlueJ\lib\javafx\javafx.base.jar;C:\Program Files\BlueJ\lib\javafx\javafx.controls.jar;C:\Program Files\BlueJ\lib\javafx\javafx.fxml.jar;C:\Program Files\BlueJ\lib\javafx\javafx.graphics.jar;C:\Program Files\BlueJ\lib\javafx\javafx.media.jar;C:\Program Files\BlueJ\lib\javafx\javafx.properties.jar;C:\Program Files\BlueJ\lib\javafx\javafx.swing.jar;C:\Program Files\BlueJ\lib\javafx\javafx.web.jar;C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units
 -d
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/doc
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc
 -encoding
 UTF-8
 -charset
@@ -23,63 +23,40 @@ Units
 -package
 -Xdoclint:none
 -link
-http://download.oracle.com/javase/8/docs/api/
+https://docs.oracle.com/en/java/javase/21/docs/api/
+test
 domain
 <---- end of javadoc command ---->
+Loading source files for package test...
 Loading source files for package domain...
 Constructing Javadoc information...
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Unit.java:37: error: cannot find symbol
-    public abstract int credits() throws Plan15Exception;
-                                         ^
-  symbol:   class Plan15Exception
-  location: class Unit
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Unit.java:45: error: cannot find symbol
-    public abstract int inPerson() throws Plan15Exception;
-                                          ^
-  symbol:   class Plan15Exception
-  location: class Unit
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Unit.java:53: error: cannot find symbol
-    public final int independent() throws Plan15Exception{
-                                          ^
-  symbol:   class Plan15Exception
-  location: class Unit
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Unit.java:62: error: cannot find symbol
-    public abstract String data() throws Plan15Exception;
-                                         ^
-  symbol:   class Plan15Exception
-  location: class Unit
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Core.java:35: error: cannot find symbol
-    public int credits() throws Plan15Exception{
-                                ^
-  symbol:   class Plan15Exception
-  location: class Core
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Core.java:41: error: cannot find symbol
-    public int inPerson() throws Plan15Exception{
-                                 ^
-  symbol:   class Plan15Exception
-  location: class Core
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Core.java:53: error: cannot find symbol
-    public int creditsEstimated() throws Plan15Exception{
-                                         ^
-  symbol:   class Plan15Exception
-  location: class Core
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Core.java:64: error: cannot find symbol
-    public int inPersonEstimated() throws Plan15Exception{
-                                          ^
-  symbol:   class Plan15Exception
-  location: class Core
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Core.java:72: error: cannot find symbol
-    public String data() throws Plan15Exception{
-                                ^
-  symbol:   class Plan15Exception
-  location: class Core
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Course.java:25: error: cannot find symbol
-    public int credits() throws Plan15Exception{
-                                ^
-  symbol:   class Plan15Exception
-  location: class Course
-/home/midr/Dropbox/DOCENCIA/POOB-2025-01/JAVA/EXCEPCIONES/Plan15-2025-1/Units/domain/Course.java:34: error: cannot find symbol
-    public int inPerson() throws Plan15Exception{
-                                 ^
-  symbol:   class Plan15Exception
-  location: class Course
+Building index for all the packages and classes...
+Standard Doclet version 21.0.4+7-LTS
+Building tree for all the packages and classes...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\domain\Core.html...
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\domain\Core.java:15: warning: @param argument "credits" is not a parameter name.
+     * @param credits 
+       ^
+C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\domain\Core.java:26: warning: @param argument "s" is not a parameter name.
+     * @param s
+       ^
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\test\CoreTest.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\domain\Course.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\domain\Plan15Exception.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\domain\Unit.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\domain\package-summary.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\domain\package-tree.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\test\package-summary.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\test\package-tree.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\constant-values.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\serialized-form.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\overview-tree.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\index.html...
+Building index for all classes...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\allclasses-index.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\allpackages-index.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\index-all.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\search.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\overview-summary.html...
+Generating C:\Users\ANDRES MARTINEZ\OneDrive\Documentos\Universidad\POOB\LAB 04\Units\doc\help-doc.html...
+2 warnings

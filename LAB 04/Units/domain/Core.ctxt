@@ -8,6 +8,7 @@ comment2.target=void\ addCourse(Course)
 comment2.text=\r\n\ Add\ a\ new\ course\r\n\ @param\ s\r\n
 comment3.params=
 comment3.target=int\ credits()
+comment3.text=\r\n\ Calculate\ the\ actual\ credits\ \r\n\ @return\r\n\ @throws\ Plan15Exception\ IMPOSSIBLE,\ If\ there\ are\ no\ credits\ \r\n
 comment4.params=
 comment4.target=int\ inPerson()
 comment5.params=

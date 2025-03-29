@@ -9,11 +9,15 @@ package domain;
  */
 public class Plan15Exception extends Exception
 {
-    public final static String CREDITS_UNKNOWN="";
-    public final static String CREDITS_ERROR="";
-    public final static String IN_PERSON_UNKNOWN="";
-    public final static String IN_PERSON_ERROR="";
-    public final static String IMPOSSIBLE="";
+    public final static String CREDITS_UNKNOWN= "creditos nulos";
+    public final static String CREDITS_ERROR="creditos negativos";
+    public final static String IN_PERSON_UNKNOWN="horas presenciales nulas";
+    public final static String IN_PERSON_ERROR="horas presenciales negativas";
+    public final static String IMPOSSIBLE= "0 cursos en el nucleo";
+    
+    /**
+     * Its the constructor of the Plan15Exception and use super
+     */
     public Plan15Exception(String mesage){
         super(mesage);
     }
