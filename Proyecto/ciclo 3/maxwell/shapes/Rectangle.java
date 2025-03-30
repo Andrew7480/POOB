@@ -81,7 +81,9 @@ public class Rectangle extends shape{
         width += 3;
         draw();
     }
-    
+    public int getwidth(){
+        return width;
+    }
     /*
      * Draw the rectangle with current specifications on screen.
      */

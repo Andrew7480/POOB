@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=Weak
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ weak\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Its\ a\ Weak\ DemonFace\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=newXPosition\ newYPosition\ width\ height\ d
 comment1.target=Weak(int,\ int,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructor\ of\ demon\ face\ weak\r\n\ @param\ int\ xPosition\r\n\ @param\ int\ yPosition\r\n\ @param\ int\ width\r\n\ @param\ int\ d\r\n
 numComments=2

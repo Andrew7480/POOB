@@ -3,7 +3,7 @@ import shapes.*;
 import java.util.*;
 import javax.swing.JOptionPane;
 /**
- * Write a description of class MaxwellContainer here.
+ * It's a MaxwellContainer
  * 
  * @author Andrés Cardozo && Tulio Riaño
  * @version (a version number or a date)
@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
 public class MaxwellContainer
 {
     private boolean theLastActionWasSuccess;
-    
     private Chamber chamber;
     private int width;
     private int height;
     private int xPosition;
     private int yPosition;
+    
     /**
      * Constructor of MaxwellContainer
      * @param int h -> height of MaxwellContainer
@@ -45,6 +45,72 @@ public class MaxwellContainer
         width = w;
         height = h;
     }
+    // ESTO ES PARA LA SUSTENTACIÓN
+    public void addDemons(){
+        theLastActionWasSuccess = chamber.addDemon("Normal",100);
+        theLastActionWasSuccess = chamber.addDemon("Blue",50);
+        theLastActionWasSuccess = chamber.addDemon("Weak",150);
+    }
+    // ESTO ES PARA LA SUSTENTACIÓN
+    public void addParticles(){
+        addParticle("Normal","red",true,50,50,-10,10); // Prueba para el demonio
+        addParticle("Normal","blue",false,280,80,10,10); // Bounce        
+        addParticle("Ephemeral","red",true,50,50,0,10);
+        addParticle("Ephemeral","yellow",true,-80,10,15,2);
+        addParticle("Ephemeral","turquoise",false,-80,110,0,4);
+        addParticle("Normal","red",false,-80,50,5,4);
+        addParticle("Ephemeral","turquoise",false,-1,110,10,4);
+        addParticle("Ephemeral","yellow",false,-80,180,4,3);
+        addParticle("Ephemeral","pastel blue",false,-80,150,4,5);
+        addParticle("Ephemeral","red",false,80,50,5,4);
+        addParticle("Flying","turquoise",false,1,110,10,4);
+        addParticle("Ephemeral","yellow",false,80,180,4,3);
+        addParticle("Ephemeral","pastel blue",false,80,150,4,5);
+        
+        
+        
+        addParticle("Flying","pastel blue",true,-100,100,5,0); // vy = 0
+        addParticle("Flying","turquoise",false,-80,130,0,4);
+        addParticle("Flying","pastel blue",true,-100,140,5,0); // vy = 0
+        addParticle("Flying","turquoise",false,80,130,0,4);
+        
+        //chamber.addParticle("turquoise",false,-250,40,-5,5);
+        
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        addParticle("Normal","yellow",false,-210,90,5,-5);
+        
+        addParticle("Normal","yellow",true,80,40,-4,9);
+        addParticle("orange",true,20,180,9,-4);
+        addParticle("Normal","green",true,200,199,-10,10);
+        addParticle("Normal","charcoal",true,100,150,-15,5);
+        addParticle("Normal","pastel blue",false,180,40,-10,-10);
+        addParticle("Normal","bronze",false,80,40,-4,9);
+        addParticle("orange",true,20,180,9,-4);
+        addParticle("green",true,200,199,-10,10);
+        addParticle("neon yellow",false,1,199,-1,1);
+        addParticle("slime",true,5,65,5,-5);
+        addParticle("ivory",true,10,65,-5,-5);
+        addParticle("Normal","golden",false,5,55,5,5);
+        addParticle("Normal","ivory",true,-10,10,5,5);
+        
+        
+    }
+    
+    // ESTO ES PARA LA SUSTENTACIÓN
+    public void addHoles(){
+        theLastActionWasSuccess = chamber.addHole("EatParticle",40,60,7);
+        theLastActionWasSuccess = chamber.addHole("Movil",-100,100,90);
+        theLastActionWasSuccess = chamber.addHole("Movil",-20,180,17);
+        theLastActionWasSuccess = chamber.addHole("EatParticle",-180,10,89);
+        theLastActionWasSuccess = chamber.addHole("Normal",10,189,42);
+        theLastActionWasSuccess = chamber.addHole("EatParticle",-80,40,42);
+    }
+    
     /**
      * Constructor of MaxwellContainer
      * @param int h - height of the MaxwellContainer
@@ -70,7 +136,6 @@ public class MaxwellContainer
         height = h;
         addDemon(d);
         int total = b+r;
-        
         
         for (int i=0;i<particules.size();i++){
             if (total <=r){
@@ -98,6 +163,11 @@ public class MaxwellContainer
         theLastActionWasSuccess = chamber.addDemon("Normal",d);
         
     }
+    /**
+     * add a specific demons in the container
+     * @param String type .> Represents the demon's type
+     * @param int d -> this number cannot be negative or be the same of any of the demons in the board.
+       */
     public void addDemon(String type, int d){
         if (d<0) {
             if (!chamber.getIsVisible()){
@@ -108,12 +178,7 @@ public class MaxwellContainer
         }
         theLastActionWasSuccess = chamber.addDemon(type,d);
     }
-    // ESTO ES PARA LA SUSTENTACIÓN
-    public void addDemons(){
-        theLastActionWasSuccess = chamber.addDemon("Normal",100);
-        theLastActionWasSuccess = chamber.addDemon("Blue",50);
-        theLastActionWasSuccess = chamber.addDemon("Weak",150);
-    }
+
     /**
      * delete demons of the container
      * @param int d -> this number cannot be negative.
@@ -121,8 +186,9 @@ public class MaxwellContainer
     public void delDemon(int d){
         theLastActionWasSuccess = chamber.delDemon(d);
     }
+    
     /**
-     * add particles depends of is red or not to the container
+     * add a particle
      * @param String color -> color of the particle
      * @param boolean isRed -> verify if is red
      * @param int px -> position in x-axis of the particle
@@ -141,6 +207,16 @@ public class MaxwellContainer
         chamber.addParticle("Normal",color,isRed,px,py,vx,vy);
         theLastActionWasSuccess=true;
     }
+    /**
+     * add a specific particle
+     * @param String type -> Represents the Particle's type
+     * @param String color -> color of the particle
+     * @param boolean isRed -> verify if is red
+     * @param int px -> position in x-axis of the particle
+     * @param int py -> position in y-axis of the particle
+     * @param int vx -> velocity in x of the particle
+     * @param int vy -> velocity in y of the particle
+       */
     public void addParticle(String type, String color, boolean isRed, int px, int py, int vx, int vy){
         if (py<0){
             theLastActionWasSuccess = false;
@@ -152,65 +228,7 @@ public class MaxwellContainer
         chamber.addParticle(type,color,isRed,px,py,vx,vy);
         theLastActionWasSuccess=true;
     }
-    // ESTO ES PARA LA SUSTENTACIÓN
-    public void addParticles(){
-        //chamber.addParticle("red",true,50,50,-10,10); // Prueba para el demonio
-        //chamber.addParticle("blue",false,280,80,10,10); // Bounce
-        /*
-        chamber.addParticle("Ephemeral","red",true,50,50,0,10);
-        chamber.addParticle("Ephemeral","yellow",true,-80,10,15,2);
-        chamber.addParticle("Ephemeral","turquoise",false,-80,110,0,4);
-        
-        chamber.addParticle("Normal","red",false,-80,50,5,4);
-        
-        chamber.addParticle("Ephemeral","turquoise",false,-1,110,10,4);
-        
-        chamber.addParticle("Ephemeral","yellow",false,-80,180,4,3);
-        
-        chamber.addParticle("Ephemeral","pastel blue",false,-80,150,4,5);
-        
-        
-        chamber.addParticle("Ephemeral","red",false,80,50,5,4);
-        
-        chamber.addParticle("Flying","turquoise",false,1,110,10,4);
-        
-        chamber.addParticle("Ephemeral","yellow",false,80,180,4,3);
-        
-        chamber.addParticle("Ephemeral","pastel blue",false,80,150,4,5);
-        
-        
-        
-        chamber.addParticle("Flying","pastel blue",true,-100,100,5,0); // vy = 0
-        chamber.addParticle("Flying","turquoise",false,-80,130,0,4);
-        chamber.addParticle("Flying","pastel blue",true,-100,140,5,0); // vy = 0
-        chamber.addParticle("Flying","turquoise",false,80,130,0,4);
-        
-        //chamber.addParticle("turquoise",false,-250,40,-5,5);
-        
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
-        
-        chamber.addParticle("Normal","yellow",true,80,40,-4,9);
-        //chamber.addParticle("orange",true,20,180,9,-4);
-        chamber.addParticle("Normal","green",true,200,199,-10,10);
-        chamber.addParticle("Normal","charcoal",true,100,150,-15,5);
-        chamber.addParticle("Normal","pastel blue",false,180,40,-10,-10);
-        chamber.addParticle("Normal","bronze",false,80,40,-4,9);
-        //chamber.addParticle("orange",true,20,180,9,-4);
-        //chamber.addParticle("green",true,200,199,-10,10);
-        //chamber.addParticle("neon yellow",false,1,199,-1,1);
-        //chamber.addParticle("slime",true,5,65,5,-5);
-        //chamber.addParticle("ivory",true,10,65,-5,-5);
-        chamber.addParticle("Normal","golden",false,5,55,5,5);
-        chamber.addParticle("Normal","ivory",true,-10,10,5,5);
-        
-        */
-    }
+    
     /**
      * deletes the particules depends of the color
      * @param String color
@@ -234,7 +252,12 @@ public class MaxwellContainer
         }        
         theLastActionWasSuccess = chamber.addHole("Normal",px,py,particles);
     }
-    
+    /**
+     * add a specific hole to the container
+     * @param int px -> position of the hole in x-axis
+     * @param int py -> position of the hole in y-axis
+     * @param int particles -> amount particles that can hold the hole
+       */
     public void addHole(String type, int px, int py, int particles){
         if (py > 0){
             chamber.addHole(type,px,py,particles);
@@ -243,15 +266,7 @@ public class MaxwellContainer
             JOptionPane.showMessageDialog(null, "py can't be negative");
         }
     }
-    // ESTO ES PARA LA SUSTENTACIÓN
-    public void addHoles(){
-        theLastActionWasSuccess = chamber.addHole("EatParticle",40,60,7);
-        theLastActionWasSuccess = chamber.addHole("Movil",-100,100,90);
-        theLastActionWasSuccess = chamber.addHole("Movil",-20,180,17);
-        theLastActionWasSuccess = chamber.addHole("EatParticle",-180,10,89);
-        theLastActionWasSuccess = chamber.addHole("Normal",10,189,42);
-        theLastActionWasSuccess = chamber.addHole("EatParticle",-80,40,42);
-    }
+    
     /**
      * start the simulation ticks time
      * @param int ticks -> times to move of the each particle.
@@ -270,7 +285,7 @@ public class MaxwellContainer
                 chamber.movement(h);    
                 h.makeVisibleParticle();
             }
-            chamber.getParticulesDelete();
+            chamber.particulesDelete();
         }
         isGoal();
     }
@@ -300,8 +315,11 @@ public class MaxwellContainer
         return chamber.demons();
     }
     
+    /**
+     * return the type demons
+       */
     public ArrayList<Integer> demons(String type){
-        return chamber.demons();
+        return chamber.demons(type);
     }
     
     /**
@@ -323,7 +341,14 @@ public class MaxwellContainer
     }
     
     public ArrayList<ArrayList<Integer>> particles(String type){
-        return null;
+        ArrayList<ArrayList<Integer>> particlesInfo = chamber.getParticlesInfo(type);
+        Collections.sort(particlesInfo, new Comparator<ArrayList<Integer>>(){
+            @Override
+            public int compare(ArrayList<Integer> list1, ArrayList<Integer> list2){
+                return list1.get(0).compareTo(list2.get(0));
+            }
+        });
+        return particlesInfo;
     }
     
     /**
@@ -351,7 +376,7 @@ public class MaxwellContainer
      * particles -> amount of particles that can hold the hole.
        */
     public ArrayList<ArrayList<Integer>> holes(String type){
-        ArrayList<ArrayList<Integer>> holesInfo = chamber.getHolesInfo();
+        ArrayList<ArrayList<Integer>> holesInfo = chamber.getHolesInfo(type);
         Collections.sort(holesInfo, new Comparator<ArrayList<Integer>>(){
             @Override
             public int compare(ArrayList<Integer> list1, ArrayList<Integer> list2){
@@ -388,13 +413,6 @@ public class MaxwellContainer
        */
     public boolean ok(){
         return theLastActionWasSuccess;
-    }
-    /**
-     * gives the center of the chamber
-       */
-    public void showCenter(){
-        chamber.showCenter();
-        theLastActionWasSuccess=true;
     }
     /**
      * gives the width of the container
@@ -458,5 +476,8 @@ public class MaxwellContainer
     }
     public ArrayList<DemonFace> getDemonFaces(){
         return chamber.getDevils();
+    }
+    public ArrayList<Hole> getEatParticlesHoles(){
+        return chamber.getEatParticlesHoles();
     }
 }

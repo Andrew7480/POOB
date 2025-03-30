@@ -2,13 +2,20 @@ package maxwell;
 
 
 /**
- * Write a description of class EatParticles here.
+ * It's a EatParticle Hole
  * 
- * @author (your name) 
+ * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
  */
 public class EatParticle extends Hole
 {
+    /**
+     * Constructor of Hole
+     * @param int xPosition
+     * @param int yPosition
+     * @param int particles
+     * @param boolean whereIs
+       */
     public EatParticle(int xPosition, int yPosition, int particles,boolean whereIs){
         super(xPosition,yPosition,particles,whereIs);
         blackHole.changeColor("dark aquamarine");
@@ -20,5 +27,8 @@ public class EatParticle extends Hole
         maxParticles--;
         blackHole.plusSize();
         attractor += 5;
+    }
+    public int getwidth(){
+        return blackHole.getwidth();
     }
 }

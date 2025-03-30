@@ -2,9 +2,9 @@ package maxwell;
 import shapes.*;
 
 /**
- * Write a description of class Particle here.
+ * It's Particle
  * 
- * @author (your name) 
+ * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
  */
 public class Particle
@@ -17,6 +17,7 @@ public class Particle
     protected boolean isRed;
     public static final String EPHEMERAL = "Ephemeral",FLYING = "Flying",ROTATOR = "Rotator", NORMAL = "Normal";
     protected String state;
+    
     /**
      * Constructor of Particle
      * @param String color
@@ -148,18 +149,27 @@ public class Particle
         velocityY = y;
     }
     
+    /**
+     * change to the other chamber
+       */
     public void changeIsLeft(){
         isLeft = !isLeft;
     }
-    
+    /**
+     * return if It's a ephemeral Particle
+       */
     public boolean isEphemeral(){
         return state.equals(EPHEMERAL);
     }
-    
+    /**
+     * return if It's a flying Particle
+       */
     public boolean isFlying(){
         return state.equals(FLYING);
     }
-    
+    /**
+     * return if It's a rotator Particle
+       */
     public boolean isRotator(){
         return state.equals(ROTATOR);
     }

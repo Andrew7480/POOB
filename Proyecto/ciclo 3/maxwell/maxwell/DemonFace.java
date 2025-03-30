@@ -1,7 +1,7 @@
 package maxwell;
 import shapes.*;
 /**
- * Write a description of class demonFace here.
+ * Its a DemonFace
  * 
  * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)

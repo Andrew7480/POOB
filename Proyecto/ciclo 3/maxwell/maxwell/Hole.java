@@ -3,7 +3,7 @@ import shapes.*;
 import java.util.ArrayList;
 
 /**
- * Write a description of class Holes here.
+ * It's a Hole
  * 
  * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
@@ -21,6 +21,7 @@ public class Hole
      * @param int xPosition
      * @param int yPosition
      * @param int particles
+     * @param boolean whereIs
        */
     public Hole(int xPosition, int yPosition, int particles, boolean whereIs){
         blackHole = new Rectangle(xPosition, yPosition, 10, 10);
@@ -72,22 +73,33 @@ public class Hole
     public int getYPosition(){
         return blackHole.getYPosition();
     }
-    
+    /**
+     * return if It's a movil hole
+     */
     public boolean isMovil(){
         return state.equals(MOVIL);
     }
-    
+    /**
+     * return if It's a eatParticle hole
+     */
     public boolean isEatParticle(){
         return state.equals(EATPARTICLE);
     }
-    
+    /**
+     * return if is in the left
+     */
     public boolean getWhereIs(){
         return isLeft;
     }
-    
+    /**
+     * move the hole horizontally
+     */
     public void moveHorizontal(int distance){
         blackHole.moveHorizontal(distance);
     }
+    /**
+     * move the hole vertically
+     */
     public void moveVertical(int distance){
         blackHole.moveVertical(distance);
     }

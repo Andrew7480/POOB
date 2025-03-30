@@ -7,7 +7,7 @@ import java.math.*;
 /**
  * Write a description of class Chamber here.
  *
- * @author (your name)
+ * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
  */
 public class Chamber
@@ -147,7 +147,7 @@ public class Chamber
             particules.add(f);
         }
         if (type.equals(Particle.ROTATOR)){
-            Flying f = new Flying(color, px + chamberXPos, chamberYPos - py, vx,vy, false,isRed);
+            Rotator f = new Rotator(color, px + chamberXPos, chamberYPos - py, vx,vy, false,isRed);
             if(isVisible){
                 f.makeVisibleParticle();
             }
@@ -175,7 +175,10 @@ public class Chamber
         }
         return theLastActionWasSuccess;
     }
-    
+    /*
+     * deletes a particule
+     * @param Particle 
+       */
     private boolean delOneParticle(Particle p){
         boolean theLastActionWasSuccess = false;
         for (int i = 0; i < particules.size(); i++){
@@ -189,7 +192,9 @@ public class Chamber
         }
         return theLastActionWasSuccess;
     }
-    
+    /*
+     * delete a null value in particules
+     */
     private void delDefinitive(){
         boolean theLastActionWasSuccess = false;
         for (int i = 0; i < particules.size(); i++){
@@ -199,8 +204,10 @@ public class Chamber
             }
         }
     }
-    
-    public void getParticulesDelete(){
+    /**
+     * make invisible the deleted particles
+     */
+    public void particulesDelete(){
         for (Particle a : particulesDelete){
             a.makeInvisibleParticle();
         }
@@ -314,9 +321,17 @@ public class Chamber
         Collections.sort(posDemons);
         return posDemons;
     }
+    public ArrayList<Integer> demons(String type){ // [0,1];
+        ArrayList<Integer> posDemons = new ArrayList<>();
+        for (DemonFace d : devils){
+            if (type.equals(d.state)) posDemons.add(d.getPosD());
+        }
+        Collections.sort(posDemons);
+        return posDemons;
+    }
     
     /**
-     * return the total amount of the particles
+     * return 
        */
     public ArrayList<Particle> getParticules(){
         return particules;
@@ -366,22 +381,21 @@ public class Chamber
     /**
      * return the amount of demons in the maxwell container
        */
-    public int sizeOf(){
+    public int sizeOfDemons(){
         return devils.size();
     }
+    
     /**
      * return the center XY of the chamber
        */
     public ArrayList<Integer> getCenter(){
         return chamberForm.getCenterXY();
     }
-    /**
-     * show the center of the chamber
-       */
-    public void showCenter(){
-        chamberCenter.showCenter();
-    }
     
+    /**
+     * move the movil Hole
+     * @param Hole
+     */
     public void movementMoviles(Hole m){
         int posX = convertionsCanvasToBoard(m.getXPosition(), m.getYPosition()).get(0);
         int posY = convertionsCanvasToBoard(m.getXPosition(), m.getYPosition()).get(1);
@@ -424,6 +438,10 @@ public class Chamber
         }
         if (!p.isFlying()) inHole(p);
     }
+    /*
+     * If a particle ends in the range of a Hole, it eats the particle
+     * @param Particle
+     */
     private void inHole(Particle p){
         int xPos = p.getXPositionC();
         int yPos = p.getYPositionC();
@@ -479,7 +497,7 @@ public class Chamber
         }
         return false;
     }
-    /**
+    /*
      * if bounce is in the left or right
      * @param Particle p
      * @param int x is the position of x plus the velocity x
@@ -534,7 +552,7 @@ public class Chamber
         convertions.add(positionEsperadaY);
         return convertions;
     }
-    /**
+    /*
      * if bounce is in the right, evaluates the possible cases and make the respective bounce
      * @param Particle p - is the current particle of the array.
      * @param int espeX - is the position plus the velocity in x
@@ -684,6 +702,22 @@ public class Chamber
         }
         return list;
     }
+    
+    public ArrayList<ArrayList<Integer>> getParticlesInfo(String type){
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(Particle p :particules){
+            if(p.state.equals(type)){ 
+                ArrayList <Integer> info = new ArrayList<>();
+                info.add(p.getXPositionC());
+                info.add(p.getYPositionC());
+                info.add(p.getVelocityX());
+                info.add(p.getVelocityY());
+                list.add(info);
+            }
+        }
+        return list;
+    }
+    
     /**
      * return the matrix of holes with a specific information (px, py, particles)
      * px is the position in x-axis of the particle
@@ -701,6 +735,20 @@ public class Chamber
         }
         return list;
     }
+    
+    public ArrayList<ArrayList<Integer>> getHolesInfo(String type){
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(Hole h :holes){
+            if (h.state.equals(type)){
+                ArrayList <Integer> info = new ArrayList<>();
+                info.add(h.getXPosition());
+                info.add(h.getYPosition());
+                info.add(h.getMaxParticles());
+                list.add(info);
+            }
+        }
+        return list;
+    }
     /**
      * return if the chamber is visible or not
        */
@@ -714,15 +762,15 @@ public class Chamber
      * @param int y -> position of the particle in y
        */
     private boolean isInDemonPos(Particle p ,int x, int y){
-        //Canvas canvas = Canvas.getCanvas();
         boolean isLeft = p.getIsLeft();
         int posXaf = x+p.getVelocityX();
         int posYaf = y+p.getVelocityY();
         int positionInChamberX = chamberCenter.getXPosition();
         for (DemonFace d : devils){
             int positionInChamberY = convertionsBoardToCanvas(x,d.getPosD()).get(1);
-            if ((d.isBlue() && (!p.getIsRed())) || (d.isNormal())){
+            if ((d.isBlue() && (!p.getIsRed())) || (d.isNormal()) || (d.isWeak()) ){
                 if (posXaf==0 && posYaf == d.getPosD()){
+                    if (d.isWeak()) delDemon(d.getPosD());
                     return true;
                 }
                 if (isLeft){
@@ -731,7 +779,8 @@ public class Chamber
                             x +=1;
                             y -=1;
                             if (x == 0 && y == d.getPosD()){
-                            return true;
+                                if (d.isWeak()) delDemon(d.getPosD());
+                                return true;
                         }
                         }
                     }
@@ -740,25 +789,11 @@ public class Chamber
                             x +=1;
                             y +=1;
                             if (x== 0 && y== d.getPosD()){
-                            return true;
-                        }
-                        }
-                    }
-                    /*
-                    else if (p.getVelocityY() == 0){
-                        while (x < posXaf && y == posYaf){
-                            x += 1;
-                            System.out.println("ENTRO1111?");
-                            System.out.println(x + " " + posXaf);
-                            System.out.println(y + " " + d.getPosD());
-                            System.out.println(positionInChamberX);
-                            if (x == 0 && y == d.getPosD()){
-                                System.out.println("ENTRO?");
+                                if (d.isWeak()) delDemon(d.getPosD());
                                 return true;
-                            }
+                        }
                         }
                     }
-                    */
                 }
                 if (!isLeft){
                     if (p.getVelocityY() <0){
@@ -766,6 +801,7 @@ public class Chamber
                         x -=1;
                         y -=1;
                         if (x== 0 && y== d.getPosD()){
+                            if (d.isWeak()) delDemon(d.getPosD());
                             return true;
                             }
                         }
@@ -775,109 +811,40 @@ public class Chamber
                             x -=1;
                             y +=1;
                             if (x== 0 && y== d.getPosD()){
+                                if (d.isWeak()) delDemon(d.getPosD());
                                 return true;
                             }
                         }
                     }
-                    /*
-                    else if(p.getVelocityY() == 0){
-                        while (x > posXaf && y == posYaf){
-                            x -= 1;
-                            if (x == 0 && y == d.getPosD()){
-                                return true;
-                            }
-                        }
-                    }
-                    */
-                }
-            }
-            if (d.isWeak()){
-                if (posXaf==0 && posYaf == d.getPosD()){
-                    delDemon(d.getPosD());
-                    return true;
-                }
-                if (isLeft){
-                    if (p.getVelocityY() <0){
-                        while (x< posXaf && y< posYaf){
-                            x +=1;
-                            y -=1;
-                            if (x == 0 && y == d.getPosD()){
-                                delDemon(d.getPosD());
-                                return true;
-                            }
-                        }
-                    }
-                    else if (p.getVelocityY() >0){
-                        while (x< posXaf && y< posYaf){
-                            x +=1;
-                            y +=1;
-                            if (x== 0 && y== d.getPosD()){
-                                delDemon(d.getPosD());
-                                return true;
-                            }
-                        }
-                    }
-                    /*
-                    else if (p.getVelocityY() == 0){
-                        while (x < posXaf && y == posYaf){
-                            x += 1;
-                            System.out.println("ENTRO1111?");
-                            System.out.println(x + " " + posXaf);
-                            System.out.println(y + " " + d.getPosD());
-                            System.out.println(positionInChamberX);
-                            if (x == 0 && y == d.getPosD()){
-                                System.out.println("ENTRO?");
-                                return true;
-                            }
-                        }
-                    }
-                    */
-                }
-                if (!isLeft){
-                    if (p.getVelocityY() <0){
-                        while (x< posXaf && y< posYaf){
-                        x -=1;
-                        y -=1;
-                        if (x== 0 && y== d.getPosD()){
-                                delDemon(d.getPosD());
-                                return true;
-                            }
-                        }
-                    }
-                    else if (p.getVelocityY() >0){
-                        while (x< posXaf && y< posYaf){
-                            x -=1;
-                            y +=1;
-                            if (x== 0 && y== d.getPosD()){
-                                delDemon(d.getPosD());
-                                return true;
-                            }
-                        }
-                    }
-                    /*
-                    else if(p.getVelocityY() == 0){
-                        while (x > posXaf && y == posYaf){
-                            x -= 1;
-                            if (x == 0 && y == d.getPosD()){
-                                return true;
-                            }
-                        }
-                    }
-                    */
                 }
             }
         }
         return false;
     }
+    /**
+     * return the devils
+     */
     public ArrayList<DemonFace> getDevils(){
         return devils;
     }
-    
+    /**
+     * return the movil Holes
+     */
     public ArrayList<Hole> getHolesMoviles(){
         ArrayList<Hole> holesMoviles = new ArrayList<>();
         for (Hole h : holes){
             if (h.isMovil()) holesMoviles.add(h);
         }
         return holesMoviles;
+    }
+    /**
+     * return the EatParticle Holes
+     */
+    public ArrayList<Hole> getEatParticlesHoles(){
+        ArrayList<Hole> eatParticles = new ArrayList<>();
+        for (Hole h : holes){
+            if (h.isEatParticle()) eatParticles.add(h);
+        }
+        return eatParticles;
     }
 }

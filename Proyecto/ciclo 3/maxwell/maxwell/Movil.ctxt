@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=Movil
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ movil\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ It's\ a\ Movil\ Hole\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=xPosition\ yPosition\ particles\ whereIs
 comment1.target=Movil(int,\ int,\ int,\ boolean)
+comment1.text=\r\n\ Constructor\ of\ Hole\r\n\ @param\ int\ xPosition\r\n\ @param\ int\ yPosition\r\n\ @param\ int\ particles\r\n\ @param\ boolean\ whereIs\r\n
 numComments=2

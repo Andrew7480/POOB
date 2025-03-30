@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Particle
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Particle\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ It's\ Particle\r\n\ \r\n\ @author\ Andr\u00E9s\ Cardozo\ &&\ Tulio\ Ria\u00F1o\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=color\ newXPosition\ newYPosition\ vx\ vy\ newIsLeft\ newIsRed
 comment1.target=Particle(java.lang.String,\ int,\ int,\ int,\ int,\ boolean,\ boolean)
 comment1.text=\r\n\ Constructor\ of\ Particle\r\n\ @param\ String\ color\r\n\ @param\ int\ newXPosition\r\n\ @param\ int\ newYPosition\r\n\ @param\ int\ vx\r\n\ @param\ int\ vy\r\n\ @param\ boolean\ newIsLeft\r\n
@@ -30,15 +30,19 @@ comment17.target=void\ setVelocityY(int)
 comment17.text=\r\n\ set\ the\ velocity\ in\ y\ of\ the\ particle\r\n\ @param\ int\ y\r\n
 comment18.params=
 comment18.target=void\ changeIsLeft()
+comment18.text=\r\n\ change\ to\ the\ other\ chamber\r\n
 comment19.params=
 comment19.target=boolean\ isEphemeral()
+comment19.text=\r\n\ return\ if\ It's\ a\ ephemeral\ Particle\r\n
 comment2.params=color
 comment2.target=void\ changeColorParticle(java.lang.String)
 comment2.text=\r\n\ change\ color\ of\ the\ particles\ \r\n\ @param\ String\ color\r\n
 comment20.params=
 comment20.target=boolean\ isFlying()
+comment20.text=\r\n\ return\ if\ It's\ a\ flying\ Particle\r\n
 comment21.params=
 comment21.target=boolean\ isRotator()
+comment21.text=\r\n\ return\ if\ It's\ a\ rotator\ Particle\r\n
 comment3.params=px\ py
 comment3.target=void\ setPositionParticle(int,\ int)
 comment3.text=\r\n\ set\ position\ of\ particles\r\n\ @param\ int\ px\r\n\ @param\ int\ py\r\n
