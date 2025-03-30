@@ -12,6 +12,6 @@ public class Blue extends DemonFace
     public Blue(int newXPosition, int newYPosition, int width, int height, int d){
         super(newXPosition,newYPosition, width, height, d);
         faceDemon.changeColor("neon blue");
-        state = 'b';
+        state = BLUE;
     }
 }

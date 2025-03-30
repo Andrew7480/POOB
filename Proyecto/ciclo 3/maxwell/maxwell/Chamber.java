@@ -22,7 +22,6 @@ public class Chamber
     private int height;
     
     private boolean isVisible = false;
-    //private boolean theLastActionWasSucces = false;
     /**
      * create a chamber
      * @param int h is the height of the chamber
@@ -45,12 +44,12 @@ public class Chamber
      * @param int vx - velocity in x of the particle
      * @param int vy - velocity in y of the particle
        */
-    public void addParticle(String color,boolean isRed, int px, int py, int vx, int vy){
+    public void addParticle(String type,String color,boolean isRed, int px, int py, int vx, int vy){
         if (isInLeft(px,py)){
-            CreateInLeft(color,isRed, px,py,vx,vy);
+            createInLeft(type,color,isRed, px,py,vx,vy);
         }
         else if (isInRight(px,py)){
-            createInRight(color, isRed, px,py,vx,vy);
+            createInRight(type,color, isRed, px,py,vx,vy);
         }
         
     }
@@ -90,14 +89,37 @@ public class Chamber
      * @param int vx - velocity of the particle in x
      * @param int vy - velocity of the particle in y
        */
-    private void CreateInLeft(String color,boolean isRed,int px, int py, int vx, int vy){
+    private void createInLeft(String type,String color,boolean isRed,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
-        Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true,isRed);
-        if(isVisible){
-            c.makeVisibleParticle();
+        if (type.equals(Particle.EPHEMERAL)){
+            Ephemeral e = new Ephemeral(color, px + chamberXPos, chamberYPos - py, vx,vy, true,isRed);
+            if(isVisible){
+                e.makeVisibleParticle();
+            }
+            particules.add(e);
         }
-        particules.add(c);              
+        if (type.equals(Particle.FLYING)){
+            Flying f = new Flying(color, px + chamberXPos, chamberYPos - py, vx,vy, true,isRed);
+            if(isVisible){
+                f.makeVisibleParticle();
+            }
+            particules.add(f);
+        }
+        if (type.equals(Particle.ROTATOR)){
+            Rotator r = new Rotator(color, px + chamberXPos, chamberYPos - py, vx,vy, true,isRed);
+            if(isVisible){
+                r.makeVisibleParticle();
+            }
+            particules.add(r);
+        }
+        if (type.equals(Particle.NORMAL)){
+            Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true,isRed);
+            if(isVisible){
+                c.makeVisibleParticle();
+            }
+            particules.add(c);
+        }           
     }
     /*
      * In case the particle is in Right, add it in chamber
@@ -107,15 +129,37 @@ public class Chamber
      * @param int vx - velocity of the particle in x
      * @param int vy - velocity of the particle in y
        */
-    private void createInRight(String color,boolean isRed,int px, int py, int vx, int vy){
+    private void createInRight(String type, String color,boolean isRed,int px, int py, int vx, int vy){
         int chamberXPos = chamberCenter.getXPosition();
         int chamberYPos =chamberCenter.getYPosition()+height;
-        Particle c = new Particle(color, px+ chamberXPos, chamberYPos - py, vx, vy, false,isRed);
-        if(isVisible){
-            c.makeVisibleParticle();
+        if (type.equals(Particle.EPHEMERAL)){
+            Ephemeral e = new Ephemeral(color, px + chamberXPos, chamberYPos - py, vx,vy, false,isRed);
+            if(isVisible){
+                e.makeVisibleParticle();
+            }
+            particules.add(e);
         }
-        particules.add(c);
-        
+        if (type.equals(Particle.FLYING)){
+            Flying f = new Flying(color, px + chamberXPos, chamberYPos - py, vx,vy, false,isRed);
+            if(isVisible){
+                f.makeVisibleParticle();
+            }
+            particules.add(f);
+        }
+        if (type.equals(Particle.ROTATOR)){
+            Flying f = new Flying(color, px + chamberXPos, chamberYPos - py, vx,vy, false,isRed);
+            if(isVisible){
+                f.makeVisibleParticle();
+            }
+            particules.add(f);
+        }
+        if (type.equals(Particle.NORMAL)){
+            Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, false,isRed);
+            if(isVisible){
+                c.makeVisibleParticle();
+            }
+            particules.add(c);
+        }     
     }
     /**
      * deletes the particules depends of the color
@@ -133,7 +177,6 @@ public class Chamber
     }
     
     private boolean delOneParticle(Particle p){
-        System.out.println("ENTRO?");
         boolean theLastActionWasSuccess = false;
         for (int i = 0; i < particules.size(); i++){
             if (particules.get(i).equals(p)){
@@ -176,7 +219,7 @@ public class Chamber
                 return false;
             }
         }
-        if (type == "Blue"){
+        if (type.equals(DemonFace.BLUE)){
             Blue demon = new Blue(chamberCenter.getXPosition(), chamberCenter.getYPosition(),width, height, d);
             devils.add(demon);
             if(isVisible){
@@ -184,7 +227,7 @@ public class Chamber
             }
             return true;
         }
-        if (type == "Weak"){
+        if (type.equals(DemonFace.WEAK)){
             Weak demon = new Weak(chamberCenter.getXPosition(), chamberCenter.getYPosition(),width, height, d);
             devils.add(demon);
             if(isVisible){
@@ -231,8 +274,16 @@ public class Chamber
         if (px> auxXMin  && auxXMax>px  && py>auxYMin  && py< auxYMax  ){ 
             px = chamberXPos + px; 
             py = chamberYPos - py;
-            if (type == "Movil"){
+            if (type.equals(Hole.MOVIL)){
                 Movil h = new Movil(px,py, particles,left);
+                if (isVisible){
+                    h.makeVisibleHole();
+                }
+                holes.add(h);
+                return true;
+            }
+            if (type.equals(Hole.EATPARTICLE)){
+                EatParticle h = new EatParticle(px,py, particles,left);
                 if (isVisible){
                     h.makeVisibleHole();
                 }
@@ -350,16 +401,12 @@ public class Chamber
         int positionEsperadaX = p.getXPositionC()- chamberXPos;
         int positionEsperadaY = chamberYPos - p.getYPositionC();
         
-        if  (positionEsperadaX > -width/4 || positionEsperadaX < width/4){
+        if(positionEsperadaX > -width/4 || positionEsperadaX < width/4){
             if (isInDemonPos(p,positionEsperadaX,positionEsperadaY)){
-                if(!(p.getIsRed() == p.getIsLeft())) {
-                    //System.out.println(p.getIsLeft());
-                    p.changeIsLeft();
-                    p.moveHorizontal(p.getVelocityX());
-                    p.moveVertical(-p.getVelocityY());
-                    return;
-                }
-                
+                p.changeIsLeft();
+                p.moveHorizontal(p.getVelocityX());
+                p.moveVertical(-p.getVelocityY());
+                return;
             }
         }
         boolean verify = verifyLimits(p.getIsLeft(), positionEsperadaX + p.getVelocityX(), positionEsperadaY + p.getVelocityY()) && (positionEsperadaY + p.getVelocityY() >= 0);
@@ -375,7 +422,7 @@ public class Chamber
             p.moveVertical(-p.getVelocityY());
             p.makeVisibleParticle();
         }
-        inHole(p);
+        if (!p.isFlying()) inHole(p);
     }
     private void inHole(Particle p){
         int xPos = p.getXPositionC();
@@ -385,7 +432,7 @@ public class Chamber
         for (Hole h:holes){
             int xPos2 = h.getXPosition();
             int yPos2 = h.getYPosition();
-            if (h.getMaxParticles()>0 && ((xPos == xPos2 && yPos == yPos2) || ((xPos < xPos2 + 10 && xPos > xPos2) && (yPos < yPos2 + 10 && yPos > yPos2)))){
+            if (h.getMaxParticles()>0 && ((xPos == xPos2 && yPos == yPos2) || ((xPos < xPos2 + h.attractor && xPos > xPos2) && (yPos < yPos2 + h.attractor && yPos > yPos2)))){
                 h.reduceMaxParticles();
                 delOneParticle(p);
             }
@@ -398,7 +445,7 @@ public class Chamber
                 while (count < 30){
                     posFx += vXt;
                     posFy += vYt;
-                    if (h.getMaxParticles()>0 && ((posFx == xPos2 && posFy == yPos2) || ((posFx < xPos2 + 10 && posFx > xPos2) && (posFy < yPos2 + 10 && posFy > yPos2)))){
+                    if (h.getMaxParticles()>0 && ((posFx == xPos2 && posFy == yPos2) || ((posFx < xPos2 + h.attractor && posFx > xPos2) && (posFy < yPos2 + h.attractor && posFy > yPos2)))){
                         h.reduceMaxParticles();
                         delOneParticle(p);
                         count = 40;
@@ -444,6 +491,15 @@ public class Chamber
         }
         if (!p.getIsLeft()){
             bounceRight(p,x,y);
+        }
+        if (p.isEphemeral()){
+            Ephemeral e = (Ephemeral)p;
+            boolean detect = e.reduceVelocities();
+            if (!detect) delOneParticle(e);
+        }
+        if (p.isRotator()){
+            Rotator r = (Rotator)p;
+            if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities();
         }
     }
     // X Y Y SON LOS VALORES DEL CANVAS
@@ -529,9 +585,9 @@ public class Chamber
             p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
         }
         else if ((espeY >= height) && (espeX >= 0 && espeX <= width/2)){ // TECHO
-            float t = (float) Math.abs((height - p.getYPositionC()) / velociY);
-            p.setPositionParticle((int) (p.getXPositionC() + velociX * t), height);
-            p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
+            float t = (float) Math.abs((height - p.getYPositionC()) /velociY);
+            p.setPositionParticle((int)(p.getXPositionC() + velociX * t),chamberCenter.getYPosition());
+            p.setVelocityY(velociY*(-1));
         }
         p.makeVisibleParticle();
     }
@@ -577,7 +633,7 @@ public class Chamber
             bounceInCorner(p, espeX,espeY);
         }
         else if (espeX <= -width/2){ // PARED
-             if (velociX< 0 && velociY < 0 || (velociX < 0 && velociY > 0)){
+             if (velociX <= 0 && velociY <= 0 || (velociX <= 0 && velociY >= 0)){
                 float t = ((float)(convertXBoard + newWidth) / velociX);
                 int  n = chamberCenter.getYPosition() + height  -((int)(convertYBoard + (velociY * t)));
                 p.setPositionParticle(chamberCenter.getXPosition() - width/2, n);
@@ -585,7 +641,7 @@ public class Chamber
             }
         }
         else if (espeX >= 0 && (espeY <= height && espeY >= 0)){ // PAREDES
-            if (velociX > 0 && velociY > 0  || velociX > 0 && velociY < 0){
+            if (velociX >= 0 && velociY >= 0  || velociX >= 0 && velociY <= 0){
                 float t = ((float)(convertXBoard-0) / velociX);
                 int  n = chamberCenter.getYPosition() + height - ((int)(convertYBoard + (velociY * t)));
                 p.setPositionParticle(chamberCenter.getXPosition(), n);
@@ -593,7 +649,7 @@ public class Chamber
             }
         }
         else if((espeY < 0 && ((espeX <= 0) && espeX >= -width/2))){ // PISO
-            if(velociX > 0 && velociY < 0 || velociX < 0 && velociY < 0 ){
+            if(velociX >= 0 && velociY <= 0 || velociX <= 0 && velociY <= 0 ){
                 float t = -((float) (0-convertYBoard) / velociY);
                 int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
                 p.setPositionParticle(n, chamberCenter.getYPosition()+height);
@@ -601,9 +657,9 @@ public class Chamber
             }
         }
         else if ((espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
-            if (velociX > 0 && velociY > 0 || velociX < 0 && velociY > 0 ){
+            if (velociX >= 0 && velociY >= 0 || velociX <= 0 && velociY >= 0 ){
                 float t = (float) Math.abs((p.getYPositionC()-height)/velociY);
-                p.setPositionParticle((int) (p.getXPositionC() + velociX * t), height);
+                p.setPositionParticle((int) (p.getXPositionC() + velociX*t),chamberCenter.getYPosition());
                 p.setVelocityY(p.getVelocityY()*(-1));
             }
         }

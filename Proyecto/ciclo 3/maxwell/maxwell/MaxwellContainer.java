@@ -138,37 +138,77 @@ public class MaxwellContainer
             }
             return;    
         }
-        
-        chamber.addParticle(color,isRed,px,py,vx,vy);
+        chamber.addParticle("Normal",color,isRed,px,py,vx,vy);
         theLastActionWasSuccess=true;
     }
     public void addParticle(String type, String color, boolean isRed, int px, int py, int vx, int vy){
-        
+        if (py<0){
+            theLastActionWasSuccess = false;
+            if (!chamber.getIsVisible()){
+               JOptionPane.showMessageDialog(null, "py can't be negative");
+            }
+            return;    
+        }
+        chamber.addParticle(type,color,isRed,px,py,vx,vy);
+        theLastActionWasSuccess=true;
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
         //chamber.addParticle("red",true,50,50,-10,10); // Prueba para el demonio
         //chamber.addParticle("blue",false,280,80,10,10); // Bounce
-        chamber.addParticle("red",true,50,50,-10,10);
-        chamber.addParticle("yellow",true,-80,10,20,10);
-        chamber.addParticle("turquoise",false,-80,110,20,10);
-        //chamber.addParticle("red",true,-100,100,20,0); // vy = 0
         /*
+        chamber.addParticle("Ephemeral","red",true,50,50,0,10);
+        chamber.addParticle("Ephemeral","yellow",true,-80,10,15,2);
+        chamber.addParticle("Ephemeral","turquoise",false,-80,110,0,4);
+        
+        chamber.addParticle("Normal","red",false,-80,50,5,4);
+        
+        chamber.addParticle("Ephemeral","turquoise",false,-1,110,10,4);
+        
+        chamber.addParticle("Ephemeral","yellow",false,-80,180,4,3);
+        
+        chamber.addParticle("Ephemeral","pastel blue",false,-80,150,4,5);
+        
+        
+        chamber.addParticle("Ephemeral","red",false,80,50,5,4);
+        
+        chamber.addParticle("Flying","turquoise",false,1,110,10,4);
+        
+        chamber.addParticle("Ephemeral","yellow",false,80,180,4,3);
+        
+        chamber.addParticle("Ephemeral","pastel blue",false,80,150,4,5);
+        
+        
+        
+        chamber.addParticle("Flying","pastel blue",true,-100,100,5,0); // vy = 0
+        chamber.addParticle("Flying","turquoise",false,-80,130,0,4);
+        chamber.addParticle("Flying","pastel blue",true,-100,140,5,0); // vy = 0
+        chamber.addParticle("Flying","turquoise",false,80,130,0,4);
+        
         //chamber.addParticle("turquoise",false,-250,40,-5,5);
-        chamber.addParticle("yellow",false,-210,90,5,-5);
-        chamber.addParticle("yellow",true,80,40,-4,9);
+        
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        chamber.addParticle("Normal","yellow",false,-210,90,5,-5);
+        
+        chamber.addParticle("Normal","yellow",true,80,40,-4,9);
         //chamber.addParticle("orange",true,20,180,9,-4);
-        chamber.addParticle("green",true,200,199,-10,10);
-        chamber.addParticle("charcoal",true,100,150,-15,5);
-        chamber.addParticle("pastel blue",false,180,40,-10,-10);
-        chamber.addParticle("bronze",false,80,40,-4,9);
+        chamber.addParticle("Normal","green",true,200,199,-10,10);
+        chamber.addParticle("Normal","charcoal",true,100,150,-15,5);
+        chamber.addParticle("Normal","pastel blue",false,180,40,-10,-10);
+        chamber.addParticle("Normal","bronze",false,80,40,-4,9);
         //chamber.addParticle("orange",true,20,180,9,-4);
         //chamber.addParticle("green",true,200,199,-10,10);
         //chamber.addParticle("neon yellow",false,1,199,-1,1);
         //chamber.addParticle("slime",true,5,65,5,-5);
         //chamber.addParticle("ivory",true,10,65,-5,-5);
-        chamber.addParticle("golden",false,5,55,5,5);
-        chamber.addParticle("ivory",true,-10,10,5,5);
+        chamber.addParticle("Normal","golden",false,5,55,5,5);
+        chamber.addParticle("Normal","ivory",true,-10,10,5,5);
+        
         */
     }
     /**
@@ -205,12 +245,12 @@ public class MaxwellContainer
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addHoles(){
-        theLastActionWasSuccess = chamber.addHole("Normal",40,60,7);
+        theLastActionWasSuccess = chamber.addHole("EatParticle",40,60,7);
         theLastActionWasSuccess = chamber.addHole("Movil",-100,100,90);
         theLastActionWasSuccess = chamber.addHole("Movil",-20,180,17);
-        theLastActionWasSuccess = chamber.addHole("Normal",-180,10,89);
+        theLastActionWasSuccess = chamber.addHole("EatParticle",-180,10,89);
         theLastActionWasSuccess = chamber.addHole("Normal",10,189,42);
-        theLastActionWasSuccess = chamber.addHole("Movil",-80,40,42);
+        theLastActionWasSuccess = chamber.addHole("EatParticle",-80,40,42);
     }
     /**
      * start the simulation ticks time
@@ -260,7 +300,9 @@ public class MaxwellContainer
         return chamber.demons();
     }
     
-    
+    public ArrayList<Integer> demons(String type){
+        return chamber.demons();
+    }
     
     /**
      * return the positions and velocity of each particle [px,py,vx,vy] in order from lowest to highest.
@@ -279,6 +321,11 @@ public class MaxwellContainer
         });
         return particlesInfo;
     }
+    
+    public ArrayList<ArrayList<Integer>> particles(String type){
+        return null;
+    }
+    
     /**
      * return the positions and particules remains [px, py, particles] in order from lowest to highest
      * px -> position of the hole in x-axis

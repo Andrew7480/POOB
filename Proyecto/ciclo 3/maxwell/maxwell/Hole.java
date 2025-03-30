@@ -12,9 +12,10 @@ public class Hole
 {
     protected Rectangle blackHole;
     protected int maxParticles;
-    public static final char MOVIL = 'm';
+    public static final String MOVIL = "Movil", NORMAL = "Normal", EATPARTICLE = "EatParticle";
     protected boolean isLeft;
-    protected char state;
+    protected String state;
+    public static int attractor = 10;
     /**
      * Constructor of Hole
      * @param int xPosition
@@ -24,7 +25,7 @@ public class Hole
     public Hole(int xPosition, int yPosition, int particles, boolean whereIs){
         blackHole = new Rectangle(xPosition, yPosition, 10, 10);
         maxParticles = particles;
-        state = 'n';
+        state = NORMAL;
         isLeft = whereIs;
     }
     public void reduceMaxParticles(){
@@ -73,7 +74,11 @@ public class Hole
     }
     
     public boolean isMovil(){
-        return state == MOVIL;
+        return state.equals(MOVIL);
+    }
+    
+    public boolean isEatParticle(){
+        return state.equals(EATPARTICLE);
     }
     
     public boolean getWhereIs(){

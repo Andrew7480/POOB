@@ -74,6 +74,14 @@ public class Rectangle extends shape{
         draw();
     }
     
+    
+    public void plusSize(){
+        erase();
+        height += 3;
+        width += 3;
+        draw();
+    }
+    
     /*
      * Draw the rectangle with current specifications on screen.
      */

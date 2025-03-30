@@ -9,8 +9,8 @@ import shapes.*;
 public class DemonFace
 {
     protected Circle faceDemon;
-    public static final char BLUE = 'b', WEAK = 'w', NORMAL = 'n';
-    protected char state;
+    public static final String BLUE = "Blue", WEAK = "Weak", NORMAL = "Normal";
+    protected String state;
     protected int posD;
     /**
      * Constructor of demon face
@@ -57,15 +57,15 @@ public class DemonFace
     }
     
     public boolean isBlue(){
-        return state == BLUE;
+        return state.equals(BLUE);
     }
     
     public boolean isWeak(){
-        return state == WEAK;
+        return state.equals(WEAK);
     }
     
     public boolean isNormal(){
-        return state == NORMAL;
+        return state.equals(NORMAL);
     }
     
     

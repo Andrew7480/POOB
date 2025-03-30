@@ -11,6 +11,6 @@ public class Flying extends Particle
 {
     public Flying(String color, int newXPosition, int newYPosition, int vx, int vy, boolean newIsLeft, boolean newIsRed){
         super(color,newXPosition,newYPosition,vx,vy,newIsLeft,newIsRed);
-        
+        state = FLYING;
     }
 }

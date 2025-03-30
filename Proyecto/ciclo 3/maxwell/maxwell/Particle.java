@@ -9,12 +9,14 @@ import shapes.*;
  */
 public class Particle
 {
-    private int velocityX;
-    private int velocityY;
-    private Circle c;
-    private Circle c1;
-    private boolean isLeft;
-    private boolean isRed;
+    protected int velocityX;
+    protected int velocityY;
+    protected Circle c;
+    protected Circle c1;
+    protected boolean isLeft;
+    protected boolean isRed;
+    public static final String EPHEMERAL = "Ephemeral",FLYING = "Flying",ROTATOR = "Rotator", NORMAL = "Normal";
+    protected String state;
     /**
      * Constructor of Particle
      * @param String color
@@ -36,8 +38,9 @@ public class Particle
         if (!newIsRed){
             c1 = new Circle("blue",newXPosition,newYPosition,8);
         }
-        
+        state = NORMAL;
     }
+    
     /**
      * change color of the particles 
      * @param String color
@@ -148,4 +151,18 @@ public class Particle
     public void changeIsLeft(){
         isLeft = !isLeft;
     }
+    
+    public boolean isEphemeral(){
+        return state.equals(EPHEMERAL);
+    }
+    
+    public boolean isFlying(){
+        return state.equals(FLYING);
+    }
+    
+    public boolean isRotator(){
+        return state.equals(ROTATOR);
+    }
+    
+    
 }

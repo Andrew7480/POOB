@@ -3,4 +3,6 @@ comment0.target=Ephemeral
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ ephemeral\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=color\ newXPosition\ newYPosition\ vx\ vy\ newIsLeft\ newIsRed
 comment1.target=Ephemeral(java.lang.String,\ int,\ int,\ int,\ int,\ boolean,\ boolean)
-numComments=2
+comment2.params=
+comment2.target=boolean\ reduceVelocities()
+numComments=3
