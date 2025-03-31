@@ -53,13 +53,15 @@ public class MaxwellContainer
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
-        addParticle("Normal","red",true,50,50,-10,10); // Prueba para el demonio
-        addParticle("Normal","blue",false,280,80,10,10); // Bounce        
-        addParticle("Ephemeral","red",true,50,50,0,10);
-        addParticle("Ephemeral","yellow",true,-80,10,15,2);
-        addParticle("Ephemeral","turquoise",false,-80,110,0,4);
-        addParticle("Normal","red",false,-80,50,5,4);
-        addParticle("Ephemeral","turquoise",false,-1,110,10,4);
+        //addParticle("Normal","red",true,50,50,-10,10); // Prueba para el demonio
+        //addParticle("Normal","blue",false,280,80,10,10); // Bounce   
+        
+        //addParticle("Rotator","red",true,50,50,0,10);
+        //addParticle("Rotator","yellow",true,-80,10,15,2);
+        //addParticle("Rotator","turquoise",false,-80,110,0,4);
+        addParticle("Rotator","red",false,-80,20,5,4);
+        /*
+        addParticle("Rotator","turquoise",false,-1,110,10,4);
         addParticle("Ephemeral","yellow",false,-80,180,4,3);
         addParticle("Ephemeral","pastel blue",false,-80,150,4,5);
         addParticle("Ephemeral","red",false,80,50,5,4);
@@ -68,7 +70,7 @@ public class MaxwellContainer
         addParticle("Ephemeral","pastel blue",false,80,150,4,5);
         
         
-        
+        /*
         addParticle("Flying","pastel blue",true,-100,100,5,0); // vy = 0
         addParticle("Flying","turquoise",false,-80,130,0,4);
         addParticle("Flying","pastel blue",true,-100,140,5,0); // vy = 0
@@ -97,7 +99,7 @@ public class MaxwellContainer
         addParticle("ivory",true,10,65,-5,-5);
         addParticle("Normal","golden",false,5,55,5,5);
         addParticle("Normal","ivory",true,-10,10,5,5);
-        
+        */
         
     }
     

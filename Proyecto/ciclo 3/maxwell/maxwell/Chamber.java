@@ -516,8 +516,10 @@ public class Chamber
             if (!detect) delOneParticle(e);
         }
         if (p.isRotator()){
+            System.out.println(p.getVelocityX() + " " +p.getVelocityY());
             Rotator r = (Rotator)p;
             if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities();
+            System.out.println(p.getVelocityX() + " " +p.getVelocityY());
         }
     }
     // X Y Y SON LOS VALORES DEL CANVAS
