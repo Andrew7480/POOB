@@ -25,15 +25,39 @@ public class Rotator extends Particle
     /**
      * exchange the velocities  
      */
-    public void changeVelocities(){
+    public void changeVelocities(int width, int height, boolean isLeft){
+        int posX = getXPositionC();
+        int posY = getYPositionC();
         int tempX = velocityX;
         int tempY = velocityY;
-        if (velocityX == 0 || velocityY == 0){
-            velocityX = tempY;
-            velocityY = tempX;
-            return;
+        if (isLeft){
+            if(posX <= -width/2){
+                velocityX = Math.abs(tempY);
+                velocityY = tempX;
+            }
+            else if(posX >= 0){
+                velocityX = -Math.abs(tempY);
+                velocityY = tempX;
+            }
+        } 
+        else{
+            if(posX <= 0){
+                velocityX = Math.abs(tempY);
+                velocityY = tempX;
+            }
+            else if(posX >= width/2){
+                velocityX = -Math.abs(tempY);
+                velocityY = tempX;
+            }
         }
-        velocityX = -tempY;
-        velocityY = -tempX;
+        
+        if(posY <= 0){
+            velocityX = tempY;
+            velocityY = Math.abs(tempX);
+        }
+        else if(posY >= height){
+            velocityX = tempY;
+            velocityY = -Math.abs(tempX);
+        }
     }
 }

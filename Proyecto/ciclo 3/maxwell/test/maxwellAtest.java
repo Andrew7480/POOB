@@ -31,7 +31,12 @@ public class maxwellAtest
     public void setUp()
     {
     }
-
+    @Test
+    public void shouldMoveRight(){
+        
+    }
+    
+    
     /**
      * Tears down the test fixture.
      *

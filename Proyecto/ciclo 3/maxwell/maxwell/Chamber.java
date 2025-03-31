@@ -518,7 +518,7 @@ public class Chamber
         if (p.isRotator()){
             System.out.println(p.getVelocityX() + " " +p.getVelocityY());
             Rotator r = (Rotator)p;
-            if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities();
+            if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities(width,height,isInLeft(p.getXPositionC(), p.getYPositionC()));
             System.out.println(p.getVelocityX() + " " +p.getVelocityY());
         }
     }
@@ -605,9 +605,16 @@ public class Chamber
             p.setVelocityY(velociY*(-1)); // termina siendo la y positiva
         }
         else if ((espeY >= height) && (espeX >= 0 && espeX <= width/2)){ // TECHO
-            float t = (float) Math.abs((height - p.getYPositionC()) /velociY);
-            p.setPositionParticle((int)(p.getXPositionC() + velociX * t),chamberCenter.getYPosition());
-            p.setVelocityY(velociY*(-1));
+            if (velociX >= 0 && velociY > 0  || velociX <= 0 && velociY >0 ){
+                float t = -((float) (height-convertYBoard)/velociY);
+                int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
+                p.setPositionParticle(n, chamberCenter.getYPosition());
+                p.setVelocityY(p.getVelocityY()*(-1));
+            }
+            else if (velociX >= 0 && velociY == 0 || velociX <= 0 && velociY == 0){
+                p.setPositionParticle(espeX,chamberCenter.getYPosition()-height);
+                p.setVelocityY(p.getVelocityY()*(-1));
+            }
         }
         p.makeVisibleParticle();
     }
@@ -677,13 +684,20 @@ public class Chamber
             }
         }
         else if ((espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
-            if (velociX >= 0 && velociY >= 0 || velociX <= 0 && velociY >= 0 ){
-                float t = (float) Math.abs((p.getYPositionC()-height)/velociY);
-                p.setPositionParticle((int) (p.getXPositionC() + velociX*t),chamberCenter.getYPosition());
+            if (velociX >= 0 && velociY > 0  || velociX <= 0 && velociY >0 ){
+                float t = -((float) (height-convertYBoard)/velociY);
+                System.out.println(t);
+                
+                int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
+                System.out.println(n);
+                p.setPositionParticle(n, chamberCenter.getYPosition());
+                p.setVelocityY(p.getVelocityY()*(-1));
+            }
+            else if (velociX >= 0 && velociY == 0 || velociX <= 0 && velociY == 0){
+                p.setPositionParticle(espeX,chamberCenter.getYPosition()-height);
                 p.setVelocityY(p.getVelocityY()*(-1));
             }
         }
-        
     }
     /**
      * return the array list of the particles with a certain information (px,py,vx,vy)

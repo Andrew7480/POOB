@@ -56,22 +56,25 @@ public class MaxwellContainer
         //addParticle("Normal","red",true,50,50,-10,10); // Prueba para el demonio
         //addParticle("Normal","blue",false,280,80,10,10); // Bounce   
         
-        //addParticle("Rotator","red",true,50,50,0,10);
-        //addParticle("Rotator","yellow",true,-80,10,15,2);
-        //addParticle("Rotator","turquoise",false,-80,110,0,4);
+        addParticle("Rotator","red",true,-80,195,2,6);
+        addParticle("Rotator","yellow",true,-80,10,15,2);
+        addParticle("Rotator","turquoise",false,-80,110,0,4);
         addParticle("Rotator","red",false,-80,20,5,4);
         /*
-        addParticle("Rotator","turquoise",false,-1,110,10,4);
+        addParticle("Rotator","orange",false,-1,110,10,4);
         addParticle("Ephemeral","yellow",false,-80,180,4,3);
         addParticle("Ephemeral","pastel blue",false,-80,150,4,5);
-        addParticle("Ephemeral","red",false,80,50,5,4);
-        addParticle("Flying","turquoise",false,1,110,10,4);
-        addParticle("Ephemeral","yellow",false,80,180,4,3);
+        addParticle("Ephemeral","red",false,80,50,5,4);*/
+        /*addParticle("Flying","turquoise",false,1,110,10,4);
+        addParticle("Flying","turquoise",false,21,110,10,4);
+        addParticle("Flying","turquoise",false,51,110,10,4);
+        addParticle("Flying","turquoise",false,81,110,10,4);
+        /*addParticle("Ephemeral","yellow",false,80,180,4,3);
         addParticle("Ephemeral","pastel blue",false,80,150,4,5);
-        
+        */
         
         /*
-        addParticle("Flying","pastel blue",true,-100,100,5,0); // vy = 0
+        addParticle("Flying","pastel blue",true,80,180,20,20); // vy = 0
         addParticle("Flying","turquoise",false,-80,130,0,4);
         addParticle("Flying","pastel blue",true,-100,140,5,0); // vy = 0
         addParticle("Flying","turquoise",false,80,130,0,4);
@@ -85,9 +88,8 @@ public class MaxwellContainer
         addParticle("Normal","yellow",false,-210,90,5,-5);
         addParticle("Normal","yellow",false,-210,90,5,-5);
         addParticle("Normal","yellow",false,-210,90,5,-5);
-        
         addParticle("Normal","yellow",true,80,40,-4,9);
-        addParticle("orange",true,20,180,9,-4);
+        addParticle("Normal","orange",true,20,180,9,-4);
         addParticle("Normal","green",true,200,199,-10,10);
         addParticle("Normal","charcoal",true,100,150,-15,5);
         addParticle("Normal","pastel blue",false,180,40,-10,-10);
@@ -286,6 +288,11 @@ public class MaxwellContainer
                 h.makeInvisibleParticle();
                 chamber.movement(h);    
                 h.makeVisibleParticle();
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             chamber.particulesDelete();
         }
