@@ -282,13 +282,11 @@ public class MaxwellContest
             bounceInCorner(particles);
         }
         if (espeX >= w){ // PARED DERECHA
-                System.out.println("PARED DERECHA");
                 float t = ((float)(w - x) / velociX);
                 int  n = ((int)(y + (velociY * t)));
                 particles.set(0,w);
                 particles.set(1,n);
                 particles.set(2,-velociX);
-                System.out.println(particles);
         }
         else if (espeX <= 0 && (espeY <= h && espeY >= 0)){ // PARED IZQUIERDA
                 float t = -((float)(x-0) / velociX);

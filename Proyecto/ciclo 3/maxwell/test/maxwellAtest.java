@@ -35,6 +35,7 @@ public class maxwellAtest
     public void shouldMoveRightBeforeNewTypes(){
         MaxwellContainer a = new MaxwellContainer();
         a.addDemon("Normal",100);
+        a.addHole(-180, 80, 2);
         a.addParticle("Normal","orange",true,50,50,-10,10);
         a.addParticle("Normal", "red", true, 100, 50, 15, 5);
         a.addParticle("Normal", "yellow", false, -80, 40, 15, -5);
@@ -43,8 +44,9 @@ public class maxwellAtest
         a.addParticle("Normal", "black", true, 50, 10, -15, 7);
         a.addParticle("Normal", "red", false, 10, 101, 5, 15);
         a.makeVisible();
-        a.start(15);
+        a.start(100);
     }
+    
     @Test
     public void shouldBeRightAfterNewTypes(){
         MaxwellContainer a = new MaxwellContainer();
@@ -54,16 +56,16 @@ public class maxwellAtest
         a.addParticle("Ephemeral", "red", true, -160, 160, -5, 5);
         a.addParticle("Rotator","turquoise",false,80,110,0,20);
         a.addParticle("Flying", "black", true, 100, 100, 5, -5);
-        a.addParticle("Flying", "blue", true, -80, 150, 5, 0);
-        a.addParticle("Normal", "red", true, 10, 10, 5, 5);
-        a.addParticle("Normal", "red", true, 10, 10, 5, 5);
-        a.addParticle("Normal", "red", true, 10, 10, 5, 5);
-        a.addParticle("Normal", "red", true, 10, 10, 5, 5);
+        a.addParticle("Flying", "blue", true, -80, 150, 30, 0);
+        a.addParticle("Flying", "Grey", true, 10, 10, 5, 5);
+        a.addParticle("Ephemeral", "red", true, 10, 10, 5, 5);
+        a.addParticle("Ephemeral", "red", true, 10, 10, 5, 5);
+        a.addParticle("Ephemeral", "red", true, 10, 10, 5, 5);
         a.addParticle("Normal", "red", true, 10, 10, 5, 5);
         a.addParticle("Normal", "red", true, 10, 10, 5, 5);
         a.addParticle("Normal", "blue", false, -80, 50, 5,0);
         a.makeVisible();
-        a.start(25);
+        a.start(100);
     }
     
     /**

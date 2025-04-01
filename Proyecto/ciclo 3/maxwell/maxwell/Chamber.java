@@ -516,10 +516,8 @@ public class Chamber
             if (!detect) delOneParticle(e);
         }
         if (p.isRotator()){
-            System.out.println(p.getVelocityX() + " ENTRO? " +p.getVelocityY());
             Rotator r = (Rotator)p;
             if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities(width,height,isInLeft(p.getXPositionC(), p.getYPositionC()));
-            System.out.println(p.getVelocityX() + " ENTRO? " +p.getVelocityY());
         }
     }
     // X Y Y SON LOS VALORES DEL CANVAS
@@ -685,11 +683,8 @@ public class Chamber
         }
         else if ((espeY >= height) && (espeX <= 0 && espeX >= -width/2)){
             if (velociX >= 0 && velociY > 0  || velociX <= 0 && velociY >0 ){
-                float t = -((float) (height-convertYBoard)/velociY);
-                System.out.println(t);
-                
+                float t = -((float) (height-convertYBoard)/velociY);                
                 int  n = chamberCenter.getXPosition() + ((int)(convertXBoard + (velociX * t)));
-                System.out.println(n);
                 p.setPositionParticle(n, chamberCenter.getYPosition());
                 p.setVelocityY(p.getVelocityY()*(-1));
             }

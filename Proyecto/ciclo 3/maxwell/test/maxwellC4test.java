@@ -79,8 +79,6 @@ public class maxwellC4test
         a.start(5);
         int vx = a.particles("Rotator").get(0).get(2);
         int vy = a.particles("Rotator").get(0).get(3);
-        System.out.println(a.particles().get(0));
-        System.out.println(vx);
         assertEquals(-20,vx);
         assertEquals(0,vy);
         
