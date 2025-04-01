@@ -56,6 +56,7 @@ public class Rotator extends Particle
             velocityY = Math.abs(tempX);
         }
         else if(posY >= height){
+            System.out.println("ENTRO?");
             velocityX = tempY;
             velocityY = -Math.abs(tempX);
         }

@@ -71,6 +71,22 @@ public class maxwellC4test
         a.finish();
     }
     
+    @Test
+    public void shouldMakeTheRotatorRight(){
+        MaxwellContainer a = new MaxwellContainer();
+        a.addParticle("Rotator","turquoise",false,80,110,0,20);
+        //a.addParticle("Rotator","turquoise",false,-80,110,20,0);
+        a.start(5);
+        int vx = a.particles("Rotator").get(0).get(2);
+        int vy = a.particles("Rotator").get(0).get(3);
+        System.out.println(a.particles().get(0));
+        System.out.println(vx);
+        assertEquals(-20,vx);
+        assertEquals(0,vy);
+        
+        a.finish();
+    }
+    
     
     @Test
     public void ShouldDisappear(){

@@ -53,13 +53,13 @@ public class MaxwellContainer
     }
     // ESTO ES PARA LA SUSTENTACIÓN
     public void addParticles(){
-        //addParticle("Normal","red",true,50,50,-10,10); // Prueba para el demonio
-        //addParticle("Normal","blue",false,280,80,10,10); // Bounce   
+        addParticle("Normal","red",true,50,50,-10,10); // Prueba para el demonio
+        addParticle("Normal","blue",false,280,80,10,10); // Bounce   
         
-        addParticle("Rotator","red",true,-80,195,2,6);
-        addParticle("Rotator","yellow",true,-80,10,15,2);
-        addParticle("Rotator","turquoise",false,-80,110,0,4);
-        addParticle("Rotator","red",false,-80,20,5,4);
+        addParticle("Rotator","red",true,-80,195,2,5);
+        addParticle("Rotator","yellow",true,80,10,15,2);
+        addParticle("Rotator","turquoise",false,80,110,0,20);
+        addParticle("Rotator","red",false,80,20,5,4);
         /*
         addParticle("Rotator","orange",false,-1,110,10,4);
         addParticle("Ephemeral","yellow",false,-80,180,4,3);

@@ -516,10 +516,10 @@ public class Chamber
             if (!detect) delOneParticle(e);
         }
         if (p.isRotator()){
-            System.out.println(p.getVelocityX() + " " +p.getVelocityY());
+            System.out.println(p.getVelocityX() + " ENTRO? " +p.getVelocityY());
             Rotator r = (Rotator)p;
             if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities(width,height,isInLeft(p.getXPositionC(), p.getYPositionC()));
-            System.out.println(p.getVelocityX() + " " +p.getVelocityY());
+            System.out.println(p.getVelocityX() + " ENTRO? " +p.getVelocityY());
         }
     }
     // X Y Y SON LOS VALORES DEL CANVAS
