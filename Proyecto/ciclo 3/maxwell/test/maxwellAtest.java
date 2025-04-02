@@ -51,12 +51,17 @@ public class maxwellAtest
     public void shouldBeRightAfterNewTypes(){
         MaxwellContainer a = new MaxwellContainer();
         a.addHole("EatParticle",50, 50, 5);
+        a.addHole("Movil",-120,120, 10);
         a.addDemon("Blue",50);
+        a.addDemon("Blue",80);
         a.addDemon("Weak",150);
+        a.addDemon("Weak",140);
+        a.addParticle("Flying","turquoise",true,80,80,-15,0);
         a.addParticle("Ephemeral", "red", true, -160, 160, -5, 5);
         a.addParticle("Rotator","turquoise",false,80,110,0,20);
         a.addParticle("Flying", "black", true, 100, 100, 5, -5);
         a.addParticle("Flying", "blue", true, -80, 150, 30, 0);
+        a.addParticle("Flying", "blue", true, 80, 140, -30, 0);
         a.addParticle("Flying", "Grey", true, 10, 10, 5, 5);
         a.addParticle("Ephemeral", "red", true, 10, 10, 5, 5);
         a.addParticle("Ephemeral", "red", true, 10, 10, 5, 5);
@@ -65,7 +70,7 @@ public class maxwellAtest
         a.addParticle("Normal", "red", true, 10, 10, 5, 5);
         a.addParticle("Normal", "blue", false, -80, 50, 5,0);
         a.makeVisible();
-        a.start(100);
+        a.start(200);
     }
     
     /**

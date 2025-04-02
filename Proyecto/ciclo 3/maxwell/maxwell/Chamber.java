@@ -801,9 +801,18 @@ public class Chamber
                             y +=1;
                             if (x== 0 && y== d.getPosD()){
                                 if (d.isWeak()) delDemon(d.getPosD());
-                                return true;
-                        }
-                        }
+                                    return true;
+                                }
+                            }
+                    }
+                    else if (p.getVelocityY() == 0){
+                        while (x< posXaf){
+                            x += 1;
+                            if (x== 0 && y == d.getPosD()){
+                                if (d.isWeak()) delDemon(d.getPosD());
+                                    return true;
+                                }
+                            }
                     }
                 }
                 if (!isLeft){
@@ -826,6 +835,15 @@ public class Chamber
                                 return true;
                             }
                         }
+                    }
+                    else if (p.getVelocityY() == 0){
+                        while (x > posXaf){
+                            x -= 1;
+                            if (x== 0 && y == d.getPosD()){
+                                if (d.isWeak()) delDemon(d.getPosD());
+                                    return true;
+                                }
+                            }
                     }
                 }
             }
