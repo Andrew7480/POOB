@@ -3,6 +3,9 @@ import domain.*;
 
 
 import static org.junit.Assert.*;
+
+import java.beans.Transient;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +51,8 @@ public class CoreTest{
         } catch (Plan15Exception e){
             fail("Threw a exception");
         }    
-    }  
+    }
+
     
     @Test
     public void shouldThrowExceptionIfCoreHasNoCourse(){

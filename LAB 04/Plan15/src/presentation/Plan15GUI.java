@@ -130,9 +130,6 @@ public class Plan15GUI extends JFrame{
         return panel;
     }
 
-    
-
-
 
    /**
      * 
