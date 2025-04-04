@@ -400,8 +400,8 @@ public class Chamber
         int posX = convertionsCanvasToBoard(m.getXPosition(), m.getYPosition()).get(0);
         int posY = convertionsCanvasToBoard(m.getXPosition(), m.getYPosition()).get(1);
         if (verifyLimits(m.getWhereIs(), posX, posY)){
-            m.moveHorizontal(1);
-            m.moveVertical(-1);
+            m.moveHorizontal(m.velocity);
+            m.moveVertical(-m.velocity);
         }
     }
     
@@ -859,12 +859,8 @@ public class Chamber
     /**
      * return the movil Holes
      */
-    public ArrayList<Hole> getHolesMoviles(){
-        ArrayList<Hole> holesMoviles = new ArrayList<>();
-        for (Hole h : holes){
-            if (h.isMovil()) holesMoviles.add(h);
-        }
-        return holesMoviles;
+    public ArrayList<Hole> getHoles(){
+        return holes;
     }
     /**
      * return the EatParticle Holes

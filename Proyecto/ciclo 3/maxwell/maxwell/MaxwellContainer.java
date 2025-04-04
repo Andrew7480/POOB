@@ -278,11 +278,9 @@ public class MaxwellContainer
     public void start(int ticks){
         for (int i = 0; i < ticks; i++){
             ArrayList<Particle> p = new ArrayList<>(chamber.getParticules());
-            ArrayList<Hole> holes = new ArrayList<>(chamber.getHolesMoviles());
-            for (Hole movil : holes){
-                movil.makeInvisibleHole();
-                chamber.movementMoviles(movil);
-                movil.makeVisibleHole();
+            ArrayList<Hole> holes = new ArrayList<>(chamber.getHoles());
+            for (Hole hole : holes){
+                chamber.movementMoviles(hole);
             }
             for (Particle h : p){
                 h.makeInvisibleParticle();

@@ -16,6 +16,7 @@ public class Hole
     protected boolean isLeft;
     protected String state;
     public static int attractor = 10;
+    public static int velocity = 0;
     /**
      * Constructor of Hole
      * @param int xPosition
@@ -95,13 +96,11 @@ public class Hole
      * move the hole horizontally
      */
     public void moveHorizontal(int distance){
-        blackHole.moveHorizontal(distance);
     }
     /**
      * move the hole vertically
      */
     public void moveVertical(int distance){
-        blackHole.moveVertical(distance);
     }
     
 }

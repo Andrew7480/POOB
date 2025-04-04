@@ -8,7 +8,7 @@ package maxwell;
  * @version (a version number or a date)
  */
 public class Movil extends Hole
-{
+{   
     /**
      * Constructor of Hole
      * @param int xPosition
@@ -20,7 +20,21 @@ public class Movil extends Hole
         super(xPosition,yPosition, particles,whereIs);
         blackHole.changeColor("charcoal");
         state = MOVIL;
+        velocity = 1;
     }
     
-    
+    /**
+     * move the hole horizontally
+     */
+    @Override
+    public void moveHorizontal(int distance){
+        blackHole.moveHorizontal(distance);
+    }
+    /**
+     * move the hole vertically
+     */
+    @Override
+    public void moveVertical(int distance){
+        blackHole.moveVertical(distance);
+    }
 }
