@@ -5,4 +5,6 @@ comment1.params=color\ newXPosition\ newYPosition\ vx\ vy\ newIsLeft\ newIsRed
 comment1.target=Ephemeral(java.lang.String,\ int,\ int,\ int,\ int,\ boolean,\ boolean)
 comment2.params=
 comment2.target=boolean\ reduceVelocities()
-numComments=3
+comment3.params=width\ height
+comment3.target=boolean\ afterBounce(int,\ int)
+numComments=4

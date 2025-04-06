@@ -31,13 +31,13 @@ public class MaxwellContainerC1Test
     {
     }
     @Test
-    public void ShouldCreateMaxwellContainer(){
+    public void shouldCreateMaxwellContainer(){
         MaxwellContainer a = new MaxwellContainer();
         MaxwellContainer b = new MaxwellContainer(200,300);
         assertTrue(a.equals(b));
     }
     @Test
-    public void ShouldStart(){
+    public void shouldStartA(){
         MaxwellContainer a = new MaxwellContainer();
         MaxwellContainer b = new MaxwellContainer();
         a.start(100);
@@ -50,7 +50,7 @@ public class MaxwellContainerC1Test
         assertTrue(a.ok());
     }
     @Test
-    public void CreateMaxwellContainerTest(){
+    public void createMaxwellContainerTest(){
         /*
         MaxwellContainer a = new MaxwellContainer(100,200,80,5,3,new java.util.ArrayList<>(java.util.Arrays.asList(  
         new java.util.ArrayList<>(java.util.Arrays.asList(-80, 100, 4, 1)),  
@@ -125,7 +125,7 @@ public class MaxwellContainerC1Test
         a.finish();
     }    
     @Test
-    public void shouldStart(){
+    public void shouldStartB(){
         MaxwellContainer a = new MaxwellContainer(100,200);
         a.addHole(100, 100, 7);
         a.addParticle("green", true, 20, 20, 5, 4);

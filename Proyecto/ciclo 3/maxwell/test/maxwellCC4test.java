@@ -16,12 +16,12 @@ import java.util.Arrays;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class maxwellCC4test
+public class MaxwellCC4test
 {
     /**
      * Default constructor for test class maxwellCC4test
      */
-    public maxwellCC4test()
+    public MaxwellCC4test()
     {
     }
 

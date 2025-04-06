@@ -114,7 +114,7 @@ public class Chamber
             particules.add(r);
         }
         if (type.equals(Particle.NORMAL)){
-            Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, true,isRed);
+            Particle c = new Normal(color, px + chamberXPos, chamberYPos - py, vx, vy, true,isRed);
             if(isVisible){
                 c.makeVisibleParticle();
             }
@@ -154,7 +154,7 @@ public class Chamber
             particules.add(f);
         }
         if (type.equals(Particle.NORMAL)){
-            Particle c = new Particle(color, px + chamberXPos, chamberYPos - py, vx, vy, false,isRed);
+            Particle c = new Normal(color, px + chamberXPos, chamberYPos - py, vx, vy, false,isRed);
             if(isVisible){
                 c.makeVisibleParticle();
             }
@@ -436,7 +436,7 @@ public class Chamber
             p.moveVertical(-p.getVelocityY());
             p.makeVisibleParticle();
         }
-        if (!p.isFlying()) inHole(p);
+        if (!p.state.equals(p.FLYING)) inHole(p);
     }
     /*
      * If a particle ends in the range of a Hole, it eats the particle
@@ -510,14 +510,8 @@ public class Chamber
         if (!p.getIsLeft()){
             bounceRight(p,x,y);
         }
-        if (p.isEphemeral()){
-            Ephemeral e = (Ephemeral)p;
-            boolean detect = e.reduceVelocities();
-            if (!detect) delOneParticle(e);
-        }
-        if (p.isRotator()){
-            Rotator r = (Rotator)p;
-            if (p.getVelocityX() != p.getVelocityY()) r.changeVelocities(width,height,isInLeft(p.getXPositionC(), p.getYPositionC()));
+        if (!p.afterBounce(width, height)){
+            delOneParticle(p);
         }
     }
     // X Y Y SON LOS VALORES DEL CANVAS
@@ -779,9 +773,9 @@ public class Chamber
         int positionInChamberX = chamberCenter.getXPosition();
         for (DemonFace d : devils){
             int positionInChamberY = convertionsBoardToCanvas(x,d.getPosD()).get(1);
-            if ((d.isBlue() && (!p.getIsRed())) || (d.isNormal()) || (d.isWeak()) ){
+            if ((d.state.equals(d.BLUE) && (!p.getIsRed())) || (d.state.equals(d.NORMAL) || (d.state.equals(d.WEAK) ))){
                 if (posXaf==0 && posYaf == d.getPosD()){
-                    if (d.isWeak()) delDemon(d.getPosD());
+                    if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                     return true;
                 }
                 if (isLeft){
@@ -790,7 +784,7 @@ public class Chamber
                             x +=1;
                             y -=1;
                             if (x == 0 && y == d.getPosD()){
-                                if (d.isWeak()) delDemon(d.getPosD());
+                                if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                                 return true;
                         }
                         }
@@ -800,7 +794,7 @@ public class Chamber
                             x +=1;
                             y +=1;
                             if (x== 0 && y== d.getPosD()){
-                                if (d.isWeak()) delDemon(d.getPosD());
+                                if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                                     return true;
                                 }
                             }
@@ -809,7 +803,7 @@ public class Chamber
                         while (x< posXaf){
                             x += 1;
                             if (x== 0 && y == d.getPosD()){
-                                if (d.isWeak()) delDemon(d.getPosD());
+                                if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                                     return true;
                                 }
                             }
@@ -821,7 +815,7 @@ public class Chamber
                         x -=1;
                         y -=1;
                         if (x== 0 && y== d.getPosD()){
-                            if (d.isWeak()) delDemon(d.getPosD());
+                            if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                             return true;
                             }
                         }
@@ -831,7 +825,7 @@ public class Chamber
                             x -=1;
                             y +=1;
                             if (x== 0 && y== d.getPosD()){
-                                if (d.isWeak()) delDemon(d.getPosD());
+                                if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                                 return true;
                             }
                         }
@@ -840,7 +834,7 @@ public class Chamber
                         while (x > posXaf){
                             x -= 1;
                             if (x== 0 && y == d.getPosD()){
-                                if (d.isWeak()) delDemon(d.getPosD());
+                                if (d.state.equals(d.WEAK)) delDemon(d.getPosD());
                                     return true;
                                 }
                             }
@@ -868,7 +862,7 @@ public class Chamber
     public ArrayList<Hole> getEatParticlesHoles(){
         ArrayList<Hole> eatParticles = new ArrayList<>();
         for (Hole h : holes){
-            if (h.isEatParticle()) eatParticles.add(h);
+            if (h.state.equals(h.EATPARTICLE)) eatParticles.add(h);
         }
         return eatParticles;
     }

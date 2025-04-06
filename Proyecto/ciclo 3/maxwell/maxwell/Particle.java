@@ -7,7 +7,7 @@ import shapes.*;
  * @author Andrés Cardozo && Tulio Riaño 
  * @version (a version number or a date)
  */
-public class Particle
+public abstract class Particle
 {
     protected int velocityX;
     protected int velocityY;
@@ -39,7 +39,6 @@ public class Particle
         if (!newIsRed){
             c1 = new Circle("blue",newXPosition,newYPosition,8);
         }
-        state = NORMAL;
     }
     
     /**
@@ -155,24 +154,7 @@ public class Particle
     public void changeIsLeft(){
         isLeft = !isLeft;
     }
-    /**
-     * return if It's a ephemeral Particle
-       */
-    public boolean isEphemeral(){
-        return state.equals(EPHEMERAL);
-    }
-    /**
-     * return if It's a flying Particle
-       */
-    public boolean isFlying(){
-        return state.equals(FLYING);
-    }
-    /**
-     * return if It's a rotator Particle
-       */
-    public boolean isRotator(){
-        return state.equals(ROTATOR);
-    }
     
+    public abstract boolean afterBounce(int width, int height);
     
 }

@@ -27,32 +27,6 @@ public class Canvas{
     public int centerX;
     public int centerY;
     
-    public void drawCartesianPlane() {
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
-        centerX = width / 2;
-        centerY = height / 2;
-        
-        graphic.setColor(Color.white);
-        graphic.drawLine(0, centerY, width, centerY);
-        graphic.drawLine(centerX, 0, centerX, height);
-        canvas.repaint();
-    }
-    
-    public int getCenterX(){
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
-        centerX = width / 2;
-        centerY = height / 2;
-        return centerX;
-    }
-    public int getCenterY(){
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
-        centerX = width / 2;
-        centerY = height / 2;
-        return centerY;
-    }
 
     /**
      * Factory method to get the canvas singleton object.
@@ -95,6 +69,34 @@ public class Canvas{
         shapes = new HashMap <Object,ShapeDescription>();
     }
 
+    
+    public void drawCartesianPlane() {
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        centerX = width / 2;
+        centerY = height / 2;
+        
+        graphic.setColor(Color.white);
+        graphic.drawLine(0, centerY, width, centerY);
+        graphic.drawLine(centerX, 0, centerX, height);
+        canvas.repaint();
+    }
+    
+    public int getCenterX(){
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        centerX = width / 2;
+        centerY = height / 2;
+        return centerX;
+    }
+    public int getCenterY(){
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        centerX = width / 2;
+        centerY = height / 2;
+        return centerY;
+    }
+    
     /**
      * Set the canvas visibility and brings canvas to the front of screen
      * when made visible. This method can also be used to bring an already

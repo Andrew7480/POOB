@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class shape
+public abstract class Shape
 {
     protected int xPosition;
     protected int yPosition;
@@ -20,7 +20,7 @@ public abstract class shape
     public abstract void draw();
     public abstract void erase();
     
-    public shape(int x, int y, String newColor){
+    public Shape(int x, int y, String newColor){
         xPosition = x;
         yPosition = y;
         color = newColor;

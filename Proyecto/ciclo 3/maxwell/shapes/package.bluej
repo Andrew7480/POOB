@@ -1,8 +1,8 @@
 #BlueJ package file
-dependency1.from=Circle
+dependency1.from=Shape
 dependency1.to=Canvas
 dependency1.type=UsesDependency
-dependency2.from=shape
+dependency2.from=Circle
 dependency2.to=Canvas
 dependency2.type=UsesDependency
 dependency3.from=Triangle
@@ -38,7 +38,7 @@ target1.width=120
 target1.x=850
 target1.y=420
 target2.height=70
-target2.name=shape
+target2.name=Shape
 target2.showInterface=false
 target2.type=AbstractTarget
 target2.width=120

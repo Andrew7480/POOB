@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=maxwellAtest
+comment0.target=MaxwellAtest
 comment0.text=\r\n\ The\ test\ class\ maxwellAtest.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
-comment1.target=maxwellAtest()
+comment1.target=MaxwellAtest()
 comment1.text=\r\n\ Default\ constructor\ for\ test\ class\ maxwellAtest\r\n
 comment2.params=
 comment2.target=void\ setUp()

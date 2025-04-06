@@ -15,12 +15,12 @@ import java.util.Arrays;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class maxwellC4test
+public class MaxwellC4test
 {
     /**
      * Default constructor for test class maxwellC4test
      */
-    public maxwellC4test()
+    public MaxwellC4test()
     {
     }
 
@@ -35,7 +35,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldCreateTheNewParticles(){
+    public void shouldCreateTheNewParticles(){
         MaxwellContainer a = new MaxwellContainer();
         a.addParticle("Flying", "red", true, 100, 100, -5, 5);
         a.addParticle("Rotator", "red", true, 200, 90, -10, 5);
@@ -57,7 +57,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldFLy(){
+    public void shouldFLy(){
         MaxwellContainer a = new MaxwellContainer();
         a.addParticle("Flying", "red", true, 100, 100, -5, 5);
         a.addHole(95, 105, 10);
@@ -87,7 +87,7 @@ public class maxwellC4test
     
     
     @Test
-    public void ShouldDisappear(){
+    public void shouldDisappear(){
         MaxwellContainer a = new MaxwellContainer(3,3);
         a.addParticle("Ephemeral", "red", true, 1, 1, -1, 1);
         a.start(100);
@@ -98,7 +98,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldCreateTheNewHoles(){
+    public void shouldCreateTheNewHoles(){
         MaxwellContainer a = new MaxwellContainer();
         a.addHole("Movil",180, 100, 5);
         a.addHole("EatParticle",-200, 100, 15);
@@ -117,7 +117,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldMoveMovil(){
+    public void shouldMoveMovil(){
         MaxwellContainer a = new MaxwellContainer(3,3);
         a.addHole("Movil",1, 1, 5);
         a.start(1);
@@ -144,7 +144,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldGetBigger(){
+    public void shouldGetBigger(){
         MaxwellContainer a = new MaxwellContainer();
         a.addHole("EatParticle",1, 1, 5);
         a.addParticle("Normal", "red", true, 2, 2, -1, -1);
@@ -168,7 +168,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldCreateTheNewDemons(){
+    public void shouldCreateTheNewDemons(){
         MaxwellContainer a = new MaxwellContainer();
         a.addDemon("Blue", 20);
         a.addDemon("Weak", 40);
@@ -184,7 +184,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldPassOnlyBlues(){
+    public void shouldPassOnlyBlues(){
         MaxwellContainer a = new MaxwellContainer();
         a.addDemon("Blue", 20);
         a.addParticle("red", true, 2, 20, -1, 0);
@@ -199,7 +199,7 @@ public class maxwellC4test
     }
     
     @Test
-    public void ShouldDestroyItself(){
+    public void shouldDestroyItself(){
         MaxwellContainer a = new MaxwellContainer();
         a.addDemon("Weak", 20);
         a.addParticle("red", true, 2, 20, -1, 0);    

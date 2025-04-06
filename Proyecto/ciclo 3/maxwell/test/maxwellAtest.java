@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class maxwellAtest
+public class MaxwellAtest
 {
     /**
      * Default constructor for test class maxwellAtest
      */
-    public maxwellAtest()
+    public MaxwellAtest()
     {
     }
 
@@ -44,7 +44,7 @@ public class maxwellAtest
         a.addParticle("Normal", "black", true, 50, 10, -15, 7);
         a.addParticle("Normal", "red", false, 10, 101, 5, 15);
         a.makeVisible();
-        a.start(100);
+        a.start(50);
     }
     
     @Test
@@ -70,7 +70,7 @@ public class maxwellAtest
         a.addParticle("Normal", "red", true, 10, 10, 5, 5);
         a.addParticle("Normal", "blue", false, -80, 50, 5,0);
         a.makeVisible();
-        a.start(200);
+        a.start(50);
     }
     
     /**

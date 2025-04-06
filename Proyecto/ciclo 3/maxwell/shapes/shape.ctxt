@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.target=shape
+comment0.target=Shape
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ shape\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ draw()
@@ -38,7 +38,7 @@ comment21.params=
 comment21.target=java.util.ArrayList\ getCenterXY()
 comment21.text=\r\n\ Method\ that\ determines\ the\ center\ of\ the\ rectangle\r\n
 comment3.params=x\ y\ newColor
-comment3.target=shape(int,\ int,\ java.lang.String)
+comment3.target=Shape(int,\ int,\ java.lang.String)
 comment4.params=
 comment4.target=void\ makeVisible()
 comment4.text=\r\n\ Make\ this\ rectangle\ visible.\ If\ it\ was\ already\ visible,\ do\ nothing.\r\n

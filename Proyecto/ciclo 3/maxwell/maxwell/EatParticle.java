@@ -31,5 +31,4 @@ public class EatParticle extends Hole
     public int getwidth(){
         return blackHole.getwidth();
     }
-
 }

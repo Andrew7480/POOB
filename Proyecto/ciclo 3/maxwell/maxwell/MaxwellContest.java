@@ -47,7 +47,6 @@ public class MaxwellContest
             //System.out.println("Estado de las partículas después del tick " + ticks + ": ");
             for (int k = 0; k < parti.size(); k++) {
                 ArrayList<Integer> particle = parti.get(k);
-                System.out.println("Partícula " + k + ": X = " + particle.get(0) + ", Y = " + particle.get(1) + ", VX = " + particle.get(2) + ", VY = " + particle.get(3));
             }
             if (verifyIfIsDone(h,w,parti)){
                 //System.out.println("////////////////////////////////////////////////////////////////////////");

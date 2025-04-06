@@ -4,4 +4,6 @@ comment0.text=\r\n\ It's\ Flying\ Particle\r\n\ \r\n\ @author\ Andr\u00E9s\ Card
 comment1.params=color\ newXPosition\ newYPosition\ vx\ vy\ newIsLeft\ newIsRed
 comment1.target=Flying(java.lang.String,\ int,\ int,\ int,\ int,\ boolean,\ boolean)
 comment1.text=\r\n\ Constructor\ of\ Particle\r\n\ @param\ String\ color\r\n\ @param\ int\ newXPosition\r\n\ @param\ int\ newYPosition\r\n\ @param\ int\ vx\r\n\ @param\ int\ vy\r\n\ @param\ boolean\ newIsLeft\r\n
-numComments=2
+comment2.params=width\ height
+comment2.target=boolean\ afterBounce(int,\ int)
+numComments=3

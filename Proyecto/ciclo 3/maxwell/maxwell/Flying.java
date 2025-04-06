@@ -22,4 +22,7 @@ public class Flying extends Particle
         super(color,newXPosition,newYPosition,vx,vy,newIsLeft,newIsRed);
         state = FLYING;
     }
+    public boolean afterBounce(int width, int height){
+        return true;
+    }
 }

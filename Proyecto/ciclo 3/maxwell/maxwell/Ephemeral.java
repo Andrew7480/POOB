@@ -14,7 +14,7 @@ public class Ephemeral extends Particle
         state = EPHEMERAL;
     }
     
-    public boolean reduceVelocities(){
+    private boolean reduceVelocities(){
         if (velocityX > 0) velocityX--;
         if (velocityY > 0) velocityY--;
         if (velocityX < 0) velocityX++;
@@ -23,4 +23,8 @@ public class Ephemeral extends Particle
         return true;
     }
     
+    @Override
+    public boolean afterBounce(int width, int height){
+        return reduceVelocities();
+    }
 }

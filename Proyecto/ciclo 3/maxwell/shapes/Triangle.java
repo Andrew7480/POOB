@@ -8,9 +8,9 @@ import java.awt.*;
  * @version 1.0  (15 July 2000)
  */
 
-public class Triangle extends shape{
+public class Triangle extends Shape{
     
-    public static int VERTICES=3;
+    public static final int VERTICES=3;
     
     private int height;
     private int width;

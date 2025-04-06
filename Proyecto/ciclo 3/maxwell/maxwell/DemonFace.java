@@ -56,17 +56,6 @@ public class DemonFace
         return faceDemon.getYPosition();
     }
     
-    public boolean isBlue(){
-        return state.equals(BLUE);
-    }
-    
-    public boolean isWeak(){
-        return state.equals(WEAK);
-    }
-    
-    public boolean isNormal(){
-        return state.equals(NORMAL);
-    }
     
     
 }

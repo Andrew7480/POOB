@@ -17,6 +17,7 @@ public class Hole
     protected String state;
     public static int attractor = 10;
     public static int velocity = 0;
+    protected String type;
     /**
      * Constructor of Hole
      * @param int xPosition
@@ -29,6 +30,7 @@ public class Hole
         maxParticles = particles;
         state = NORMAL;
         isLeft = whereIs;
+        type = NORMAL;
     }
     public void reduceMaxParticles(){
         maxParticles--;
@@ -74,18 +76,7 @@ public class Hole
     public int getYPosition(){
         return blackHole.getYPosition();
     }
-    /**
-     * return if It's a movil hole
-     */
-    public boolean isMovil(){
-        return state.equals(MOVIL);
-    }
-    /**
-     * return if It's a eatParticle hole
-     */
-    public boolean isEatParticle(){
-        return state.equals(EATPARTICLE);
-    }
+
     /**
      * return if is in the left
      */

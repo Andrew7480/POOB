@@ -25,7 +25,7 @@ public class Rotator extends Particle
     /**
      * exchange the velocities  
      */
-    public void changeVelocities(int width, int height, boolean isLeft){
+    public void changeVelocities(int width, int height){
         int posX = getXPositionC();
         int posY = getYPositionC();
         int tempX = velocityX;
@@ -59,5 +59,11 @@ public class Rotator extends Particle
             velocityX = tempY;
             velocityY = -Math.abs(tempX);
         }
+    }
+    
+    @Override
+    public boolean afterBounce(int width, int height){
+        if (getVelocityX() != getVelocityY()) changeVelocities(width,height);
+        return true;
     }
 }
