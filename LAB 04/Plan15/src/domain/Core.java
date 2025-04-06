@@ -14,8 +14,9 @@ public class Core extends Unit{
      * @param name
      * @param credits 
      */
-    public Core(String code, String name, int inPersonPercentage){
+    public Core(String code, String name, int inPersonPercentage) throws Plan15Exception{
         super(code, name);
+        if (0 > inPersonPercentage || inPersonPercentage >100) throw new Plan15Exception(Plan15Exception.PERCENTAGE_ERROR);
         this.inPersonPercentage=inPersonPercentage;
         courses= new ArrayList<Course>();
     }

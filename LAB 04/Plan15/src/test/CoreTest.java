@@ -16,11 +16,11 @@ public class CoreTest{
  
     @Test
     public void shouldCalculateTheCreditsOfACoreCostume(){
-        Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
-        c.addCourse(new Course("PRI1","Proyecto Integrador 1", 3, 3));
-        c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
-        c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3, 4));
         try {
+            Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
+            c.addCourse(new Course("PRI1","Proyecto Integrador 1", 3, 3));
+            c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
+            c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3, 4));
            assertEquals(10,c.credits());
         } catch (Plan15Exception e){
             fail("Threw a exception");
@@ -29,11 +29,11 @@ public class CoreTest{
     
    @Test
     public void shouldCalculateTheCreditsEstimatedOfACore(){
-        Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
-        c.addCourse(new Course("PRI1","Proyecto Integrador 1", 3, 3));
-        c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
-        c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3, 4));
         try {
+            Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
+            c.addCourse(new Course("PRI1","Proyecto Integrador 1", 3, 3));
+            c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
+            c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3, 4));
            assertEquals(10,c.creditsEstimated());
         } catch (Plan15Exception e){
             fail("Threw a exception");
@@ -42,11 +42,11 @@ public class CoreTest{
     
     @Test
     public void shouldCalculateTheCreditsEstimated(){
-        Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
-        c.addCourse(new Course("PRI1","Proyecto Integrador 1"));
-        c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos",1,4));
-        c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3));
         try {
+            Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
+            c.addCourse(new Course("PRI1","Proyecto Integrador 1"));
+            c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos",1,4));
+            c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3));
            assertEquals(9,c.creditsEstimated());
         } catch (Plan15Exception e){
             fail("Threw a exception");
@@ -56,8 +56,8 @@ public class CoreTest{
     
     @Test
     public void shouldThrowExceptionIfCoreHasNoCourse(){
-           Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
         try { 
+            Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
            int price=c.credits();
            fail("Did not throw exception");
         } catch (Plan15Exception e) {
@@ -68,11 +68,11 @@ public class CoreTest{
     
    @Test
     public void shouldThrowExceptionIfThereIsErrorInCredits(){
-        Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
-        c.addCourse(new Course("PRI1","Proyecto Integrador 1", -3, 3));
-        c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
-        c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3, 4));
         try { 
+            Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
+            c.addCourse(new Course("PRI1","Proyecto Integrador 1", -3, 3));
+            c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
+            c.addCourse(new Course("MPIN", "Matematicas para Informatica", 3, 4));
            int price=c.credits();
            fail("Did not throw exception");
         } catch (Plan15Exception e) {
@@ -82,11 +82,11 @@ public class CoreTest{
     
    @Test
     public void shouldThrowExceptionIfCreditsIsNotKnown(){
-        Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
-        c.addCourse(new Course("PRI1","Proyecto Integrador 1", 3, 3));
-        c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
-        c.addCourse(new Course("MPIN", "Matematicas para Informatica"));
         try { 
+            Core c = new Core("NFCC", "Nucleo de Formacion Comun por Campo", 50);
+            c.addCourse(new Course("PRI1","Proyecto Integrador 1", 3, 3));
+            c.addCourse(new Course("DDYA", "Diseño de Datos y Algoritmos", 4, 4));
+            c.addCourse(new Course("MPIN", "Matematicas para Informatica"));
            int price=c.credits();
            fail("Did not throw exception");
         } catch (Plan15Exception e) {

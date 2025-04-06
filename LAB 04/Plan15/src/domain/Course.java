@@ -5,17 +5,16 @@ public class Course extends Unit{
     private Integer credits;
     private Integer inPerson;
     
-    public Course(String code, String name){
+    public Course(String code, String name)throws Plan15Exception{
         super(code, name);
     }    
     
-
-    public Course(String code, String name, int credits){
+    public Course(String code, String name, int credits) throws Plan15Exception{
         super(code, name);
         this.credits=credits;
     }
     
-     public Course(String code, String name, int credits, int inPerson){
+    public Course(String code, String name, int credits, int inPerson) throws Plan15Exception{
         this(code, name, credits);
         this.inPerson=inPerson;
     }

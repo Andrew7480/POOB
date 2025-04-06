@@ -1,11 +1,11 @@
 #BlueJ package file
-dependency1.from=Course
-dependency1.to=Plan15Exception
+dependency1.from=Core
+dependency1.to=Course
 dependency1.type=UsesDependency
 dependency2.from=Core
-dependency2.to=Course
+dependency2.to=Plan15Exception
 dependency2.type=UsesDependency
-dependency3.from=Core
+dependency3.from=Course
 dependency3.to=Plan15Exception
 dependency3.type=UsesDependency
 objectbench.height=76

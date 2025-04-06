@@ -39,7 +39,8 @@ public class Plan15GUI extends JFrame{
     
     
     private Plan15GUI(){
-        plan=new Plan15();
+        try{plan=new Plan15();}
+        catch(Plan15Exception e){e.getMessage();}
         prepareElements();
         prepareActions();
     }
@@ -223,23 +224,40 @@ public class Plan15GUI extends JFrame{
     
     private void  actionAdd(){
         if (basics.getText().trim().equals("")){
-            plan.addCourse(code.getText(),name.getText(),credits.getText(),inPerson.getText());
+            try{plan.addCourse(code.getText(),name.getText(),credits.getText(),inPerson.getText());
+            }
+            catch(Plan15Exception e){
+                System.out.println(e.getMessage());}
         }else{ 
-            plan.addCore(code.getText(),name.getText(),credits.getText(),basics.getText());
+            try{plan.addCore(code.getText(),name.getText(),credits.getText(),basics.getText());}
+            catch(Plan15Exception e)
+            {System.out.println(e.getMessage());}
         }
     }
 
     private void actionSearch(){
         String patronBusqueda=textSearch.getText();
         String answer = "";
-        if(patronBusqueda.length() > 0) {
-            answer = plan.search(patronBusqueda);
-        }
-        textResults.setText(answer);
+        try{
+            if(patronBusqueda.length() > 0) {
+                answer = plan.search(patronBusqueda);
+            }
+            textResults.setText(answer);}
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Perdón usuario, lo sentimos. Ocurrio un ⚠️ Error: " + e.getMessage()
+            , "Error en el sistema", JOptionPane.ERROR_MESSAGE);
+            Log.record(e);
+        } 
     } 
     
    public static void main(String args[]){
+    try{
        Plan15GUI gui=new Plan15GUI();
-       gui.setVisible(true);
+       gui.setVisible(true);}
+    catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Perdón usuario, lo sentimos. Ocurrio un ⚠️ Error: " + e.getMessage()
+        , "Error en el sistema", JOptionPane.ERROR_MESSAGE);
+        Log.record(e);
+        }
    }    
 }

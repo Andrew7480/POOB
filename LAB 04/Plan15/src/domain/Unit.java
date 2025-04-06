@@ -7,7 +7,13 @@ public abstract class Unit{
     protected String name;
     
     
-    public Unit(String code, String name){
+    public Unit(String code, String name) throws Plan15Exception{ 
+        if (code == null || name ==null){
+            throw new Plan15Exception(Plan15Exception.NULL_VALUES);
+        }
+        if (code.isEmpty() || name.isEmpty()){
+            throw new Plan15Exception(Plan15Exception.NULL_VALUES);
+        }
         this.code=code;
         this.name=name;
     }

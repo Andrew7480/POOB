@@ -1,5 +1,6 @@
 package domain; 
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -16,16 +17,17 @@ public class Plan15{
     /**
      * Create a Plan15
      */
-    public Plan15(){
+    public Plan15()throws Plan15Exception{
         units = new ArrayList<Unit>();
         courses = new TreeMap<String,Course>();
         addSome();
     }
 
-    private void addSome(){
+    private void addSome() throws Plan15Exception{
         String [][] courses = {{"PRI1", "Proyecto Integrador","9","3"},
                               {"DDYA", "Diseño de Datos y Algoritmos","4","4"},
                               {"MPIN", "Matematicas para Informatica","3","4"}};
+        
         for (String [] c: courses){
             addCourse(c[0],c[1],c[2],c[3]);
         }
@@ -52,22 +54,33 @@ public class Plan15{
     /**
      * Add a new course
     */
-    public void addCourse(String code, String name, String credits, String inPerson){ 
+    public void addCourse(String code, String name, String credits, String inPerson)throws Plan15Exception{ 
+        if(courses.get(code.toUpperCase()) != null) throw new Plan15Exception(Plan15Exception.NOMENCLATURE_COURSE_ALREADY_EXITS);
+        if (credits.equals("")) throw new Plan15Exception(Plan15Exception.PERCENTAGE_NOT_FOUND);
+        if (inPerson.equals("")) throw new Plan15Exception(Plan15Exception.IN_PERSON_UNKNOWN);
         Course nc=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(inPerson));
         units.add(nc);
-        courses.put(code.toUpperCase(),nc); 
+        courses.put(code.toUpperCase(),nc);
     }
     
     /**
      * Add a new core
     */
-    public void addCore(String code, String name, String percentage, String theCourses){ 
+    public void addCore(String code, String name, String percentage, String theCourses)throws Plan15Exception{ 
+        if (!verifyInt(percentage)) throw new Plan15Exception(Plan15Exception.INT_ERROR);
+        if (percentage.equals("")) throw new Plan15Exception(Plan15Exception.PERCENTAGE_NOT_FOUND);
+
         Core c = new Core(code,name,Integer.parseInt(percentage));
         String [] aCourses= theCourses.split("\n");
         for (String b : aCourses){
+            if (courses.get(b.toUpperCase())==null) throw new Plan15Exception(Plan15Exception.COURSE_NOT_FOUND);
             c.addCourse(courses.get(b.toUpperCase()));
         }
         units.add(c);
+    }
+
+    private boolean verifyInt(String cadena){
+        return cadena.matches("-?\\d+");
     }
 
     /**
