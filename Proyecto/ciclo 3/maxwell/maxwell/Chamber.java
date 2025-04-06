@@ -59,8 +59,6 @@ public class Chamber
      * px, py are the positions of the particle (x,y)
        */
     private boolean isInLeft(int px, int py){
-        int chamberXPos = chamberCenter.getXPosition();
-        int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=-width/2;  //-300 
         int auxXMax=0;         //0
         int auxYMin=0;
@@ -72,8 +70,6 @@ public class Chamber
      * px, py are the positions of the particle (x,y)
        */
     private boolean isInRight(int px, int py){
-        int chamberXPos = chamberCenter.getXPosition();
-        int chamberYPos =chamberCenter.getYPosition()+height;
         int auxXMin=0;  
         int auxXMax=width/2; 
         int auxYMin=0;
@@ -770,9 +766,9 @@ public class Chamber
         boolean isLeft = p.getIsLeft();
         int posXaf = x+p.getVelocityX();
         int posYaf = y+p.getVelocityY();
-        int positionInChamberX = chamberCenter.getXPosition();
+        //int positionInChamberX = chamberCenter.getXPosition();
         for (DemonFace d : devils){
-            int positionInChamberY = convertionsBoardToCanvas(x,d.getPosD()).get(1);
+            //int positionInChamberY = convertionsBoardToCanvas(x,d.getPosD()).get(1);
             if ((d.state.equals(d.BLUE) && (!p.getIsRed())) || (d.state.equals(d.NORMAL) || (d.state.equals(d.WEAK) ))){
                 if (posXaf==0 && posYaf == d.getPosD()){
                     if (d.state.equals(d.WEAK)) delDemon(d.getPosD());

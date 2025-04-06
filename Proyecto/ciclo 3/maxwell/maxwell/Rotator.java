@@ -25,7 +25,7 @@ public class Rotator extends Particle
     /**
      * exchange the velocities  
      */
-    public void changeVelocities(int width, int height){
+    private void changeVelocities(int width, int height){
         int posX = getXPositionC();
         int posY = getYPositionC();
         int tempX = velocityX;
