@@ -1,6 +1,5 @@
 package domain; 
 
-import java.util.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -58,6 +57,8 @@ public class Plan15{
         if(courses.get(code.toUpperCase()) != null) throw new Plan15Exception(Plan15Exception.NOMENCLATURE_COURSE_ALREADY_EXITS);
         if (credits.equals("")) throw new Plan15Exception(Plan15Exception.PERCENTAGE_NOT_FOUND);
         if (inPerson.equals("")) throw new Plan15Exception(Plan15Exception.IN_PERSON_UNKNOWN);
+        if (!verifyInt(credits)) throw new Plan15Exception(Plan15Exception.INT_ERROR);
+        if (!verifyInt(inPerson)) throw new Plan15Exception(Plan15Exception.INT_ERROR);
         Course nc=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(inPerson));
         units.add(nc);
         courses.put(code.toUpperCase(),nc);
@@ -67,9 +68,11 @@ public class Plan15{
      * Add a new core
     */
     public void addCore(String code, String name, String percentage, String theCourses)throws Plan15Exception{ 
-        if (!verifyInt(percentage)) throw new Plan15Exception(Plan15Exception.INT_ERROR);
         if (percentage.equals("")) throw new Plan15Exception(Plan15Exception.PERCENTAGE_NOT_FOUND);
-
+        if (!verifyInt(percentage)) throw new Plan15Exception(Plan15Exception.INT_ERROR);
+        for(Unit u :units ){
+            if (u.code().equals(code)) throw new Plan15Exception(Plan15Exception.NOMENCLATURE_CORE_ALREADY_EXITS);
+        } 
         Core c = new Core(code,name,Integer.parseInt(percentage));
         String [] aCourses= theCourses.split("\n");
         for (String b : aCourses){
@@ -91,15 +94,13 @@ public class Plan15{
     public ArrayList<Unit> select(String prefix){
         ArrayList <Unit> answers=new ArrayList<Unit>();
         prefix=prefix.toUpperCase();
-        for(int i=0;i<=units.size();i++){
+        for(int i=0;i<units.size();i++){
             if(units.get(i).code().toUpperCase().startsWith(prefix)){
                 answers.add(units.get(i));
             }   
         }
         return answers;
     }
-
-
     
     /**
      * Consult selected units
@@ -129,8 +130,31 @@ public class Plan15{
     public String search(String prefix){
         return data(select(prefix));
     }
-    
-    
+
+    /**
+     * Return the data of courses
+     * @param prefix
+     * @return  
+     */ 
+    public String search(){
+        return data(courses);
+    }
+
+        /**
+     * Consult selected courses
+     * @param selected
+     * @return  
+     */
+    public String data(TreeMap<String,Course> courses){
+        StringBuffer answer=new StringBuffer();
+        answer.append(units.size()+ " unidades\n");
+        for(Course p : courses.values()) {
+            answer.append('>' + p.data(""));
+            answer.append("\n");
+        }    
+        return answer.toString();
+    }
+
     /**
      * Return the data of all units
      * @return  

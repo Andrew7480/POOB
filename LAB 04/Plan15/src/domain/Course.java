@@ -46,4 +46,15 @@ public class Course extends Unit{
         }
         return theData;
     }
+    @Override
+    public String data(String e){
+        String theData= code+": "+name;
+        try{
+            int totalHoras =credits()*(inPerson()+independent());
+            theData= theData+". Creditos:" +credits()+" Horas presenciales: " +inPerson()+" Horas independientes: "+independent() + "\r\n        Total horas: "+ totalHoras ;
+
+        } catch (Plan15Exception i){
+        }
+        return theData;
+    }
 }

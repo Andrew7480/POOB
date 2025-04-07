@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.*;
 
 /**
  * @version ECI 2025
@@ -40,7 +39,9 @@ public class Plan15GUI extends JFrame{
     
     private Plan15GUI(){
         try{plan=new Plan15();}
-        catch(Plan15Exception e){e.getMessage();}
+        catch(Plan15Exception e){Log.record(e);
+            JOptionPane.showMessageDialog(null, "Perdón usuario, lo sentimos. Ocurrio un ⚠️ Error: " + e.getMessage()
+        , "Error en el sistema", JOptionPane.ERROR_MESSAGE);}
         prepareElements();
         prepareActions();
     }
@@ -223,15 +224,22 @@ public class Plan15GUI extends JFrame{
     }
     
     private void  actionAdd(){
-        if (basics.getText().trim().equals("")){
+        if(basics.getText().trim().equals("") && code.getText().trim().equals("") 
+        && name.getText().trim().equals("")&&credits.getText().trim().equals("")
+        && inPerson.getText().trim().equals(""));
+        else if (basics.getText().trim().equals("")){
             try{plan.addCourse(code.getText(),name.getText(),credits.getText(),inPerson.getText());
             }
             catch(Plan15Exception e){
+                JOptionPane.showMessageDialog(null, "Usuario,  " + e.getMessage()
+        , "Error en el sistema", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());}
         }else{ 
             try{plan.addCore(code.getText(),name.getText(),credits.getText(),basics.getText());}
             catch(Plan15Exception e)
-            {System.out.println(e.getMessage());}
+            {JOptionPane.showMessageDialog(null, "Usuario,  " + e.getMessage()
+            , "Error en el sistema", JOptionPane.ERROR_MESSAGE);
+                System.out.println(e.getMessage());}
         }
     }
 
@@ -239,7 +247,10 @@ public class Plan15GUI extends JFrame{
         String patronBusqueda=textSearch.getText();
         String answer = "";
         try{
-            if(patronBusqueda.length() > 0) {
+            if (patronBusqueda.equals("courses")){
+                answer = plan.search();
+            }
+            else if(patronBusqueda.length() > 0) {
                 answer = plan.search(patronBusqueda);
             }
             textResults.setText(answer);}
@@ -258,6 +269,7 @@ public class Plan15GUI extends JFrame{
         JOptionPane.showMessageDialog(null, "Perdón usuario, lo sentimos. Ocurrio un ⚠️ Error: " + e.getMessage()
         , "Error en el sistema", JOptionPane.ERROR_MESSAGE);
         Log.record(e);
+
         }
    }    
 }

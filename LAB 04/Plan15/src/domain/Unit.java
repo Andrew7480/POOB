@@ -66,5 +66,5 @@ public abstract class Unit{
      * @throws Plan15Exception, if the data is not complete or has an error (credits or in_person)
      */    
     public abstract String data() throws Plan15Exception;
-
+    public abstract String data(String e) throws Plan15Exception;
 }

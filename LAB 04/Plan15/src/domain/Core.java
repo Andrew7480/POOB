@@ -110,13 +110,22 @@ public class Core extends Unit{
     
     @Override
     public String data() throws Plan15Exception{
-        StringBuffer answer=new StringBuffer();
+        StringBuffer answer = new StringBuffer();
         answer.append(code+": "+name+". ["+inPersonPercentage+"%]");
+        
         for(Course c: courses) {
-            answer.append("\n\t"+c.data());
+            answer.append("\n\t>" + c.data());
         }
         return answer.toString();
     } 
     
-
+    @Override
+    public String data(String e) throws Plan15Exception{
+        StringBuffer answer = new StringBuffer();
+        answer.append(code+": "+name+". Porcentaje: "+inPersonPercentage+"%");
+        for(Course c: courses) {
+            answer.append("\n\t>" + c.data());
+        }
+        return answer.toString();
+    } 
 }

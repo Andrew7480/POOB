@@ -20,6 +20,7 @@ public class Plan15Exception extends Exception
     public final static String PERCENTAGE_NOT_FOUND= "Un porcentaje nulo";
     public final static String COURSE_NOT_FOUND= "No existe el curso";
     public final static String NOMENCLATURE_COURSE_ALREADY_EXITS= "Ya existe un curso con esa nomenclatura";
+    public final static String NOMENCLATURE_CORE_ALREADY_EXITS= "Ya existe una unidad con esa nomenclatura";
 
     public Plan15Exception(String mesage){
         super(mesage);

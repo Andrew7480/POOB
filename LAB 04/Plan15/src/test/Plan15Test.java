@@ -64,21 +64,60 @@ public class Plan15Test {
             assertEquals(Plan15Exception.COURSE_NOT_FOUND,e.getMessage());
         } 
     }
-/*
+    
     @Test
     public void shouldDoToString(){
+        try{
         Plan15 plan = new Plan15();
+        String esperado = "4 unidades\n" + //
+                        ">PRI1: Proyecto Integrador. Creditos:9[3+24]\n" + //
+                        ">DDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\n" + //
+                        ">MPIN: Matematicas para Informatica. Creditos:3[4+5]\n" + //
+                        ">FCC: Nucleo formacion por comun por campo. [50%]\n" + //
+                        "\t>PRI1: Proyecto Integrador. Creditos:9[3+24]\n" + //
+                        "\t>DDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\n" + //
+                        "\t>MPIN: Matematicas para Informatica. Creditos:3[4+5]\n" + //
+                        "";
+        assertEquals(esperado,
+             plan.toString());
         plan.addCourse("IPRO","Introduccion a la programación", "4", "4");
-        System.out.println("Unidades actuales: " + plan.numberUnits());
-        assertEquals("5 unidades\r\n" + //
-                        ">PRI1: Proyecto Integrador. Creditos:9[3+24]\r\n" + //
-                        ">DDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\r\n" + //
-                        ">MPIN: Matematicas para Informatica. Creditos:3[4+5]\r\n" + //
-                        ">FCC: Nucleo formacion por comun por campo. [50%]\r\n" + //
-                        "\tPRI1: Proyecto Integrador. Creditos:9[3+24]\r\n" + //
-                        "\tDDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\r\n" + //
-                        "\tMPIN: Matematicas para Informatica. Creditos:3[4+5]\r\n" + //
-                        ">IPRO: Introduccion a la programación. Creditos:4[4+8]\n",plan.toString());
+        String esperado1 = "5 unidades\n" + //
+                        ">PRI1: Proyecto Integrador. Creditos:9[3+24]\n" + //
+                        ">DDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\n" + //
+                        ">MPIN: Matematicas para Informatica. Creditos:3[4+5]\n" + //
+                        ">FCC: Nucleo formacion por comun por campo. [50%]\n" + //
+                        "\t>PRI1: Proyecto Integrador. Creditos:9[3+24]\n" + //
+                        "\t>DDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\n" + //
+                        "\t>MPIN: Matematicas para Informatica. Creditos:3[4+5]\n" + //
+                        ">IPRO: Introduccion a la programación. Creditos:4[4+8]\n" + //
+                        "";
+        assertEquals(esperado1,
+             plan.toString());
+        }
+        catch(Plan15Exception e){
+            fail("Threw a exception");}
+        }
+    
+        @Test
+        public void shouldSearch(){
+            try{
+            Plan15 plan = new Plan15();
+            String esperado = "4 unidades\n" + 
+                    ">FCC: Nucleo formacion por comun por campo. [50%]\n" +
+                    "\t>PRI1: Proyecto Integrador. Creditos:9[3+24]\n" +
+                    "\t>DDYA: Diseño de Datos y Algoritmos. Creditos:4[4+8]\n" +
+                    "\t>MPIN: Matematicas para Informatica. Creditos:3[4+5]\n";
+
+            assertEquals(esperado, plan.search("F"));
+            assertTrue(esperado.equalsIgnoreCase(plan.search("F")));
+            plan.addCourse("IPRO","Introduccion a la programación", "4", "4");
+            String esperado1 = "5 unidades\n" + 
+                    ">IPRO: Introduccion a la programación. Creditos:4[4+8]\n";
+            assertEquals(esperado1, plan.search("I"));
+            }
+            catch(Plan15Exception e){
+                fail("Threw a exception");
+            }
     }
-*/
+
 }
