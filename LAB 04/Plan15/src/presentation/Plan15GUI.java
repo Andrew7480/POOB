@@ -253,6 +253,7 @@ public class Plan15GUI extends JFrame{
             else if(patronBusqueda.length() > 0) {
                 answer = plan.search(patronBusqueda);
             }
+            if(answer.length()<13) answer = "No hay coincidencias. ";
             textResults.setText(answer);}
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Perdón usuario, lo sentimos. Ocurrio un ⚠️ Error: " + e.getMessage()
