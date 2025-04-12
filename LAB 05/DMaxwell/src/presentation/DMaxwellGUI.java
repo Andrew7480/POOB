@@ -96,6 +96,16 @@ public class DMaxwellGUI extends JFrame{
         menu.add(menuDesplegable);
         setJMenuBar(menu);
     }
+
+    private void prepareElementsBoard(){
+        JLabel texto = new JLabel("tablero");
+        JButton north = new JButton("North");
+        JButton south = new JButton("South");
+        JButton west = new JButton("West");
+        JButton east = new JButton("East");
+        JLabel estadisticas = new JLabel("");
+    }
+
     public static void main(String args []){
         DMaxwellGUI max = new DMaxwellGUI();
         max.setVisible(true);
