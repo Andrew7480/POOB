@@ -3,6 +3,9 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+
+
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -127,23 +130,67 @@ public class DMaxwellGUI extends JFrame{
         south.add(panelInformacion);
         add(south,BorderLayout.SOUTH);
 
-
-        PanelConRectangulo rectangulo = new PanelConRectangulo();
-        add(rectangulo,BorderLayout.NORTH);
+        
+        JPanel centro = new JPanel(new GridLayout(1,3));
+        centro.add(new PanelIzquierdo());
+        centro.add(new PanelCentral());
+        centro.add(new PanelDerecho());
+        centro.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        add(centro, BorderLayout.CENTER);
     }
 
-    class PanelConRectangulo extends JPanel {
+    class PanelIzquierdo extends JPanel {
+    public PanelIzquierdo() {
+        setBackground(Color.WHITE);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.BLUE);
+        g.fillRect(20, 20, 20, 20);
+        g.setColor(Color.BLUE);
+        g.fillRect(70, 50, 20, 20);
+        g.setColor(Color.RED);
+        g.fillRect(30, 70, 20, 20);
+    }
+}
+
+    class PanelDerecho extends JPanel {
+        public PanelDerecho() {
+            setBackground(Color.WHITE);
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
-            super.paintComponent(g); // limpia el panel
-            g.setColor(Color.BLUE);  // color del rectángulo
-            g.fillRect(0, 0, 200, 100); // x, y, ancho, alto
-        }
-        @Override
-        public Dimension getPreferredSize() {
-        return new Dimension(200, 100);
+            super.paintComponent(g);
+            g.setColor(Color.RED);
+            g.fillRect(30, 20, 20, 20);
+            g.setColor(Color.BLUE);
+            g.fillRect(100, 20, 20, 20);
+            g.setColor(Color.BLUE);
+            g.fillRect(50, 80, 20, 20);
+            g.setColor(Color.RED);
+            g.fillRect(110, 50, 20, 20);
         }
     }
+
+
+    class PanelCentral extends JPanel {
+        public PanelCentral() {
+            setBackground(Color.WHITE);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(Color.BLACK);
+            g.fillRect(50, 0, 20, getHeight());
+            g.setColor(Color.GREEN);
+            g.fillRect(50, 50, 20, 20);
+        }
+    }
+
 
 
     public static void main(String args []){
