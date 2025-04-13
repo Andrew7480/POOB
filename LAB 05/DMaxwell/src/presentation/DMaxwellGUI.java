@@ -1,9 +1,9 @@
 package presentation;
 import java.io.File;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.*;
 
 
@@ -19,6 +19,7 @@ public class DMaxwellGUI extends JFrame{
     }
     private void prepareElements(){
         setTitle("Maxwell Discreto");
+        setLayout(new BorderLayout());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int)screenSize.getWidth()/4, (int) screenSize.getHeight()/4);
         //Dimension frameSize = getSize();
@@ -102,13 +103,48 @@ public class DMaxwellGUI extends JFrame{
     }
 
     private void prepareElementsBoard(){
-        JLabel texto = new JLabel();
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 10));
+        JPanel panelBotones = new JPanel(new BorderLayout());
+        //panelBotones.setSize(20);
         JButton north = new JButton("North");
-        JButton south = new JButton("South");
+        JButton south1 = new JButton("South");
         JButton west = new JButton("West");
         JButton east = new JButton("East");
-        JLabel estadisticas = new JLabel("");
+        panelBotones.add(north, BorderLayout.NORTH);
+        panelBotones.add(south1, BorderLayout.SOUTH);
+        panelBotones.add(west, BorderLayout.WEST);
+        panelBotones.add(east, BorderLayout.EAST);
+        south.add(panelBotones);
+
+        
+        JPanel panelInformacion = new JPanel(new GridLayout(3,1));
+        JLabel informacion = new JLabel("Informacion");
+        JButton coloor = new JButton("Color");
+        JButton newOne = new JButton("Genera uno nuevo");
+        panelInformacion.add(informacion);
+        panelInformacion.add(coloor);
+        panelInformacion.add(newOne);
+        south.add(panelInformacion);
+        add(south,BorderLayout.SOUTH);
+
+
+        PanelConRectangulo rectangulo = new PanelConRectangulo();
+        add(rectangulo,BorderLayout.NORTH);
     }
+
+    class PanelConRectangulo extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g); // limpia el panel
+            g.setColor(Color.BLUE);  // color del rectángulo
+            g.fillRect(0, 0, 200, 100); // x, y, ancho, alto
+        }
+        @Override
+        public Dimension getPreferredSize() {
+        return new Dimension(200, 100);
+        }
+    }
+
 
     public static void main(String args []){
         DMaxwellGUI max = new DMaxwellGUI();
