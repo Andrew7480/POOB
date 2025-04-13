@@ -26,6 +26,7 @@ public class DMaxwellGUI extends JFrame{
         setLocationRelativeTo(null);
         fileChooser = new JFileChooser();
         prepareElementsMenu();
+        prepareElementsBoard();
     }
 
     public void prepareActions(){
@@ -44,16 +45,14 @@ public class DMaxwellGUI extends JFrame{
             }
         });
         openItem.addActionListener(new ActionListener(){
-            @Override
             public void actionPerformed(ActionEvent e) {
                 fileOpen();
             }
         });
 
         save.addActionListener(new ActionListener(){
-            @Override
             public void actionPerformed(ActionEvent e) {
-                fileOpen();
+                saveOpen();
             }
         });
         
@@ -74,6 +73,13 @@ public class DMaxwellGUI extends JFrame{
             JOptionPane.showMessageDialog(this, "Funcionalidad Abrir en construccion, Archivo seleccionado: "+ archivo.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    private void saveOpen(){
+        int choice = fileChooser.showSaveDialog(null);
+        if (choice == JFileChooser.APPROVE_OPTION){
+            File archive = fileChooser.getCurrentDirectory();
+            JOptionPane.showMessageDialog(this, "Funcionalidad Guardar en construccion, Lugar donde se guarda: "+ archive.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     private void prepareElementsMenu(){
         JMenuBar menu = new JMenuBar ();
@@ -82,11 +88,9 @@ public class DMaxwellGUI extends JFrame{
         leave = new JMenuItem("Exit");
         leave.addActionListener(null);
         openItem = new JMenuItem("Abrir");
-        openItem.addActionListener(null); 
+        openItem.addActionListener(null);
         save = new JMenuItem("Salvar");
-
         newFile = new JMenuItem("Nuevo");
-
         menuDesplegable.add(newFile);
         menuDesplegable.addSeparator();
         menuDesplegable.add(openItem);
@@ -98,7 +102,7 @@ public class DMaxwellGUI extends JFrame{
     }
 
     private void prepareElementsBoard(){
-        JLabel texto = new JLabel("tablero");
+        JLabel texto = new JLabel();
         JButton north = new JButton("North");
         JButton south = new JButton("South");
         JButton west = new JButton("West");
