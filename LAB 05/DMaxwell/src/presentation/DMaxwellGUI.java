@@ -2,9 +2,6 @@ package presentation;
 import java.io.File;
 import javax.swing.*;
 import javax.swing.border.Border;
-
-
-
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,20 +12,29 @@ public class DMaxwellGUI extends JFrame{
     private JMenuItem openItem;
     private JMenuItem save;
     private JMenuItem newFile;
+    private JButton north;
+    private JButton south1;
+    private JButton west;
+    private JButton east;
+    private JButton nada;
+    private JButton coloor1;
+    private JButton coloor2;
+    private JButton newOne;
     private JFileChooser fileChooser;
+    private JColorChooser colorChooser;
+    private maxwell tablero;
+
     public DMaxwellGUI(){
         prepareElements();
         prepareActions();
     }
     private void prepareElements(){
         setTitle("Maxwell Discreto");
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(2,1));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int)screenSize.getWidth()/4, (int) screenSize.getHeight()/4);
-        //Dimension frameSize = getSize();
-        //setLocation((screenSize.width - frameSize.width)/2,(screenSize.height - frameSize.height)/2);
-        setLocationRelativeTo(null);
         fileChooser = new JFileChooser();
+        colorChooser = new JColorChooser();
         prepareElementsMenu();
         prepareElementsBoard();
     }
@@ -59,7 +65,16 @@ public class DMaxwellGUI extends JFrame{
                 saveOpen();
             }
         });
-        
+        coloor1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                changeColor(1);
+            }
+        });
+        coloor2.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                changeColor(2);
+            }
+        });
     }
     private void exit(){
         int option = JOptionPane.showConfirmDialog(this,"Estas seguro de que quieres salir?",
@@ -85,6 +100,13 @@ public class DMaxwellGUI extends JFrame{
         }
     }
 
+    private void changeColor(int numero){
+        Color choice = colorChooser.showDialog(this,"Selecciona tu color.", Color.BLUE);
+        if(numero ==1 ) tablero.setColor1(choice);
+        if(numero ==2 ) tablero.setColor2(choice);
+        refresh();
+    }
+
     private void prepareElementsMenu(){
         JMenuBar menu = new JMenuBar ();
         JMenu menuDesplegable = new JMenu("Menu");
@@ -106,95 +128,54 @@ public class DMaxwellGUI extends JFrame{
     }
 
     private void prepareElementsBoard(){
-        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 10));
+        tablero = new maxwell();
+        add(tablero);//, BorderLayout.CENTER);
+
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        
         JPanel panelBotones = new JPanel(new BorderLayout());
         //panelBotones.setSize(20);
-        JButton north = new JButton("North");
-        JButton south1 = new JButton("South");
-        JButton west = new JButton("West");
-        JButton east = new JButton("East");
+        north = new JButton("↑");
+        south1 = new JButton("↓");
+        west = new JButton("←");
+        east = new JButton("→");
+        nada = new JButton("(▀̿Ĺ̯▀̿ ̿)");
+        nada.setEnabled(false);    
         panelBotones.add(north, BorderLayout.NORTH);
         panelBotones.add(south1, BorderLayout.SOUTH);
         panelBotones.add(west, BorderLayout.WEST);
         panelBotones.add(east, BorderLayout.EAST);
+        panelBotones.add(nada, BorderLayout.CENTER);
         south.add(panelBotones);
 
         
         JPanel panelInformacion = new JPanel(new GridLayout(3,1));
         JLabel informacion = new JLabel("Informacion");
-        JButton coloor = new JButton("Color");
-        JButton newOne = new JButton("Genera uno nuevo");
+        JPanel botonesColor = new JPanel(new GridLayout(1,2));
+        coloor1 = new JButton("Color Particulas 1");
+        coloor2 = new JButton("Color Particulas 2");
+        newOne = new JButton("Genera uno nuevo");
         panelInformacion.add(informacion);
-        panelInformacion.add(coloor);
+        botonesColor.add(coloor1);
+        botonesColor.add(coloor2);
+        panelInformacion.add(botonesColor);
         panelInformacion.add(newOne);
         south.add(panelInformacion);
-        add(south,BorderLayout.SOUTH);
+        add(south);//,BorderLayout.SOUTH);
 
-        
-        JPanel centro = new JPanel(new GridLayout(1,3));
-        centro.add(new PanelIzquierdo());
-        centro.add(new PanelCentral());
-        centro.add(new PanelDerecho());
-        centro.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-        add(centro, BorderLayout.CENTER);
+    }
+    public void refresh(){
+        tablero.refresh();
+        repaint();
     }
 
-    class PanelIzquierdo extends JPanel {
-    public PanelIzquierdo() {
-        setBackground(Color.WHITE);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.BLUE);
-        g.fillRect(20, 20, 20, 20);
-        g.setColor(Color.BLUE);
-        g.fillRect(70, 50, 20, 20);
-        g.setColor(Color.RED);
-        g.fillRect(30, 70, 20, 20);
-    }
-}
-
-    class PanelDerecho extends JPanel {
-        public PanelDerecho() {
-            setBackground(Color.WHITE);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(Color.RED);
-            g.fillRect(30, 20, 20, 20);
-            g.setColor(Color.BLUE);
-            g.fillRect(100, 20, 20, 20);
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 80, 20, 20);
-            g.setColor(Color.RED);
-            g.fillRect(110, 50, 20, 20);
-        }
-    }
-
-
-    class PanelCentral extends JPanel {
-        public PanelCentral() {
-            setBackground(Color.WHITE);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(Color.BLACK);
-            g.fillRect(50, 0, 20, getHeight());
-            g.setColor(Color.GREEN);
-            g.fillRect(50, 50, 20, 20);
-        }
-    }
 
 
 
     public static void main(String args []){
         DMaxwellGUI max = new DMaxwellGUI();
+        max.pack();
+        max.setLocationRelativeTo(null);
         max.setVisible(true);
 
     }

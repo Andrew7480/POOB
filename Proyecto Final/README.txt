@@ -1,0 +1,3 @@
+Nosotros tenemos dos ideas pero no sabemos cual es la mejor, por lo que hay dos astah:
+astah 1: Cada pokemon define sus ataques, si es de tal elemento, implementa la interfaz de ataque/movimiento.
+astah 2: Por cada tipo de pokemon, ya existen movimientos predefinidos: Por ejemplo todos los tipos plantas pueden usar enredaderas. Asi cuando creemos un pokemon va a tener una lista con sus movimientos.
