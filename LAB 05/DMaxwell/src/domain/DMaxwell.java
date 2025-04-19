@@ -38,7 +38,7 @@ public class DMaxwell {
         rojoIz = rojoDefaultIz.clone();
     }
     
-    public DMaxwell(int newH, int newW, int newR, int newB, int newO) throws DMaxwellException{
+    public DMaxwell(int newH, int newW, int newR, int newB, int newO) throws DMaxwellException{ 
         //if ( (newH == null ) || (newW == null ) || (newR == null ) || (newB == null) || (newO == null)) throw new DMaxwellException(DMaxwellException.NULL_VALUES);
         if ( (newH <= 0 ) || (newW <= 0 ) || (newR < 0 ) || (newB < 0) || (newO <0)) throw new DMaxwellException(DMaxwellException.VALUES_ERROR);
         h = newH;
