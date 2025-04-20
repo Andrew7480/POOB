@@ -118,38 +118,39 @@ public class DMaxwell {
                 restantes--;
             }
         }
-        blues = new int[2][b];
-        int i = 0;
+        ArrayList<ArrayList<Integer>> temporalB = new ArrayList<>();
+        temporalB.add(new ArrayList<>());
+        temporalB.add(new ArrayList<>());
         for (int num : bluesTemp){
             int numeroAleatorio = random.nextInt(2);
             if (numeroAleatorio == 0) {
-                blues[0][i] = num;
-                i++;
+                temporalB.get(0).add(num);
             }
             if (numeroAleatorio == 1){
-                blues[1][i] = num;
-                i++;
+                temporalB.get(1).add(num);
             }
         }
-        red = new int[2][r];
-        i = 0;
+        blues = toMatrix(temporalB);
+        ArrayList<ArrayList<Integer>> temporalR = new ArrayList<>();
+        temporalR.add(new ArrayList<>());
+        temporalR.add(new ArrayList<>());
         for (int num : redTemp){
             int numeroAleatorio = random.nextInt(2);
             if (numeroAleatorio == 0) {
-                red[0][i] = num;
-                i++;
+                temporalR.get(0).add(num);
             }
             if (numeroAleatorio == 1){
-                red[1][i] = num;
-                i++;
+                temporalR.get(1).add(num);
             }
         }
+        red = toMatrix(temporalR);
         holes = new int[o];
-        i = 0;
+        int i = 0;
         for (int num : holesTemp){
             holes[i]= num;
             i++;
         }
+        
     }
 
 
@@ -228,6 +229,19 @@ public class DMaxwell {
         System.arraycopy(red[1], 0, rojas, red[0].length, red[1].length);
 
         return new int[][] { azules, rojas, defaultHoles };
+    }
+
+
+    public int[][] toMatrix(ArrayList<ArrayList<Integer>> list2D) {
+        int[][] result = new int[list2D.size()][];
+        for (int i = 0; i < list2D.size(); i++) {
+            ArrayList<Integer> innerList = list2D.get(i);
+            result[i] = new int[innerList.size()];
+            for (int j = 0; j < innerList.size(); j++) {
+                result[i][j] = innerList.get(j);
+            }
+        }
+        return result;
     }
 
 }

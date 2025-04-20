@@ -243,6 +243,7 @@ public class DMaxwellGUI extends JFrame{
         entradaDatos.add(newO);
         int resultado = JOptionPane.showConfirmDialog(null,entradaDatos,
             "Ingrese los datos",JOptionPane.OK_CANCEL_OPTION);
+
         if (resultado == 0){
             try{
                 int h = esSoloNumeros( newH.getText());
@@ -250,10 +251,11 @@ public class DMaxwellGUI extends JFrame{
                 int r = esSoloNumeros(newR.getText());
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
-                domain = new DMaxwell(h,w,r,b,o);
                 System.out.println("1");
-                tablero = new maxwell(h,w,domain.container());
+                domain = new DMaxwell(h,w,r,b,o);
                 System.out.println("2");
+                tablero = new maxwell(h,w,domain.container());
+                System.out.println("3");
                 refresh();
                 System.out.println("4");
             }
