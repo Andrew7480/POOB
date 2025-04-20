@@ -218,10 +218,59 @@ public class DMaxwellGUI extends JFrame{
         }
     }
 
-    private void newDMaxwell(){
-        //JOptionPane.showInputDialog(null, "ingrese: ");
+    private void newDMaxwell(){        
+        JPanel entradaDatos = new JPanel();
+        JLabel textH = new JLabel("ingrese h: ");
+        JLabel textW = new JLabel("ingrese w: ");
+        JLabel textR = new JLabel("ingrese rojas: ");
+        JLabel textB = new JLabel("ingrese azules: ");
+        JLabel textO = new JLabel("ingrese holes: ");
+        JTextField newH = new JTextField();
+        JTextField newW = new JTextField();
+        JTextField newR = new JTextField();
+        JTextField newB = new JTextField();
+        JTextField newO = new JTextField();
+        entradaDatos.setLayout(new GridLayout(5,2));
+        entradaDatos.add(textH);
+        entradaDatos.add(newH);
+        entradaDatos.add(textW);
+        entradaDatos.add(newW);
+        entradaDatos.add(textR);
+        entradaDatos.add(newR);
+        entradaDatos.add(textB);
+        entradaDatos.add(newB);
+        entradaDatos.add(textO);
+        entradaDatos.add(newO);
+        int resultado = JOptionPane.showConfirmDialog(null,entradaDatos,
+            "Ingrese los datos",JOptionPane.OK_CANCEL_OPTION);
+        if (resultado == 0){
+            try{
+                int h = esSoloNumeros( newH.getText());
+                int w = esSoloNumeros(newW.getText());
+                int r = esSoloNumeros(newR.getText());
+                int b = esSoloNumeros(newB.getText());
+                int o = esSoloNumeros(newO.getText());
+                domain = new DMaxwell(h,w,r,b,o);
+                System.out.println("1");
+                tablero = new maxwell(h,w,domain.container());
+                System.out.println("2");
+                refresh();
+                System.out.println("4");
+            }
+            catch (Exception e){
+                System.out.println("No se puede. " + e.getMessage());
+            }
+        }
     }
 
+    public static int esSoloNumeros(String texto) throws Exception{
+        if (texto.matches("\\d+")) {
+            return Integer.parseInt(texto);
+        } else {
+            throw new Exception("El valor ingresado no es un número válido.");
+        }
+    }
+    
     private void resetDMaxwell(){
         domain = new  DMaxwell();
         refresh();
