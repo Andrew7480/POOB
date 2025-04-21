@@ -10,8 +10,8 @@ public class DMaxwell {
     private int contR = 10;
     private int contB = 10;
     private int o = 6;
-    private final int[] pared = {20,61,102,143,184,225,266,307,348,389,430};
-    private final int[][] blueDefault = {{43,52,139,254,291,343},{67,201,226,310}}; // 226 -> 228
+    private final int[] paredDefault = {20,61,102,143,184,225,266,307,348,389,430};
+    private final int[][] blueDefault = {{43,52,139,254,291,343},{67,201,228,310}}; // 226 -> 228
     private final int[][] redDefault = {{48,55,126,336},{79,112,193,277,326,360}};
     private final int[] defaultHoles = {116,129,175,288,356,364};
     private int posDemon;
@@ -193,7 +193,7 @@ public class DMaxwell {
         }
     
         if (direccion == 'r') {
-            for (int i : pared){
+            for (int i : paredDefault){
                 if (num+1 == i && i != posDemon) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             }
             if (col + 1 == w / 2) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
@@ -202,7 +202,7 @@ public class DMaxwell {
         }
     
         if (direccion == 'l') {
-            for (int i : pared){
+            for (int i : paredDefault){
                 if (num-1 == i && i != posDemon) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             }
             if (col == 0) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
