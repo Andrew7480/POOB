@@ -16,7 +16,6 @@ public class DMaxwellGUI extends JFrame{
     private JButton south1;
     private JButton west;
     private JButton east;
-    //private JButton nada;
     private JButton coloor1;
     private JButton coloor2;
     private JButton newOne;
@@ -134,12 +133,11 @@ public class DMaxwellGUI extends JFrame{
 
     private void prepareElementsBoard(){
         tablero = new maxwell(domain.container());
-        add(tablero);//, BorderLayout.CENTER);
+        add(tablero);
 
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         
         JPanel panelBotones = new JPanel(new BorderLayout());
-        //panelBotones.setSize(20);
         north = new JButton("↑");
         south1 = new JButton("↓");
         west = new JButton("←");
@@ -168,7 +166,7 @@ public class DMaxwellGUI extends JFrame{
         panelInformacion.add(newOne);
         panelInformacion.add(reboot);
         south.add(panelInformacion);
-        add(south);//,BorderLayout.SOUTH);
+        add(south);
 
     }
     private void exit(){
@@ -251,13 +249,12 @@ public class DMaxwellGUI extends JFrame{
                 int r = esSoloNumeros(newR.getText());
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
-                System.out.println("1");
                 domain = new DMaxwell(h,w,r,b,o);
-                System.out.println("2");
+
+                remove(tablero);
                 tablero = new maxwell(h,w,domain.container());
-                System.out.println("3");
+                add(tablero,0);
                 refresh();
-                System.out.println("4");
             }
             catch (Exception e){
                 System.out.println("No se puede. " + e.getMessage());
@@ -274,7 +271,10 @@ public class DMaxwellGUI extends JFrame{
     }
     
     private void resetDMaxwell(){
-        domain = new  DMaxwell();
+        domain = new DMaxwell();
+        remove(tablero);
+        tablero = new maxwell(domain.container());
+        add(tablero,0);
         refresh();
     }
 

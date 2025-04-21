@@ -4,36 +4,60 @@ import java.util.Random;
 
 public class DMaxwell {
     private int h = 11;
-    private int w = 40+1;
+    private int w = 41;
     private int r = 10;
     private int b = 10;
     private int contR = 10;
     private int contB = 10;
     private int o = 6;
-    private final int[][] blueDefault = {{43,52,139,254,291,343},{67,201,228,310}};
+    private final int[] pared = {20,61,102,143,184,225,266,307,348,389,430};
+    private final int[][] blueDefault = {{43,52,139,254,291,343},{67,201,226,310}}; // 226 -> 228
     private final int[][] redDefault = {{48,55,126,336},{79,112,193,277,326,360}};
     private final int[] defaultHoles = {116,129,175,288,356,364};
+    private int posDemon;
     private  int[][] blues;
     private  int[][] red;
     private  int[] holes;
+    private int[] wall;
 
     public DMaxwell(){
         blues = blueDefault.clone();
         red = redDefault.clone();
         holes = defaultHoles.clone();
+        posDemon = 225;
     }
     
     public DMaxwell(int newH, int newW, int newR, int newB, int newO) throws DMaxwellException{ 
         //if ( (newH == null ) || (newW == null ) || (newR == null ) || (newB == null) || (newO == null)) throw new DMaxwellException(DMaxwellException.NULL_VALUES);
         if ( (newH <= 0 ) || (newW <= 0 ) || (newR < 0 ) || (newB < 0) || (newO <0)) throw new DMaxwellException(DMaxwellException.VALUES_ERROR);
         h = newH;
-        w = newW + 1;
+        w = newW;
         r = newR;
         b = newB;
         o = newO;
+        contR = r;
+        contB = b;
+        //valuesOfTheWall(h,w);
         createNewItems();
     }
 
+    private void valuesOfTheWall(int h, int w){
+        wall = new int[h];
+        int variable = h*((2*w) +1);
+        int i = w;
+        int centroPar = (h/2) * (2 * w + 1) + w;
+        int contador = 0;
+        while(contador < h){
+            wall[contador] = i;
+            if((int) variable/2 == i){
+                posDemon = i;
+            }
+            if (i == centroPar){
+                posDemon = i;
+            }
+            i+=((2*w)+1);
+        }
+    }
 
     public void movement(char direccion) throws DMaxwellException{
         int [] bluesTempoL = blues[0].clone();
@@ -54,7 +78,7 @@ public class DMaxwell {
             if (verifyHole(temporal)) bluesTempoR[i] = temporal;
             else {
                 bluesTempoR[i] = -1;
-                contB --;
+                contB--;
             }
         }
         for (int i = 0; i < redTempoL.length; i++) {
@@ -94,26 +118,26 @@ public class DMaxwell {
         ArrayList<Integer> holesTemp = new ArrayList<>();
 
         int restantes = b;
-        while ( restantes > 0){
+        while (restantes > 0){
             int numeroAleatorio = random.nextInt(h*w);
-            if (! bluesTemp.contains(numeroAleatorio)){
+            if (!bluesTemp.contains(numeroAleatorio)){
                 bluesTemp.add(numeroAleatorio);
                 restantes--;
             }
         }
         restantes = r;
-        while ( restantes > 0){
+        while (restantes > 0){
             int numeroAleatorio = random.nextInt(h*w);
-            if (! bluesTemp.contains(numeroAleatorio) && ! redTemp.contains(numeroAleatorio)){
+            if (!bluesTemp.contains(numeroAleatorio) && !redTemp.contains(numeroAleatorio)){
                 redTemp.add(numeroAleatorio);
                 restantes--;
             }
         }
 
         restantes = o;
-        while ( restantes > 0){
+        while (restantes > 0){
             int numeroAleatorio = random.nextInt(h*w);
-            if (! bluesTemp.contains(numeroAleatorio) && ! redTemp.contains(numeroAleatorio) && ! holesTemp.contains(numeroAleatorio)){
+            if (!bluesTemp.contains(numeroAleatorio) && !redTemp.contains(numeroAleatorio) && !holesTemp.contains(numeroAleatorio)){
                 holesTemp.add(numeroAleatorio);
                 restantes--;
             }
@@ -169,12 +193,18 @@ public class DMaxwell {
         }
     
         if (direccion == 'r') {
+            for (int i : pared){
+                if (num+1 == i && i != posDemon) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            }
             if (col + 1 == w / 2) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             if ((num + 1) % w == 0) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num + 1;
         }
     
         if (direccion == 'l') {
+            for (int i : pared){
+                if (num-1 == i && i != posDemon) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            }
             if (col == 0) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num - 1;
         }
@@ -206,17 +236,13 @@ public class DMaxwell {
 
     public int[] results(){
         int[] result = new int[4];
-         result[3] = 100 - (((contR + contB)*100)/(r+b));
- 
-         int rojasBien = redDefault[0].length;
-         int azulesBien = blueDefault[1].length;
- 
-         result[0] =  ((rojasBien * 100) / contR);
-         result[1] = ((azulesBien * 100) / contB);
- 
-         result[2] = (((rojasBien + azulesBien) * 100) / (contR+contB));
- 
-         return result;
+        int rojasB = red[0].length;
+        int azulB = blues[1].length;
+        result[0] =  ((azulB * 100) / contR);
+        result[1] = ((rojasB * 100) / contB);
+        result[2] = (((rojasB + azulB) * 100) / (contR+contB));
+        result[3] = 100 - (((contR + contB)*100)/(r+b));
+        return result;
     }
 
     public int[][] container(){ 
@@ -228,7 +254,7 @@ public class DMaxwell {
         System.arraycopy(red[0], 0, rojas, 0, red[0].length);
         System.arraycopy(red[1], 0, rojas, red[0].length, red[1].length);
 
-        return new int[][] { azules, rojas, defaultHoles };
+        return new int[][] { azules, rojas, holes };
     }
 
 
@@ -243,5 +269,13 @@ public class DMaxwell {
         }
         return result;
     }
+
+    public void imprimirMatriz(int[] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.print("Fila " + i + ": ");
+        }
+    }
+
+
 
 }
