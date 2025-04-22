@@ -251,19 +251,30 @@ public class DMaxwellGUI extends JFrame{
                 int r = esSoloNumeros(newR.getText());
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
-                System.out.println("1");
                 domain = new DMaxwell(h,w,r,b,o);
-                System.out.println("2");
+                remove(tablero);
                 tablero = new maxwell(h,w,domain.container());
-                System.out.println("3");
+                add(tablero,0);
                 refresh();
-                System.out.println("4");
             }
             catch (Exception e){
                 System.out.println("No se puede. " + e.getMessage());
             }
         }
     }
+    
+    public void imprimirMatriz(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.print("Fila " + i + ": ");
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    
+
+
 
     public static int esSoloNumeros(String texto) throws Exception{
         if (texto.matches("\\d+")) {
@@ -275,6 +286,9 @@ public class DMaxwellGUI extends JFrame{
     
     private void resetDMaxwell(){
         domain = new  DMaxwell();
+        remove(tablero);
+        tablero = new maxwell(domain.container());
+        add(tablero,0);
         refresh();
     }
 

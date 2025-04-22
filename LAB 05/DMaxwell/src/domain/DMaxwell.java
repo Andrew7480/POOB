@@ -118,6 +118,7 @@ public class DMaxwell {
                 restantes--;
             }
         }
+
         ArrayList<ArrayList<Integer>> temporalB = new ArrayList<>();
         temporalB.add(new ArrayList<>());
         temporalB.add(new ArrayList<>());
@@ -228,7 +229,7 @@ public class DMaxwell {
         System.arraycopy(red[0], 0, rojas, 0, red[0].length);
         System.arraycopy(red[1], 0, rojas, red[0].length, red[1].length);
 
-        return new int[][] { azules, rojas, defaultHoles };
+        return new int[][] { azules, rojas, holes };
     }
 
 
