@@ -10,7 +10,6 @@ public class maxwell extends JPanel{
         private static final Color Hole = Color.BLACK;
         private int h;
         private int w;
-
         private  int[] holes;
         private  int[] particulasRed;
         private  int[] ParticulasBlue;
@@ -28,7 +27,6 @@ public class maxwell extends JPanel{
     public maxwell(int newH, int newW){
         h = newH;
         w = newW;
-        //setBackground(Color.WHITE);
         setLayout(new GridLayout(1,1));
         setSize(getWidth(), getHeight());
         setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
@@ -49,9 +47,14 @@ public class maxwell extends JPanel{
     private void paintCenter(){ //451
         int variable = h*((2*w) +1);
         int i = w;
+        int centroPar = (h/2) * (2 * w + 1) + w; //
         while(i < variable){
+            System.out.println(i);
             Panel.getComponent(i).setBackground(Color.BLACK);
-            if( (int) variable/2 == i ){
+            if((int) variable/2 == i){
+                Panel.getComponent(i).setBackground(Color.GRAY);
+            }
+            if (i == centroPar){
                 Panel.getComponent(i).setBackground(Color.GRAY);
             }
             i+=((2*w)+1);

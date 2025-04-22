@@ -16,7 +16,6 @@ public class DMaxwellGUI extends JFrame{
     private JButton south1;
     private JButton west;
     private JButton east;
-    //private JButton nada;
     private JButton coloor1;
     private JButton coloor2;
     private JButton newOne;
@@ -134,12 +133,11 @@ public class DMaxwellGUI extends JFrame{
 
     private void prepareElementsBoard(){
         tablero = new maxwell(domain.container());
-        add(tablero);//, BorderLayout.CENTER);
+        add(tablero);
 
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         
         JPanel panelBotones = new JPanel(new BorderLayout());
-        //panelBotones.setSize(20);
         north = new JButton("↑");
         south1 = new JButton("↓");
         west = new JButton("←");
@@ -168,7 +166,7 @@ public class DMaxwellGUI extends JFrame{
         panelInformacion.add(newOne);
         panelInformacion.add(reboot);
         south.add(panelInformacion);
-        add(south);//,BorderLayout.SOUTH);
+        add(south);
 
     }
     private void exit(){
@@ -252,6 +250,10 @@ public class DMaxwellGUI extends JFrame{
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
                 domain = new DMaxwell(h,w,r,b,o);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6b13948eb384d352fa1e764607a114e3a8048e7d
                 remove(tablero);
                 tablero = new maxwell(h,w,domain.container());
                 add(tablero,0);
@@ -285,7 +287,11 @@ public class DMaxwellGUI extends JFrame{
     }
     
     private void resetDMaxwell(){
+<<<<<<< HEAD
         domain = new  DMaxwell();
+=======
+        domain = new DMaxwell();
+>>>>>>> 6b13948eb384d352fa1e764607a114e3a8048e7d
         remove(tablero);
         tablero = new maxwell(domain.container());
         add(tablero,0);
