@@ -250,10 +250,6 @@ public class DMaxwellGUI extends JFrame{
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
                 domain = new DMaxwell(h,w,r,b,o);
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b13948eb384d352fa1e764607a114e3a8048e7d
                 remove(tablero);
                 tablero = new maxwell(h,w,domain.container());
                 add(tablero,0);
@@ -287,11 +283,7 @@ public class DMaxwellGUI extends JFrame{
     }
     
     private void resetDMaxwell(){
-<<<<<<< HEAD
         domain = new  DMaxwell();
-=======
-        domain = new DMaxwell();
->>>>>>> 6b13948eb384d352fa1e764607a114e3a8048e7d
         remove(tablero);
         tablero = new maxwell(domain.container());
         add(tablero,0);
