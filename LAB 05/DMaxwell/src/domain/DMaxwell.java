@@ -12,7 +12,7 @@ public class DMaxwell {
     private int contB = 10;
     private final int posDemonDefault = 225;
     private final int[] paredDefault = {20,61,102,143,184,225,266,307,348,389,430};
-    private final int[] blueDefault = {43,52,139,254,291,343,67,201,228,310}; // 226 -> 228
+    private final int[] blueDefault = {43,52,139,254,291,343,67,201,226,310}; // 226 -> 228
     private final int[] redDefault = {48,55,126,336,79,112,193,277,326,360};
     private final int[] defaultHoles = {116,129,175,288,356,364};
 
@@ -48,7 +48,13 @@ public class DMaxwell {
         //imprimirMatriz(red);
         //imprimirMatriz(holes);
         imprimirMatriz(wall);
+        print("demon " + posDemon);
+        
     }
+    private void print(Object o){
+        System.out.println(o);
+    }
+
 
     private void createNewItems(){
         Random random = new Random();
@@ -103,6 +109,7 @@ public class DMaxwell {
         int contador = 0;
         while(i < variable){
             wall[contador] = i;
+            
             if((int) variable/2 == i){
                 posDemon = i;
             }

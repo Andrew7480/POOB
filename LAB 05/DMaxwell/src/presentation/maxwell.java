@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class maxwell extends JPanel{
+public class Maxwell extends JPanel{
         private JPanel Panel;
         private static Color color1 = Color.RED;
         private static Color color2 = Color.BLUE;
@@ -15,18 +15,19 @@ public class maxwell extends JPanel{
         private  int[] ParticulasBlue;
         private  int[] wall;
 
-    public maxwell(int newH, int newW,int [][] info ){
+
+    public Maxwell(int newH, int newW,int [][] info ){
         this(newH,newW);
         setVariables(info);
         paintComponents();
     }
-    public maxwell(int [][] info){
+    public Maxwell(int [][] info){
         this(11,20);
         setVariables(info);
         paintComponents();
     }
     
-    public maxwell(int newH, int newW){
+    public Maxwell(int newH, int newW){
         h = newH;
         w = newW;
         setLayout(new GridLayout(1,1));
@@ -109,7 +110,10 @@ public class maxwell extends JPanel{
         repaint();
 
     }
-    
+    public void reset(){
+        color1 = Color.RED;
+        color2 = Color.BLUE;
+    }
 
 
 

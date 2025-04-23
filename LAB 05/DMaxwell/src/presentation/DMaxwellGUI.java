@@ -23,7 +23,7 @@ public class DMaxwellGUI extends JFrame{
     private JFileChooser fileChooser;
     private JColorChooser colorChooser;
     private JLabel informacion;
-    private maxwell tablero;
+    private Maxwell tablero;
 
     private DMaxwell domain;
 
@@ -41,6 +41,8 @@ public class DMaxwellGUI extends JFrame{
         colorChooser = new JColorChooser();
         prepareElementsMenu();
         prepareElementsBoard();
+        setFocusable(true); //par teclas
+
     }
 
     public void prepareActions(){
@@ -109,7 +111,19 @@ public class DMaxwellGUI extends JFrame{
                 newDMaxwell();
             }
         });
+        
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                if(e.getKeyChar() == 'w') movement('u');
+                if (e.getKeyChar() == 's') movement('d');
+                if (e.getKeyChar() == 'd') movement('r');
+                if (e.getKeyChar() == 'a') movement('l');
+            }
+        });
+
     }
+
 
     private void prepareElementsMenu(){
         JMenuBar menu = new JMenuBar ();
@@ -132,11 +146,10 @@ public class DMaxwellGUI extends JFrame{
     }
 
     private void prepareElementsBoard(){
-        tablero = new maxwell(domain.container());
+        tablero = new Maxwell(domain.container());
         add(tablero);
-
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        
+
         JPanel panelBotones = new JPanel(new BorderLayout());
         north = new JButton("↑");
         south1 = new JButton("↓");
@@ -151,7 +164,6 @@ public class DMaxwellGUI extends JFrame{
         panelBotones.add(nada, BorderLayout.CENTER);
         south.add(panelBotones);
 
-        
         JPanel panelInformacion = new JPanel(new GridLayout(4,1));
         informacion = new JLabel("Informacion:  Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
         JPanel botonesColor = new JPanel(new GridLayout(1,2));
@@ -167,7 +179,6 @@ public class DMaxwellGUI extends JFrame{
         panelInformacion.add(reboot);
         south.add(panelInformacion);
         add(south);
-
     }
     private void exit(){
         int option = JOptionPane.showConfirmDialog(this,"Estas seguro de que quieres salir?",
@@ -252,9 +263,12 @@ public class DMaxwellGUI extends JFrame{
 
                 domain = new DMaxwell(h,2*w,r,b,o);
                 remove(tablero);
-                tablero = new maxwell(h,w,domain.container());
+                tablero = new Maxwell(h,w,domain.container());
                 add(tablero,0);
                 refresh();
+            }
+            catch (DMaxwellException e){
+                System.out.println("No se puede. " + e.getMessage());
             }
             catch (Exception e){
                 System.out.println("No se puede. " + e.getMessage());
@@ -262,15 +276,6 @@ public class DMaxwellGUI extends JFrame{
         }
     }
     
-    public void imprimirMatriz(int[][] matriz) {
-        for (int i = 0; i < matriz.length; i++) {
-            System.out.print("Fila " + i + ": ");
-            for (int j = 0; j < matriz[i].length; j++) {
-                System.out.print(matriz[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
     
 
 
@@ -286,7 +291,8 @@ public class DMaxwellGUI extends JFrame{
     private void resetDMaxwell(){
         domain = new  DMaxwell();
         remove(tablero);
-        tablero = new maxwell(domain.container());
+        tablero = new Maxwell(domain.container());
+        tablero.reset();
         add(tablero,0);
         refresh();
     }
