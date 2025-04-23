@@ -168,7 +168,7 @@ public class DMaxwellGUI extends JFrame{
         panelInformacion.add(newOne);
         panelInformacion.add(reboot);
         south.add(panelInformacion);
-        add(south);//,BorderLayout.SOUTH);
+        add(south);
 
     }
     private void exit(){
@@ -251,13 +251,12 @@ public class DMaxwellGUI extends JFrame{
                 int r = esSoloNumeros(newR.getText());
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
-                System.out.println("1");
-                domain = new DMaxwell(h,w,r,b,o);
-                System.out.println("2");
+
+                domain = new DMaxwell(h,2*w,r,b,o);
+                remove(tablero);
                 tablero = new maxwell(h,w,domain.container());
-                System.out.println("3");
+                add(tablero,0);
                 refresh();
-                System.out.println("4");
             }
             catch (Exception e){
                 System.out.println("No se puede. " + e.getMessage());

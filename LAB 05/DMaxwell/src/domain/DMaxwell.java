@@ -4,79 +4,140 @@ import java.util.Random;
 
 public class DMaxwell {
     private int h = 11;
-    private int w = 40+1;
+    private int w = 41;
     private int r = 10;
     private int b = 10;
+    private int o = 6;
     private int contR = 10;
     private int contB = 10;
-    private int o = 6;
-    private final int[][] blueDefault = {{43,52,139,254,291,343},{67,201,228,310}};
-    private final int[][] redDefault = {{48,55,126,336},{79,112,193,277,326,360}};
+    private final int posDemonDefault = 225;
+    private final int[] paredDefault = {20,61,102,143,184,225,266,307,348,389,430};
+    private final int[] blueDefault = {43,52,139,254,291,343,67,201,228,310}; // 226 -> 228
+    private final int[] redDefault = {48,55,126,336,79,112,193,277,326,360};
     private final int[] defaultHoles = {116,129,175,288,356,364};
-    private  int[][] blues;
-    private  int[][] red;
+
+    private  int[] blues;
+    private  int[] red;
     private  int[] holes;
+    private int[] wall;
+    private int posDemon;
 
     public DMaxwell(){
         blues = blueDefault.clone();
         red = redDefault.clone();
         holes = defaultHoles.clone();
+        wall = paredDefault.clone();
+        posDemon = posDemonDefault;
     }
     
     public DMaxwell(int newH, int newW, int newR, int newB, int newO) throws DMaxwellException{ 
         //if ( (newH == null ) || (newW == null ) || (newR == null ) || (newB == null) || (newO == null)) throw new DMaxwellException(DMaxwellException.NULL_VALUES);
         if ( (newH <= 0 ) || (newW <= 0 ) || (newR < 0 ) || (newB < 0) || (newO <0)) throw new DMaxwellException(DMaxwellException.VALUES_ERROR);
+        if ((newW > 30) || (newH) > 30) throw new DMaxwellException(DMaxwellException.INVALID_DIMENSIONS);
         h = newH;
-        w = newW + 1;
+        w = newW+1;
         r = newR;
         b = newB;
         o = newO;
+        contR = r;
+        contB = b;
+        valuesOfTheWall(h,w);
         createNewItems();
+        System.out.println(h+" "+w+" "+r+" "+b+" "+o);
+        //imprimirMatriz(blues);
+        //imprimirMatriz(red);
+        //imprimirMatriz(holes);
+        imprimirMatriz(wall);
     }
 
+    private void createNewItems(){
+        Random random = new Random();
+        ArrayList<Integer> bluesTemp = new ArrayList<>();
+        ArrayList<Integer> redTemp = new ArrayList<>();
+        ArrayList<Integer> holesTemp = new ArrayList<>();
+        ArrayList<Integer> wall1 = convertirArregloAArrayList(wall);
+        int restantes = b;
+        while (restantes > 0){
+            int numeroAleatorio = random.nextInt(h*w);
+            if (!bluesTemp.contains(numeroAleatorio) && !wall1.contains(numeroAleatorio) && numeroAleatorio != posDemon){
+                bluesTemp.add(numeroAleatorio);
+                restantes--;
+            }
+        }
+        restantes = r;
+        while (restantes > 0){
+            int numeroAleatorio = random.nextInt(h*w);
+            if (!bluesTemp.contains(numeroAleatorio) && !redTemp.contains(numeroAleatorio) && !wall1.contains(numeroAleatorio) && numeroAleatorio != posDemon){
+                redTemp.add(numeroAleatorio);
+                restantes--;
+            }
+        }
+
+        restantes = o;
+        while (restantes > 0){
+            int numeroAleatorio = random.nextInt(h*w);
+            if (!bluesTemp.contains(numeroAleatorio) && !redTemp.contains(numeroAleatorio) && !holesTemp.contains(numeroAleatorio) && numeroAleatorio != posDemon){
+                holesTemp.add(numeroAleatorio);
+                restantes--;
+            }
+        }        
+        blues= convertirArrayListAArreglo(bluesTemp);
+        red = convertirArrayListAArreglo(redTemp);
+
+        holes = new int[o];
+        int i = 0;
+        for (int num : holesTemp){
+            holes[i]= num;
+            i++;
+        }
+
+        
+    }
+
+    private void valuesOfTheWall(int h, int wi){
+        wi = (wi-1)/2;
+        wall = new int[h];
+        int variable = h*((2*wi) +1);
+        int i = wi;
+        int centroPar = (h/2) * (2 * w + 1) + wi;
+        int contador = 0;
+        while(i < variable){
+            wall[contador] = i;
+            if((int) variable/2 == i){
+                posDemon = i;
+            }
+            else if (i == centroPar){
+                posDemon = i;
+            }
+            i+=((2*wi)+1);
+            contador ++;
+        }
+    }
+    
+    
 
     public void movement(char direccion) throws DMaxwellException{
-        int [] bluesTempoL = blues[0].clone();
-        int [] bluesTempoR = blues[1].clone();
-        int [] redTempoL = red[0].clone();
-        int [] redTempoR = red[1].clone();
+        int [] bluesTempo = blues.clone();
+        int [] redTempo = red.clone();
 
-        for (int i = 0; i < bluesTempoL.length; i++) {
-            int temporal = move(bluesTempoL[i], direccion);
-            if (verifyHole(temporal)) bluesTempoL[i] = temporal;
+        for (int i = 0; i < bluesTempo.length; i++) {
+            int temporal = move(bluesTempo[i], direccion);
+            if (verifyHole(temporal)) bluesTempo[i] = temporal;
             else {
-                bluesTempoL[i] = -1;
+                bluesTempo[i] = -1;
                 contB --;
             }
         }
-        for (int i = 0; i < bluesTempoR.length; i++) {
-            int temporal = move(bluesTempoR[i], direccion);
-            if (verifyHole(temporal)) bluesTempoR[i] = temporal;
+        for (int i = 0; i < redTempo.length; i++) {
+            int temporal = move(redTempo[i], direccion);
+            if (verifyHole(temporal)) redTempo[i] = temporal;
             else {
-                bluesTempoR[i] = -1;
-                contB --;
-            }
-        }
-        for (int i = 0; i < redTempoL.length; i++) {
-            int temporal = move(redTempoL[i], direccion);
-            if (verifyHole(temporal)) redTempoL[i] = temporal;
-            else {
-                redTempoL[i] = -1;
+                redTempo[i] = -1;
                 contR --;
             }
         }
-        for (int i = 0; i < redTempoR.length; i++) {
-            int temporal = move(redTempoR[i], direccion);
-            if (verifyHole(temporal)) redTempoR[i] = temporal;
-            else {
-                redTempoR[i] = -1;
-                contR --;
-            }
-        }
-        blues[0] = removeInvalidPositions(bluesTempoL);
-        blues[1] = removeInvalidPositions(bluesTempoR);
-        red[0] = removeInvalidPositions(redTempoL);
-        red[1] = removeInvalidPositions(redTempoR);
+        blues = removeInvalidPositions(bluesTempo);
+        red = removeInvalidPositions(redTempo);
     }
     
     private boolean isLeft(int pos) {
@@ -87,94 +148,38 @@ public class DMaxwell {
         return pos % w > w / 2;
     }
 
-    private void createNewItems(){
-        Random random = new Random();
-        ArrayList<Integer> bluesTemp = new ArrayList<>();
-        ArrayList<Integer> redTemp = new ArrayList<>();
-        ArrayList<Integer> holesTemp = new ArrayList<>();
-
-        int restantes = b;
-        while ( restantes > 0){
-            int numeroAleatorio = random.nextInt(h*w);
-            if (! bluesTemp.contains(numeroAleatorio)){
-                bluesTemp.add(numeroAleatorio);
-                restantes--;
-            }
-        }
-        restantes = r;
-        while ( restantes > 0){
-            int numeroAleatorio = random.nextInt(h*w);
-            if (! bluesTemp.contains(numeroAleatorio) && ! redTemp.contains(numeroAleatorio)){
-                redTemp.add(numeroAleatorio);
-                restantes--;
-            }
-        }
-
-        restantes = o;
-        while ( restantes > 0){
-            int numeroAleatorio = random.nextInt(h*w);
-            if (! bluesTemp.contains(numeroAleatorio) && ! redTemp.contains(numeroAleatorio) && ! holesTemp.contains(numeroAleatorio)){
-                holesTemp.add(numeroAleatorio);
-                restantes--;
-            }
-        }
-        ArrayList<ArrayList<Integer>> temporalB = new ArrayList<>();
-        temporalB.add(new ArrayList<>());
-        temporalB.add(new ArrayList<>());
-        for (int num : bluesTemp){
-            int numeroAleatorio = random.nextInt(2);
-            if (numeroAleatorio == 0) {
-                temporalB.get(0).add(num);
-            }
-            if (numeroAleatorio == 1){
-                temporalB.get(1).add(num);
-            }
-        }
-        blues = toMatrix(temporalB);
-        ArrayList<ArrayList<Integer>> temporalR = new ArrayList<>();
-        temporalR.add(new ArrayList<>());
-        temporalR.add(new ArrayList<>());
-        for (int num : redTemp){
-            int numeroAleatorio = random.nextInt(2);
-            if (numeroAleatorio == 0) {
-                temporalR.get(0).add(num);
-            }
-            if (numeroAleatorio == 1){
-                temporalR.get(1).add(num);
-            }
-        }
-        red = toMatrix(temporalR);
-        holes = new int[o];
-        int i = 0;
-        for (int num : holesTemp){
-            holes[i]= num;
-            i++;
-        }
-        
-    }
-
 
     private int move(int num, char direccion) throws DMaxwellException {
-        if (num < 0 || num >= h * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
         int col = num % w;
-    
+        if (num < 0 || num >= h * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
         if (direccion == 'u') {
+            for (int i : wall){
+                if (i == num - w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            }
             if (num < w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num - w;
         }
-    
+
         if (direccion == 'd') {
+            for (int i : wall){
+                if (i == num + w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            }
             if (num >= (h - 1) * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num + w;
         }
     
         if (direccion == 'r') {
-            if (col + 1 == w / 2) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            for (int i : wall){
+                if (num+1 == i && i != posDemon) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            }
             if ((num + 1) % w == 0) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num + 1;
         }
     
         if (direccion == 'l') {
+            for (int i : wall){
+                if (num-1 == i && i != posDemon) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            }
             if (col == 0) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num - 1;
         }
@@ -205,31 +210,31 @@ public class DMaxwell {
     }
 
     public int[] results(){
+        /* 
         int[] result = new int[4];
-         result[3] = 100 - (((contR + contB)*100)/(r+b));
- 
-         int rojasBien = redDefault[0].length;
-         int azulesBien = blueDefault[1].length;
- 
-         result[0] =  ((rojasBien * 100) / contR);
-         result[1] = ((azulesBien * 100) / contB);
- 
-         result[2] = (((rojasBien + azulesBien) * 100) / (contR+contB));
- 
-         return result;
+        int rojasB = red[0].length;
+        int azulB = blues[1].length;
+        result[0] =  ((azulB * 100) / contR);
+        result[1] = ((rojasB * 100) / contB);
+        result[2] = (((rojasB + azulB) * 100) / (contR+contB));
+        result[3] = 100 - (((contR + contB)*100)/(r+b));
+        return result;
+        */
+        
+        return new int[] {0,0,0,0,0};
     }
 
     public int[][] container(){ 
-        int[] azules = new int[blues[0].length + blues[1].length];
-        System.arraycopy(blues[0], 0, azules, 0, blues[0].length);
-        System.arraycopy(blues[1], 0, azules, blues[0].length, blues[1].length);
 
-        int[] rojas = new int[red[0].length + red[1].length];
-        System.arraycopy(red[0], 0, rojas, 0, red[0].length);
-        System.arraycopy(red[1], 0, rojas, red[0].length, red[1].length);
-
-        return new int[][] { azules, rojas, defaultHoles };
+        return new int[][] { blues, red, holes, wall};
     }
+
+
+
+
+
+
+
 
 
     public int[][] toMatrix(ArrayList<ArrayList<Integer>> list2D) {
@@ -243,5 +248,36 @@ public class DMaxwell {
         }
         return result;
     }
+    public static int[] convertirArrayListAArreglo(ArrayList<Integer> lista) {
+        int[] arreglo = new int[lista.size()];
+        for (int i = 0; i < lista.size(); i++) {
+            arreglo[i] = lista.get(i);
+        }
+        return arreglo;
+    }
+
+    public static ArrayList<Integer> convertirArregloAArrayList(int[] arreglo) {
+        ArrayList<Integer> lista = new ArrayList<>();
+        for (int num : arreglo) {
+            lista.add(num);
+        }
+        return lista;
+    }
+
+    public void imprimirMatriz(int[] matriz) {
+        for(int num : matriz){
+            System.out.println(num);
+        }
+    }
+    public void imprimirMatriz(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.print("Fila " + i + ": ");
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 
 }

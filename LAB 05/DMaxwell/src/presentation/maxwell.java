@@ -14,6 +14,7 @@ public class maxwell extends JPanel{
         private  int[] holes;
         private  int[] particulasRed;
         private  int[] ParticulasBlue;
+        private  int[] wall;
 
     public maxwell(int newH, int newW,int [][] info ){
         this(newH,newW);
@@ -25,6 +26,7 @@ public class maxwell extends JPanel{
         setVariables(info);
         paintComponents();
     }
+    
     public maxwell(int newH, int newW){
         h = newH;
         w = newW;
@@ -42,23 +44,25 @@ public class maxwell extends JPanel{
             celd.setBorder(BorderFactory.createLineBorder(Color.GRAY));
             Panel.add(celd);
         }
-        paintCenter();
         Panel.setBorder(getBorder());
         add(Panel);
     }
     private void paintCenter(){ //451
         int variable = h*((2*w) +1);
-        int i = w;
-        while(i < variable){
+        int centroPar = (h/2) * (2 * w + 1) + w;
+        for(int i: wall){
             Panel.getComponent(i).setBackground(Color.BLACK);
             if( (int) variable/2 == i ){
                 Panel.getComponent(i).setBackground(Color.GRAY);
             }
-            i+=((2*w)+1);
+            else if (i == centroPar){
+                Panel.getComponent(i).setBackground(Color.GRAY);
+            }
         }
     }
 
     public void paintComponents(){
+        paintCenter();
         for (int num:ParticulasBlue){
             Panel.getComponent(num).setBackground(color2);
         }
@@ -68,6 +72,7 @@ public class maxwell extends JPanel{
         for(int num: holes){
             Panel.getComponent(num).setBackground(Hole);
         }
+        
     }
 
     public void setColor1(Color color){
@@ -89,6 +94,7 @@ public class maxwell extends JPanel{
         ParticulasBlue = info[0];
         particulasRed = info[1];
         holes = info[2];
+        wall = info[3];
     }
 
     public void refresh(int[][] info){
@@ -96,8 +102,11 @@ public class maxwell extends JPanel{
         setVariables(info);
         paintCenter();
         paintComponents();
+        Panel.revalidate();
         Panel.repaint();
+        revalidate();
         repaint();
+
     }
     
 
