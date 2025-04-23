@@ -1,7 +1,12 @@
 package domain;
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * DMaxwell
+ * 
+ * @author  Tulio Riaño and Andrés Cardozo
+ * @version 95%
+ */
 public class DMaxwell {
     private int h = 11;
     private int w = 41;
@@ -21,7 +26,9 @@ public class DMaxwell {
     private  int[] holes;
     private int[] wall;
     private int posDemon;
-
+    /**
+     * Constructor of DMaxwell
+     **/
     public DMaxwell(){
         blues = blueDefault.clone();
         red = redDefault.clone();
@@ -29,7 +36,15 @@ public class DMaxwell {
         wall = paredDefault.clone();
         posDemon = posDemonDefault;
     }
-    
+    /**
+     * Constructor of a new DMaxwell board
+     * @param newH
+     * @param newW
+     * @param newR
+     * @param newB
+     * @param newO
+     * @throws DMaxwellException
+    * */
     public DMaxwell(int newH, int newW, int newR, int newB, int newO) throws DMaxwellException{ 
         //if ( (newH == null ) || (newW == null ) || (newR == null ) || (newB == null) || (newO == null)) throw new DMaxwellException(DMaxwellException.NULL_VALUES);
         if ( (newH <= 0 ) || (newW <= 0 ) || (newR < 0 ) || (newB < 0) || (newO <0)) throw new DMaxwellException(DMaxwellException.VALUES_ERROR);
@@ -55,7 +70,9 @@ public class DMaxwell {
         System.out.println(o);
     }
 
-
+    /*
+     * Create new items in the board
+     */
     private void createNewItems(){
         Random random = new Random();
         ArrayList<Integer> bluesTemp = new ArrayList<>();
@@ -99,7 +116,11 @@ public class DMaxwell {
 
         
     }
-
+    /*
+     * Determine the values of the board
+     * @param int h
+     * @param int wi
+     */
     private void valuesOfTheWall(int h, int wi){
         wi = (wi-1)/2;
         wall = new int[h];
@@ -121,7 +142,11 @@ public class DMaxwell {
         }
     }
     
-    
+    /***
+     * Do the movement of the particle, depends of direction
+     * @param direccion
+     * @throws DMaxwellException
+     */
 
     public void movement(char direccion) throws DMaxwellException{
         int [] bluesTempo = blues.clone();
@@ -146,16 +171,30 @@ public class DMaxwell {
         blues = removeInvalidPositions(bluesTempo);
         red = removeInvalidPositions(redTempo);
     }
-    
+    /*
+     * Determine if the particle is in the left chamber 
+     * @param pos
+     * @return if the particle is in the left chamber 
+     */
     private boolean isLeft(int pos) {
         return pos % w < w / 2;
     }
-    
+    /*
+     * Determine if the particle is in the right chamber 
+     * @param pos
+     * @return if the particle is in the right chamber 
+     */
     private boolean isRight(int pos) {
         return pos % w > w / 2;
     }
 
-
+    /*
+     * Validates the movement in the direction 
+     * @param num
+     * @param direccion
+     * @return the position after the move
+     * @throws DMaxwellException
+     */
     private int move(int num, char direccion) throws DMaxwellException {
         int col = num % w;
         if (num < 0 || num >= h * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
@@ -192,7 +231,11 @@ public class DMaxwell {
         }
         throw new DMaxwellException(DMaxwellException.INVALID_MOVE);
     }
-
+    /*
+     * Verify if the particle is in a hole position 
+     * @param pos
+     * @return if the position is in the hole
+     */
     private boolean verifyHole(int pos){
         for(int i : holes){
             if(pos == i){
@@ -201,7 +244,11 @@ public class DMaxwell {
         }
         return true;
     }
-    
+    /*
+     * it eliminates invalid positions, that is, when the particle is already eaten by a hole
+     * @param array
+     * @return
+     */
     private int[] removeInvalidPositions(int[] array) {
         ArrayList<Integer> validPositions = new ArrayList<>();
         for (int i : array) {
@@ -215,7 +262,10 @@ public class DMaxwell {
         }
         return newArray;
     }
-
+    /*
+     * Calculate the results, i.e. the number of red particles on the left and blue particles on the right and their respective percentages or losses
+     * @return
+     */
     public int[] results(){
         /* 
         int[] result = new int[4];
@@ -230,7 +280,10 @@ public class DMaxwell {
         
         return new int[] {0,0,0,0,0};
     }
-
+    /*
+     * a matrix with the position of each particle including the wall values 
+     * @return 
+     */
     public int[][] container(){ 
 
         return new int[][] { blues, red, holes, wall};

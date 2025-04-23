@@ -7,6 +7,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 
+/**
+ * DMaxwellGUI
+ * 
+ * @author  Tulio Riaño and Andrés Cardozo
+ * @version 95%
+ */
+
+
 public class DMaxwellGUI extends JFrame{
     private JMenuItem leave;
     private JMenuItem openItem;
@@ -26,12 +34,17 @@ public class DMaxwellGUI extends JFrame{
     private Maxwell tablero;
 
     private DMaxwell domain;
-
+    /**
+     * Constructor of DMaxwellGUI
+     */
     public DMaxwellGUI(){
         domain = new DMaxwell();
         prepareElements();
         prepareActions();
     }
+    /*
+     * prepare elements of the innermost layer
+     */
     private void prepareElements(){
         setTitle("Maxwell Discreto");
         setLayout(new GridLayout(2,1));
@@ -44,7 +57,10 @@ public class DMaxwellGUI extends JFrame{
         setFocusable(true); //par teclas
 
     }
-
+    /**
+     * do the actions by means of listeners (actions that the user do with the GUI)
+     * 
+     */
     public void prepareActions(){
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
@@ -124,7 +140,9 @@ public class DMaxwellGUI extends JFrame{
 
     }
 
-
+    /*
+     * prepare the elements of the menu of GUI
+     */
     private void prepareElementsMenu(){
         JMenuBar menu = new JMenuBar ();
         JMenu menuDesplegable = new JMenu("Menu");
@@ -144,7 +162,10 @@ public class DMaxwellGUI extends JFrame{
         menu.add(menuDesplegable);
         setJMenuBar(menu);
     }
-
+    /*
+     * prepare elements of the board 
+     * buttons and jpanel
+     */
     private void prepareElementsBoard(){
         tablero = new Maxwell(domain.container());
         add(tablero);
@@ -180,6 +201,9 @@ public class DMaxwellGUI extends JFrame{
         south.add(panelInformacion);
         add(south);
     }
+    /*
+     * Do the action of close the window
+     */
     private void exit(){
         int option = JOptionPane.showConfirmDialog(this,"Estas seguro de que quieres salir?",
         "Confirmar salida",JOptionPane.YES_NO_OPTION);
@@ -189,6 +213,9 @@ public class DMaxwellGUI extends JFrame{
         }
         
     }
+    /*
+     * Do the action of file Open
+     */
     private void fileOpen(){
         int choice = fileChooser.showOpenDialog(null);
         if (choice == JFileChooser.APPROVE_OPTION){
@@ -196,6 +223,9 @@ public class DMaxwellGUI extends JFrame{
             JOptionPane.showMessageDialog(this, "Funcionalidad Abrir en construccion, Archivo seleccionado: "+ archivo.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    /*
+     * Do the action of save open
+     */
     private void saveOpen(){
         int choice = fileChooser.showSaveDialog(null);
         if (choice == JFileChooser.APPROVE_OPTION){
@@ -203,20 +233,26 @@ public class DMaxwellGUI extends JFrame{
             JOptionPane.showMessageDialog(this, "Funcionalidad Guardar en construccion, Lugar donde se guarda: "+ archive.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    /*
+     * Do the action of change color of the particles
+     */
     private void changeColor(int numero){
         Color choice = colorChooser.showDialog(this,"Selecciona tu color.", Color.BLUE);
         if(numero == 1 ) tablero.setColor1(choice);
         if(numero == 2 ) tablero.setColor2(choice);
         refresh();
     }
-
+    /*
+     * do the refresh after every move or when resets the board
+     */
     private void refresh(){
         tablero.refresh(domain.container());
         informacion.setText("Informacion:  Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
         repaint();
     }
-
+    /*
+     * do the movement, calling the domain
+     */
     private void movement(char mov){
         try{
             domain.movement(mov);
@@ -226,7 +262,9 @@ public class DMaxwellGUI extends JFrame{
             JOptionPane.showMessageDialog(this, "No se puede hacer ese movimiento. ", "Informacion ", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    /*
+     * get the new parameters for the new board of DMaxwell
+     */
     private void newDMaxwell(){        
         JPanel entradaDatos = new JPanel();
         JLabel textH = new JLabel("ingrese h: ");
@@ -278,7 +316,12 @@ public class DMaxwellGUI extends JFrame{
     
     
 
-
+    /***
+     * verify if the string includes only integers
+     * @param texto
+     * @return 
+     * @throws Exception
+     */
 
     public static int esSoloNumeros(String texto) throws Exception{
         if (texto.matches("\\d+")) {
@@ -287,7 +330,9 @@ public class DMaxwellGUI extends JFrame{
             throw new Exception("El valor ingresado no es un número válido.");
         }
     }
-    
+    /*
+     * Resets DMaxwell
+     */
     private void resetDMaxwell(){
         domain = new  DMaxwell();
         remove(tablero);
@@ -296,7 +341,7 @@ public class DMaxwellGUI extends JFrame{
         add(tablero,0);
         refresh();
     }
-
+    
     public static void main(String args []){
         DMaxwellGUI max = new DMaxwellGUI();
         max.pack();
