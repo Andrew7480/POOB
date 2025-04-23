@@ -249,7 +249,8 @@ public class DMaxwellGUI extends JFrame{
                 int r = esSoloNumeros(newR.getText());
                 int b = esSoloNumeros(newB.getText());
                 int o = esSoloNumeros(newO.getText());
-                domain = new DMaxwell(h,w,r,b,o);
+
+                domain = new DMaxwell(h,2*w,r,b,o);
                 remove(tablero);
                 tablero = new maxwell(h,w,domain.container());
                 add(tablero,0);
