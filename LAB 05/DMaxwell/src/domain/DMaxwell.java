@@ -152,24 +152,48 @@ public class DMaxwell {
         int [] redTempo = red.clone();
 
         for (int i = 0; i < bluesTempo.length; i++) {
-            int temporal = move(bluesTempo[i], direccion);
-            if (verifyHole(temporal)) bluesTempo[i] = temporal;
-            else {
-                bluesTempo[i] = -1;
-                contB --;
+            try {
+                int temporal = move(bluesTempo[i], direccion);
+                if (verifyHole(temporal)) bluesTempo[i] = temporal;
+                else {
+                    bluesTempo[i] = -1;
+                    contB --;
+                }
+            } catch (DMaxwellException e) {
+                
             }
+
         }
         for (int i = 0; i < redTempo.length; i++) {
-            int temporal = move(redTempo[i], direccion);
-            if (verifyHole(temporal)) redTempo[i] = temporal;
-            else {
-                redTempo[i] = -1;
-                contR --;
+            try{
+                int temporal = move(redTempo[i], direccion);
+                if (verifyHole(temporal)) redTempo[i] = temporal;
+                else {
+                    redTempo[i] = -1;
+                    contR --;
+                }
+            }
+            catch (DMaxwellException e) {
+                
             }
         }
         blues = removeInvalidPositions(bluesTempo);
         red = removeInvalidPositions(redTempo);
     }
+    private boolean verifyParticle(int[] blues1 , int[] red1,int pos){
+        for(int i : blues1){
+            if(pos == i){
+                return false;
+            }
+        }
+        for(int i : red1){
+            if(pos == i){
+                return false;
+            }
+        }
+        return true;
+    }
+
     /*
      * Determine if the particle is in the left chamber 
      * @param pos
@@ -196,6 +220,7 @@ public class DMaxwell {
      */
     private int move(int num, char direccion) throws DMaxwellException {
         int col = num % w;
+        
         if (num < 0 || num >= h * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
         if (direccion == 'u') {
             for (int i : wall){
@@ -210,6 +235,7 @@ public class DMaxwell {
                 if (i == num + w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             }
             if (num >= (h - 1) * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
+            //if (blues.containts(num+w) ) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num + w;
         }
     
@@ -243,6 +269,8 @@ public class DMaxwell {
         }
         return true;
     }
+
+
     /*
      * it eliminates invalid positions, that is, when the particle is already eaten by a hole
      * @param array

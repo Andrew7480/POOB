@@ -13,6 +13,7 @@ public class DMaxwellException extends Exception {
     public static final String INVALID_MOVEMENT = "Cant do the movement.";
     public static final String INVALID_MOVE = "Not the right move.";
     public static final String INVALID_DIMENSIONS = "THE BOARD CAN'T BE SO BIG!";
+    
     /*
      * Constructor of DMaxwellException
      * @param String message
