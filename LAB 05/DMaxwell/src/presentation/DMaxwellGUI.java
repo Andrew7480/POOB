@@ -32,7 +32,6 @@ public class DMaxwellGUI extends JFrame{
     private JColorChooser colorChooser;
     private JLabel informacion;
     private Maxwell tablero;
-
     private DMaxwell domain;
     /**
      * Constructor of DMaxwellGUI
@@ -169,7 +168,7 @@ public class DMaxwellGUI extends JFrame{
     private void prepareElementsBoard(){
         tablero = new Maxwell(domain.container());
         add(tablero);
-        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 10));
 
         JPanel panelBotones = new JPanel(new BorderLayout());
         north = new JButton("↑");
@@ -186,7 +185,7 @@ public class DMaxwellGUI extends JFrame{
         south.add(panelBotones);
 
         JPanel panelInformacion = new JPanel(new GridLayout(4,1));
-        informacion = new JLabel("Informacion:  Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
+        informacion = new JLabel("Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
         JPanel botonesColor = new JPanel(new GridLayout(1,2));
         coloor1 = new JButton("Color Particulas 1");
         coloor2 = new JButton("Color Particulas 2");
@@ -247,7 +246,7 @@ public class DMaxwellGUI extends JFrame{
      */
     private void refresh(){
         tablero.refresh(domain.container());
-        informacion.setText("Informacion:  Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
+        informacion.setText("Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
         repaint();
     }
     /*

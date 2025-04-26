@@ -53,18 +53,7 @@ public class DMaxwell {
         o = newO;
         valuesOfTheWall(h,w);
         createNewItems();
-        System.out.println(h+" "+w+" "+r+" "+b+" "+o);
-        //imprimirMatriz(blues);
-        //imprimirMatriz(red);
-        //imprimirMatriz(holes);
-        imprimirMatriz(wall);
-        print("demon " + posDemon);
-        
     }
-    private void print(Object o){
-        System.out.println(o);
-    }
-
     /*
      * Create new items in the board
      */
@@ -295,15 +284,10 @@ public class DMaxwell {
         int redB = howManyRed().length;
         int contR= red.length;
         int contB = blues.length;
-        try {
-            result[0] = ((azulesB * 100)/ contB);
-            result[1] = ((redB * 100)/contR);
-            result[2] = (((azulesB + redB)* 100) / (contB + contR));
-            result[3] = 100 - (((contR + contB)*100)/(r+b));
-        } catch (Exception e) {
-            System.out.println("q paso ");
-            return new int[] {0,0,0,0};
-        }
+        result[0] = (contB == 0) ? 100 : ((azulesB * 100)/ contB);
+        result[1] = (contR == 0) ? 100: ((redB * 100)/contR);
+        result[2] = (contB == 0 && contR == 0) ? 100 : (((azulesB + redB)* 100) / (contB + contR));
+        result[3] = (contB == 0 && contR == 0) ? 100 : 100 - (((contR + contB)*100)/(r+b));
         return result;
     }
     /*
@@ -323,7 +307,6 @@ public class DMaxwell {
             }
         }
         int[] blueA = azulD.stream().mapToInt(i -> i).toArray();
-        // https://www.geeksforgeeks.org/arraylist-array-conversion-java-toarray-methods/
         return blueA;
     }
 
@@ -358,22 +341,4 @@ public class DMaxwell {
         }
         return lista;
     }
-
-    public void imprimirMatriz(int[] matriz) {
-        for(int num : matriz){
-            System.out.println(num);
-        }
-    }
-    public void imprimirMatriz(int[][] matriz) {
-        for (int i = 0; i < matriz.length; i++) {
-            System.out.print("Fila " + i + ": ");
-            for (int j = 0; j < matriz[i].length; j++) {
-                System.out.print(matriz[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-
-
 }

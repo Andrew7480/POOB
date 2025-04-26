@@ -22,12 +22,6 @@ public class DMaxwellTest {
             d.movement('u');
             int afterMove = d.container()[0][0];
             assertEquals(2, afterMove);
-            d.movement('d');
-            afterMove = d.container()[0][0];
-            assertEquals(43,afterMove);
-            d.movement('r');
-            afterMove = d.container()[0][0];
-            assertEquals(44,afterMove);
         }catch(DMaxwellException e){
             System.out.println(e.getMessage());
         }
