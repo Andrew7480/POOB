@@ -54,7 +54,6 @@ public class DMaxwellGUI extends JFrame{
         prepareElementsMenu();
         prepareElementsBoard();
         setFocusable(true); //par teclas
-
     }
     /**
      * do the actions by means of listeners (actions that the user do with the GUI)
