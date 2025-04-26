@@ -80,9 +80,6 @@ public class Maxwell extends JPanel{
             if (i == centroPar){
                 Panel.getComponent(i).setBackground(Color.GRAY);
             }
-            else if (i == centroPar){
-                Panel.getComponent(i).setBackground(Color.GRAY);
-            }
         }
     }
     /*

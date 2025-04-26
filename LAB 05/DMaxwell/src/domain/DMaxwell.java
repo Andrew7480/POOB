@@ -13,8 +13,6 @@ public class DMaxwell {
     private int r = 10;
     private int b = 10;
     private int o = 6;
-    private int contR = 10;
-    private int contB = 10;
     private final int posDemonDefault = 225;
     private final int[] paredDefault = {20,61,102,143,184,225,266,307,348,389,430};
     private final int[] blueDefault = {43,52,139,254,291,343,67,201,228,310}; // 226 -> 228
@@ -53,8 +51,6 @@ public class DMaxwell {
         r = newR;
         b = newB;
         o = newO;
-        contR = r;
-        contB = b;
         valuesOfTheWall(h,w);
         createNewItems();
         System.out.println(h+" "+w+" "+r+" "+b+" "+o);
@@ -103,8 +99,8 @@ public class DMaxwell {
                 restantes--;
             }
         }        
-        blues= convertirArrayListAArreglo(bluesTemp);
-        red = convertirArrayListAArreglo(redTemp);
+        blues= bluesTemp.stream().mapToInt(i -> i).toArray();;
+        red = redTemp.stream().mapToInt(i -> i).toArray();;
 
         holes = new int[o];
         int i = 0;
@@ -120,12 +116,12 @@ public class DMaxwell {
      * @param int h
      * @param int wi
      */
-    private void valuesOfTheWall(int h, int wi){
-        wi = (wi-1)/2;
+    private void valuesOfTheWall(int h, int w){
+        int wi = (w-1)/2;
         wall = new int[h];
         int variable = h*((2*wi) +1);
         int i = wi;
-        int centroPar = (h/2) * (2 * w + 1) + wi;
+        int centroPar = (h/2) * (2 * wi + 1) + wi;
         int contador = 0;
         while(i < variable){
             wall[contador] = i;
@@ -133,13 +129,14 @@ public class DMaxwell {
             if((int) variable/2 == i){
                 posDemon = i;
             }
-            else if (i == centroPar){
+            if (i == centroPar){
                 posDemon = i;
             }
-            i+=((2*wi)+1);
+            i += ((2*wi)+1);
             contador ++;
         }
     }
+    
     
     /***
      * Do the movement of the particle, depends of direction
@@ -147,39 +144,38 @@ public class DMaxwell {
      * @throws DMaxwellException
      */
 
-    public void movement(char direccion) throws DMaxwellException{
-        int [] bluesTempo = blues.clone();
-        int [] redTempo = red.clone();
-
+    public void movement(char direccion) throws DMaxwellException {
+        int[] bluesOriginal = blues.clone();
+        int[] redOriginal = red.clone();
+        int[] bluesTempo = blues.clone();
+        int[] redTempo = red.clone();
         for (int i = 0; i < bluesTempo.length; i++) {
             try {
                 int temporal = move(bluesTempo[i], direccion);
-                if (verifyHole(temporal)) bluesTempo[i] = temporal;
-                else {
+                if (verifyHole(temporal) && verifyParticle(bluesOriginal, redOriginal, temporal)) {
+                    bluesTempo[i] = temporal;
+                } else {
                     bluesTempo[i] = -1;
-                    contB --;
                 }
             } catch (DMaxwellException e) {
-                
             }
+        }
 
-        }
         for (int i = 0; i < redTempo.length; i++) {
-            try{
+            try {
                 int temporal = move(redTempo[i], direccion);
-                if (verifyHole(temporal)) redTempo[i] = temporal;
-                else {
+                if (verifyHole(temporal) && verifyParticle(bluesOriginal, redOriginal, temporal)) {
+                    redTempo[i] = temporal;
+                } else {
                     redTempo[i] = -1;
-                    contR --;
                 }
+            } catch (DMaxwellException e) {
             }
-            catch (DMaxwellException e) {
-                
-            }
-        }
-        blues = removeInvalidPositions(bluesTempo);
-        red = removeInvalidPositions(redTempo);
     }
+
+    blues = removeInvalidPositions(bluesTempo);
+    red = removeInvalidPositions(redTempo);
+}
     private boolean verifyParticle(int[] blues1 , int[] red1,int pos){
         for(int i : blues1){
             if(pos == i){
@@ -235,7 +231,6 @@ public class DMaxwell {
                 if (i == num + w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             }
             if (num >= (h - 1) * w) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
-            //if (blues.containts(num+w) ) throw new DMaxwellException(DMaxwellException.INVALID_MOVEMENT);
             return num + w;
         }
     
@@ -290,39 +285,59 @@ public class DMaxwell {
         return newArray;
     }
     /*
-     * Calculate the results, i.e. the number of red particles on the left and blue particles on the right and their respective percentages or losses
+     * Calculate the results, i.e. the number of red particles on the 
+     * left and blue particles on the right and their respective percentages or losses
      * @return
      */
     public int[] results(){
-        /* 
-        int[] result = new int[4];
-        int rojasB = red[0].length;
-        int azulB = blues[1].length;
-        result[0] =  ((azulB * 100) / contR);
-        result[1] = ((rojasB * 100) / contB);
-        result[2] = (((rojasB + azulB) * 100) / (contR+contB));
-        result[3] = 100 - (((contR + contB)*100)/(r+b));
+        int [] result = new int[4];
+        int azulesB = howManyBlues().length;
+        int redB = howManyRed().length;
+        int contR= red.length;
+        int contB = blues.length;
+        try {
+            result[0] = ((azulesB * 100)/ contB);
+            result[1] = ((redB * 100)/contR);
+            result[2] = (((azulesB + redB)* 100) / (contB + contR));
+            result[3] = 100 - (((contR + contB)*100)/(r+b));
+        } catch (Exception e) {
+            System.out.println("q paso ");
+            return new int[] {0,0,0,0};
+        }
         return result;
-        */
-        
-        return new int[] {0,0,0,0,0};
     }
     /*
      * a matrix with the position of each particle including the wall values 
      * @return 
      */
     public int[][] container(){ 
-
         return new int[][] { blues, red, holes, wall};
     }
 
 
+    private int[] howManyBlues(){ 
+        ArrayList<Integer> azulD = new ArrayList<Integer>();
+        for (int i : blues){
+            if (isRight(i)){
+                azulD.add(i);
+            }
+        }
+        int[] blueA = azulD.stream().mapToInt(i -> i).toArray();
+        // https://www.geeksforgeeks.org/arraylist-array-conversion-java-toarray-methods/
+        return blueA;
+    }
 
 
-
-
-
-
+    private int[] howManyRed(){
+        ArrayList<Integer> redI = new ArrayList<Integer>();
+        for (int i : red){
+            if (isLeft(i)){
+                redI.add(i);
+            }
+        }
+        int[] redA = redI.stream().mapToInt(i -> i).toArray();
+        return redA;
+    }
 
     public int[][] toMatrix(ArrayList<ArrayList<Integer>> list2D) {
         int[][] result = new int[list2D.size()][];
@@ -334,13 +349,6 @@ public class DMaxwell {
             }
         }
         return result;
-    }
-    public static int[] convertirArrayListAArreglo(ArrayList<Integer> lista) {
-        int[] arreglo = new int[lista.size()];
-        for (int i = 0; i < lista.size(); i++) {
-            arreglo[i] = lista.get(i);
-        }
-        return arreglo;
     }
 
     public static ArrayList<Integer> convertirArregloAArrayList(int[] arreglo) {
