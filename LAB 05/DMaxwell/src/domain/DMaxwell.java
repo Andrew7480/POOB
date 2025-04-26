@@ -145,14 +145,13 @@ public class DMaxwell {
      */
 
     public void movement(char direccion) throws DMaxwellException {
-        int[] bluesOriginal = blues.clone();
-        int[] redOriginal = red.clone();
         int[] bluesTempo = blues.clone();
         int[] redTempo = red.clone();
         for (int i = 0; i < bluesTempo.length; i++) {
             try {
                 int temporal = move(bluesTempo[i], direccion);
-                if (verifyHole(temporal) && verifyParticle(bluesOriginal, redOriginal, temporal)) {
+                verifyParticle(bluesTempo, redTempo, temporal);
+                if (verifyHole(temporal)) {
                     bluesTempo[i] = temporal;
                 } else {
                     bluesTempo[i] = -1;
@@ -164,7 +163,8 @@ public class DMaxwell {
         for (int i = 0; i < redTempo.length; i++) {
             try {
                 int temporal = move(redTempo[i], direccion);
-                if (verifyHole(temporal) && verifyParticle(bluesOriginal, redOriginal, temporal)) {
+                verifyParticle(bluesTempo, redTempo, temporal);
+                if (verifyHole(temporal)) {
                     redTempo[i] = temporal;
                 } else {
                     redTempo[i] = -1;
@@ -176,15 +176,15 @@ public class DMaxwell {
     blues = removeInvalidPositions(bluesTempo);
     red = removeInvalidPositions(redTempo);
 }
-    private boolean verifyParticle(int[] blues1 , int[] red1,int pos){
+    private boolean verifyParticle(int[] blues1 , int[] red1,int pos) throws DMaxwellException{
         for(int i : blues1){
             if(pos == i){
-                return false;
+                throw new DMaxwellException(DMaxwellException.INVALID_MOVE);
             }
         }
         for(int i : red1){
             if(pos == i){
-                return false;
+                throw new DMaxwellException(DMaxwellException.INVALID_MOVE);
             }
         }
         return true;
