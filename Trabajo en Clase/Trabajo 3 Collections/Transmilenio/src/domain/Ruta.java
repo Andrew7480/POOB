@@ -3,10 +3,17 @@ import java.util.*;
 
 public class Ruta {
     private String nombre;
-    private ArrayList<Estacion> estaciones;
+    private ArrayList<Estacion> estaciones; //hay que cambiarlo
 
+    public Ruta(String newNombre){
+        nombre = newNombre;
+    }
     public String getName(){
         return nombre;
+    }
+    public void addEstacion(Estacion estation) throws TransmilenioException{
+        if (estaciones.contains(estation)) throw new TransmilenioException(TransmilenioException.ALREADY_EXITS);
+        estaciones.add(estation);
     }
 
     public int calculoParadas(String parada1, String parada2) throws TransmilenioException{

@@ -15,6 +15,10 @@ public class Estacion {
         ocupacion.put("Media", 20);
         ocupacion.put("Baja", 5);
     }
+    public Estacion(String newNombre){
+        super();
+        nombre=newNombre;
+    }
 
     public int tiempoEspera() throws TransmilenioException{
         if (nivelOcupacion.equals("Alta")) return ocupacion.get("Alta");
@@ -29,6 +33,7 @@ public class Estacion {
         }
         return rutas1;
     }
+
     public boolean existeRuta(String Ruta1){
         return rutas.containsKey(Ruta1);
     }
