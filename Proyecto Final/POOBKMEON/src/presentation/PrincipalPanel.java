@@ -9,6 +9,7 @@ public class PrincipalPanel extends JPanel {
     private JPanel modosDeJuego;
     public JButton modoNormal;
     public JButton modoSurvival;
+    public JButton pokedex;
     
     public PrincipalPanel() {
         setLayout(new BorderLayout());
@@ -41,8 +42,17 @@ public class PrincipalPanel extends JPanel {
         modoSurvival.setBorder(BorderFactory.createRaisedBevelBorder());
         modoSurvival.setPreferredSize(new Dimension(150, 40));
         
+        pokedex = new JButton("Pokedex");
+        pokedex.setFont(new Font("Times new Roman",Font.BOLD,16));
+        pokedex.setBackground(new Color(30,30,180));
+        pokedex.setForeground(Color.WHITE);
+        pokedex.setFocusPainted(false);
+        pokedex.setBorder(BorderFactory.createRaisedBevelBorder());
+        pokedex.setPreferredSize(new Dimension(150,40));
+
         modosDeJuego.add(modoNormal);
         modosDeJuego.add(modoSurvival);
+        modosDeJuego.add(pokedex);
         
         add(modosDeJuego, BorderLayout.SOUTH);
     }
