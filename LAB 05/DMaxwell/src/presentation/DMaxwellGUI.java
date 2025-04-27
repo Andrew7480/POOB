@@ -59,7 +59,7 @@ public class DMaxwellGUI extends JFrame{
      * do the actions by means of listeners (actions that the user do with the GUI)
      * 
      */
-    public void prepareActions(){
+    private void prepareActions(){
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter(){
@@ -118,6 +118,11 @@ public class DMaxwellGUI extends JFrame{
         reboot.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 resetDMaxwell();
+            }
+        });
+        newFile.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                newDMaxwell();
             }
         });
         newOne.addActionListener(new ActionListener(){
@@ -246,6 +251,10 @@ public class DMaxwellGUI extends JFrame{
     private void refresh(){
         tablero.refresh(domain.container());
         informacion.setText("Azules:" + domain.results()[0]+ "%  Rojas: "+  domain.results()[1]+ "% Total:" +  domain.results()[2]+ "% Perdidas:"+ domain.results()[3]+ "% ");
+        if(domain.results()[2] == 100){ 
+            JOptionPane.showMessageDialog(this, "Ganaste!", "Informacion ", JOptionPane.INFORMATION_MESSAGE); 
+            resetDMaxwell();
+        }
         repaint();
     }
     /*
@@ -304,7 +313,7 @@ public class DMaxwellGUI extends JFrame{
                 refresh();
             }
             catch (DMaxwellException e){
-                System.out.println("No se puede. " + e.getMessage());
+                JOptionPane.showMessageDialog(this, "No se puede esta configuracion. ", "Informacion ", JOptionPane.INFORMATION_MESSAGE);
             }
             catch (Exception e){
                 System.out.println("No se puede. " + e.getMessage());
@@ -321,7 +330,7 @@ public class DMaxwellGUI extends JFrame{
      * @throws Exception
      */
 
-    public static int esSoloNumeros(String texto) throws Exception{
+    private static int esSoloNumeros(String texto) throws Exception{
         if (texto.matches("\\d+")) {
             return Integer.parseInt(texto);
         } else {

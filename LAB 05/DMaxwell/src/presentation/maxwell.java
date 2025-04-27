@@ -85,7 +85,7 @@ public class Maxwell extends JPanel{
     /*
      * paints the jpanel
      */
-    public void paintComponents(){
+    private void paintComponents(){
         paintCenter();
         for (int num:ParticulasBlue){
             Panel.getComponent(num).setBackground(color2);
@@ -114,9 +114,9 @@ public class Maxwell extends JPanel{
     }
 
     /*
-     * Set white the board
+     * make white the board
      */
-    private void setWhite(){
+    private void makeWhite(){
         Component[] componentesDer = Panel.getComponents();
         for (Component i:componentesDer){
             i.setBackground(Color.WHITE);
@@ -137,7 +137,7 @@ public class Maxwell extends JPanel{
      * @param int [][] info
      */
     public void refresh(int[][] info){
-        setWhite();
+        makeWhite();
         setVariables(info);
         paintCenter();
         paintComponents();

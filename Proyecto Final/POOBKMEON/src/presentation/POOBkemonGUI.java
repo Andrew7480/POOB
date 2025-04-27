@@ -16,6 +16,9 @@ public class POOBkemonGUI extends JFrame {
     private PrincipalPanel menuPrincipal;
     private JButton regresarNormal;
     private JButton regresarSurvival;
+    private JButton playerVsMachine;
+    private JButton MachineVsMachine;
+    private JButton playerVsPlayer;
     
     /**
      * Constructor of POOBkemon
@@ -128,6 +131,8 @@ public class POOBkemonGUI extends JFrame {
         JButton btnRegresar = new JButton("Volver al Menú Principal");
         styleButton(btnRegresar);
         if (isNormal) {
+            JPanel mN = modeNormal();
+            gamePanel.add(mN,BorderLayout.CENTER);
             regresarNormal = btnRegresar;
         } else {
             regresarSurvival = btnRegresar;
@@ -149,6 +154,31 @@ public class POOBkemonGUI extends JFrame {
         gamePanel.add(buttonPanel, BorderLayout.SOUTH);
         
         return gamePanel;
+    }
+    private JPanel modeNormal(){
+        playerVsMachine = new JButton("Player VS Machine");
+        MachineVsMachine = new JButton("Machine vs Machine");
+        playerVsPlayer = new JButton("Player vs Player");
+        styleButton(playerVsMachine);
+        styleButton(MachineVsMachine);
+        styleButton(playerVsPlayer);
+        JPanel options = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(new Color(0, 0, 0, 180));
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.dispose();
+            super.paintComponent(g);
+            }
+        };
+        options.setOpaque(false);
+        options.setLayout(new BorderLayout());
+        options.add(playerVsMachine,BorderLayout.NORTH);
+        options.add(MachineVsMachine);
+        options.add(playerVsPlayer);
+
+        return options;
     }
     
     private void styleButton(JButton button) {
