@@ -1,11 +1,12 @@
 package domain;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.*;
-import java.util.Collections;
 
 public class Sistema{
 
@@ -17,6 +18,10 @@ public class Sistema{
         estaciones =  new TreeMap<>();
         troncales =  new TreeMap<>();
         rutas =   new TreeMap<>();
+        pruebas();
+    }
+
+    private void pruebas() throws TransmilenioException{
         addEstacion( new Estacion("Mandalay", "Media" ,10) );
         addEstacion(  new Estacion("Campin", "Media" ,10));
         addEstacion(  new Estacion("Zona Industrial", "Media" ,10));
@@ -147,7 +152,7 @@ public class Sistema{
      * @param nombreArchivo
      * @throws IOException
      */
-    public void importarRutaDesdeArchivo(String nombreArchivo) throws IOException {
+    public Ruta importarRutaDesdeArchivo(String nombreArchivo) throws IOException {
         BufferedReader archivos = new BufferedReader(new FileReader(nombreArchivo));
         String[] nombreRuta = archivos.readLine().split(" ");
         Ruta ruta1; 
@@ -173,6 +178,7 @@ public class Sistema{
             }
         }
         archivos.close();
+        return ruta1;
     }
 
     /**
@@ -197,27 +203,23 @@ public class Sistema{
             System.out.println(e.getMessage());
         }
     }
-
-    public void salvarLaInformacionTroncal(String nombreTroncal) throws TransmilenioException{
-        if (!troncales.containsKey(nombreTroncal)) throw new TransmilenioException(TransmilenioException.NOT_FOUND);
-        Troncal troncal = troncales.get(nombreTroncal);
-        try {
-            String nombreArchivo = nombreTroncal + ".txt";
-            BufferedWriter archivo = new BufferedWriter(new FileWriter(nombreArchivo));
-            archivo.write(nombreTroncal);
-            archivo.newLine();
-            archivo.write(troncal.getVelocidadProm());
-            archivo.newLine();
-            archivo.write(troncal.getStringEstaciones());
-            archivo.close();
-        } catch (Exception e) {
-        }
-    }
     
     // AutoNorte
     // 30
     // [CAMPIN,CALLE 75,CASTELLANA,GUATOQUE...etc]
-
+    // https://www.geeksforgeeks.org/serialization-in-java/
+    public void salavaInformacionTroncalSerialization(String nombreTroncal) throws TransmilenioException{
+        if (!troncales.containsKey(nombreTroncal)) throw new TransmilenioException(TransmilenioException.NOT_FOUND);
+        Troncal troncal = troncales.get(nombreTroncal);
+        String nombreArchivo = nombreTroncal + ".txt";
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nombreArchivo));
+            out.writeObject(troncal);
+            out.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private void addEstacion(Estacion estacion){
         estaciones.put(estacion.getName(),estacion);

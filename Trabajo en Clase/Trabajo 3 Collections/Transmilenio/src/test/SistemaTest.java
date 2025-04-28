@@ -2,6 +2,8 @@ package test;
 import domain.*;
 import static org.junit.Assert.*;
 import java.beans.Transient;
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,6 +64,48 @@ public class SistemaTest{
         catch(TransmilenioException e){
             fail();
         }    
+    }
+
+    @Test
+    public void makeADocument(){
+        try{
+            Sistema sistem = new Sistema();
+            sistem.exportarAArchivoTexto("prueba", "Mandalay","Banderas");
+        }
+        catch(TransmilenioException e){
+            fail();
+        }    
+    }
+    
+    @Test
+    public void openADocument(){
+        try{
+            Sistema sistem = new Sistema();
+            Ruta nueva = sistem.importarRutaDesdeArchivo("src/test/prueba.txt");
+            assertEquals(nueva.getName(),"Avenida-Americas");
+        }
+        catch(TransmilenioException e){
+            fail();
+        }
+        catch(IOException e){
+            fail();
+        }
+        catch(Exception i){
+            fail();
+        }
+    }
+    @Test
+    public void SaveTroncal(){
+        try{
+            Sistema sistem = new Sistema();
+            sistem.salavaInformacionTroncalSerialization("NQS-sur");
+        }
+        catch(TransmilenioException e){
+            fail();
+        }
+        catch(Exception i){
+            fail();
+        }
     }
 
 }

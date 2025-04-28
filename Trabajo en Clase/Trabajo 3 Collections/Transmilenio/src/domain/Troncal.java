@@ -1,7 +1,8 @@
 package domain;
+import java.io.Serializable;
 import java.util.*;
 
-public class Troncal {
+public class Troncal implements Serializable{
     private String nombre;
     private int velocidadProm;
     private HashMap<String,Estacion> estaciones;
