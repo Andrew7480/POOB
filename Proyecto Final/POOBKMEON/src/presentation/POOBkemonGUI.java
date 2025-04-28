@@ -208,7 +208,7 @@ public class POOBkemonGUI extends JFrame {
     private JPanel modesPlayerVsPlayer(String backgroundImage,String panelName){
         JPanel game = background(backgroundImage);
         game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver al Menú Principal");
+        JButton btnRegresar = new JButton("Volver");
         styleButton(btnRegresar);
         regresarPvsP = btnRegresar;
         JPanel buttonPanel = invisiblePanelWithOpacity();
@@ -221,7 +221,7 @@ public class POOBkemonGUI extends JFrame {
     private JPanel modesPlayerVsMachine(String backgroundImage,String panelName){
         JPanel game = background(backgroundImage);
         game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver al Menú Principal");
+        JButton btnRegresar = new JButton("Volver");
         styleButton(btnRegresar);
         regresarPvsM = btnRegresar;
         JPanel buttonPanel = invisiblePanelWithOpacity();
@@ -235,7 +235,7 @@ public class POOBkemonGUI extends JFrame {
     private JPanel modesMachineVsMachine(String backgroundImage,String panelName){
         JPanel game = background(backgroundImage);
         game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver al Menú Principal");
+        JButton btnRegresar = new JButton("Volver");
         styleButton(btnRegresar);
         regresarMvsM = btnRegresar;
         JPanel buttonPanel = invisiblePanelWithOpacity();
