@@ -25,6 +25,17 @@ public class POOBkemonGUI extends JFrame {
     private JButton regresarPvsP;
     private JButton regresarPvsM;
     private JButton regresarPokedex;
+    private JButton regresarNS;
+    private JButton modoNormal;
+    private JButton modoSurvival;
+    private JButton regresarPvsPS;
+    private JButton playerVsPlayerSurvival;
+
+    private PokedexPanel pokedexPanelPrueba;
+    private ModesOfGamePanel modesOfGamePanel;
+    private ModesOfGamePanelNormal modesOfGamePanelNormal;
+    private ModesOfGamePanelSurvival modesOfGamePanelSurvival;
+
     
     /**
      * Constructor of POOBkemon
@@ -67,32 +78,34 @@ public class POOBkemonGUI extends JFrame {
                 saveOpen();
             }
         });
-        menuPrincipal.modoNormal.addActionListener(new ActionListener(){
+        menuPrincipal.jugar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor, "modos de juego");
+            }
+        });
+
+        modesOfGamePanel.getButtonNormal().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor, "normal");
             }
         });
-        menuPrincipal.modoSurvival.addActionListener(new ActionListener(){
+
+        modesOfGamePanelNormal.getButtonRegresar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "survival");
+                cardLayout.show(panelContenedor, "modos de juego");
             }
         });
-        regresarNormal.addActionListener(new ActionListener(){
+        modesOfGamePanelSurvival.getButtonRegresar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "principal");
-            }
-        });
-        regresarSurvival.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "principal");
+                cardLayout.show(panelContenedor, "modos de juego");
             }
         });
 
-        playerVsMachine.addActionListener(new ActionListener(){
+        modesOfGamePanelNormal.getButtonPvsM().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 
@@ -100,14 +113,21 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-        playerVsPlayer.addActionListener(new ActionListener(){
+        modesOfGamePanelNormal.getButtonPvsP().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"player vs player");
             }
         });
 
-        machineVsMachine.addActionListener(new ActionListener(){
+        modesOfGamePanelSurvival.getButtonPvsP().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"player vs player survival");
+            }
+        });
+
+        modesOfGamePanelNormal.getButtonMvsM().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"machine vs machine");
@@ -142,13 +162,43 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-        regresarPokedex.addActionListener(new ActionListener(){
+        pokedexPanelPrueba.getButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"principal");
             }
         });
+        
+        modesOfGamePanel.getButtonRegresar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"principal");
+            }
+        });
+        
+        
+        modesOfGamePanel.getButtonNormal().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
 
+
+        modesOfGamePanel.getButtonSurvival().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"survival");
+            }
+        });
+
+
+        regresarPvsPS.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"survival");
+            }
+        });
 
 
     }
@@ -169,48 +219,46 @@ public class POOBkemonGUI extends JFrame {
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
 
-        menuPrincipal = new PrincipalPanel();
+        menuPrincipal = new PrincipalPanel(this);
         panelContenedor.add(menuPrincipal, "principal");
 
-        JPanel modoNormal = modesOfGamePanel("bb8jr133l9sa1.GIF", "normal", true);
-        panelContenedor.add(modoNormal, "normal");
-        /* Escenario de pelea? */
-        JPanel modoSurvival = modesOfGamePanel("survival.GIF", "survival", false);
-        panelContenedor.add(modoSurvival, "survival");
+        pokedexPanelPrueba = new PokedexPanel(this);
+        panelContenedor.add(pokedexPanelPrueba,"pokedex");
 
-        JPanel pokedex = modePokedex("Pokémon.JPG","pokedex");
-        panelContenedor.add(pokedex,"pokedex");
+        modesOfGamePanel = new ModesOfGamePanel(this);
+        panelContenedor.add(modesOfGamePanel, "modos de juego");
 
-        JPanel playerVsPlayer = modesPlayerVsPlayer("443244fb22ae8c0c7e530a4ea33af69a.JPG","player vs player");
+        modesOfGamePanelNormal = new ModesOfGamePanelNormal(this);
+        panelContenedor.add(modesOfGamePanelNormal,"normal");
+
+        modesOfGamePanelSurvival = new ModesOfGamePanelSurvival(this);
+        panelContenedor.add(modesOfGamePanelSurvival,"survival");
+
+        JPanel playerVsPlayer = modesPlayerVsPlayer("443244fb22ae8c0c7e530a4ea33af69a.JPG","player vs player",true);
         panelContenedor.add(playerVsPlayer,"player vs player");
+
+        JPanel playerVsPlayerSurvival = modesPlayerVsPlayer("443244fb22ae8c0c7e530a4ea33af69a.JPG","player vs player survival",false);
+        panelContenedor.add(playerVsPlayerSurvival,"player vs player survival");
 
         JPanel playerVsMachine = modesPlayerVsMachine("wp9682788.JPG", "player vs machine");
         panelContenedor.add(playerVsMachine,"player vs machine");
 
-        JPanel machineVsMachine = modesMachineVsMachine("", "player vs machine");
+        JPanel machineVsMachine = modesMachineVsMachine("", "machine vs machine");
         panelContenedor.add(machineVsMachine,"machine vs machine");
 
     }
-    private JPanel modePokedex(String backgroundImage, String panelName){
-        JPanel game = background(backgroundImage);
-        game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver al Menú Principal");
-        styleButton(btnRegresar);
-        regresarPokedex = btnRegresar;
-        JPanel buttonPanel = invisiblePanelWithOpacity();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
-        buttonPanel.add(btnRegresar);
-        game.add(buttonPanel, BorderLayout.SOUTH);
-        return game;
-    }
 
-    private JPanel modesPlayerVsPlayer(String backgroundImage,String panelName){
+    private JPanel modesPlayerVsPlayer(String backgroundImage,String panelName,boolean normal){
         JPanel game = background(backgroundImage);
         game.setLayout(new BorderLayout());
         JButton btnRegresar = new JButton("Volver");
         styleButton(btnRegresar);
-        regresarPvsP = btnRegresar;
+        if (normal){
+            regresarPvsP = btnRegresar;
+        }
+        else{
+            regresarPvsPS = btnRegresar;
+        }
         JPanel buttonPanel = invisiblePanelWithOpacity();
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
@@ -218,6 +266,7 @@ public class POOBkemonGUI extends JFrame {
         game.add(buttonPanel, BorderLayout.SOUTH);
         return game;
     }
+
     private JPanel modesPlayerVsMachine(String backgroundImage,String panelName){
         JPanel game = background(backgroundImage);
         game.setLayout(new BorderLayout());
@@ -245,59 +294,7 @@ public class POOBkemonGUI extends JFrame {
         game.add(buttonPanel, BorderLayout.SOUTH);
         return game;
     }
-    
-    private JPanel modesOfGamePanel(String backgroundImage, String panelName, boolean isNormal) {
-        JPanel gamePanel = background(backgroundImage);
-        gamePanel.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver al Menú Principal");
-        styleButton(btnRegresar);
-        if (isNormal) {
-            JPanel mN = modeNormal();
-            JPanel centro = new JPanel(new GridBagLayout());
-            centro.setOpaque(false);
-            centro.add(mN);
-            gamePanel.add(centro,BorderLayout.CENTER);
-            regresarNormal = btnRegresar;
-        } else {
-            regresarSurvival = btnRegresar;
-        }
-
-        JPanel buttonPanel = invisiblePanelWithOpacity();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
-        buttonPanel.add(btnRegresar);
-        gamePanel.add(buttonPanel, BorderLayout.SOUTH);
-        
-        return gamePanel;
-    }
-
-    private JPanel modeNormal() {
-        playerVsMachine = new JButton("Player VS Machine");
-        machineVsMachine = new JButton("Machine vs Machine");
-        playerVsPlayer = new JButton("Player vs Player");
-    
-        styleButton(playerVsMachine);
-        styleButton(machineVsMachine);
-        styleButton(playerVsPlayer);
-    
-        JPanel options = invisiblePanelWithoutOpacity();
-        options.setOpaque(false);
-        options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
-    
-        playerVsMachine.setAlignmentX(Component.CENTER_ALIGNMENT);
-        machineVsMachine.setAlignmentX(Component.CENTER_ALIGNMENT);
-        playerVsPlayer.setAlignmentX(Component.CENTER_ALIGNMENT);
-    
-        options.add(Box.createVerticalStrut(20));
-        options.add(playerVsMachine);
-        options.add(Box.createVerticalStrut(15));
-        options.add(machineVsMachine);
-        options.add(Box.createVerticalStrut(15));
-        options.add(playerVsPlayer);
-    
-        return options;
-    }
-    private JPanel invisiblePanelWithoutOpacity(){
+    public JPanel invisiblePanelWithoutOpacity(){
         return new JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
@@ -309,7 +306,7 @@ public class POOBkemonGUI extends JFrame {
             }
         };
     }
-    private JPanel invisiblePanelWithOpacity(){
+    public JPanel invisiblePanelWithOpacity(){
         return new JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
@@ -337,7 +334,16 @@ public class POOBkemonGUI extends JFrame {
         };
     }
     
-    private void styleButton(JButton button) {
+    public void styleButtonExternal(JButton button) {
+        button.setFont(new Font("Times new Roman", Font.BOLD, 14));
+        button.setBackground(new Color(30, 30, 180));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createRaisedBevelBorder());
+        button.setPreferredSize(new Dimension(180, 35));
+    }
+
+    public void styleButton(JButton button){
         button.setFont(new Font("Times new Roman", Font.BOLD, 14));
         button.setBackground(new Color(70, 130, 180));
         button.setForeground(Color.WHITE);

@@ -6,7 +6,8 @@ public interface Ataque {
     public int precision;
     public int PP;
     */
-    public void doAttack();
+    
+    public void doAttack(Pokemon oponente);
     public void ataqueNormal();
     public void ataqueHabilidad();
     public void ataqueDefinitivo();
