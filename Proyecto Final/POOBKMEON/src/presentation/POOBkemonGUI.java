@@ -16,27 +16,16 @@ public class POOBkemonGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel panelContenedor;
     private PrincipalPanel menuPrincipal;
-    private JButton regresarNormal;
-    private JButton regresarSurvival;
-    private JButton playerVsMachine;
-    private JButton machineVsMachine;
-    private JButton playerVsPlayer;
     private JButton regresarMvsM;
-    private JButton regresarPvsP;
-    private JButton regresarPvsM;
-    private JButton regresarPokedex;
-    private JButton regresarNS;
-    private JButton modoNormal;
-    private JButton modoSurvival;
-    private JButton regresarPvsPS;
-    private JButton playerVsPlayerSurvival;
-
     private PokedexPanel pokedexPanelPrueba;
     private ModesOfGamePanel modesOfGamePanel;
     private ModesOfGamePanelNormal modesOfGamePanelNormal;
     private ModesOfGamePanelSurvival modesOfGamePanelSurvival;
-
-    
+    private ModePlayerVSPlayer playerVSplayerPanel;
+    private ModePlayerVSPlayer playerVSplayerPanelSurvival;
+    private ModePlayerVsMachine playerVsMachinePanel;
+    private BattlePanel panelBattle;
+    private ModeMachineVsMachine machineVsMachinePanel;
     /**
      * Constructor of POOBkemon
      */
@@ -134,21 +123,14 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-        regresarMvsM.addActionListener(new ActionListener(){
+        machineVsMachinePanel.getBtnRegresar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"normal");
             }
         });
 
-        regresarPvsM.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-        regresarPvsP.addActionListener(new ActionListener(){
+        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"normal");
@@ -193,14 +175,41 @@ public class POOBkemonGUI extends JFrame {
         });
 
 
-        regresarPvsPS.addActionListener(new ActionListener(){
+        playerVSplayerPanelSurvival.getButtonRegresarSurvival().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"survival");
             }
         });
 
+        playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
+            }
+        });
 
+
+        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        panelBattle.getRunButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"principal");
+            }
+        });
+
+        playerVsMachinePanel.getButtonRegresar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
     }
 
     private void prepareElementsMenu(){
@@ -234,51 +243,21 @@ public class POOBkemonGUI extends JFrame {
         modesOfGamePanelSurvival = new ModesOfGamePanelSurvival(this);
         panelContenedor.add(modesOfGamePanelSurvival,"survival");
 
-        JPanel playerVsPlayer = modesPlayerVsPlayer("443244fb22ae8c0c7e530a4ea33af69a.JPG","player vs player",true);
-        panelContenedor.add(playerVsPlayer,"player vs player");
+        playerVSplayerPanel = new ModePlayerVSPlayer(this,true);
+        panelContenedor.add(playerVSplayerPanel,"player vs player");
 
-        JPanel playerVsPlayerSurvival = modesPlayerVsPlayer("443244fb22ae8c0c7e530a4ea33af69a.JPG","player vs player survival",false);
-        panelContenedor.add(playerVsPlayerSurvival,"player vs player survival");
+        playerVSplayerPanelSurvival = new ModePlayerVSPlayer(this,false);
+        panelContenedor.add(playerVSplayerPanelSurvival,"player vs player survival");
 
-        JPanel playerVsMachine = modesPlayerVsMachine("wp9682788.JPG", "player vs machine");
-        panelContenedor.add(playerVsMachine,"player vs machine");
+        playerVsMachinePanel = new ModePlayerVsMachine(this);
+        panelContenedor.add(playerVsMachinePanel,"player vs machine");
 
-        JPanel machineVsMachine = modesMachineVsMachine("", "machine vs machine");
-        panelContenedor.add(machineVsMachine,"machine vs machine");
+        machineVsMachinePanel = new ModeMachineVsMachine(this);
+        panelContenedor.add(machineVsMachinePanel,"machine vs machine");
 
-    }
+        panelBattle = new BattlePanel(this);
+        panelContenedor.add(panelBattle,"battle");
 
-    private JPanel modesPlayerVsPlayer(String backgroundImage,String panelName,boolean normal){
-        JPanel game = background(backgroundImage);
-        game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver");
-        styleButton(btnRegresar);
-        if (normal){
-            regresarPvsP = btnRegresar;
-        }
-        else{
-            regresarPvsPS = btnRegresar;
-        }
-        JPanel buttonPanel = invisiblePanelWithOpacity();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
-        buttonPanel.add(btnRegresar);
-        game.add(buttonPanel, BorderLayout.SOUTH);
-        return game;
-    }
-
-    private JPanel modesPlayerVsMachine(String backgroundImage,String panelName){
-        JPanel game = background(backgroundImage);
-        game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver");
-        styleButton(btnRegresar);
-        regresarPvsM = btnRegresar;
-        JPanel buttonPanel = invisiblePanelWithOpacity();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
-        buttonPanel.add(btnRegresar);
-        game.add(buttonPanel, BorderLayout.SOUTH);
-        return game;
     }
 
     private JPanel modesMachineVsMachine(String backgroundImage,String panelName){

@@ -13,7 +13,7 @@ public class ModesOfGamePanelNormal extends JPanel {
     public ModesOfGamePanelNormal(POOBkemonGUI newPo){
         po = newPo;
         setLayout(new BorderLayout());
-        btnRegresar = new JButton("Volver a los Modos De Juego");
+        btnRegresar = new JButton("Modos De Juego");
         po.styleButton(btnRegresar);
         JPanel mN = modeNormal();
         JPanel centro = new JPanel(new GridBagLayout());
@@ -44,9 +44,10 @@ public class ModesOfGamePanelNormal extends JPanel {
 
 
     private JPanel modeNormal() {
+
+        playerVsPlayer = new JButton("Player vs Player");
         playerVsMachine = new JButton("Player VS Machine");
         machineVsMachine = new JButton("Machine vs Machine");
-        playerVsPlayer = new JButton("Player vs Player");
     
         po.styleButton(playerVsMachine);
         po.styleButton(machineVsMachine);
@@ -61,11 +62,11 @@ public class ModesOfGamePanelNormal extends JPanel {
         playerVsPlayer.setAlignmentX(Component.CENTER_ALIGNMENT);
     
         options.add(Box.createVerticalStrut(20));
+        options.add(playerVsPlayer);
+        options.add(Box.createVerticalStrut(15));
         options.add(playerVsMachine);
         options.add(Box.createVerticalStrut(15));
         options.add(machineVsMachine);
-        options.add(Box.createVerticalStrut(15));
-        options.add(playerVsPlayer);
     
         return options;
     }

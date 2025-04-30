@@ -8,8 +8,6 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
-import domain.PoobkemonException;
-
 /*
  * POOBkemonTest
  */
@@ -29,7 +27,7 @@ public class POOBkemonTest {
         try{
             System.out.println("si?");
             POOBkemon poobkemon = new POOBkemon();
-            poobkemon.deserializarItems();
+            poobkemon.deserializateItems();
             TreeMap<String, Item> prueba = poobkemon.getItems();
             for(String key : prueba.keySet()) {
                 System.out.println(key + " : " + prueba.get(key).getDescription());

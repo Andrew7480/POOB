@@ -11,7 +11,7 @@ public class ModesOfGamePanelSurvival extends JPanel {
     public ModesOfGamePanelSurvival(POOBkemonGUI newPo){
         po = newPo;
         setLayout(new BorderLayout());
-        btnRegresar = new JButton("Volver a los Modos De Juego");
+        btnRegresar = new JButton("Modos De Juego");
         po.styleButton(btnRegresar);
         JPanel mN = modeSurvival();
         JPanel centro = new JPanel(new GridBagLayout());

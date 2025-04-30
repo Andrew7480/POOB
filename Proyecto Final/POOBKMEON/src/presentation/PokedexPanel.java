@@ -15,7 +15,7 @@ public class PokedexPanel extends JPanel{
         setLayout(new BorderLayout());
         pokedexPanel = po.invisiblePanelWithoutOpacity();
         pokedexPanel.setOpaque(false);
-        pokedexPanel.setLayout(null);
+        pokedexPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20 , 10));
 
 
         regresarPokedex = new JButton("Volver");
@@ -23,22 +23,8 @@ public class PokedexPanel extends JPanel{
         regresarPokedex.setBounds(10,10,100,30);
         pokedexPanel.add(regresarPokedex);
 
-        JLabel titleLabel = new JLabel("POKÉDEX", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(Color.BLACK);
-        titleLabel.setBounds(300, 10, 200, 30);
-        pokedexPanel.add(titleLabel);
 
-        JPanel statsPanel = new JPanel();
-        statsPanel.setLayout(null);
-        statsPanel.setBackground(new Color(0, 64, 0));
-        statsPanel.setBounds(30, 60, 200, 150);
-        pokedexPanel.add(statsPanel);
-
-
-
-
-        add(pokedexPanel, BorderLayout.CENTER);
+        add(pokedexPanel, BorderLayout.SOUTH);
 
     }
     public JButton getButton(){
@@ -47,7 +33,7 @@ public class PokedexPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
-        //g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
+        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
+        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }
