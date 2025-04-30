@@ -6,4 +6,9 @@ public class ChangingTrainer extends MachineTrainer {
     }
 
 
+    public void changePokemon(Pokemon target){
+        //Obtener posicion en la matriz [][]
+    }
+
+
 }

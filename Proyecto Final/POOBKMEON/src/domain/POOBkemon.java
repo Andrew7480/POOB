@@ -10,7 +10,35 @@ public class POOBkemon {
 
     private TreeMap<String, Item> items = new TreeMap<>(); //items for serialization
 
+    //turno actual
+    private Trainer turn;
+    //son los que estan en la batalla
+    private Trainer trainerTurn1;
+    private Trainer TrainerTurn2;
+
+    //idea 2
+    private int turno = 1;
+
     public POOBkemon() {
+    }
+
+    public void iniciarJuego(String jugabilidad){  // ya existen pokemones, items, movimientos y estados y/o ytaines defectos
+        ///
+        /// 
+        //while hastya que los todos pokemones de alguno mueran
+    }
+
+    public void acciontrainerTurnoDelTrainerMovimiento(Movement mov){
+        turn.doMovement(mov);
+    }
+    public void acctiontrainerTurnoDelTrainerCambiar(Pokemon pok) throws PoobkemonException{
+        turn.change(pok);
+    }
+    public void actiontrainerTurnoInventario(Item item) throws PoobkemonException{
+        turn.useItem(item);
+    }
+    public void actuinHuir() throws PoobkemonException{
+        //reset
     }
 
     public void iniciateGameDefault() { // esto seria tambien para serializar

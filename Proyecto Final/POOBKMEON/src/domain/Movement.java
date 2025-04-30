@@ -46,15 +46,13 @@ public class Movement implements Attackable{
         PP --;
     }
 
-    public int doAttack(Movement movimiento,Pokemon attacker, Pokemon target, int attack){
+    public int doAttack(Pokemon attacker, Pokemon target, int attack) throws PoobkemonException{
         double levelFactor = (2.0 * attacker.getLevel()) / 5.0 + 2.0;
         double attackDefenseRatio = (double) attack / target.getDefense();
-        double damage = ((levelFactor * movimiento.getPower() * attackDefenseRatio) / 50.0) + 2.0;
-        damage *= movimiento.getMultiplicator(target.getPrincipalType());
+        double damage = ((levelFactor * power * attackDefenseRatio) / 50.0) + 2.0;
+        damage *= getMultiplicator(target.getPrincipalType());
         damage *= 0.85 + (Math.random() * 0.15);
         return (int) damage;
     }
-
-    
     
 }

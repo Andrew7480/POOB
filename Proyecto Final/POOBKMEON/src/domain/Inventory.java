@@ -30,4 +30,10 @@ public class Inventory {
         if (!pokemons.containsValue(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         pokemons.put(pokemon.getName(), pokemon);
     }
+    public boolean contains(Pokemon pokemon){
+        return pokemons.containsKey(pokemon.getName());
+    }
+    public boolean contains(Item item){
+        return items.containsKey(item.getName());
+    }
 }

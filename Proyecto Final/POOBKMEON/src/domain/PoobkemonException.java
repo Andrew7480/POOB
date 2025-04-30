@@ -7,6 +7,7 @@ public class PoobkemonException  extends Exception {
     public static final String ITEM_NOT_USABLE = "No se peude usar la poson.";
     public static final String INVALID_MOVEMENT = "on.";
     public static final String INVALID_VALUES = "on.";
+    public static final String INVALID_EFFECT = "on.";
     
     public PoobkemonException(String message) {
         super(message);

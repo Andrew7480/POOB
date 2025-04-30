@@ -18,6 +18,7 @@ public class Pokemon{
     private boolean usedReviveItem = false;
 
     private ArrayList<Movement> movements;
+    private ArrayList<StatusEffect> effects;
 
     public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType) {
         name = newName;
@@ -31,6 +32,8 @@ public class Pokemon{
         principalType = newPrincipalType;
         secondaryType = newSecondaryType;
         specialDefense = newSpecialDefense;
+        movements = new ArrayList<>();
+        effects = new ArrayList<>();
     }
 
 
@@ -85,6 +88,8 @@ public class Pokemon{
     public void gainPS(int gainPs){
         ps += gainPs; 
     }
+    
+
     public void gainAttack(int newAttack){  // pociones
         attack += newAttack;
     }
@@ -120,12 +125,24 @@ public class Pokemon{
         velocity -= minusVelocity;
     }
 
+    public void addEffect(StatusEffect Effect) throws PoobkemonException{
+        if(!effects.contains(Effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT);
+        effects.add(Effect);
+    }
+
+
+    public void prepare(){
+        for(StatusEffect st: effects){
+            st.affectPokemon(this);
+        }
+    }
+    
     public void useMovement(Movement movimiento, Pokemon target) throws PoobkemonException{
         if (!isAlive) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
 
-        if (movimiento.getType().getTypeMov() == "Fisico")  target.losePS(movimiento.doAttack(movimiento, target, target, attack));
-        else if (movimiento.getType().getTypeMov() == "Especial")  target.losePS (movimiento.doAttack(movimiento, target, target, specialAttack) );
+        if (movimiento.getType().getTypeMov() == "Fisico")  target.losePS(movimiento.doAttack(target, target, attack));
+        else if (movimiento.getType().getTypeMov() == "Especial")  target.losePS (movimiento.doAttack(target, target, specialAttack) );
     }
 
 }

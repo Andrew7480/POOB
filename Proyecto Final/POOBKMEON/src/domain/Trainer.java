@@ -1,11 +1,17 @@
 package domain;
 
-public abstract class Trainer {
+public class Trainer {
     protected String name;
     protected Inventory inventory;
 
-    Trainer(String newName) {
+    protected String color; //mirar despues
+
+    protected Pokemon actualPokemon;
+
+
+    public Trainer(String newName) {
         name = newName;
+        
     }
 
     public void decide(Pokemon pokemon, Movement movement, Pokemon target) throws PoobkemonException{
@@ -19,9 +25,15 @@ public abstract class Trainer {
         return name;
     }
 
-    public void usePotion(Pokemon pokemon, Potion potion) throws PoobkemonException{
-        if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        potion.useItem(pokemon);
+    public void useItem(Item item) throws PoobkemonException{
+        //if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
+        item.useItem(actualPokemon);
+    }
+    public void doMovement(Movement mov){}
+
+    public void change(Pokemon pokemon) throws PoobkemonException{
+        if (!inventory.contains(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
+        actualPokemon = pokemon;
     }
 
 }
