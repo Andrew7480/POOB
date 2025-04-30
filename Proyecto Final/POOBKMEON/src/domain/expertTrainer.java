@@ -1,6 +1,6 @@
 package domain;
 
-public class expertTrainer extends MachineTrainer {
+public class expertTrainer extends Trainer {
     public expertTrainer(String newName) {
         super(newName);
     }

@@ -36,4 +36,8 @@ public class Inventory {
     public boolean contains(Item item){
         return items.containsKey(item.getName());
     }
+
+    public TreeMap<String,Pokemon> getPokemons(){
+        return pokemons;
+    }
 }

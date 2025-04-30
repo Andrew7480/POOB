@@ -31,7 +31,7 @@ public class Trainer {
     }
     public void doMovement(Movement mov){}
 
-    public void change(Pokemon pokemon) throws PoobkemonException{
+    public void changePokemon(Pokemon pokemon) throws PoobkemonException{
         if (!inventory.contains(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         actualPokemon = pokemon;
     }

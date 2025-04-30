@@ -20,6 +20,10 @@ public class Pokemon{
     private ArrayList<Movement> movements;
     private ArrayList<StatusEffect> effects;
 
+    public ArrayList<Movement> getMovements(){
+        return movements;
+    }
+
     public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType) {
         name = newName;
         level = newLevel;
