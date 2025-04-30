@@ -29,4 +29,8 @@ public enum PokemonType {
         return typeMov;
     }
 
+    public int getIndex() {
+        return this.ordinal();
+    }
+
 }

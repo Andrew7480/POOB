@@ -1,14 +1,14 @@
 package domain;
 import java.io.*;
 public class HyperPotion extends Potion implements Serializable{
-    private PotionType hyper;
     
     public HyperPotion(String name, String description, PotionType newHyper) {
-        super(name, description);
-        hyper = newHyper;
+        super(name, description, newHyper);
     }
 
-    public void useItem(Pokemon pokemon){
-        pokemon.gainAttack(hyper.getValue());
+    public void useItem(Pokemon pokemon) throws PoobkemonException{
+        super.useItem(pokemon);
+        pokemon.gainAttack(statics.getValue());
+        usedItem();
     }
 }

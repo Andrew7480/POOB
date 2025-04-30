@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class PrincipalPanel extends JPanel {
     private String download = "download";
+    private String title = "title";
     private JPanel modosDeJuego;
     private POOBkemonGUI po;
     public JButton jugar;
@@ -43,5 +44,11 @@ public class PrincipalPanel extends JPanel {
         super.paintComponent(g);
         ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ download+".GIF"));
         g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
+        Image centeredImage = new ImageIcon(getClass().getResource("/resources/"+title+".PNG")).getImage();
+        int scaledWidth = getWidth() / 2;
+        int scaledHeight = getHeight() / 2;
+        int x = (getWidth() - scaledWidth) / 2;
+        int y = (getHeight() - scaledHeight) / 2;
+        g.drawImage(centeredImage, x, y, scaledWidth,scaledHeight, this);
     }
 }

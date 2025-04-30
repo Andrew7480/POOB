@@ -13,12 +13,75 @@ public class POOBkemon {
     public POOBkemon() {
     }
 
-    public void iniciateGameDefault() { //playerTrainer vs MachineTrainer
+    public void iniciateGameDefault() { // esto seria tambien para serializar
+        String fileName = "machineTrainer.txt";
         Trainer playerTrainer = new PlayerTrainer("Player");
         Trainer machineTrainer = new DefensiveTrainer("Machine");
+        Trainer machineTrainerExpertTrainer = new expertTrainer("Machine");
+        Trainer machineChangingTrainer = new ChangingTrainer("Machine");
+        Trainer machineAttackingTrainer = new AttackingTrainer("Machine");
         entrenadores.put(playerTrainer.getName(), playerTrainer);
         entrenadores.put(machineTrainer.getName(), machineTrainer);
+        entrenadores.put(machineTrainerExpertTrainer.getName(), machineTrainerExpertTrainer);
+        entrenadores.put(machineChangingTrainer.getName(), machineChangingTrainer);
+        entrenadores.put(machineAttackingTrainer.getName(), machineAttackingTrainer);
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+            out.writeObject(playerTrainer);
+            out.writeObject(machineTrainer);
+            out.writeObject(machineTrainerExpertTrainer);
+            out.writeObject(machineChangingTrainer);
+            out.writeObject(machineAttackingTrainer);
+            out.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+    public void deserializateGame(){
+        String fileName = "machineTrainer.txt";
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+            Trainer playerTrainer = (PlayerTrainer) in.readObject();
+            Trainer machineTrainerDefensive = (DefensiveTrainer) in.readObject();
+            Trainer machineTrainerExpertTrainer = (expertTrainer) in.readObject();
+            Trainer machineChangingTrainer = (ChangingTrainer) in.readObject();
+            Trainer machineAttackingTrainer = (AttackingTrainer) in.readObject();
+            in.close();
+            entrenadores.put(playerTrainer.getName(), playerTrainer);
+            entrenadores.put(machineTrainerDefensive.getName(), machineTrainerDefensive);
+            entrenadores.put(machineTrainerExpertTrainer.getName(), machineTrainerExpertTrainer);
+            entrenadores.put(machineChangingTrainer.getName(), machineChangingTrainer);
+            entrenadores.put(machineAttackingTrainer.getName(), machineAttackingTrainer);
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    public TreeMap<String, Item> getItems() {
+        return items;
+    }
+
+
+    public void addPokemon(String name, Pokemon pokemon) {
+        pokedex.put(name, pokemon);
+    }
+    public void addTrainer(String name, Trainer trainer) {
+        entrenadores.put(name, trainer);
+    }
+    public Pokemon getPokemon(String name) {
+        return pokedex.get(name);
+    }
+    public Trainer getTrainer(String name) {
+        return entrenadores.get(name);
+    }
+    public TreeMap<String, Pokemon> getPokedex() {
+        return pokedex;
+    }
+
     public void iniciateItemsForSerialization(){
         String fileName = "itemsJuego.txt";
         DefensePotion hyperDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.HYPER_DEFENSE);
@@ -51,7 +114,7 @@ public class POOBkemon {
         }
        /* https://www.geeksforgeeks.org/serialization-in-java/*/ 
     }
-    public void deserializarItems(){
+    public void deserializateItems(){
         String fileName = "itemsJuego.txt";
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
@@ -80,25 +143,5 @@ public class POOBkemon {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
-    }
-    public TreeMap<String, Item> getItems() {
-        return items;
-    }
-
-
-    public void addPokemon(String name, Pokemon pokemon) {
-        pokedex.put(name, pokemon);
-    }
-    public void addTrainer(String name, Trainer trainer) {
-        entrenadores.put(name, trainer);
-    }
-    public Pokemon getPokemon(String name) {
-        return pokedex.get(name);
-    }
-    public Trainer getTrainer(String name) {
-        return entrenadores.get(name);
-    }
-    public TreeMap<String, Pokemon> getPokedex() {
-        return pokedex;
     }
 }

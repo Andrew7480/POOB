@@ -17,5 +17,13 @@ public abstract class Item implements Serializable{
         return description;
     }
 
-    public abstract void useItem(Pokemon pokemon);
+    public void useItem(Pokemon pokemon) throws PoobkemonException{
+        if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
+        if(!pokemon.isAlive() || !isUsable) throw new PoobkemonException(PoobkemonException.ITEM_NOT_USABLE);
+    }
+
+    protected void usedItem() {
+        isUsable = false;
+    }
+    
 }

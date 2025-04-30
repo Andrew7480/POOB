@@ -1,14 +1,14 @@
 package domain;
 
 public enum PotionType {
-    HYPER_DEFENSE(50),
-    SUPER_DEFENSE(30),
-    HYPER_ATTACK(50),
-    SUPER_ATTACK(30),
-    HYPER_PS(50),
-    SUPER_PS(30),
-    HYPER(50),
-    SUPER(30);
+    HYPER_DEFENSE(200),
+    SUPER_DEFENSE(50),
+    HYPER_ATTACK(200),
+    SUPER_ATTACK(50),
+    HYPER_PS(200),
+    SUPER_PS(50),
+    HYPER(200),
+    SUPER(50);
 
     private final int value;
 

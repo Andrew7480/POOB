@@ -1,13 +1,13 @@
 package domain;
 import java.io.*;
 public class PsPotion extends Potion implements Serializable {
-    protected PotionType PS;
     public PsPotion(String name, String description, PotionType newPs) {
-        super(name, description);
-        PS = newPs;
+        super(name, description,newPs);
     }
 
-    public void useItem(Pokemon pokemon){
-        pokemon.gainAttack(PS.getValue());
+    public void useItem(Pokemon pokemon) throws PoobkemonException{
+        super.useItem(pokemon);
+        pokemon.gainAttack(statics.getValue());
+        usedItem();
     }
 }
