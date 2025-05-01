@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Inventory {
+public class Inventory implements Serializable{
     private int capacity;
     private HashMap<String, Item> items = new HashMap<>();
     private TreeMap<String, Pokemon> pokemons = new TreeMap<>();
@@ -40,6 +41,9 @@ public class Inventory {
 
     public TreeMap<String,Pokemon> getPokemons(){
         return pokemons;
+    }
+    public boolean canStillFighting(){ // prodria tambien verificar si no toiene revivir
+        return getAlivePokemons().size() > 0;
     }
     public ArrayList<Pokemon> getAlivePokemons(){
         ArrayList<Pokemon> poke= new ArrayList<Pokemon> ();

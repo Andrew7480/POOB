@@ -1,7 +1,8 @@
 package domain;
+import java.io.Serializable;
 import java.util.*;
 
-public class Pokemon{
+public class Pokemon implements Serializable {
     private String name;
     private int level;
     private final int maxPs;
@@ -19,6 +20,7 @@ public class Pokemon{
 
     private ArrayList<Movement> movements;
     private ArrayList<StatusEffect> effects;
+    
 
     public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType) {
         name = newName;
@@ -91,7 +93,7 @@ public class Pokemon{
         ArrayList<MovementState> deffenseGivers = new ArrayList<>();
 
         for (MovementState stateMov : stateMovements) {
-            if (stateMov.getStatus() instanceof EffectDefense) {
+            if (stateMov.getStatus().getStateTo().containsKey("Defense")) {
                 deffenseGivers.add((MovementState) stateMov);
             }
         }
@@ -102,7 +104,7 @@ public class Pokemon{
         ArrayList<MovementState> stateMovements = getStateMovements();
         ArrayList<MovementState> attackGivers = new ArrayList<>();
         for (MovementState stateMov : stateMovements) {
-            if (stateMov.getStatus() instanceof EffectAttack) {
+            if (stateMov.getStatus().getStateTo().containsKey("Ataque")) {
                 attackGivers.add((MovementState) stateMov);
             }
         }
@@ -118,6 +120,9 @@ public class Pokemon{
     }
     public boolean haveUsedReviveItem(){
         return usedReviveItem;
+    }
+    public void increaseStat(String stat, int amount ){
+        //mirar pues
     }
 
     public void losePS(double losePs){
@@ -202,18 +207,24 @@ public class Pokemon{
     }
 
 
-    public void useAleatoryMovement(Pokemon target){
+    public Movement aleatoryMovement(Pokemon target){
         ArrayList<Movement> temp = movementsUsables();
         Random random = new Random();
         int ramdomNum = random.nextInt(temp.size());
 
         Movement aleatoryMovement = temp.get(ramdomNum);
 
-        try {useMovement(aleatoryMovement, target);}
-        catch(PoobkemonException e){
-            //nse
+        return aleatoryMovement;
+    }
+
+
+    public void limitOfTime(){ //cuando no hace algo en 20 s
+        for(Movement m: movementsUsables()){
+            try{m.losePP();}
+            catch(PoobkemonException e){}
         }
     }
+
     @Override
     public boolean equals(Object ob){
         return equals((Pokemon) ob);

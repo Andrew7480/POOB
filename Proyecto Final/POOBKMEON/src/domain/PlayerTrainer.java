@@ -13,5 +13,6 @@ public class PlayerTrainer extends Trainer{
     public void useItem(Item item) throws PoobkemonException{
         item.useItem(actualPokemon);
     }
-    
+
+    public Movement decide(Pokemon pokemon){return null;}
 }

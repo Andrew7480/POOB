@@ -28,18 +28,92 @@ public class POOBkemon {
         //while hastya que los todos pokemones de alguno mueran
     }
 
-    public void movementPerformed(Movement mov, Pokemon target) throws PoobkemonException{
-        turn.pokemonMovement(mov,target);
+    public void actionOrderPM(Movement mov){
+        Movement mov1 = turn.decide(trainerTurn2.getPokemonInUse());
     }
+
+    public void actionOrderMM(){
+        Movement mov1 = trainerTurn1.decide(trainerTurn2.getPokemonInUse());
+        Movement mov2 = trainerTurn2.decide(trainerTurn1.getPokemonInUse());
+        if (mov1.getPriority() > mov2.getPriority()) {
+            movementPerfomrmed(trainerTurn1, trainerTurn2, mov1, mov2);
+        } 
+        else if (mov1.getPriority() == mov2.getPriority()) {
+            if (trainerTurn1.getPokemonInUse().getVelocity() > trainerTurn2.getPokemonInUse().getVelocity()) {
+                movementPerfomrmed(trainerTurn1, trainerTurn2, mov1, mov2);
+            } else {
+                movementPerfomrmed(trainerTurn2, trainerTurn1, mov2, mov1);
+            }
+        }
+    }
+
+    private void movementPerfomrmed(Trainer one, Trainer two, Movement movement1, Movement movement2 ){
+        try{
+            one.getPokemonInUse().useMovement(movement1, two.getPokemonInUse());
+        }
+        catch(PoobkemonException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+            two.getPokemonInUse().useMovement(movement2, one.getPokemonInUse());
+        }
+        catch(PoobkemonException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void movementPerformed(Movement mov, Pokemon target) throws PoobkemonException{
+        turn.pokemonMovement(mov,target);
+        turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
+    }
+
     public void actiontrainerTurnoDelTrainerCambiar(Pokemon pok) throws PoobkemonException{
         turn.changePokemon(pok);
+        turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
     }
     public void actiontrainerTurnoInventario(Item item) throws PoobkemonException{
         turn.useItem(item);
+        turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
     }
     public void actuinHuir() throws PoobkemonException{
-        //reset
+        //reset o metodo acabar batalla, que seria guardar los estados del pokemon items etc?
     }
+
+    public boolean theGameIsOVer(){
+        return (trainerTurn1.canStillFighting() && trainerTurn2.canStillFighting());
+    }
+
+
+    public TreeMap<String, Item> getItems() {
+        return items;
+    }
+
+
+    public void addPokemon(String name, Pokemon pokemon) {
+        pokedex.put(name, pokemon);
+    }
+    public void addTrainer(String name, Trainer trainer) {
+        entrenadores.put(name, trainer);
+    }
+    public Pokemon getPokemon(String name) {
+        return pokedex.get(name);
+    }
+    public Trainer getTrainer(String name) {
+        return entrenadores.get(name);
+    }
+    public TreeMap<String, Pokemon> getPokedex() {
+        return pokedex;
+    }
+
+
+
+
+
+
+
+
+
+
 
     public void iniciateGameDefault() { // esto seria tambien para serializar
         String fileName = "machineTrainer.txt";
@@ -88,27 +162,6 @@ public class POOBkemon {
         }
     }
 
-
-    public TreeMap<String, Item> getItems() {
-        return items;
-    }
-
-
-    public void addPokemon(String name, Pokemon pokemon) {
-        pokedex.put(name, pokemon);
-    }
-    public void addTrainer(String name, Trainer trainer) {
-        entrenadores.put(name, trainer);
-    }
-    public Pokemon getPokemon(String name) {
-        return pokedex.get(name);
-    }
-    public Trainer getTrainer(String name) {
-        return entrenadores.get(name);
-    }
-    public TreeMap<String, Pokemon> getPokedex() {
-        return pokedex;
-    }
 
     public void iniciateItemsForSerialization(){
         String fileName = "itemsJuego.txt";

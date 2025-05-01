@@ -5,12 +5,12 @@ public abstract class MachineTrainer extends Trainer{
         super(name);
     }
 
-    public abstract void decide(Pokemon target);
+    public abstract Movement decide(Pokemon target);
 
     public void doOtherThen(Pokemon target){
         Random random = new Random();
         int randomIndex = random.nextInt(4); 
-        if (randomIndex == 0) pokemonMovement(target);
+        if (randomIndex == 0) pokemonMovementDecide(target);
         if (randomIndex == 1) useItem(null);
         else {changePokemon();}
     }
@@ -33,8 +33,12 @@ public abstract class MachineTrainer extends Trainer{
     public void useItem(){
         
     }
+    @Override
+    public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException{
+        //actualPokemon.useMovement(mov, target);
+    }
 
-    public void pokemonMovement(Pokemon target){
-        actualPokemon.useAleatoryMovement(target);
+    public Movement pokemonMovementDecide(Pokemon target){
+        return actualPokemon.aleatoryMovement(target);
     }
 }

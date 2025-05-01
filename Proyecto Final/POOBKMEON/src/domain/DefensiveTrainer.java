@@ -13,28 +13,25 @@ public class DefensiveTrainer extends MachineTrainer {
      */
     // actualPokemon -> referencia
     @Override
-    public void decide(Pokemon target){
+    public Movement decide(Pokemon target){
         //Cambiar Movement -> MovementState
         ArrayList<MovementState> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getStateMovementsGiveDefense();
         MovementState bestMovementDefensive = null;
         int status = 0;
         for (int i = 0; i < movementsPokemon.size(); i++){
-            if (movementsPokemon.get(i).getStatus().getStatusInt() > status && movementsPokemon.get(i).getPP() > 0){
-                status = movementsPokemon.get(i).getStatus().getStatusInt();
+            if (movementsPokemon.get(i).getStateTo().get("Defense") > status && movementsPokemon.get(i).getPP() > 0){
+                status = movementsPokemon.get(i).getStateTo().get("Defense");
                 bestMovementDefensive = movementsPokemon.get(i);
             }
         }
 
         if (bestMovementDefensive != null){
-            try {
-                pokemonMovement(bestMovementDefensive,target);
-            } catch (PoobkemonException e) {
-                System.out.println(e.getMessage());
-            }
+            return bestMovementDefensive;
         }
         else{
             //hace otro movimiento que seria hacer un ataque o cambiar o gg 
             doOtherThen(target);
+            return null;
         }
     }
 }

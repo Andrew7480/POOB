@@ -11,7 +11,6 @@ import java.awt.event.*;
 public class POOBkemonGUI extends JFrame {
     private JMenuItem leave;
     private JMenuItem save;
-    private POOBkemon domain;
     private JFileChooser fileChooser;
     private CardLayout cardLayout;
     private JPanel panelContenedor;
@@ -28,6 +27,9 @@ public class POOBkemonGUI extends JFrame {
     private ModeMachineVsMachine machineVsMachinePanel;
     private ListPokemonAvailable listPokemonsPanel;
     private InventoryPanel panelInvetory;
+
+    protected POOBkemon domain;
+
     /**
      * Constructor of POOBkemon
      */
@@ -203,12 +205,14 @@ public class POOBkemonGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"principal");
+                //resetiar batalla??
             }
         });
 
         panelBattle.getFighButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+            
                 //panelBattle.actualizar(90,20);
             }
         });

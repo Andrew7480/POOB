@@ -10,7 +10,7 @@ public class ChangingTrainer extends MachineTrainer {
      * efectividad contra el pokemon que el rival utilice.
     */
     @Override
-    public void decide(Pokemon target){
+    public Movement decide(Pokemon target){
         TreeMap<String,Pokemon> p = inventory.getPokemons();
         Pokemon pokemonActual = actualPokemon;
         double possible = 0;
@@ -24,6 +24,7 @@ public class ChangingTrainer extends MachineTrainer {
         if (pokemonActual.equals(actualPokemon)){
             doOtherThen(target);
         }
+        return null;
     }
 
 

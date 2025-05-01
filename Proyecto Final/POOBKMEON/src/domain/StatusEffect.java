@@ -1,30 +1,25 @@
 package domain;
 import java.io.*;
-public abstract class StatusEffect{
-        protected String name;
-        private String description;
-        protected int times;
-        protected int status;
+import java.util.HashMap;
+import java.util.Map;
 
-        protected String stateTo;
-
-        public StatusEffect(String newName, String newDescription, int newTimes, int newStatus){
-            name = newName;
-            description = newDescription;
-            times = newTimes;
-            status = newStatus;
-        }
-
-        public abstract void affectPokemon(Pokemon affectPokemon);
-
-        public int getStatusInt(){
-            return status;
-        }
-        public String getName(){
-            return name;
-        }
-        public String getStateTo(){
-            return stateTo;
-        }
+public class StatusEffect extends Effect{
     
+
+        public StatusEffect(String newName, String newDescription, int newTimes){
+            super(newName,newDescription,newTimes);
+        }
+
+        public StatusEffect(String newName, String newDescription, int newTimes,HashMap<String,Integer> tributes){
+            super(newName, newDescription, newTimes, tributes);
+        }
+
+        public void affectPokemon(Pokemon affectPokemon){
+            for (Map.Entry<String, Integer> entry : stateTo.entrySet()) {
+                String stat = entry.getKey();
+                int amount = entry.getValue();
+                affectPokemon.increaseStat(stat, amount);
+            }
+        }
+
 }

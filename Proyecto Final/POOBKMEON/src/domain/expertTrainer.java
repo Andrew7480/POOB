@@ -6,8 +6,8 @@ public class ExpertTrainer extends MachineTrainer {
     }
 
 
-    public void decide(Pokemon target){
-
+    public Movement decide(Pokemon target){
+        return null;
     }
 
 }
