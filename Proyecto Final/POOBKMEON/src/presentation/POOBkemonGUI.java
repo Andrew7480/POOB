@@ -27,6 +27,7 @@ public class POOBkemonGUI extends JFrame {
     private BattlePanel panelBattle;
     private ModeMachineVsMachine machineVsMachinePanel;
     private ListPokemonAvailable listPokemonsPanel;
+    private InventoryPanel panelInvetory;
     /**
      * Constructor of POOBkemon
      */
@@ -205,6 +206,13 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
+        panelBattle.getFighButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //panelBattle.actualizar(90,20);
+            }
+        });
+
         playerVsMachinePanel.getButtonRegresar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -229,6 +237,27 @@ public class POOBkemonGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"pokemon list");
+            }
+        });
+
+        panelBattle.getInventoryButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"inventory");
+            }
+        });
+
+        panelInvetory.getButtonBack().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
+            }
+        });
+
+        listPokemonsPanel.getButtonBack().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
             }
         });
     }
@@ -280,7 +309,10 @@ public class POOBkemonGUI extends JFrame {
         panelContenedor.add(panelBattle,"battle");
 
         listPokemonsPanel = new ListPokemonAvailable(this);
-        panelContenedor.add(panelBattle,"pokemon list");
+        panelContenedor.add(listPokemonsPanel,"pokemon list");
+
+        panelInvetory = new InventoryPanel(this);
+        panelContenedor.add(panelInvetory,"inventory");
 
     }
 
