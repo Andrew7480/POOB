@@ -13,6 +13,9 @@ public abstract class Item implements Serializable{
     public String getName(){
         return name;
     }
+    public boolean isUsable(){
+        return isUsable;
+    }
     public String getDescription(){
         return description;
     }

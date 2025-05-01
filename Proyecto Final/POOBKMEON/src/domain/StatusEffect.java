@@ -6,6 +6,8 @@ public abstract class StatusEffect{
         protected int times;
         protected int status;
 
+        protected String stateTo;
+
         public StatusEffect(String newName, String newDescription, int newTimes, int newStatus){
             name = newName;
             description = newDescription;
@@ -14,5 +16,15 @@ public abstract class StatusEffect{
         }
 
         public abstract void affectPokemon(Pokemon affectPokemon);
+
+        public int getStatusInt(){
+            return status;
+        }
+        public String getName(){
+            return name;
+        }
+        public String getStateTo(){
+            return stateTo;
+        }
     
 }

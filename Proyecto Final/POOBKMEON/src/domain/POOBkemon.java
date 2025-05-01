@@ -14,25 +14,25 @@ public class POOBkemon {
     private Trainer turn;
     //son los que estan en la batalla
     private Trainer trainerTurn1;
-    private Trainer TrainerTurn2;
+    private Trainer trainerTurn2;
 
-    //idea 2
+    //idea 2 y un arreglo de trainser organizado de 2
     private int turno = 1;
 
     public POOBkemon() {
     }
 
     public void iniciarJuego(String jugabilidad){  // ya existen pokemones, items, movimientos y estados y/o ytaines defectos
-        ///
+        ///leer el archivo de juego
         /// 
         //while hastya que los todos pokemones de alguno mueran
     }
 
-    public void acciontrainerTurnoDelTrainerMovimiento(Movement mov){
-        turn.doMovement(mov);
+    public void movementPerformed(Movement mov, Pokemon target) throws PoobkemonException{
+        turn.pokemonMovement(mov,target);
     }
-    public void acctiontrainerTurnoDelTrainerCambiar(Pokemon pok) throws PoobkemonException{
-        turn.change(pok);
+    public void actiontrainerTurnoDelTrainerCambiar(Pokemon pok) throws PoobkemonException{
+        turn.changePokemon(pok);
     }
     public void actiontrainerTurnoInventario(Item item) throws PoobkemonException{
         turn.useItem(item);
@@ -45,7 +45,7 @@ public class POOBkemon {
         String fileName = "machineTrainer.txt";
         Trainer playerTrainer = new PlayerTrainer("Player");
         Trainer machineTrainer = new DefensiveTrainer("Machine");
-        Trainer machineTrainerExpertTrainer = new expertTrainer("Machine");
+        Trainer machineTrainerExpertTrainer = new ExpertTrainer("Machine");
         Trainer machineChangingTrainer = new ChangingTrainer("Machine");
         Trainer machineAttackingTrainer = new AttackingTrainer("Machine");
         entrenadores.put(playerTrainer.getName(), playerTrainer);
@@ -73,7 +73,7 @@ public class POOBkemon {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
             Trainer playerTrainer = (PlayerTrainer) in.readObject();
             Trainer machineTrainerDefensive = (DefensiveTrainer) in.readObject();
-            Trainer machineTrainerExpertTrainer = (expertTrainer) in.readObject();
+            Trainer machineTrainerExpertTrainer = (ExpertTrainer) in.readObject();
             Trainer machineChangingTrainer = (ChangingTrainer) in.readObject();
             Trainer machineAttackingTrainer = (AttackingTrainer) in.readObject();
             in.close();

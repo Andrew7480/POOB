@@ -10,6 +10,7 @@ public class Inventory {
     public Inventory(int newCapacity) {
         capacity = newCapacity;
     }
+    
 
     public void addPokemon(String name) throws PoobkemonException{
         if (!pokemons.containsKey(name)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
@@ -40,4 +41,31 @@ public class Inventory {
     public TreeMap<String,Pokemon> getPokemons(){
         return pokemons;
     }
+    public ArrayList<Pokemon> getAlivePokemons(){
+        ArrayList<Pokemon> poke= new ArrayList<Pokemon> ();
+        for(Pokemon p: pokemons.values()){
+            if(p.isAlive()) poke.add(p);
+        }
+        return poke;
+    }
+
+    public ArrayList<Pokemon> getAlivePokemons(Pokemon pok){
+        ArrayList<Pokemon> poke= new ArrayList<Pokemon> ();
+        for(Pokemon p: pokemons.values()){
+            if(p.isAlive() && !p.equals(pok)) poke.add(p);
+        }
+        return poke;
+    }
+    public ArrayList<Item> getUsableItems(){
+        ArrayList<Item> itemss= new ArrayList<Item> ();
+        for(Item p: items.values()){
+            if(p.isUsable()) itemss.add(p);
+        }
+        return itemss;
+    }
+
+    public boolean canChange(Pokemon pokemon){
+        return pokemon.isAlive() && pokemons.containsValue(pokemon);
+    }
+
 }

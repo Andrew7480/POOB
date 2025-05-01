@@ -1,39 +1,25 @@
 package domain;
 
-public class Trainer {
+public abstract class Trainer {
     protected String name;
     protected Inventory inventory;
-
     protected String color; //mirar despues
-
     protected Pokemon actualPokemon;
 
 
     public Trainer(String newName) {
-        name = newName;
-        
-    }
-
-    public void decide(Pokemon pokemon, Movement movement, Pokemon target) throws PoobkemonException{
-        if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        if(movement == null) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
-        if(target == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        pokemon.useMovement(movement, target);
+        name = newName;   
     }
 
     public String getName(){
         return name;
     }
-
-    public void useItem(Item item) throws PoobkemonException{
-        //if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        item.useItem(actualPokemon);
+    public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException{
+        actualPokemon.useMovement(mov, target);
     }
-    public void doMovement(Movement mov){}
-
-    public void changePokemon(Pokemon pokemon) throws PoobkemonException{
-        if (!inventory.contains(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        actualPokemon = pokemon;
-    }
-
+    public abstract void changePokemon(Pokemon newPokemon) throws PoobkemonException;
+    
+    public abstract void useItem(Item item) throws PoobkemonException;
+    
+    
 }

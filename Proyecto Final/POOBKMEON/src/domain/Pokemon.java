@@ -1,5 +1,5 @@
 package domain;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Pokemon{
     private String name;
@@ -20,10 +20,6 @@ public class Pokemon{
     private ArrayList<Movement> movements;
     private ArrayList<StatusEffect> effects;
 
-    public ArrayList<Movement> getMovements(){
-        return movements;
-    }
-
     public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType) {
         name = newName;
         level = newLevel;
@@ -39,7 +35,17 @@ public class Pokemon{
         movements = new ArrayList<>();
         effects = new ArrayList<>();
     }
+    public int getPs(){
+        return ps;
+    }
+    
+    public int getVelocity(){
+        return velocity;
+    }
 
+    public int getSpecialAttack(){
+        return specialAttack;
+    }
 
     public String getName() {
         return name;
@@ -67,7 +73,41 @@ public class Pokemon{
     public int getSpecialDefense(){
         return specialDefense;
     }
-    
+    public ArrayList<Movement> getMovements(){
+        return movements;
+    }
+
+    public ArrayList<MovementState> getStateMovements() {
+        ArrayList<MovementState> stateMovements = new ArrayList<>();
+        for (Movement movement : movements) {
+            if (movement instanceof MovementState) {
+                stateMovements.add((MovementState) movement);
+            }
+        }
+        return stateMovements;
+    }
+    public ArrayList<MovementState> getStateMovementsGiveDefense() {
+        ArrayList<MovementState> stateMovements = getStateMovements();
+        ArrayList<MovementState> deffenseGivers = new ArrayList<>();
+
+        for (MovementState stateMov : stateMovements) {
+            if (stateMov.getStatus() instanceof EffectDefense) {
+                deffenseGivers.add((MovementState) stateMov);
+            }
+        }
+        return deffenseGivers;
+    }
+
+    public ArrayList<MovementState> getStateMovementsGiveAttack() {
+        ArrayList<MovementState> stateMovements = getStateMovements();
+        ArrayList<MovementState> attackGivers = new ArrayList<>();
+        for (MovementState stateMov : stateMovements) {
+            if (stateMov.getStatus() instanceof EffectAttack) {
+                attackGivers.add((MovementState) stateMov);
+            }
+        }
+        return attackGivers;
+    }
 
 
     public void revivedByItem() throws PoobkemonException{
@@ -145,9 +185,50 @@ public class Pokemon{
         if (!isAlive) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
 
-        if (movimiento.getType().getTypeMov() == "Fisico")  target.losePS(movimiento.doAttack(target, target, attack));
-        else if (movimiento.getType().getTypeMov() == "Especial")  target.losePS (movimiento.doAttack(target, target, specialAttack) );
+        if (movimiento.getType().getTypeMov() == "Fisico")  movimiento.doAttackTo(this, target, attack);
+        else if (movimiento.getType().getTypeMov() == "Especial")  movimiento.doAttackTo(this, target, specialAttack);
+        else{
+            movimiento.doAttackTo(this, target, attack); //serian los effectos??
+        }
+    }
+    public ArrayList<Movement> movementsUsables(){
+        ArrayList<Movement> temp = new ArrayList<>();
+        for(Movement m: movements){
+            if (m.canMakeMove()){
+                temp.add(m);
+            }
+        }
+        return temp;
     }
 
+
+    public void useAleatoryMovement(Pokemon target){
+        ArrayList<Movement> temp = movementsUsables();
+        Random random = new Random();
+        int ramdomNum = random.nextInt(temp.size());
+
+        Movement aleatoryMovement = temp.get(ramdomNum);
+
+        try {useMovement(aleatoryMovement, target);}
+        catch(PoobkemonException e){
+            //nse
+        }
+    }
+    @Override
+    public boolean equals(Object ob){
+        return equals((Pokemon) ob);
+    }
+
+    public boolean equals(Pokemon pokemon){
+        return name.equals(pokemon.getName()) &&
+           level == pokemon.getLevel() &&
+           ps == pokemon.getPs() &&
+           attack == pokemon.getAttack() &&
+           specialAttack == pokemon.getSpecialAttack() &&
+           defense == pokemon.getDefense() &&
+           velocity == pokemon.getVelocity() &&
+           principalType.equals(pokemon.getPrincipalType()) &&
+           (secondaryType == null ? pokemon.getSecondaryType() == null : secondaryType.equals(pokemon.getSecondaryType()));
+    }
 }
 

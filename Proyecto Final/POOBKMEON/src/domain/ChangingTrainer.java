@@ -1,6 +1,6 @@
 package domain;
 import java.util.*;
-public class ChangingTrainer extends Trainer {
+public class ChangingTrainer extends MachineTrainer {
     public ChangingTrainer(String newName) {
         super(newName);
     }
@@ -10,8 +10,9 @@ public class ChangingTrainer extends Trainer {
      * efectividad contra el pokemon que el rival utilice.
     */
     @Override
-    public void changePokemon(Pokemon target){
+    public void decide(Pokemon target){
         TreeMap<String,Pokemon> p = inventory.getPokemons();
+        Pokemon pokemonActual = actualPokemon;
         double possible = 0;
         for (Pokemon pok : p.values()){
             double possibleMultiplicator = pok.getMovements().get(0).getMultiplicator(target.getPrincipalType());
@@ -20,9 +21,10 @@ public class ChangingTrainer extends Trainer {
                 actualPokemon = pok;
             }
         }
-        //Obtener posicion en la matriz [][]
+        if (pokemonActual.equals(actualPokemon)){
+            doOtherThen(target);
+        }
     }
-    /* Se encuentra en el inventario el mejor pokemon posible? */
 
 
 }

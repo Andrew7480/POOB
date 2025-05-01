@@ -26,6 +26,7 @@ public class POOBkemonGUI extends JFrame {
     private ModePlayerVsMachine playerVsMachinePanel;
     private BattlePanel panelBattle;
     private ModeMachineVsMachine machineVsMachinePanel;
+    private ListPokemonAvailable listPokemonsPanel;
     /**
      * Constructor of POOBkemon
      */
@@ -210,6 +211,26 @@ public class POOBkemonGUI extends JFrame {
                 cardLayout.show(panelContenedor,"normal");
             }
         });
+
+        panelBattle.getFighButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //Mostrar lista de movimientos ->
+            }
+        });
+        panelBattle.getInventoryButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //Mostrar Inventario
+            }
+        });
+
+        panelBattle.getPokemonButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"pokemon list");
+            }
+        });
     }
 
     private void prepareElementsMenu(){
@@ -257,6 +278,9 @@ public class POOBkemonGUI extends JFrame {
 
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
+
+        listPokemonsPanel = new ListPokemonAvailable(this);
+        panelContenedor.add(panelBattle,"pokemon list");
 
     }
 

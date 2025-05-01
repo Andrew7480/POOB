@@ -1,9 +1,40 @@
 package domain;
-
-public class DefensiveTrainer extends Trainer {
+import java.util.*;
+public class DefensiveTrainer extends MachineTrainer {
     
     public DefensiveTrainer(String newName) {
         super(newName);
     }
+    /*
+     * Su enfoque va principalmente a la defensa. 
+     * Utiliza movimientos que potencian las estadísticas de
+     * defensa y/o defensa especial, que brindan protección contra ataques
+     * rivales o que bajan las estadísticas de ataque y/o ataque especial del jugador rival.
+     */
+    // actualPokemon -> referencia
+    @Override
+    public void decide(Pokemon target){
+        //Cambiar Movement -> MovementState
+        ArrayList<MovementState> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getStateMovementsGiveDefense();
+        MovementState bestMovementDefensive = null;
+        int status = 0;
+        for (int i = 0; i < movementsPokemon.size(); i++){
+            if (movementsPokemon.get(i).getStatus().getStatusInt() > status && movementsPokemon.get(i).getPP() > 0){
+                status = movementsPokemon.get(i).getStatus().getStatusInt();
+                bestMovementDefensive = movementsPokemon.get(i);
+            }
+        }
 
+        if (bestMovementDefensive != null){
+            try {
+                pokemonMovement(bestMovementDefensive,target);
+            } catch (PoobkemonException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else{
+            //hace otro movimiento que seria hacer un ataque o cambiar o gg 
+            doOtherThen(target);
+        }
+    }
 }
