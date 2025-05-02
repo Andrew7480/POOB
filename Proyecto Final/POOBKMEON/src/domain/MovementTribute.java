@@ -2,18 +2,21 @@ package domain;
 
 import java.util.HashMap;
 
-public class MovementState extends Movement{
-    private StatusEffect state;
-    private int damageBase;
+public class MovementTribute extends Movement{
+    private HashMap<String,Integer> stateTo = new HashMap<>();
+    private TributeEffect state;
+    private int damageBase = 0;
 
-    public MovementState(String newName, String newDescription, int newPP, int newPower, int newPrecision, PokemonType newPT, StatusEffect estado, int newpPriority, int newDamageBase){
+    public MovementTribute(String newName, String newDescription, int newPP, int newPower, int newPrecision, PokemonType newPT, TributeEffect estado, int newpPriority){
         super(newName,newDescription,newPP,newPower,newPrecision,newPT, newpPriority);
         state = estado;
-        damageBase = newDamageBase;
     }
 
     public Effect getStatus(){
         return state;
+    }
+    public HashMap<String,Integer> getStateTo(){
+        return stateTo;
     }
 
 

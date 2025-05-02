@@ -8,6 +8,8 @@ public class SuperPotion extends Potion implements Serializable {
     public void useItem(Pokemon pokemon) throws PoobkemonException {
         super.useItem(pokemon);
         pokemon.gainAttack(statics.getValue());
+        pokemon.gainPS(statics.getValue());
+        pokemon.gainDefense(statics.getValue());
         usedItem();
     }
 }

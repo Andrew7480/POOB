@@ -5,10 +5,13 @@ import java.io.*;
  * POOBkemon
  */
 public class POOBkemon {
+    
     private TreeMap<String, Pokemon> pokedex = new TreeMap<>();
     private TreeMap<String, Trainer> entrenadores = new TreeMap<>();
 
-    private TreeMap<String, Item> items = new TreeMap<>(); //items for serialization
+    private TreeMap<String, Item> items = new TreeMap<>(); 
+    private TreeMap<String, Effect> effects = new TreeMap<>(); 
+    private TreeMap<String, Movement> movements = new TreeMap<>();
 
     //turno actual
     private Trainer turn;
@@ -165,13 +168,13 @@ public class POOBkemon {
 
     public void iniciateItemsForSerialization(){
         String fileName = "itemsJuego.txt";
-        DefensePotion hyperDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.HYPER_DEFENSE);
-        AttackPotion hyperAttackPotion = new AttackPotion("Attack Potion", "", PotionType.HYPER_ATTACK);
-        PsPotion hyperPsPotion = new PsPotion("Ps Potion", "", PotionType.HYPER_PS);
+        DefensePotion hyperDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.HYPER);
+        AttackPotion hyperAttackPotion = new AttackPotion("Attack Potion", "", PotionType.HYPER);
+        PsPotion hyperPsPotion = new PsPotion("Ps Potion", "", PotionType.HYPER);
 
-        DefensePotion superDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.SUPER_DEFENSE);
-        AttackPotion superAttackPotion = new AttackPotion("Attack Potion", "", PotionType.SUPER_ATTACK);
-        PsPotion superPsPotion = new PsPotion("Ps Potion", "", PotionType.SUPER_PS);
+        DefensePotion superDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.SUPER);
+        AttackPotion superAttackPotion = new AttackPotion("Attack Potion", "", PotionType.SUPER);
+        PsPotion superPsPotion = new PsPotion("Ps Potion", "", PotionType.SUPER);
 
         HyperPotion hyperPotion = new HyperPotion("Hyper Potion", "", PotionType.HYPER);
         SuperPotion superPotion = new SuperPotion("Super Potion", "", PotionType.SUPER);

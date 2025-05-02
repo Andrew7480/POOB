@@ -9,6 +9,8 @@ public class PoobkemonException  extends Exception {
     public static final String INVALID_VALUES = "on.";
     public static final String INVALID_EFFECT = "on.";
     public static final String MISSED_MOVEMENT = "";
+    public static final String CANT_DO_MOVEMENT = "";
+    public static final String EXCESS_CAPACITY = "";
     public PoobkemonException(String message) {
         super(message);
     }

@@ -19,7 +19,15 @@ public class Pokemon implements Serializable {
     private boolean usedReviveItem = false;
 
     private ArrayList<Movement> movements;
-    private ArrayList<StatusEffect> effects;
+    private ArrayList<TributeEffect> tributeEffects;
+    private StatusEffect statusEffect;
+    //Por defecto todos los pokemones tienen este movimiento
+    private Movement struggle = new Movement("Struggle","A desperate attack that also hurts the user",0,50,100,getPrincipalType(),0);
+
+
+    // ATRIBUTO AFECTADO POR ALGO -> NO PUEDO HACER NINGUN MOVIMIENTO YO NO PUEDO HACER NINGÚN OTRO MOVIMIENTO
+    // HASTA QUE EL TIEMPO DE EL ESTADO < 0
+
     
 
     public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType) {
@@ -35,7 +43,7 @@ public class Pokemon implements Serializable {
         secondaryType = newSecondaryType;
         specialDefense = newSpecialDefense;
         movements = new ArrayList<>();
-        effects = new ArrayList<>();
+        tributeEffects = new ArrayList<>();
     }
     public int getPs(){
         return ps;
@@ -78,6 +86,18 @@ public class Pokemon implements Serializable {
     public ArrayList<Movement> getMovements(){
         return movements;
     }
+    
+    public ArrayList<TributeEffect> getTributeEffects(){
+        return tributeEffects;
+    }
+
+    public void setMovements( Movement[] newMovements){
+        ArrayList<Movement> list = new ArrayList<>();
+        for (Movement m:newMovements){
+            list.add(m);
+        }
+        movements = list;
+    }
 
     public ArrayList<MovementState> getStateMovements() {
         ArrayList<MovementState> stateMovements = new ArrayList<>();
@@ -88,24 +108,34 @@ public class Pokemon implements Serializable {
         }
         return stateMovements;
     }
-    public ArrayList<MovementState> getStateMovementsGiveDefense() {
-        ArrayList<MovementState> stateMovements = getStateMovements();
-        ArrayList<MovementState> deffenseGivers = new ArrayList<>();
+    public ArrayList<MovementTribute> gettTributeMovements() {
+        ArrayList<MovementTribute> tributeMovements = new ArrayList<>();
+        for (Movement movement : movements) {
+            if (movement instanceof MovementTribute) {
+                tributeMovements.add((MovementTribute) movement);
+            }
+        }
+        return tributeMovements;
+    }
+    
+    public ArrayList<MovementTribute> getMovementsGiveDefense() {
+        ArrayList<MovementTribute> stateMovements = gettTributeMovements();
+        ArrayList<MovementTribute> deffenseGivers = new ArrayList<>();
 
-        for (MovementState stateMov : stateMovements) {
-            if (stateMov.getStatus().getStateTo().containsKey("Defense")) {
-                deffenseGivers.add((MovementState) stateMov);
+        for (MovementTribute stateMov : stateMovements) {
+            if (stateMov.getStateTo().containsKey("Defense")) {
+                deffenseGivers.add(stateMov);
             }
         }
         return deffenseGivers;
     }
 
-    public ArrayList<MovementState> getStateMovementsGiveAttack() {
-        ArrayList<MovementState> stateMovements = getStateMovements();
-        ArrayList<MovementState> attackGivers = new ArrayList<>();
-        for (MovementState stateMov : stateMovements) {
-            if (stateMov.getStatus().getStateTo().containsKey("Ataque")) {
-                attackGivers.add((MovementState) stateMov);
+    public ArrayList<MovementTribute> getMovementsGiveAttack() {
+        ArrayList<MovementTribute> stateMovements = gettTributeMovements();
+        ArrayList<MovementTribute> attackGivers = new ArrayList<>();
+        for (MovementTribute stateMov : stateMovements) {
+            if (stateMov.getStateTo().containsKey("Attack")) {
+                attackGivers.add((MovementTribute) stateMov);
             }
         }
         return attackGivers;
@@ -124,7 +154,6 @@ public class Pokemon implements Serializable {
     public void increaseStat(String stat, int amount ){
         //mirar pues
     }
-
     public void losePS(double losePs){
         ps -= (int)losePs;
         if (ps<=0) pokemonKO();
@@ -133,12 +162,9 @@ public class Pokemon implements Serializable {
         ps = 0;
         isAlive = false;
     }
-    
     public void gainPS(int gainPs){
         ps += gainPs; 
     }
-    
-
     public void gainAttack(int newAttack){  // pociones
         attack += newAttack;
     }
@@ -147,10 +173,11 @@ public class Pokemon implements Serializable {
         if (attack - newAttack <= 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
         attack -= newAttack;
     }
-
-
     public void gainSpecialAttack(int plusSpecialAttack){
         specialAttack += plusSpecialAttack;
+    }
+    public void gainSpecialDefense(int plusSpecialDefense){
+        specialDefense += plusSpecialDefense;
     }
     public void loseSpecialAttack(int minusSpecialAttack) throws PoobkemonException{
         if (minusSpecialAttack < 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
@@ -174,14 +201,17 @@ public class Pokemon implements Serializable {
         velocity -= minusVelocity;
     }
 
-    public void addEffect(StatusEffect Effect) throws PoobkemonException{
-        if(!effects.contains(Effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT);
-        effects.add(Effect);
+    public void addEffect(TributeEffect effect) throws PoobkemonException{
+        if(!tributeEffects.contains(effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT);
+        tributeEffects.add(effect);
+    }
+    public void addEffect(StatusEffect effect) throws PoobkemonException{
+        if(!statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT);
+        statusEffect = effect;
     }
 
-
-    public void prepare(){
-        for(StatusEffect st: effects){
+    public void affectPokemonStatus(){
+        for(TributeEffect st: tributeEffects){
             st.affectPokemon(this);
         }
     }
@@ -189,11 +219,12 @@ public class Pokemon implements Serializable {
     public void useMovement(Movement movimiento, Pokemon target) throws PoobkemonException{
         if (!isAlive) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
-
-        if (movimiento.getType().getTypeMov() == "Fisico")  movimiento.doAttackTo(this, target, attack);
-        else if (movimiento.getType().getTypeMov() == "Especial")  movimiento.doAttackTo(this, target, specialAttack);
+        if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
+        if (dontHavePPForAllMovement()){actionF(target);}
+        if (movimiento.getType().getTypeMov() == "Fisico")  movimiento.doAttackTo(this, target, attack, target.getDefense());
+        else if (movimiento.getType().getTypeMov() == "Especial")  movimiento.doAttackTo(this, target, specialAttack,target.getSpecialDefense());
         else{
-            movimiento.doAttackTo(this, target, attack); //serian los effectos??
+            movimiento.doAttackTo(this, target, attack, target.getDefense()); //serian los effectos?? movimientos de estado
         }
     }
     public ArrayList<Movement> movementsUsables(){
@@ -206,23 +237,40 @@ public class Pokemon implements Serializable {
         return temp;
     }
 
-
+    public ArrayList<Movement> specialsMovements(){
+        ArrayList<Movement> temp = new ArrayList<>();
+        for(Movement m: movements){
+            if (m.canMakeMove() && m.getType().getTypeMov() == "Especial"){
+                temp.add(m);
+            }
+        }
+        return temp;
+    }
     public Movement aleatoryMovement(Pokemon target){
         ArrayList<Movement> temp = movementsUsables();
         Random random = new Random();
         int ramdomNum = random.nextInt(temp.size());
-
         Movement aleatoryMovement = temp.get(ramdomNum);
-
         return aleatoryMovement;
     }
 
 
     public void limitOfTime(){ //cuando no hace algo en 20 s
-        for(Movement m: movementsUsables()){
+        for(Movement m: specialsMovements()){
             try{m.losePP();}
             catch(PoobkemonException e){}
         }
+    }
+
+    public boolean dontHavePPForAllMovement(){
+        for (Movement m : movements){
+            if (m.getPP() > 0){return false;}
+        }
+        return true;
+    }
+
+    public void actionF(Pokemon target){
+        struggle.AttackToStruggle(this,target);
     }
 
     @Override

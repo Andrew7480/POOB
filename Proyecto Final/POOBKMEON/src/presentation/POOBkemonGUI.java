@@ -264,6 +264,22 @@ public class POOBkemonGUI extends JFrame {
                 cardLayout.show(panelContenedor,"battle");
             }
         });
+
+        panelBattle.getFighButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                panelBattle.showMovesPanel();               
+            }
+        });
+
+        panelBattle.getBackOptions().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                panelBattle.showBattleOptionsPanel();
+            }
+        });
+
+
     }
 
     private void prepareElementsMenu(){

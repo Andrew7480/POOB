@@ -23,7 +23,7 @@ public interface Attackable {
         /* VOLADOR */   { 0.5, 1.0, 0.5, 1.0, 0.5,  1.0,  1.0, 1.0, 1.0,  2.0,  1.0,   2.0,  1.0,  0.5,  1.0,   1.0,   1.0,   1.0 },
     };
     
-    public int doAttackTo(Pokemon attacker, Pokemon target, int ataque) throws PoobkemonException;
+    public int doAttackTo(Pokemon attacker, Pokemon target, int attack, int defenseTarget) throws PoobkemonException;
 
     public double getMultiplicator(PokemonType defender);
 } 

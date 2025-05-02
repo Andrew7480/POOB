@@ -7,7 +7,7 @@ public class PsPotion extends Potion implements Serializable {
 
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
-        pokemon.gainAttack(statics.getValue());
+        pokemon.gainPS(statics.getValue());
         usedItem();
     }
 }

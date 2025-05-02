@@ -11,6 +11,9 @@ public class BattlePanel extends JPanel {
     private JButton pokemonButton;
     private JButton runButton;
     private POOBkemonGUI po;
+    private JPanel movesPanel;
+    private JPanel battleOptionsPanel;
+    private JButton backToOptionsBattle;
 
     private JProgressBar playerHealthBar;
     private JProgressBar opponentHealthBar;
@@ -19,6 +22,8 @@ public class BattlePanel extends JPanel {
 
     public BattlePanel(POOBkemonGUI newPo){
         po = newPo;
+        backToOptionsBattle = new JButton("Back");
+        po.styleButton(backToOptionsBattle);
         setPreferredSize(new Dimension(800, 600));
         setLayout(null);
 
@@ -30,7 +35,7 @@ public class BattlePanel extends JPanel {
         opponentStatsPanel.setBounds(0, 100, 300, 100);
         add(opponentStatsPanel);
 
-        JPanel battleOptionsPanel = new JPanel();
+        battleOptionsPanel = new JPanel();
         battleOptionsPanel.setLayout(new GridLayout(2, 2, 10, 10));
         battleOptionsPanel.setOpaque(false);
         battleOptionsPanel.setBounds(400, 450, 300, 100);
@@ -52,6 +57,40 @@ public class BattlePanel extends JPanel {
         battleOptionsPanel.add(runButton);
 
         add(battleOptionsPanel);
+    }
+
+    public void showMovesPanel(){
+        remove(battleOptionsPanel);
+
+        movesPanel = new JPanel();
+        movesPanel.setLayout(new GridLayout(4,1,10,10));
+        movesPanel.setOpaque(false);
+        movesPanel.setBounds(400,450,300,200);
+
+        String[] moves = {"prueba1","prueba2","prueba3","prueba4"};
+
+        for(String move : moves){
+            JButton movementButton = new JButton(move);
+            po.styleButton(movementButton);
+            //CLICK HACER MOVIMIENTO EFECTO ... WOW ... BOOM ... CACHAOU
+
+            movesPanel.add(movementButton);
+        }
+
+        movesPanel.add(backToOptionsBattle);
+        add(movesPanel);
+
+        revalidate();
+        repaint();
+    }
+
+    public void showBattleOptionsPanel(){
+        remove(movesPanel);
+
+        add(battleOptionsPanel);
+
+        revalidate();
+        repaint();
     }
 
 
@@ -92,6 +131,10 @@ public class BattlePanel extends JPanel {
     }
     public JButton getRunButton(){
         return runButton;
+    }
+
+    public JButton getBackOptions(){
+        return backToOptionsBattle;
     }
 
     public void actualizarHealt(int healt1, int healt2){

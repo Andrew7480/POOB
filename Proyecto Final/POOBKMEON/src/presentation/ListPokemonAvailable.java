@@ -8,6 +8,7 @@ public class ListPokemonAvailable extends JPanel{
     private POOBkemonGUI po;
     public ListPokemonAvailable(POOBkemonGUI newPo){
         po = newPo;
+        setLayout(new BorderLayout());
         come = new JButton("Back");
         po.styleButton(come);
         JPanel buttonPanel = po.invisiblePanelWithOpacity();

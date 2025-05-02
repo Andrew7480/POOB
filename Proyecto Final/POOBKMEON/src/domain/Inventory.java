@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Inventory implements Serializable{
-    private int capacity;
+    private final int capacityOfItems = 20;
     private HashMap<String, Item> items = new HashMap<>();
     private TreeMap<String, Pokemon> pokemons = new TreeMap<>();
 
-    public Inventory(int newCapacity) {
-        capacity = newCapacity;
+    public Inventory() {
     }
     
 
@@ -20,7 +19,19 @@ public class Inventory implements Serializable{
 
     public void addItem(Item item) throws PoobkemonException{
         if (!items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        if (items.size() > capacityOfItems) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
+        if (countItems(item) >= 2) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
         items.put(item.getName(),item);
+    }
+
+    public int countItems(Item item) throws PoobkemonException{
+        int count = 0;
+        for (Item i : items.values()){
+            if (i.getClass().equals(item.getClass())){
+                count++;
+            }
+        }
+        return count;
     }
 
     private void delItem(Item item) throws PoobkemonException{

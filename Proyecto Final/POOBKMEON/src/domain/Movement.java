@@ -58,8 +58,8 @@ public class Movement implements Attackable, Serializable{
     public boolean canMakeMove(){
         return (PP>0);
     }
-
-    public int doAttackTo(Pokemon attacker, Pokemon target, int attack) throws PoobkemonException{
+    
+    public int doAttackTo(Pokemon attacker, Pokemon target, int attack, int defenseTarget) throws PoobkemonException{
         if (!canMakeMove()) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
         if (Math.random() * 100 > precision) {
             losePP();
@@ -67,13 +67,23 @@ public class Movement implements Attackable, Serializable{
         }
         
         double levelFactor = (2.0 * attacker.getLevel()) / 5.0 + 2.0;
-        double attackDefenseRatio = (double) attack / target.getDefense();
+        double attackDefenseRatio = (double) attack / defenseTarget;
         double damage = ((levelFactor * power * attackDefenseRatio) / 50.0) + 2.0;
         damage *= getMultiplicator(target.getPrincipalType());
         damage *= 0.85 + (Math.random() * 0.15);
         target.losePS(damage);
         losePP();
-        return (int) damage;
+        return (int)damage;
+    }
+
+    public void AttackToStruggle(Pokemon attacker, Pokemon target){
+        try{
+            int newValueAttacker = (doAttackTo(attacker, target, attacker.getAttack(),target.getDefense())/2);
+            attacker.losePS(newValueAttacker);
+        }
+        catch (PoobkemonException e){
+            e.getMessage();
+        }
     }
     
 }

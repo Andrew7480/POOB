@@ -15,8 +15,8 @@ public class DefensiveTrainer extends MachineTrainer {
     @Override
     public Movement decide(Pokemon target){
         //Cambiar Movement -> MovementState
-        ArrayList<MovementState> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getStateMovementsGiveDefense();
-        MovementState bestMovementDefensive = null;
+        ArrayList<MovementTribute> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getMovementsGiveDefense();
+        Movement bestMovementDefensive = null;
         int status = 0;
         for (int i = 0; i < movementsPokemon.size(); i++){
             if (movementsPokemon.get(i).getStateTo().get("Defense") > status && movementsPokemon.get(i).getPP() > 0){

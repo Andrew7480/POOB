@@ -9,7 +9,7 @@ public class AttackingTrainer extends MachineTrainer {
     //o que bajan las estadísticas de defensa y/o defensa especial del jugador rival.
     
     public Movement decide(Pokemon target){
-        ArrayList<MovementState> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getStateMovementsGiveAttack();
+        ArrayList<MovementTribute> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getMovementsGiveAttack();
         Movement bestAttackMovement = null;
         double possibleAttackMovement = 0;
         for (int i = 0; i < movementsPokemon.size(); i++){

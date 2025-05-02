@@ -8,7 +8,8 @@ public class HyperPotion extends Potion implements Serializable{
 
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
-        pokemon.gainAttack(statics.getValue());
+        pokemon.gainSpecialAttack(statics.getValue());
+        pokemon.gainSpecialDefense(statics.getValue());
         usedItem();
     }
 }
