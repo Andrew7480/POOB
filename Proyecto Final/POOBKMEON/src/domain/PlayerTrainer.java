@@ -1,6 +1,8 @@
 package domain;
 
-public class PlayerTrainer extends Trainer{
+import java.io.Serializable;
+
+public class PlayerTrainer extends Trainer implements Serializable{
 
     public PlayerTrainer(String newName) {
         super(newName);

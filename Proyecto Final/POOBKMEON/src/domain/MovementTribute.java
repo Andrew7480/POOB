@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class MovementTribute extends Movement{
+public class MovementTribute extends Movement implements Serializable{
     private HashMap<String,Integer> stateTo = new HashMap<>();
     private TributeEffect state;
     private int damageBase = 0;

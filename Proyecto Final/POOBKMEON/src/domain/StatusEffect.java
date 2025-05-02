@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StatusEffect extends Effect{
+public class StatusEffect extends Effect implements Serializable{
     
 
     public StatusEffect(String newName, String newDescription, int newTimes){

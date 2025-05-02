@@ -1,6 +1,8 @@
 package domain;
 
-public class Revive extends Item {
+import java.io.Serializable;
+
+public class Revive extends Item implements Serializable{
     
     public Revive() {
         super("Revive","Recupera 50% de la salud de un Pokémon caído en combate.");

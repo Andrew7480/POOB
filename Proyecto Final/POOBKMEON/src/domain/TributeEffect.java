@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class TributeEffect extends Effect{
+public class TributeEffect extends Effect implements Serializable{
     protected HashMap<String,Integer> stateTo = new HashMap<>();
 
     public TributeEffect(String newName, String newDescription, int newTimes){

@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class MovementState extends Movement{
+public class MovementState extends Movement implements Serializable{
     private StatusEffect state;
     private int damageBase;
 

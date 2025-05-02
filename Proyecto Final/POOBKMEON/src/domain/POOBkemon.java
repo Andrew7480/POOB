@@ -114,20 +114,26 @@ public class POOBkemon implements Serializable{
     }
 
     public void serializateGame(String fileName) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameData.ser"));
+            System.out.println("Intentando serializar pokedex...");
             out.writeObject(pokedex);
+            System.out.println("Intentando serializar entrenadores...");
             out.writeObject(entrenadores);
+            System.out.println("Intentando serializar items...");
             out.writeObject(items);
+            System.out.println("Intentando serializar movements...");
             out.writeObject(movements);
-            out.writeObject(trainerTurn1);
-            out.writeObject(trainerTurn2);
-            out.writeObject(turn);
-            System.out.println("Juego guardado exitosamente en " + fileName);
-        } catch (IOException e) {
+            out.close();
+        } catch (NotSerializableException e) {
+            System.out.println("Error al serializar: " + e.getMessage());
             e.printStackTrace();
-            System.err.println("Error al guardar el juego: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error al guardar el juego: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+    
 
     public void serializateGame(){
         String fileName = "gameData";
