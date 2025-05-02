@@ -13,5 +13,8 @@ public class Revive extends Item {
         pokemon.revivedByItem();
         usedItem();
     }
+    public Item copy(){
+        return new Revive();
+    }
     
 }

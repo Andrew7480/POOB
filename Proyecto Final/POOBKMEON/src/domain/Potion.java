@@ -17,5 +17,9 @@ public abstract class Potion extends Item{
     public PotionType getPotionType(){
         return statics;
     }
+
+    public Item copy(){
+        return new AttackPotion(name, description, statics);
+    }
 }
 

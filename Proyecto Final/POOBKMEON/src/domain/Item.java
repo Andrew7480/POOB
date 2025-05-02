@@ -4,7 +4,7 @@ import java.io.*;
 public abstract class Item implements Serializable{
     protected String name;
     protected Boolean isUsable = true;
-    private String description;
+    protected String description;
     
     public Item(String newName, String newDescription) {
         name = newName;
@@ -28,5 +28,6 @@ public abstract class Item implements Serializable{
     protected void usedItem() {
         isUsable = false;
     }
+    public abstract Item copy();
     
 }

@@ -12,13 +12,9 @@ public class Inventory implements Serializable{
     }
     
 
-    public void addPokemon(String name) throws PoobkemonException{
-        if (!pokemons.containsKey(name)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        pokemons.put(pokemons.get(name).getName(),pokemons.get(name));
-    }
 
     public void addItem(Item item) throws PoobkemonException{
-        if (!items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        if (items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
         if (items.size() > capacityOfItems) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
         if (countItems(item) >= 2) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
         items.put(item.getName(),item);
@@ -35,12 +31,12 @@ public class Inventory implements Serializable{
     }
 
     private void delItem(Item item) throws PoobkemonException{
-        if (!items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        if (items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
         items.remove(item.getName());
     }
 
     public void addPokemon(Pokemon pokemon) throws PoobkemonException{
-        if (!pokemons.containsValue(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
+        if (pokemons.containsValue(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         pokemons.put(pokemon.getName(), pokemon);
     }
     public boolean contains(Pokemon pokemon){

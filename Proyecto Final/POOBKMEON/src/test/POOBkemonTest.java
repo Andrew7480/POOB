@@ -12,6 +12,7 @@ import org.junit.Test;
  * POOBkemonTest
  */
 public class POOBkemonTest {
+
     @Test
     public void shouldSaveGamePre(){
         try{
@@ -53,33 +54,48 @@ public class POOBkemonTest {
             Movement brickBreak = new Movement("Brick break","Break the barriers of Reflection and Light Display.",15,75,100,PokemonType.LUCHA,0);
             Movement surf = new Movement("Surf","A water attack that hits all Pokémon in battle, except your partner in double battles.",15,90,100,PokemonType.AGUA,0);
             
+            //movimientos que puede escoger el usuario para un pokemon
+            poobkemon.addMovement(paralyze);
+            poobkemon.addMovement(burn);
+            poobkemon.addMovement(poison);
+            poobkemon.addMovement(defense);
+            poobkemon.addMovement(regenerate);
+            poobkemon.addMovement(electrocuted);
+            poobkemon.addMovement(hyperBeam);
+            poobkemon.addMovement(quickAttack);
+            poobkemon.addMovement(earthquake);
+            poobkemon.addMovement(psychic);
+            poobkemon.addMovement(dragonClaw);
+            poobkemon.addMovement(shadowBall);
+            poobkemon.addMovement(brickBreak);
+            poobkemon.addMovement(surf);
 
             //Pokemones con esos movs
-            Pokemon charizard = new Pokemon("Charizard", 90, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR);
-            charizard.setMovements(new Movement[] {paralyze,burn,quickAttack,dragonClaw});
-            
+            Pokemon charizard = new Pokemon("Charizard", 90, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR);            
             Pokemon snorlax = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null);
-            snorlax.setMovements(new Movement[]{hyperBeam,dragonClaw,brickBreak,surf});
-            
             Pokemon blastoise = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null);
-            blastoise.setMovements(new Movement[]{surf,psychic,earthquake,hyperBeam});
             
             Pokemon charizard1 = new Pokemon("Charizard", 90, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR);
-            charizard1.setMovements(new Movement[] {paralyze,burn,quickAttack,dragonClaw});
-            
             Pokemon snorlax1 = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null);
-            snorlax1.setMovements(new Movement[]{hyperBeam,dragonClaw,brickBreak,surf});
-            
             Pokemon blastoise1 = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null);
+
+            poobkemon.addPokemon(charizard);
+            poobkemon.addPokemon(snorlax);
+            poobkemon.addPokemon(blastoise);
+
+            //poobkemon.addPokemon(charizard1);
+            //poobkemon.addPokemon(snorlax1);
+            //poobkemon.addPokemon(blastoise1);
+
+            //pokemones con movimientos predefinidos
+            charizard.setMovements(new Movement[] {paralyze,burn,quickAttack,dragonClaw});
+            snorlax.setMovements(new Movement[]{hyperBeam,dragonClaw,brickBreak,surf});
+            blastoise.setMovements(new Movement[]{surf,psychic,earthquake,hyperBeam});
+            charizard1.setMovements(new Movement[] {paralyze,burn,quickAttack,dragonClaw});
+            snorlax1.setMovements(new Movement[]{hyperBeam,dragonClaw,brickBreak,surf});
             blastoise1.setMovements(new Movement[]{surf,psychic,earthquake,hyperBeam});
 
-            poobkemon.addPokemon(charizard.getName(), charizard);
-            poobkemon.addPokemon(snorlax.getName(), snorlax);
-            poobkemon.addPokemon(blastoise.getName(), blastoise);
 
-            poobkemon.addPokemon(charizard.getName(), charizard1);
-            poobkemon.addPokemon(snorlax.getName(), snorlax1);
-            poobkemon.addPokemon(blastoise.getName(), blastoise1);
             //items
 
 
@@ -138,21 +154,22 @@ public class POOBkemonTest {
             //Trainer attacking = new AttackingTrainer("agresivo");
             Trainer defensive = new PlayerTrainer("tulio");
             Trainer changing = new PlayerTrainer("andrew");
-            poobkemon.addTrainer(defensive.getName(), defensive);
+            poobkemon.addTrainer(defensive);
             //poobkemon.addTrainer(expert.getName(), expert);
-            poobkemon.addTrainer(changing.getName(), changing);
+            poobkemon.addTrainer(changing);
             //poobkemon.addTrainer(attacking.getName(), attacking);
             //poobkemon.addTrainer(player1.getName(), player1);
             //poobkemon.addTrainer(player2.getName(), player2);
 
-
+            System.out.println("si? :( )");
             //inventarios
             //1 denfensive
             Inventory inventarioDefensive = new Inventory(); 
-            inventarioDefensive.addPokemon(snorlax1);
-            inventarioDefensive.addPokemon(charizard1);
-            inventarioDefensive.addPokemon(blastoise1);
-            
+            defensive.setInventory(inventarioDefensive);
+            defensive.addPokemon(snorlax1);
+            defensive.addPokemon(charizard1);
+            defensive.addPokemon(blastoise1);
+            System.out.println("mm?");
             inventarioDefensive.addItem(revivePlayerOne);
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
@@ -161,21 +178,33 @@ public class POOBkemonTest {
             inventarioDefensive.addItem(psSuperPotion);
             inventarioDefensive.addItem(potion);
             inventarioDefensive.addItem(superPotion);
-
+            System.out.println("si? :( )");
 
             //2
             Inventory inventarioChanging = new Inventory();
-            inventarioChanging.addPokemon(snorlax);
-            inventarioChanging.addPokemon(charizard);
-            inventarioChanging.addPokemon(blastoise);
+            changing.setInventory(inventarioChanging);
+            changing.addPokemon(snorlax);
+            changing.addPokemon(charizard);
+            changing.addPokemon(blastoise);
             inventarioChanging.addItem(revivePokemonPlayerTwo);
             inventarioChanging.addItem(hyperPotionPlayerTwoO);
             inventarioChanging.addItem(potionPlayerTwo);
             inventarioChanging.addItem(attackSuperPotionPlayerTwoO);
             
-            
-
-            
+            poobkemon.serializateGame();
+            System.out.println("siiii");
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            //fail();
+        }    
+        
+    }
+    @Test
+    public void deserializateGame(){
+        try{
+            POOBkemon poobkemon = new POOBkemon();
+            poobkemon.deserializateGame();
         }
         catch(Exception e){
             fail();

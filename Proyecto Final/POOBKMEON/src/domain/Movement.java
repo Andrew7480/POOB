@@ -85,5 +85,7 @@ public class Movement implements Attackable, Serializable{
             e.getMessage();
         }
     }
-    
+    public Movement coyy(){
+        return new Movement(name, description, PP, power, precision, type, priority);
+    }
 }

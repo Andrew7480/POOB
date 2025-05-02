@@ -1,6 +1,6 @@
 package domain;
 import java.io.*;
-public class PsPotion extends Potion implements Serializable {
+public class PsPotion extends Potion {
     public PsPotion(String name, String description, PotionType newPs) {
         super(name, description,newPs);
     }

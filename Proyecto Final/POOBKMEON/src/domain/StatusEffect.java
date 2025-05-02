@@ -13,5 +13,8 @@ public class StatusEffect extends Effect{
 
     public void affectPokemon(Pokemon affectPokemon){}
     
+    public Effect copy(){
+        return new StatusEffect(name, description, times);
+    }
 
 }

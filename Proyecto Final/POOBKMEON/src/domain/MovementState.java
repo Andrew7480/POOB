@@ -25,4 +25,8 @@ public class MovementState extends Movement{
         target.addEffect(state);
         return damageBase;
     }
+    @Override
+    public Movement coyy(){
+        return new MovementState(name, description, PP, power, precision, type, state, priority, damageBase);
+    }
 }

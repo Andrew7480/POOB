@@ -4,14 +4,13 @@ import java.io.*;
 /*
  * POOBkemon
  */
-public class POOBkemon {
+public class POOBkemon implements Serializable{
     
-    private TreeMap<String, Pokemon> pokedex = new TreeMap<>();
+    private TreeMap<String, Pokemon> pokedex = new TreeMap<>(); // Pokemones sin movimientos, los movimientos los pone y se añaden al jugador
     private TreeMap<String, Trainer> entrenadores = new TreeMap<>();
 
     private TreeMap<String, Item> items = new TreeMap<>(); 
-    private TreeMap<String, Effect> effects = new TreeMap<>(); 
-    private TreeMap<String, Movement> movements = new TreeMap<>();
+    private TreeMap<String, Movement> movements = new TreeMap<>(); //movimientos predefinidos qu epuede escoger el usuario
 
     //turno actual
     private Trainer turn;
@@ -91,12 +90,14 @@ public class POOBkemon {
         return items;
     }
 
-
-    public void addPokemon(String name, Pokemon pokemon) {
-        pokedex.put(name, pokemon);
+    public void addMovement(Movement mov){
+        movements.put(mov.getName(), mov);
     }
-    public void addTrainer(String name, Trainer trainer) {
-        entrenadores.put(name, trainer);
+    public void addPokemon(Pokemon pokemon) {
+        pokedex.put(pokemon.getName(), pokemon);
+    }
+    public void addTrainer(Trainer trainer) {
+        entrenadores.put(trainer.getName(),trainer);
     }
     public Pokemon getPokemon(String name) {
         return pokedex.get(name);
@@ -104,19 +105,89 @@ public class POOBkemon {
     public Trainer getTrainer(String name) {
         return entrenadores.get(name);
     }
-    public TreeMap<String, Pokemon> getPokedex() {
+    public TreeMap<String, Pokemon> getPokedex(){
         return pokedex;
+    }
+    public void addNewPokemon(String entrenador, Pokemon pokemon,Movement m1,Movement m2, Movement m3, Movement m4)throws PoobkemonException{
+        pokemon.setMovements(new Movement[]{m1,m2,m3,m4});
+        entrenadores.get(entrenador).addPokemon(pokemon);
+    }
+
+    public void serializateGame(String fileName) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            out.writeObject(pokedex);
+            out.writeObject(entrenadores);
+            out.writeObject(items);
+            out.writeObject(movements);
+            out.writeObject(trainerTurn1);
+            out.writeObject(trainerTurn2);
+            out.writeObject(turn);
+            System.out.println("Juego guardado exitosamente en " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al guardar el juego: " + e.getMessage());
+        }
+    }
+
+    public void serializateGame(){
+        String fileName = "gameData";
+        serializateGame(fileName);
+    /*try {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+        out.writeObject(pokedex);
+        out.writeObject(entrenadores);
+        out.writeObject(items);
+        out.writeObject(movements);
+        out.writeObject(trainerTurn1);
+        out.writeObject(trainerTurn2);
+        out.writeObject(turn);
+        out.close();
+        System.out.println("Juego guardado exitosamente.");
+    } catch (IOException e) {
+        System.out.println("Error al guardar el juego: " + e.getMessage());
+    }*/
+    }
+    @SuppressWarnings("unchecked")
+    public void deserializateGame(String fileName) {
+        File file = new File(fileName);
+        if (!file.exists()) {
+            System.err.println("Error: El archivo " + fileName + " no existe.");
+            return;
+        }
+    
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
+            pokedex = (TreeMap<String, Pokemon>) in.readObject();
+            entrenadores = (TreeMap<String, Trainer>) in.readObject();
+            items = (TreeMap<String, Item>) in.readObject();
+            movements = (TreeMap<String, Movement>) in.readObject();
+            trainerTurn1 = (Trainer) in.readObject();
+            trainerTurn2 = (Trainer) in.readObject();
+            turn = (Trainer) in.readObject();
+            System.out.println("Juego cargado exitosamente desde " + fileName);
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            System.err.println("Error al cargar el juego: " + e.getMessage());
+        }
     }
 
 
-
-
-
-
-
-
-
-
+    public void deserializateGame(){
+        String fileName = "gameData";
+        deserializateGame(fileName);
+    /*try {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+        pokedex = (TreeMap<String, Pokemon>) in.readObject();
+        entrenadores = (TreeMap<String, Trainer>) in.readObject();
+        items = (TreeMap<String, Item>) in.readObject();
+        movements = (TreeMap<String, Movement>) in.readObject();
+        trainerTurn1 = (Trainer) in.readObject();
+        trainerTurn2 = (Trainer) in.readObject();
+        turn = (Trainer) in.readObject();
+        in.close();
+        System.out.println("Juego cargado exitosamente.");
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Error al cargar el juego: " + e.getMessage());
+    }*/
+    }
 
     public void iniciateGameDefault() { // esto seria tambien para serializar
         String fileName = "machineTrainer.txt";
@@ -144,7 +215,7 @@ public class POOBkemon {
         }
     }
 
-    public void deserializateGame(){
+    public void deserializateTrainers(){
         String fileName = "machineTrainer.txt";
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));

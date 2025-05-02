@@ -28,4 +28,8 @@ public class MovementTribute extends Movement{
         target.addEffect(state);
         return damageBase;
     }
+    @Override
+    public Movement coyy(){
+        return new MovementTribute(name, description, PP, power, precision, type, state, priority);
+    }
 }

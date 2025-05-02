@@ -27,5 +27,7 @@ public class TributeEffect extends Effect{
             affectPokemon.increaseStat(stat, amount);
         }
     }
-
+    public Effect copy(){
+        return new TributeEffect(name, description, times, stateTo);
+    }
 }

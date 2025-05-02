@@ -45,4 +45,13 @@ public abstract class Trainer implements Serializable{
     public boolean equals(Trainer trainer){
         return name.equals(trainer.getName()) && color.equals(trainer.getColor());
     }
+    public void inicialPokemon(String pokemon){
+        actualPokemon = inventory.getPokemons().get(pokemon);
+    }
+    public void addPokemon(Pokemon pokemon) throws PoobkemonException{
+        inventory.addPokemon(pokemon);
+    }
+    public void setInventory(Inventory newInventory){
+        inventory = newInventory;
+    } 
 }
