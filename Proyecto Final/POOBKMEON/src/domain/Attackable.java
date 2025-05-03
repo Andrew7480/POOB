@@ -1,6 +1,6 @@
 package domain;
 
-public interface Attackable {
+public interface Attackable{
     public final double[][] multiplicadores = {
         /*               ACERO AGUA BICHO DRAG ELECT FANTA FUEGO HADA HIELO LUCHA NORMA PLANTA PSIQUI ROCA SINIES TIERRA VENENO VOLADO */
         /* ACERO */     { 0.5, 0.5, 1.0, 1.0, 1.0,  1.0,  0.5, 2.0, 2.0,  1.0,  1.0,   1.0,  1.0,  2.0,  1.0,   1.0,   1.0,   0.5 },

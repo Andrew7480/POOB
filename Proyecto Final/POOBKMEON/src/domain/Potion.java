@@ -2,7 +2,7 @@ package domain;
 
 import java.io.Serializable;
 
-public abstract class Potion extends Item implements Serializable{
+public abstract class Potion extends Item{
 
     protected final PotionType statics;
 

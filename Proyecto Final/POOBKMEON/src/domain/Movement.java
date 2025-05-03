@@ -11,6 +11,7 @@ public class Movement implements Attackable, Serializable{
     protected PokemonType type;
     protected int priority; 
     
+
     public Movement(String newName, String newDescription, int newPP, int newPower, int newPrecision, PokemonType newType, int newpPriority){
         name = newName;
         description = newDescription;

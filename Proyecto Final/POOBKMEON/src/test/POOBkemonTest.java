@@ -4,6 +4,7 @@ import domain.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 import org.junit.Test;
@@ -11,12 +12,11 @@ import org.junit.Test;
 /*
  * POOBkemonTest
  */
-public class POOBkemonTest {
+public class POOBkemonTest implements Serializable {
 
     @Test
     public void shouldSaveGamePre(){
-        try{
-            POOBkemon poobkemon = new POOBkemon();
+        POOBkemon poobkemon = new POOBkemon();
 
             //creacion estados de effecto
             
@@ -160,6 +160,8 @@ public class POOBkemonTest {
             //poobkemon.addTrainer(attacking.getName(), attacking);
             //poobkemon.addTrainer(player1.getName(), player1);
             //poobkemon.addTrainer(player2.getName(), player2);
+        try{
+            
 
             System.out.println("si? :( )");
             //inventarios
@@ -190,14 +192,22 @@ public class POOBkemonTest {
             inventarioChanging.addItem(hyperPotionPlayerTwoO);
             inventarioChanging.addItem(potionPlayerTwo);
             inventarioChanging.addItem(attackSuperPotionPlayerTwoO);
-            
+            System.out.println("sIIIIIIIIII");
+        
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace(); // Esto mostrará la causa exacta del error
+            fail(); // Esto marcará explícitamente la prueba como fallida
+        }
+        try {
             poobkemon.serializateGame();
             System.out.println("siiii");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace(); // Esto mostrará la causa exacta del error
+            fail(); 
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-            //fail();
-        }    
         
     }
     @Test
@@ -207,33 +217,11 @@ public class POOBkemonTest {
             poobkemon.deserializateGame();
         }
         catch(Exception e){
-            fail();
+            System.out.println("Error: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace(); // Esto mostrará la causa exacta del error
+            fail(); 
         }    
     }
 
-    @Test
-    public void shouldcreate(){
-        try{
-            POOBkemon poobkemon = new POOBkemon();
-            poobkemon.iniciateItemsForSerialization();
-        }
-        catch(Exception e){
-            fail();
-        }    
-    }
-    @Test
-    public void shouldopen(){
-        try{
-            System.out.println("si?");
-            POOBkemon poobkemon = new POOBkemon();
-            poobkemon.deserializateItems();
-            TreeMap<String, Item> prueba = poobkemon.getItems();
-            for(String key : prueba.keySet()) {
-                System.out.println(key + " : " + prueba.get(key).getDescription());
-            }
-        }
-        catch(Exception e){
-            fail();
-        }    
-    }
+    
 }

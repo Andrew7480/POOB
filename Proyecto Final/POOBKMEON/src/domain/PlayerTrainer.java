@@ -2,7 +2,7 @@ package domain;
 
 import java.io.Serializable;
 
-public class PlayerTrainer extends Trainer implements Serializable{
+public class PlayerTrainer extends Trainer{
 
     public PlayerTrainer(String newName) {
         super(newName);

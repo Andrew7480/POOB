@@ -24,7 +24,6 @@ public class Pokemon implements Serializable {
     //Por defecto todos los pokemones tienen este movimiento
     private Movement struggle = new Movement("Struggle","A desperate attack that also hurts the user",0,50,100,getPrincipalType(),0);
 
-
     // ATRIBUTO AFECTADO POR ALGO -> NO PUEDO HACER NINGUN MOVIMIENTO YO NO PUEDO HACER NINGÚN OTRO MOVIMIENTO
     // HASTA QUE EL TIEMPO DE EL ESTADO < 0
 

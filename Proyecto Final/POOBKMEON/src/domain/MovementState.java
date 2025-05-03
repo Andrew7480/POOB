@@ -3,7 +3,7 @@ package domain;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class MovementState extends Movement implements Serializable{
+public class MovementState extends Movement{
     private StatusEffect state;
     private int damageBase;
 

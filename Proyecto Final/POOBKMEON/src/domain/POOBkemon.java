@@ -5,11 +5,10 @@ import java.io.*;
  * POOBkemon
  */
 public class POOBkemon implements Serializable{
-    
     private TreeMap<String, Pokemon> pokedex = new TreeMap<>(); // Pokemones sin movimientos, los movimientos los pone y se añaden al jugador
     private TreeMap<String, Trainer> entrenadores = new TreeMap<>();
 
-    private TreeMap<String, Item> items = new TreeMap<>(); 
+    private TreeMap<String, Item> items = new TreeMap<>(); //los items necsrios
     private TreeMap<String, Movement> movements = new TreeMap<>(); //movimientos predefinidos qu epuede escoger el usuario
 
     //turno actual
@@ -19,7 +18,7 @@ public class POOBkemon implements Serializable{
     private Trainer trainerTurn2;
 
     //idea 2 y un arreglo de trainser organizado de 2
-    private int turno = 1;
+    //private int turno = 1;
 
     public POOBkemon() {
     }
@@ -113,17 +112,11 @@ public class POOBkemon implements Serializable{
         entrenadores.get(entrenador).addPokemon(pokemon);
     }
 
-    public void serializateGame(String fileName) {
+    private void serializateGame(String fileName) {
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameData.ser"));
-            System.out.println("Intentando serializar pokedex...");
-            out.writeObject(pokedex);
-            System.out.println("Intentando serializar entrenadores...");
-            out.writeObject(entrenadores);
-            System.out.println("Intentando serializar items...");
-            out.writeObject(items);
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameData"));
             System.out.println("Intentando serializar movements...");
-            out.writeObject(movements);
+            out.writeObject(this);
             out.close();
         } catch (NotSerializableException e) {
             System.out.println("Error al serializar: " + e.getMessage());
@@ -138,171 +131,44 @@ public class POOBkemon implements Serializable{
     public void serializateGame(){
         String fileName = "gameData";
         serializateGame(fileName);
-    /*try {
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
-        out.writeObject(pokedex);
-        out.writeObject(entrenadores);
-        out.writeObject(items);
-        out.writeObject(movements);
-        out.writeObject(trainerTurn1);
-        out.writeObject(trainerTurn2);
-        out.writeObject(turn);
-        out.close();
-        System.out.println("Juego guardado exitosamente.");
-    } catch (IOException e) {
-        System.out.println("Error al guardar el juego: " + e.getMessage());
-    }*/
     }
+
+
     @SuppressWarnings("unchecked")
-    public void deserializateGame(String fileName) {
+    private void deserializateGame(String fileName) {
         File file = new File(fileName);
-        if (!file.exists()) {
-            System.err.println("Error: El archivo " + fileName + " no existe.");
-            return;
-        }
-    
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
-            pokedex = (TreeMap<String, Pokemon>) in.readObject();
-            entrenadores = (TreeMap<String, Trainer>) in.readObject();
-            items = (TreeMap<String, Item>) in.readObject();
-            movements = (TreeMap<String, Movement>) in.readObject();
-            trainerTurn1 = (Trainer) in.readObject();
-            trainerTurn2 = (Trainer) in.readObject();
-            turn = (Trainer) in.readObject();
+    if (!file.exists()) {
+        System.err.println("El archivo " + fileName + " no existe.");
+        return;
+    }
+
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
+        Object deserializedObject = in.readObject();
+        if (deserializedObject instanceof POOBkemon) {
+            POOBkemon poobkemon = (POOBkemon) deserializedObject;
             System.out.println("Juego cargado exitosamente desde " + fileName);
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            System.err.println("Error al cargar el juego: " + e.getMessage());
+            System.out.println("Pokédex: " + poobkemon.getPokedex());
+        } else {
+            System.err.println("El archivo no contiene un objeto de tipo POOBkemon.");
         }
+    } catch (IOException e) {
+        System.err.println("Error al leer el archivo: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+        System.err.println("Error: Clase no encontrada durante la deserialización: " + e.getMessage());
+    }
     }
 
 
     public void deserializateGame(){
         String fileName = "gameData";
         deserializateGame(fileName);
-    /*try {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
-        pokedex = (TreeMap<String, Pokemon>) in.readObject();
-        entrenadores = (TreeMap<String, Trainer>) in.readObject();
-        items = (TreeMap<String, Item>) in.readObject();
-        movements = (TreeMap<String, Movement>) in.readObject();
-        trainerTurn1 = (Trainer) in.readObject();
-        trainerTurn2 = (Trainer) in.readObject();
-        turn = (Trainer) in.readObject();
-        in.close();
-        System.out.println("Juego cargado exitosamente.");
-    } catch (IOException | ClassNotFoundException e) {
-        System.out.println("Error al cargar el juego: " + e.getMessage());
-    }*/
     }
 
-    public void iniciateGameDefault() { // esto seria tambien para serializar
-        String fileName = "machineTrainer.txt";
-        Trainer playerTrainer = new PlayerTrainer("Player");
-        Trainer machineTrainer = new DefensiveTrainer("Machine");
-        Trainer machineTrainerExpertTrainer = new ExpertTrainer("Machine");
-        Trainer machineChangingTrainer = new ChangingTrainer("Machine");
-        Trainer machineAttackingTrainer = new AttackingTrainer("Machine");
-        entrenadores.put(playerTrainer.getName(), playerTrainer);
-        entrenadores.put(machineTrainer.getName(), machineTrainer);
-        entrenadores.put(machineTrainerExpertTrainer.getName(), machineTrainerExpertTrainer);
-        entrenadores.put(machineChangingTrainer.getName(), machineChangingTrainer);
-        entrenadores.put(machineAttackingTrainer.getName(), machineAttackingTrainer);
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
-            out.writeObject(playerTrainer);
-            out.writeObject(machineTrainer);
-            out.writeObject(machineTrainerExpertTrainer);
-            out.writeObject(machineChangingTrainer);
-            out.writeObject(machineAttackingTrainer);
-            out.close();
+    
 
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void deserializateTrainers(){
-        String fileName = "machineTrainer.txt";
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
-            Trainer playerTrainer = (PlayerTrainer) in.readObject();
-            Trainer machineTrainerDefensive = (DefensiveTrainer) in.readObject();
-            Trainer machineTrainerExpertTrainer = (ExpertTrainer) in.readObject();
-            Trainer machineChangingTrainer = (ChangingTrainer) in.readObject();
-            Trainer machineAttackingTrainer = (AttackingTrainer) in.readObject();
-            in.close();
-            entrenadores.put(playerTrainer.getName(), playerTrainer);
-            entrenadores.put(machineTrainerDefensive.getName(), machineTrainerDefensive);
-            entrenadores.put(machineTrainerExpertTrainer.getName(), machineTrainerExpertTrainer);
-            entrenadores.put(machineChangingTrainer.getName(), machineChangingTrainer);
-            entrenadores.put(machineAttackingTrainer.getName(), machineAttackingTrainer);
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    
 
 
-    public void iniciateItemsForSerialization(){
-        String fileName = "itemsJuego.txt";
-        DefensePotion hyperDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.HYPER);
-        AttackPotion hyperAttackPotion = new AttackPotion("Attack Potion", "", PotionType.HYPER);
-        PsPotion hyperPsPotion = new PsPotion("Ps Potion", "", PotionType.HYPER);
-
-        DefensePotion superDefensePotion = new DefensePotion("Defense Potion", "Give a pokemon defense points", PotionType.SUPER);
-        AttackPotion superAttackPotion = new AttackPotion("Attack Potion", "", PotionType.SUPER);
-        PsPotion superPsPotion = new PsPotion("Ps Potion", "", PotionType.SUPER);
-
-        HyperPotion hyperPotion = new HyperPotion("Hyper Potion", "", PotionType.HYPER);
-        SuperPotion superPotion = new SuperPotion("Super Potion", "", PotionType.SUPER);
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
-            out.writeObject(hyperDefensePotion);
-            out.writeObject(hyperAttackPotion);
-            out.writeObject(hyperPsPotion);
-
-            out.writeObject(superDefensePotion);
-            out.writeObject(superAttackPotion);
-            out.writeObject(superPsPotion);
-
-            out.writeObject(hyperPotion);
-            out.writeObject(superPotion);
-
-            out.close();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-       /* https://www.geeksforgeeks.org/serialization-in-java/*/ 
-    }
-    public void deserializateItems(){
-        String fileName = "itemsJuego.txt";
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
-            DefensePotion hyperDefensePotion = (DefensePotion) in.readObject();
-            AttackPotion hyperAttackPotion = (AttackPotion) in.readObject();
-            PsPotion hyperPsPotion = (PsPotion) in.readObject();
-
-            DefensePotion superDefensePotion = (DefensePotion) in.readObject();
-            AttackPotion superAttackPotion = (AttackPotion) in.readObject();
-            PsPotion superPsPotion = (PsPotion) in.readObject();
-
-            HyperPotion hyperPotion = (HyperPotion) in.readObject();
-            SuperPotion superPotion = (SuperPotion) in.readObject();
-
-            in.close();
-
-            items.put(hyperDefensePotion.getName(), hyperDefensePotion);
-            items.put(hyperAttackPotion.getName(), hyperAttackPotion);
-            items.put(hyperPsPotion.getName(), hyperPsPotion);
-            items.put(superDefensePotion.getName(), superDefensePotion);
-            items.put(superAttackPotion.getName(), superAttackPotion);
-            items.put(superPsPotion.getName(), superPsPotion);
-            items.put(hyperPotion.getName(), hyperPotion);
-            items.put(superPotion.getName(), superPotion);
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    
+    
 }

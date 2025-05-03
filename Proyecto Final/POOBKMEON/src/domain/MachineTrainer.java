@@ -1,7 +1,7 @@
 package domain;
 import java.io.Serializable;
 import java.util.*;
-public abstract class MachineTrainer extends Trainer implements Serializable{
+public abstract class MachineTrainer extends Trainer{
     public MachineTrainer(String name){
         super(name);
     }

@@ -1,7 +1,8 @@
 package domain;
 import java.util.*;
-public class DefensiveTrainer extends MachineTrainer {
-    
+import java.io.*;
+
+public class DefensiveTrainer extends MachineTrainer implements Serializable {
     public DefensiveTrainer(String newName) {
         super(newName);
     }
