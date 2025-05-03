@@ -1,6 +1,5 @@
 package domain;
 
-import java.io.Serializable;
 
 public abstract class Potion extends Item{
 
@@ -20,8 +19,5 @@ public abstract class Potion extends Item{
         return statics;
     }
 
-    public Item copy(){
-        return new AttackPotion(name, description, statics);
-    }
 }
 

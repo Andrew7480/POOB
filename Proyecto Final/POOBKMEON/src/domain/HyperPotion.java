@@ -9,6 +9,5 @@ public class HyperPotion extends Potion implements Serializable{
         super.useItem(pokemon);
         pokemon.gainSpecialAttack(statics.getValue());
         pokemon.gainSpecialDefense(statics.getValue());
-        usedItem();
     }
 }

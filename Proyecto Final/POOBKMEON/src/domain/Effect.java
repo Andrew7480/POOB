@@ -1,7 +1,6 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.*;
 
 public abstract class Effect implements Serializable{
 

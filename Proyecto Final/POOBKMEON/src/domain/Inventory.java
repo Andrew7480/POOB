@@ -5,34 +5,34 @@ import java.util.*;
 
 public class Inventory implements Serializable{
     private final int capacityOfItems = 20;
-    private HashMap<String, Item> items = new HashMap<>();
+    private HashMap<Item, Integer> items = new HashMap<>();
     private TreeMap<String, Pokemon> pokemons = new TreeMap<>();
 
     public Inventory() {
     }
-    
-
 
     public void addItem(Item item) throws PoobkemonException{
-        if (items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        //if (items.containsKey(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
         if (items.size() > capacityOfItems) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
-        if (countItems(item) >= 2) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
-        items.put(item.getName(),item);
+        if (items.containsKey(item) && countItems(item) >= 2) throw new PoobkemonException(PoobkemonException.EXCESS_CAPACITY);
+        items.put(item, items.getOrDefault(item, 0) + 1);
     }
 
     public int countItems(Item item) throws PoobkemonException{
-        int count = 0;
-        for (Item i : items.values()){
-            if (i.getClass().equals(item.getClass())){
-                count++;
-            }
-        }
-        return count;
+        if (!items.containsKey(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        return items.get(item);
     }
 
     private void delItem(Item item) throws PoobkemonException{
-        if (items.containsValue(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
-        items.remove(item.getName());
+        if (!items.containsKey(item)) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        Integer count = items.get(item);
+        if (count <= 0) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        if (count == 1) {
+            items.remove(item); 
+        } else {
+            items.put(item, count - 1);
+        }
+
     }
 
     public void addPokemon(Pokemon pokemon) throws PoobkemonException{
@@ -43,7 +43,7 @@ public class Inventory implements Serializable{
         return pokemons.containsKey(pokemon.getName());
     }
     public boolean contains(Item item){
-        return items.containsKey(item.getName());
+        return items.containsKey(item);
     }
 
     public TreeMap<String,Pokemon> getPokemons(){
@@ -67,16 +67,16 @@ public class Inventory implements Serializable{
         }
         return poke;
     }
-    public ArrayList<Item> getUsableItems(){
-        ArrayList<Item> itemss= new ArrayList<Item> ();
-        for(Item p: items.values()){
-            if(p.isUsable()) itemss.add(p);
-        }
-        return itemss;
-    }
 
     public boolean canChange(Pokemon pokemon){
         return pokemon.isAlive() && pokemons.containsValue(pokemon);
+    }
+
+    public void useItem(Pokemon pokemon,Item item) throws PoobkemonException{
+        if (! items.containsKey(item.getName())) throw new PoobkemonException(PoobkemonException.INVALID_ITEM);
+        if (! pokemons.containsKey(pokemon.getName())) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
+        item.useItem(pokemon);
+        items.remove(item.getName());
     }
 
 }

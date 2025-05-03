@@ -1,9 +1,8 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
-public class MovementTribute extends Movement{
+public class MovementTribute extends SpecialMovement{
     private HashMap<String,Integer> stateTo = new HashMap<>();
     private TributeEffect state;
     private int damageBase = 0;
@@ -22,7 +21,7 @@ public class MovementTribute extends Movement{
 
 
     @Override
-    public int doAttackTo(Pokemon attacker, Pokemon target, int attack, int defenseTarget) throws PoobkemonException{
+    public int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException{
         if (Math.random() * 100 > precision) {  //tiene prob de ocurri o no 
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
@@ -30,7 +29,7 @@ public class MovementTribute extends Movement{
         return damageBase;
     }
     @Override
-    public Movement coyy(){
+    public Movement copy(){
         return new MovementTribute(name, description, PP, power, precision, type, state, priority);
     }
 }

@@ -13,12 +13,11 @@ import org.junit.Test;
  * POOBkemonTest
  */
 public class POOBkemonTest implements Serializable {
-
     @Test
     public void shouldSaveGamePre(){
         POOBkemon poobkemon = new POOBkemon();
 
-            //creacion estados de effecto
+        //creacion estados de effecto
             
             StatusEffect Paralyze = new StatusEffect("Paralisis", "Paralisa al pokemon reduciendo su velocidad.", 1);
             
@@ -45,56 +44,110 @@ public class POOBkemonTest implements Serializable {
             MovementTribute regenerate = new MovementTribute("Regenerar", "", 25, 0, 100, PokemonType.NORMAL, Regenerate, 0);
             MovementTribute electrocuted = new MovementTribute("Electrocutar", "", 12, 30, 70, PokemonType.ELECTRICO, Electrocuted, 30);
             //Movimiento Normales -> FISICOS -> ESPECIALES?
-            Movement hyperBeam = new Movement("Hyper Beam","A devastating attack that requires a turn to recharge.",5,150,90,PokemonType.NORMAL,0);
-            Movement quickAttack = new Movement("Quick Attack","A fast attack that always strikes first.",30,40,100,PokemonType.NORMAL,1);
-            Movement earthquake = new Movement("Earthqueake","Causes an earthquake that affects all Pokémon on the field.",10,100,100,PokemonType.TIERRA,0);
-            Movement psychic = new Movement("Psychic","A mental attack that can reduce the enemy's special defense.",10,90,100,PokemonType.PSIQUICO,0);
-            Movement dragonClaw = new Movement("Dragon Claw","Strike the enemy with a sharp claw of dragon energy.",15,80,100,PokemonType.DRAGON,0);
-            Movement shadowBall = new Movement("Shadow ball","Throws a ball of dark energy. You can lower the special defense.",15,80,100,PokemonType.FANTASMA,0);
-            Movement brickBreak = new Movement("Brick break","Break the barriers of Reflection and Light Display.",15,75,100,PokemonType.LUCHA,0);
-            Movement surf = new Movement("Surf","A water attack that hits all Pokémon in battle, except your partner in double battles.",15,90,100,PokemonType.AGUA,0);
+            Movement hyperBeam = new PhysicalMovement("Hyper Beam","A devastating attack that requires a turn to recharge.",5,150,90,PokemonType.NORMAL,0);
+            Movement quickAttack = new PhysicalMovement("Quick Attack","A fast attack that always strikes first.",30,40,100,PokemonType.NORMAL,1);
+            Movement earthquake = new PhysicalMovement("Earthqueake","Causes an earthquake that affects all Pokémon on the field.",10,100,100,PokemonType.TIERRA,0);
+            Movement psychic = new SpecialMovement("Psychic","A mental attack that can reduce the enemy's special defense.",10,90,100,PokemonType.PSIQUICO,0);
+            Movement dragonClaw = new SpecialMovement("Dragon Claw","Strike the enemy with a sharp claw of dragon energy.",15,80,100,PokemonType.DRAGON,0);
+            Movement shadowBall = new SpecialMovement("Shadow ball","Throws a ball of dark energy. You can lower the special defense.",15,80,100,PokemonType.FANTASMA,0);
+            Movement brickBreak = new PhysicalMovement("Brick break","Break the barriers of Reflection and Light Display.",15,75,100,PokemonType.LUCHA,0);
+            Movement surf = new SpecialMovement("Surf","A water attack that hits all Pokémon in battle, except your partner in double battles.",15,90,100,PokemonType.AGUA,0);
             
             //movimientos que puede escoger el usuario para un pokemon
-            poobkemon.addMovement(paralyze);
-            poobkemon.addMovement(burn);
-            poobkemon.addMovement(poison);
-            poobkemon.addMovement(defense);
-            poobkemon.addMovement(regenerate);
-            poobkemon.addMovement(electrocuted);
-            poobkemon.addMovement(hyperBeam);
-            poobkemon.addMovement(quickAttack);
-            poobkemon.addMovement(earthquake);
-            poobkemon.addMovement(psychic);
-            poobkemon.addMovement(dragonClaw);
-            poobkemon.addMovement(shadowBall);
-            poobkemon.addMovement(brickBreak);
-            poobkemon.addMovement(surf);
+            try{
+                poobkemon.addMovement(paralyze);
+                poobkemon.addMovement(burn);
+                poobkemon.addMovement(poison);
+                poobkemon.addMovement(defense);
+                poobkemon.addMovement(regenerate);
+                poobkemon.addMovement(electrocuted);
+                poobkemon.addMovement(hyperBeam);
+                poobkemon.addMovement(quickAttack);
+                poobkemon.addMovement(earthquake);
+                poobkemon.addMovement(psychic);
+                poobkemon.addMovement(dragonClaw);
+                poobkemon.addMovement(shadowBall);
+                poobkemon.addMovement(brickBreak);
+                poobkemon.addMovement(surf);}
+            catch(PoobkemonException e){
+
+            }
 
             //Pokemones con esos movs
             Pokemon charizard = new Pokemon("Charizard", 90, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR);            
             Pokemon snorlax = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null);
             Pokemon blastoise = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null);
+            Pokemon venusaur = new Pokemon("Venasur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO);
+            Pokemon gengar = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA,PokemonType.VENENO);
+            Pokemon dragonite = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR);
+            Pokemon togetic = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR);
+            Pokemon tyranitar = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO);
+            Pokemon gardevoir = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA);
+            Pokemon metagross = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO);
+            Pokemon donphan = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null);
+            Pokemon machamp = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null);
+            Pokemon delibird = new Pokemon("Delibird",100,294,229,251,207,207,273,PokemonType.HIELO,PokemonType.VOLADOR);
+            Pokemon raichu = new Pokemon("Raichu",100,324,306,306,229,284,350,PokemonType.ELECTRICO,null);
             
             Pokemon charizard1 = new Pokemon("Charizard", 90, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR);
             Pokemon snorlax1 = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null);
             Pokemon blastoise1 = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null);
-
+            /*
+            Pokemon venusaur1 = new Pokemon("Venasur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO);
+            Pokemon gengar1 = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA,PokemonType.VENENO);
+            Pokemon dragonite1 = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR);
+            Pokemon togetic1 = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR);
+            Pokemon tyranitar1 = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO);
+            Pokemon gardevoir1 = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA);
+            Pokemon metagross1 = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO);
+            Pokemon donphan1 = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null);
+            Pokemon machamp1 = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null);
+            Pokemon delibird1 = new Pokemon("Delibird",100,294,229,251,207,207,273,PokemonType.HIELO,PokemonType.VOLADOR);
+            Pokemon raichu1 = new Pokemon("Raichu",100,324,306,306,229,284,350,PokemonType.ELECTRICO,null);
+            */
             poobkemon.addPokemon(charizard);
             poobkemon.addPokemon(snorlax);
             poobkemon.addPokemon(blastoise);
+            poobkemon.addPokemon(venusaur);
+            poobkemon.addPokemon(gengar);
+            poobkemon.addPokemon(dragonite);
+            poobkemon.addPokemon(togetic);
+            poobkemon.addPokemon(tyranitar);
+            poobkemon.addPokemon(gardevoir);
+            poobkemon.addPokemon(metagross);
+            poobkemon.addPokemon(donphan);
+            poobkemon.addPokemon(machamp);
+            poobkemon.addPokemon(delibird);
+            poobkemon.addPokemon(raichu);
 
-            //poobkemon.addPokemon(charizard1);
-            //poobkemon.addPokemon(snorlax1);
-            //poobkemon.addPokemon(blastoise1);
+
+            /*
+            poobkemon.addPokemon(charizard1);
+            poobkemon.addPokemon(snorlax1);
+            poobkemon.addPokemon(blastoise1);
+            poobkemon.addPokemon(venusaur1);
+            poobkemon.addPokemon(gengar1);
+            poobkemon.addPokemon(dragonite1);
+            poobkemon.addPokemon(togetic1);
+            poobkemon.addPokemon(tyranitar1);
+            poobkemon.addPokemon(gardevoir1);
+            poobkemon.addPokemon(metagross1);
+            poobkemon.addPokemon(donphan1);
+            poobkemon.addPokemon(machamp1);
+            poobkemon.addPokemon(delibird1);
+            poobkemon.addPokemon(raichu1);
+             */
 
             //pokemones con movimientos predefinidos
             charizard.setMovements(new Movement[] {paralyze,burn,quickAttack,dragonClaw});
             snorlax.setMovements(new Movement[]{hyperBeam,dragonClaw,brickBreak,surf});
             blastoise.setMovements(new Movement[]{surf,psychic,earthquake,hyperBeam});
+
+            /*
             charizard1.setMovements(new Movement[] {paralyze,burn,quickAttack,dragonClaw});
             snorlax1.setMovements(new Movement[]{hyperBeam,dragonClaw,brickBreak,surf});
             blastoise1.setMovements(new Movement[]{surf,psychic,earthquake,hyperBeam});
-
+            */
 
             //items
 
@@ -122,6 +175,7 @@ public class POOBkemonTest implements Serializable {
             Item hyperPotion1 = new SuperPotion("Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
             
             //player 2
+            /*
             Item revivePokemonPlayerTwo = new Revive();
             Item defenseNormalPotionPlayerTwo = new DefensePotion("Posion Defensa", "Aumenta la defensa.", PotionType.NORMAL);
             Item attackNormalPotionPlayerTwo = new AttackPotion("Posion ataque", "Aumenta el ataque.", PotionType.NORMAL);
@@ -144,7 +198,7 @@ public class POOBkemonTest implements Serializable {
             Item potionPlayerTwoO = new PsPotion("Potion","",PotionType.NORMAL);
             Item superPotionPlayerTwoO = new SuperPotion("Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.SUPER);
             Item hyperPotionPlayerTwoO = new SuperPotion("Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
-            
+            */
 
 
             //creacion trainers
@@ -161,9 +215,6 @@ public class POOBkemonTest implements Serializable {
             //poobkemon.addTrainer(player1.getName(), player1);
             //poobkemon.addTrainer(player2.getName(), player2);
         try{
-            
-
-            System.out.println("si? :( )");
             //inventarios
             //1 denfensive
             Inventory inventarioDefensive = new Inventory(); 
@@ -171,16 +222,12 @@ public class POOBkemonTest implements Serializable {
             defensive.addPokemon(snorlax1);
             defensive.addPokemon(charizard1);
             defensive.addPokemon(blastoise1);
-            System.out.println("mm?");
-            inventarioDefensive.addItem(revivePlayerOne);
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
-            inventarioDefensive.addItem(defenseSuperPotion);
+            inventarioDefensive.addItem(revivePlayerOne);
             inventarioDefensive.addItem(attackSuperPotion);
-            inventarioDefensive.addItem(psSuperPotion);
-            inventarioDefensive.addItem(potion);
+            inventarioDefensive.addItem(revivePlayerOne);
             inventarioDefensive.addItem(superPotion);
-            System.out.println("si? :( )");
 
             //2
             Inventory inventarioChanging = new Inventory();
@@ -188,10 +235,10 @@ public class POOBkemonTest implements Serializable {
             changing.addPokemon(snorlax);
             changing.addPokemon(charizard);
             changing.addPokemon(blastoise);
-            inventarioChanging.addItem(revivePokemonPlayerTwo);
-            inventarioChanging.addItem(hyperPotionPlayerTwoO);
-            inventarioChanging.addItem(potionPlayerTwo);
-            inventarioChanging.addItem(attackSuperPotionPlayerTwoO);
+            inventarioChanging.addItem(psNormalPotion);
+            inventarioChanging.addItem(defenseNormalPotion);
+            inventarioChanging.addItem(revivePlayerOne);
+            inventarioChanging.addItem(revivePlayerOne);
             System.out.println("sIIIIIIIIII");
         
         }
@@ -202,7 +249,6 @@ public class POOBkemonTest implements Serializable {
         }
         try {
             poobkemon.serializateGame();
-            System.out.println("siiii");
         } catch (Exception e) {
             System.out.println("Error: " + e.getClass().getName() + " - " + e.getMessage());
             e.printStackTrace(); // Esto mostrará la causa exacta del error

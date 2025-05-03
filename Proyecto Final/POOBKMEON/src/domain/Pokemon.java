@@ -22,7 +22,7 @@ public class Pokemon implements Serializable {
     private ArrayList<TributeEffect> tributeEffects;
     private StatusEffect statusEffect;
     //Por defecto todos los pokemones tienen este movimiento
-    private Movement struggle = new Movement("Struggle","A desperate attack that also hurts the user",0,50,100,getPrincipalType(),0);
+    private Movement struggle = new PhysicalMovement("Struggle","A desperate attack that also hurts the user",0,50,100,getPrincipalType(),0);
 
     // ATRIBUTO AFECTADO POR ALGO -> NO PUEDO HACER NINGUN MOVIMIENTO YO NO PUEDO HACER NINGÚN OTRO MOVIMIENTO
     // HASTA QUE EL TIEMPO DE EL ESTADO < 0
@@ -90,12 +90,27 @@ public class Pokemon implements Serializable {
         return tributeEffects;
     }
 
+    //AÑADIR MOVIMIENTOS QUE SEAN DIFERENTES A LA DEBILIDAD DEL POKEMON?
+    /*public void onlyAddValidMovements(){
+        HashSet<Movement> movementsDontValid = new HashSet<>(movementsWeaksForMe());
+        for (int i = 0; i < movements.size(); i++){
+            if(!movementsDontValid.contains(movements.get(i))){
+                addMovement(movements.get(i));
+            }
+        }
+    }*/
+
     public void setMovements( Movement[] newMovements){
         ArrayList<Movement> list = new ArrayList<>();
         for (Movement m:newMovements){
-            list.add(m);
+            addMovement(m);
         }
         movements = list;
+    }
+    
+    public void addMovement(Movement mov){
+        HashSet<Movement> movementsDontValid = new HashSet<>(movementsWeaksForMe());
+        if (!movements.contains(mov) && !movementsDontValid.contains(mov)) movements.add(mov);
     }
 
     public ArrayList<MovementState> getStateMovements() {
@@ -141,12 +156,13 @@ public class Pokemon implements Serializable {
     }
 
 
-    public void revivedByItem() throws PoobkemonException{
+    public void revivedByItem(double recover) throws PoobkemonException{
         if ( isAlive || usedReviveItem) throw new PoobkemonException(PoobkemonException.ITEM_NOT_USABLE);
-        ps = (int) maxPs/2;
+        ps = (int) (maxPs*recover);
         isAlive = true;
         usedReviveItem = true;
     }
+    
     public boolean haveUsedReviveItem(){
         return usedReviveItem;
     }
@@ -220,12 +236,10 @@ public class Pokemon implements Serializable {
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
         if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
         if (dontHavePPForAllMovement()){actionF(target);}
-        if (movimiento.getType().getTypeMov() == "Fisico")  movimiento.doAttackTo(this, target, attack, target.getDefense());
-        else if (movimiento.getType().getTypeMov() == "Especial")  movimiento.doAttackTo(this, target, specialAttack,target.getSpecialDefense());
-        else{
-            movimiento.doAttackTo(this, target, attack, target.getDefense()); //serian los effectos?? movimientos de estado
-        }
+        
+        movimiento.doAttackTo(this, target);
     }
+
     public ArrayList<Movement> movementsUsables(){
         ArrayList<Movement> temp = new ArrayList<>();
         for(Movement m: movements){
@@ -239,12 +253,13 @@ public class Pokemon implements Serializable {
     public ArrayList<Movement> specialsMovements(){
         ArrayList<Movement> temp = new ArrayList<>();
         for(Movement m: movements){
-            if (m.canMakeMove() && m.getType().getTypeMov() == "Especial"){
+            if (m.canMakeMove() && m.getClass().getName().equals("SpecialMovement")){
                 temp.add(m);
             }
         }
         return temp;
     }
+
     public Movement aleatoryMovement(Pokemon target){
         ArrayList<Movement> temp = movementsUsables();
         Random random = new Random();
@@ -288,5 +303,17 @@ public class Pokemon implements Serializable {
            principalType.equals(pokemon.getPrincipalType()) &&
            (secondaryType == null ? pokemon.getSecondaryType() == null : secondaryType.equals(pokemon.getSecondaryType()));
     }
+
+    
+    public ArrayList<Movement> movementsWeaksForMe(){
+        ArrayList<Movement> movementsWeak = new ArrayList<>();
+        for (int i = 0; i < movements.size(); i++){
+            if (movements.get(i).getMultiplicator(principalType) > 1.0){
+                movementsWeak.add(movements.get(i));
+            }
+        }
+        return movementsWeak;
+    }
+
 }
 

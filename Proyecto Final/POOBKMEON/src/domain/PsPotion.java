@@ -1,5 +1,6 @@
 package domain;
 import java.io.*;
+
 public class PsPotion extends Potion implements Serializable{
     public PsPotion(String name, String description, PotionType newPs) {
         super(name, description,newPs);
@@ -8,6 +9,5 @@ public class PsPotion extends Potion implements Serializable{
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
         pokemon.gainPS(statics.getValue());
-        usedItem();
     }
 }

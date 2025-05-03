@@ -1,5 +1,4 @@
 package domain;
-import java.io.Serializable;
 import java.util.*;
 public abstract class MachineTrainer extends Trainer{
     public MachineTrainer(String name){
@@ -15,17 +14,15 @@ public abstract class MachineTrainer extends Trainer{
         if (randomIndex == 1) useItem(null);
         else {changePokemon();}
     }
-
+    @Override
+    public void changePokemon(Pokemon pokemon){
+        changePokemon();
+    }
     public void changePokemon(){
         ArrayList<Pokemon> stillAlive = inventory.getAlivePokemons(actualPokemon);
         Random random = new Random();
         int choicesToPick = random.nextInt(stillAlive.size());
         actualPokemon = stillAlive.get(choicesToPick);
-    }
-
-    @Override
-    public void changePokemon(Pokemon pokemon){
-        changePokemon();
     }
     @Override
     public void useItem(Item item){
@@ -38,7 +35,6 @@ public abstract class MachineTrainer extends Trainer{
     public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException{
         //actualPokemon.useMovement(mov, target);
     }
-
     public Movement pokemonMovementDecide(Pokemon target){
         return actualPokemon.aleatoryMovement(target);
     }

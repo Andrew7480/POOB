@@ -1,7 +1,7 @@
 package domain;
 import java.io.Serializable;
 
-public class Movement implements Attackable, Serializable{
+public abstract class Movement implements Attackable, Serializable{
     protected String name;
     protected String description;
     protected int PP = 25;
@@ -54,39 +54,22 @@ public class Movement implements Attackable, Serializable{
 
     public void losePP()throws PoobkemonException{
         if (PP - 1 <= 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
-        PP --;
-    }
-    public boolean canMakeMove(){
-        return (PP>0);
-    }
+        PP --;}
+
+    public boolean canMakeMove(){return (PP>0);}
     
-    public int doAttackTo(Pokemon attacker, Pokemon target, int attack, int defenseTarget) throws PoobkemonException{
-        if (!canMakeMove()) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
-        if (Math.random() * 100 > precision) {
-            losePP();
-            throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
-        }
-        
-        double levelFactor = (2.0 * attacker.getLevel()) / 5.0 + 2.0;
-        double attackDefenseRatio = (double) attack / defenseTarget;
-        double damage = ((levelFactor * power * attackDefenseRatio) / 50.0) + 2.0;
-        damage *= getMultiplicator(target.getPrincipalType());
-        damage *= 0.85 + (Math.random() * 0.15);
-        target.losePS(damage);
-        losePP();
-        return (int)damage;
-    }
+    //public abstract int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException;
 
     public void AttackToStruggle(Pokemon attacker, Pokemon target){
         try{
-            int newValueAttacker = (doAttackTo(attacker, target, attacker.getAttack(),target.getDefense())/2);
+            int newValueAttacker = (doAttackTo(attacker, target)); //mirar desespspps
             attacker.losePS(newValueAttacker);
         }
         catch (PoobkemonException e){
             e.getMessage();
         }
     }
-    public Movement coyy(){
-        return new Movement(name, description, PP, power, precision, type, priority);
-    }
+    public abstract Movement copy();
+
+
 }

@@ -89,8 +89,9 @@ public class POOBkemon implements Serializable{
         return items;
     }
 
-    public void addMovement(Movement mov){
-        movements.put(mov.getName(), mov);
+    public void addMovement(Movement mov) throws PoobkemonException{
+        if (!movements.containsValue(mov)) movements.put(mov.getName(), mov);
+        throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
     }
     public void addPokemon(Pokemon pokemon) {
         pokedex.put(pokemon.getName(), pokemon);

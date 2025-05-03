@@ -9,6 +9,5 @@ public class SuperPotion extends Potion implements Serializable{
         pokemon.gainAttack(statics.getValue());
         pokemon.gainPS(statics.getValue());
         pokemon.gainDefense(statics.getValue());
-        usedItem();
     }
 }

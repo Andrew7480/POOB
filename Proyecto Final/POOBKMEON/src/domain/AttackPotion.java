@@ -8,6 +8,5 @@ public class AttackPotion extends Potion implements Serializable{
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
         pokemon.gainAttack(statics.getValue());
-        usedItem();
     }
 }

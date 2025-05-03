@@ -1,6 +1,5 @@
 package domain;
 
-import java.io.Serializable;
 
 public class PlayerTrainer extends Trainer{
 

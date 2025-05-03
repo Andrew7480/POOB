@@ -1,9 +1,7 @@
 package domain;
 
-import java.io.Serializable;
-import java.util.HashMap;
 
-public class MovementState extends Movement{
+public class MovementState extends SpecialMovement{
     private StatusEffect state;
     private int damageBase;
 
@@ -19,7 +17,7 @@ public class MovementState extends Movement{
 
 
     @Override
-    public int doAttackTo(Pokemon attacker, Pokemon target, int attack, int defenseTarget) throws PoobkemonException{
+    public int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException{
         if (Math.random() * 100 > precision) {  //tiene prob de ocurri o no 
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
@@ -27,7 +25,7 @@ public class MovementState extends Movement{
         return damageBase;
     }
     @Override
-    public Movement coyy(){
+    public Movement copy(){
         return new MovementState(name, description, PP, power, precision, type, state, priority, damageBase);
     }
 }
