@@ -18,9 +18,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = new POOBkemon();
 
         //creacion estados de effecto
-            
             StatusEffect Paralyze = new StatusEffect("Paralisis", "Paralisa al pokemon reduciendo su velocidad.", 1);
-            
             TributeEffect Burn  = new TributeEffect("Quemadura ", "Le inflinge daño al inicio de turno.",2, 
             new HashMap<String, Integer>() {{
                 put("Defense", -10);

@@ -32,5 +32,4 @@ public abstract class Effect implements Serializable{
     public String getName(){
         return name;
     }
-    public abstract Effect copy(); //creo que no se necesita
 }

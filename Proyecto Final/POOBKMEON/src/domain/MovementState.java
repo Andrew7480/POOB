@@ -24,6 +24,7 @@ public class MovementState extends SpecialMovement{
         target.addEffect(state);
         return damageBase;
     }
+    
     @Override
     public Movement copy(){
         return new MovementState(name, description, PP, power, precision, type, state, priority, damageBase);

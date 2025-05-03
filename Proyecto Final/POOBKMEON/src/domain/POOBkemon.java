@@ -134,8 +134,6 @@ public class POOBkemon implements Serializable{
         serializateGame(fileName);
     }
 
-
-    @SuppressWarnings("unchecked")
     private void deserializateGame(String fileName) {
         File file = new File(fileName);
     if (!file.exists()) {
