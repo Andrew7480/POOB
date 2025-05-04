@@ -25,9 +25,9 @@ public class SelectionPokemon extends JPanel{
     private ArrayList<JButton> buttons;
     private final int MAX_POKEMONS=6;
 
-    public SelectionPokemon(POOBkemonGUI po, Color newColor){
+    public SelectionPokemon(POOBkemonGUI po){
         pooBkemonGUI = po;
-        color = newColor;
+        color = new Color(0,0,255,100);
         prepareElements();
         prepareActions();
     }
@@ -145,6 +145,11 @@ public class SelectionPokemon extends JPanel{
         //right.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         createButtons();
     }
+    public void setColor(){
+        color = pooBkemonGUI.playerVsMachinePanel.getColor();
+    }
+
+
     public JButton getButtonBack(){
         return come;
     }

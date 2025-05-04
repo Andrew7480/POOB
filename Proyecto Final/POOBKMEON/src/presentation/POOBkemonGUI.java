@@ -23,15 +23,16 @@ public class POOBkemonGUI extends JFrame {
     private ModesOfGamePanel modesOfGamePanel;
     private ModesOfGamePanelNormal modesOfGamePanelNormal;
     private ModesOfGamePanelSurvival modesOfGamePanelSurvival;
-    private ModePlayerVSPlayer playerVSplayerPanel;
-    private ModePlayerVSPlayer playerVSplayerPanelSurvival;
-    private ModePlayerVsMachine playerVsMachinePanel;
+    protected ModePlayerVSPlayer playerVSplayerPanel;
+    protected ModePlayerVSPlayer playerVSplayerPanelSurvival;
+    protected ModePlayerVsMachine playerVsMachinePanel;
     private BattlePanel panelBattle;
     private ModeMachineVsMachine machineVsMachinePanel;
     protected ListPokemonAvailable listPokemonsPanel;
     private InventoryPanel panelInvetory;
     protected SelectionPokemon chooser;
     protected ListOfMovementsPanel listMovements;
+    private JColorChooser colorChooser;
 
     private Inicio inicio;
 
@@ -59,6 +60,7 @@ public class POOBkemonGUI extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int)screenSize.getWidth()/2, (int)screenSize.getHeight()/2);
         fileChooser = new JFileChooser();
+        colorChooser = new JColorChooser();
         prepareElementsMenu();
         prepareElementsModesOfGame();
         add(panelContenedor);
@@ -192,7 +194,7 @@ public class POOBkemonGUI extends JFrame {
         //Color azulOpaco = new Color(0, 0, 255); // RGB puro, completamente opaco
         //Color rojoOpaco = new Color(255, 0, 0); // RGB puro, completamente opaco
 
-        chooser = new SelectionPokemon(this, new Color(0, 0, 255));
+        chooser = new SelectionPokemon(this);
         panelContenedor.add(chooser, "chooser");
 
         listMovements = new ListOfMovementsPanel(this);
@@ -319,8 +321,7 @@ public class POOBkemonGUI extends JFrame {
         modesOfGamePanelNormal.getButtonPvsM().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                
-                cardLayout.show(panelContenedor,"chooser"); //aquilocambie
+                cardLayout.show(panelContenedor,"player vs machine"); //aquilocambie
             }
         });
 
@@ -359,6 +360,7 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
+
         menuPrincipal.pokedex.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -391,7 +393,7 @@ public class POOBkemonGUI extends JFrame {
         chooser.getButtonBack().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
+                cardLayout.show(panelContenedor,"player vs machine");
                 
             }
         });
@@ -437,6 +439,21 @@ public class POOBkemonGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        playerVsMachinePanel.getChoserColorNext().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                playerVsMachinePanel.changeColor();
+                chooser.setColor();
+            }
+        });
+
+        playerVsMachinePanel.getnexButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"chooser");
             }
         });
 
