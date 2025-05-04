@@ -2,6 +2,7 @@ package presentation;
 import domain.*;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javax.swing.*;
@@ -27,9 +28,9 @@ public class POOBkemonGUI extends JFrame {
     private ModePlayerVsMachine playerVsMachinePanel;
     private BattlePanel panelBattle;
     private ModeMachineVsMachine machineVsMachinePanel;
-    private ListPokemonAvailable listPokemonsPanel;
+    protected ListPokemonAvailable listPokemonsPanel;
     private InventoryPanel panelInvetory;
-    private SelectionPokemon chooser;
+    protected SelectionPokemon chooser;
     protected ListOfMovementsPanel listMovements;
 
     private Inicio inicio;
@@ -37,6 +38,7 @@ public class POOBkemonGUI extends JFrame {
     protected POOBkemon domain = new POOBkemon();
     protected TreeMap<String,Pokemon> pokemones;
     protected TreeMap<String, Movement> movimientos;
+    protected ArrayList<String> pokemonesEscogidos;
 
     /**
      * Constructor of POOBkemon
@@ -183,9 +185,6 @@ public class POOBkemonGUI extends JFrame {
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
 
-        listPokemonsPanel = new ListPokemonAvailable(this,Color.RED);
-        panelContenedor.add(listPokemonsPanel,"pokemon list");
-
         panelInvetory = new InventoryPanel(this);
         panelContenedor.add(panelInvetory,"inventory");
 
@@ -198,6 +197,9 @@ public class POOBkemonGUI extends JFrame {
 
         listMovements = new ListOfMovementsPanel(this);
         panelContenedor.add(listMovements,"movimientos");
+
+        listPokemonsPanel = new ListPokemonAvailable(this,new Color(0, 0, 255));
+        panelContenedor.add(listPokemonsPanel,"pokemon list");
 
     }
 
@@ -441,6 +443,7 @@ public class POOBkemonGUI extends JFrame {
         panelBattle.getPokemonButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                //listPokemonsPanel.inicializate(pokemonesEscogidos);
                 cardLayout.show(panelContenedor,"pokemon list");
             }
         });
@@ -458,17 +461,30 @@ public class POOBkemonGUI extends JFrame {
                 cardLayout.show(panelContenedor,"battle");
             }
         });
-
-        listPokemonsPanel.getButtonBack().addActionListener(new ActionListener(){
+        
+        listPokemonsPanel.getBackButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"battle");
             }
         });
 
+        listPokemonsPanel.getDoneButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
+                //HACE EL CAMBIO DE POKEMON EN DADO CASO?
+            }
+        });
+        
+
         listMovements.getNextButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                
+                if (!listMovements.isSelectedMovements()) {
+                    return;
+                }
                 listMovements.resetPokemonChosen();
                 cardLayout.show(panelContenedor,"battle");
             }

@@ -8,12 +8,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 public class ListOfMovementsPanel extends JPanel{
     private String BACKGROUND_IMAGE = "fondoanimado1";
     private POOBkemonGUI po;
     private JButton nextButton;
     private JButton come;
+    private JButton aleatory;
     private JPanel centralPanel;
+    private Map<String, List<String>> movimientosSeleccionados = new HashMap<>();
+
 
     public ListOfMovementsPanel(POOBkemonGUI newPo){
         po = newPo;
@@ -26,18 +30,21 @@ public class ListOfMovementsPanel extends JPanel{
         add(centralPanel, BorderLayout.CENTER);
 
         nextButton = new JButton("Siguiente");
-        po.styleButton(nextButton);
         po.styleButton(come);
+        po.styleButton(nextButton);
+        
         JPanel southPanel = new JPanel();
         southPanel.setOpaque(false);
-        southPanel.add(nextButton);
         southPanel.add(come);
+        southPanel.add(nextButton);
+        
         add(southPanel, BorderLayout.SOUTH);
     }
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
         ArrayList<Pokemon> temp = new ArrayList<>();
         for (String s:chosenPokemons){
             temp.add(po.pokemones.get(s));
+            movimientosSeleccionados.put(s, new ArrayList<>(Arrays.asList("", "", "", "")));
         }
         ArrayList<String> temp1 = new ArrayList<>();
         for (String p: po.movimientos.keySet()){
@@ -56,7 +63,7 @@ public class ListOfMovementsPanel extends JPanel{
 
         JLabel imageLabel = new JLabel();
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/"+imagePath +".png"));
-        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        Image scaledImage = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         imageLabel.setIcon(new ImageIcon(scaledImage));
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(imageLabel, BorderLayout.NORTH);
@@ -64,44 +71,43 @@ public class ListOfMovementsPanel extends JPanel{
         JLabel nameLabel = new JLabel(namePokemon, SwingConstants.CENTER);
         panel.add(nameLabel, BorderLayout.CENTER);
 
-        JPanel movesPanel = new JPanel(new GridLayout(movements.size(), 1));
+        JPanel movesPanel = new JPanel(new GridLayout(2, 1));
         movesPanel.setOpaque(false);
-
-        for (String move : movements){
-            JButton moveButton = new JButton(move);
+        JPanel Arriba = new JPanel(new FlowLayout());
+        JPanel Abajo = new JPanel(new FlowLayout());
+        Arriba.setOpaque(false);
+        Abajo.setOpaque(false);
+        for(int i = 0; i<4;i++){
+            final int buttonIndex = i;
+            JButton moveButton = new JButton("Selecciona");
+            
             moveButton.setFocusPainted(false);
-            moveButton.setContentAreaFilled(false);
+            moveButton.setContentAreaFilled(true);
             moveButton.setOpaque(false);
-            moveButton.addActionListener(new MoveButtonListener(movements));
-            movesPanel.add(moveButton);
+            moveButton.addActionListener(e -> {
+                JPopupMenu popupMenu = new JPopupMenu();
+                
+                for (String move : movements) {
+                    JMenuItem menuItem = new JMenuItem(move);
+                    menuItem.addActionListener(ev -> {
+                        moveButton.setText(move);
+                        movimientosSeleccionados.get(namePokemon).set(buttonIndex, move);
+                        //System.out.println(movimientosSeleccionados.toString());
+                    });
+                    popupMenu.add(menuItem);
+                    menuItem.setPreferredSize(new Dimension(50, 30) );
+                }
+                popupMenu.show(moveButton, moveButton.getWidth() / 2, moveButton.getHeight() / 2);
+            });
+            if (i % 2 ==0)Arriba.add(moveButton);
+            else{Abajo.add(moveButton);}
         }
 
-        panel.add(movesPanel, BorderLayout.SOUTH);
-
-        return panel;
-    }
-
-    private class MoveButtonListener implements ActionListener{
-        private ArrayList<String> movements;
+        movesPanel.add(Arriba);
+        movesPanel.add(Abajo);
         
-        public MoveButtonListener(ArrayList<String> moves){
-            movements = moves;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e){
-            JButton sourceButton = (JButton)e.getSource();
-            JPopupMenu popupMenu = new JPopupMenu();
-
-            for (String move : movements){
-                JMenuItem menuItem = new JMenuItem(move);
-                menuItem.addActionListener(ev -> {
-                    sourceButton.setText(move);
-                });
-                popupMenu.add(menuItem);
-            }
-            popupMenu.show(sourceButton, sourceButton.getWidth() / 2, sourceButton.getHeight() / 2);
-        }
+        panel.add(movesPanel, BorderLayout.SOUTH);
+        return panel;
     }
 
     public JButton getNextButton(){
@@ -109,6 +115,23 @@ public class ListOfMovementsPanel extends JPanel{
     }
     public JButton getComeButton(){
         return come;
+    }
+    public Map<String, List<String>> getMovementsMap(){
+        return movimientosSeleccionados;
+    }
+
+    public boolean isSelectedMovements(){
+        for (Map.Entry<String, List<String>> entry: movimientosSeleccionados.entrySet()){
+            for (String e :entry.getValue()){
+                if(e.equals("")){
+                    JOptionPane.showMessageDialog(this,
+                    "Tienes que escoger todos los movimientos.",
+                    "Movimientos no seleccionados.", JOptionPane.WARNING_MESSAGE);
+                     return false;
+                }
+            }
+        }
+        return true;
     }
     
 

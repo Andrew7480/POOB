@@ -15,12 +15,12 @@ import java.util.Map.Entry;
 
 public class SelectionPokemon extends JPanel{
     private  String backgroundImage = "emerald";
-    protected JLabel texto;
-    protected POOBkemonGUI pooBkemonGUI;
-    protected Color color;
-    protected JButton come;
-    protected JButton doneButton; 
-    protected JPanel panelScroll;
+    private JLabel texto;
+    private POOBkemonGUI pooBkemonGUI;
+    private Color color;
+    private JButton come;
+    private JButton doneButton; 
+    private JPanel panelScroll;
     private ArrayList<String> pokemonesChoosen;
     private ArrayList<JButton> buttons;
     private final int MAX_POKEMONS=6;
@@ -233,6 +233,7 @@ public class SelectionPokemon extends JPanel{
             return;
         }
         pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
+        pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen);
         pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
         reset();
         
