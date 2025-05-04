@@ -20,12 +20,12 @@ public class TributeEffect extends Effect{
         return stateTo;
     }
 
-    public void affectPokemon(Pokemon affectPokemon){
+    public void affectPokemon(Pokemon affectPokemon) throws PoobkemonException{
         for (Map.Entry<String, Integer> entry : stateTo.entrySet()) {
             String stat = entry.getKey();
             int amount = entry.getValue();
             affectPokemon.increaseStat(stat, amount);
         }
-        times--;
+        decrementDuration();
     }
 }

@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 public class ModePlayerVSPlayer extends JPanel {
-    private String backgroundImage = "443244fb22ae8c0c7e530a4ea33af69a";
+    private String backgroundImage = "fondoAnimado2";
     private JButton btnRegresarNormal;
     private JButton btnRegresarSurvival;
     private JButton continuar;
@@ -65,7 +65,7 @@ public class ModePlayerVSPlayer extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
+        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".GIF"));
         g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }

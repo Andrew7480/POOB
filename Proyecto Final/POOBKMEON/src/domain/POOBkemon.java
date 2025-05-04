@@ -23,10 +23,14 @@ public class POOBkemon implements Serializable{
     public POOBkemon() {
     }
 
+
     public void iniciarJuego(String jugabilidad){  // ya existen pokemones, items, movimientos y estados y/o ytaines defectos
         ///leer el archivo de juego
         /// 
         //while hastya que los todos pokemones de alguno mueran
+    }
+    public TreeMap<String, Pokemon> getPokemons(){
+        return pokedex;
     }
 
     public void actionOrderPM(Movement mov){
@@ -88,7 +92,9 @@ public class POOBkemon implements Serializable{
     public TreeMap<String, Item> getItems() {
         return items;
     }
-
+    public void addItem(Item  item){
+        items.put(item.getName(),item);
+    }
     public void addMovement(Movement mov) throws PoobkemonException{
         if (!movements.containsValue(mov)) movements.put(mov.getName(), mov);
         throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
@@ -116,7 +122,6 @@ public class POOBkemon implements Serializable{
     private void serializateGame(String fileName) {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameData"));
-            System.out.println("Intentando serializar movements...");
             out.writeObject(this);
             out.close();
         } catch (NotSerializableException e) {
@@ -134,11 +139,11 @@ public class POOBkemon implements Serializable{
         serializateGame(fileName);
     }
 
-    private void deserializateGame(String fileName) {
+    private POOBkemon deserializateGame(String fileName) {
         File file = new File(fileName);
     if (!file.exists()) {
         System.err.println("El archivo " + fileName + " no existe.");
-        return;
+        return null;
     }
 
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
@@ -146,21 +151,24 @@ public class POOBkemon implements Serializable{
         if (deserializedObject instanceof POOBkemon) {
             POOBkemon poobkemon = (POOBkemon) deserializedObject;
             System.out.println("Juego cargado exitosamente desde " + fileName);
-            System.out.println("Pokédex: " + poobkemon.getPokedex());
+            //System.out.println("Pokédex: " + poobkemon.getPokedex());
+            return poobkemon;
         } else {
             System.err.println("El archivo no contiene un objeto de tipo POOBkemon.");
+            return null;
         }
     } catch (IOException e) {
         System.err.println("Error al leer el archivo: " + e.getMessage());
     } catch (ClassNotFoundException e) {
         System.err.println("Error: Clase no encontrada durante la deserialización: " + e.getMessage());
     }
+    return null;
     }
 
 
-    public void deserializateGame(){
+    public POOBkemon deserializateGame(){
         String fileName = "gameData";
-        deserializateGame(fileName);
+        return deserializateGame(fileName);
     }
 
     

@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 public class ModePlayerVsMachine extends JPanel {
-    private String backgroundImage = "wp9682788";
+    private String backgroundImage = "fondoAnimado2";
     private JButton btnRegresar;
     private POOBkemonGUI po;
     public ModePlayerVsMachine(POOBkemonGUI newPo){
@@ -25,7 +25,7 @@ public class ModePlayerVsMachine extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
+        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".GIF"));
         g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }

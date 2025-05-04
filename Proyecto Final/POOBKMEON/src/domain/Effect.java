@@ -16,13 +16,13 @@ public abstract class Effect implements Serializable{
         times = newTimes;
     }
 
-    public abstract void affectPokemon(Pokemon affectPokemon);
+    public abstract void affectPokemon(Pokemon affectPokemon) throws PoobkemonException;
     
 
-    public void decrementDuration() {
-        if (times > 0) {
-            times--;
-        }
+    public void decrementDuration() throws PoobkemonException{
+        if (times== 0) throw new PoobkemonException(PoobkemonException.EFFECT_DURATION_OVER);
+        times--;
+        
     }
 
     public boolean isOver() {

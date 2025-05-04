@@ -4,7 +4,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class ModesOfGamePanel extends JPanel{
-    private String backgroundImage = "bb8jr133l9sa1";
+    private String backgroundImage = "trainers";
     private JButton btnRegresar;
     private JButton modeNormal;
     private JButton modeSurvival;

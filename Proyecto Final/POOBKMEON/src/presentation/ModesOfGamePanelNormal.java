@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 public class ModesOfGamePanelNormal extends JPanel {
-    private String backgroundImage = "bb8jr133l9sa1";
+    private String backgroundImage = "trainers";
     private JButton btnRegresar;
     private JButton playerVsMachine;
     private JButton machineVsMachine;

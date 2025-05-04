@@ -28,13 +28,15 @@ public class POOBkemonGUI extends JFrame {
     private ListPokemonAvailable listPokemonsPanel;
     private InventoryPanel panelInvetory;
 
-    protected POOBkemon domain;
+    private Inicio inicio;
+
+    protected POOBkemon domain = new POOBkemon();
 
     /**
      * Constructor of POOBkemon
      */
     public POOBkemonGUI(){
-        domain = new POOBkemon();
+        domain = domain.deserializateGame();
         prepareElements();
         prepareActions();
     }
@@ -71,19 +73,9 @@ public class POOBkemonGUI extends JFrame {
                 saveOpen();
             }
         });
-        menuPrincipal.jugar.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "modos de juego");
-            }
-        });
+        menuPrincipal.jugar.addActionListener(e -> changePanel("modos de juego"));
 
-        modesOfGamePanel.getButtonNormal().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "normal");
-            }
-        });
+        modesOfGamePanel.getButtonNormal().addActionListener(e -> changePanel("normal"));
 
         modesOfGamePanelNormal.getButtonRegresar().addActionListener(new ActionListener(){
             @Override
@@ -102,7 +94,7 @@ public class POOBkemonGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 
-                cardLayout.show(panelContenedor,"player vs machine");
+                cardLayout.show(panelContenedor,"chooser"); //aquilocambie
             }
         });
 
@@ -278,8 +270,18 @@ public class POOBkemonGUI extends JFrame {
                 panelBattle.showBattleOptionsPanel();
             }
         });
+        inicio.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(panelContenedor,"principal");;
+            }
+            });
 
 
+    }
+
+    private void changePanel(String namePanel){
+        cardLayout.show(panelContenedor,namePanel);
     }
 
     private void prepareElementsMenu(){
@@ -297,6 +299,9 @@ public class POOBkemonGUI extends JFrame {
     private void prepareElementsModesOfGame(){
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
+
+        inicio = new Inicio(this);
+        panelContenedor.add(inicio, "Inicio");
 
         menuPrincipal = new PrincipalPanel(this);
         panelContenedor.add(menuPrincipal, "principal");
@@ -333,6 +338,13 @@ public class POOBkemonGUI extends JFrame {
 
         panelInvetory = new InventoryPanel(this);
         panelContenedor.add(panelInvetory,"inventory");
+
+         /*por ahora se borra dps */
+        //Color azulOpaco = new Color(0, 0, 255); // RGB puro, completamente opaco
+        //Color rojoOpaco = new Color(255, 0, 0); // RGB puro, completamente opaco
+
+        JPanel chooser = new SelectionPokemon(this, new Color(0, 0, 255));
+        panelContenedor.add(chooser, "chooser");
 
     }
 
@@ -427,6 +439,9 @@ public class POOBkemonGUI extends JFrame {
             File archive = fileChooser.getCurrentDirectory();
             JOptionPane.showMessageDialog(this, "Funcionalidad Guardar en construccion, Lugar donde se guarda: "+ archive.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    public POOBkemon getDomain(){
+        return domain;
     }
     
     public static void main(String args []){

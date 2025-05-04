@@ -5,6 +5,7 @@ import java.util.*;
 public class Pokemon implements Serializable {
     private String name;
     private int level;
+    private int pokedexIndex;
     private final int maxPs;
     private int ps;
     private int attack;
@@ -29,9 +30,10 @@ public class Pokemon implements Serializable {
 
     
 
-    public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType) {
+    public Pokemon(String newName, int newLevel, int newPs, int newAttack, int newSpecialAttack, int newDefense,int newSpecialDefense, int newVelocity, PokemonType newPrincipalType, PokemonType newSecondaryType,int index) {
         name = newName;
         level = newLevel;
+        pokedexIndex = index;
         ps = newPs;
         maxPs = newPs;
         attack = newAttack;
@@ -44,6 +46,10 @@ public class Pokemon implements Serializable {
         movements = new ArrayList<>();
         tributeEffects = new ArrayList<>();
     }
+    public Integer getPokedexIndex(){
+        return pokedexIndex;
+    }
+
     public int getPs(){
         return ps;
     }
@@ -103,14 +109,17 @@ public class Pokemon implements Serializable {
     public void setMovements( Movement[] newMovements){
         ArrayList<Movement> list = new ArrayList<>();
         for (Movement m:newMovements){
-            addMovement(m);
+            try{addMovement(m);}
+            catch(PoobkemonException e){}
         }
         movements = list;
     }
+
     
-    public void addMovement(Movement mov){
+    public void addMovement(Movement mov) throws PoobkemonException{
         HashSet<Movement> movementsDontValid = new HashSet<>(movementsWeaksForMe());
         if (!movements.contains(mov) && !movementsDontValid.contains(mov)) movements.add(mov);
+        throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
     }
 
     public ArrayList<MovementState> getStateMovements() {
@@ -225,7 +234,7 @@ public class Pokemon implements Serializable {
         statusEffect = effect;
     }
 
-    public void affectPokemonStatus(){
+    public void affectPokemonStatus() throws PoobkemonException{
         for(TributeEffect st: tributeEffects){
             st.affectPokemon(this);
         }
@@ -234,10 +243,18 @@ public class Pokemon implements Serializable {
     public void useMovement(Movement movimiento, Pokemon target) throws PoobkemonException{
         if (!isAlive) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
-        if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
+        //if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
+        statusEffectVerify();
         if (dontHavePPForAllMovement()){actionF(target);}
         
         movimiento.doAttackTo(this, target);
+    }
+    public void statusEffectVerify() throws PoobkemonException{
+        if (statusEffect == null) throw new PoobkemonException(PoobkemonException.NOT_STATUS_EFFECT);
+        statusEffect.affectPokemon(this);
+    }
+    public void removeStatusEffect(){
+        statusEffect = null;
     }
 
     public ArrayList<Movement> movementsUsables(){

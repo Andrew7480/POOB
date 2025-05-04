@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 public class InventoryPanel extends JPanel{
-    private String backgroundImage = "9a406689aa68cf32446acddbdbdf929d";
+    private String backgroundImage = "fondo1";
     private JButton back;
     private JButton up;
     private JButton down;
