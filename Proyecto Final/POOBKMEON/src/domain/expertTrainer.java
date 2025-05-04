@@ -2,8 +2,8 @@ package domain;
 
 import java.io.Serializable;
 
-public class ExpertTrainer extends MachineTrainer implements Serializable{
-    public ExpertTrainer(String newName) {
+public class expertTrainer extends MachineTrainer implements Serializable{
+    public expertTrainer(String newName) {
         super(newName);
     }
 
