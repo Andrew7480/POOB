@@ -321,6 +321,7 @@ public class POOBkemonGUI extends JFrame {
         modesOfGamePanelNormal.getButtonPvsM().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                chooseDifficult();
                 cardLayout.show(panelContenedor,"player vs machine"); //aquilocambie
             }
         });
@@ -515,6 +516,17 @@ public class POOBkemonGUI extends JFrame {
         });
         
 
+    }
+
+    private void chooseDifficult(){
+        String [] options = {"Changing Trainer","Expert Trainer","Attacking Trainer","Defensive Trainer"};
+        int seleccion = JOptionPane.showOptionDialog(null, "Choose Machine Difficult", "Selector Difficulty", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (seleccion >= 0){
+            JOptionPane.showMessageDialog(null, "Elegiste: " + options[seleccion]);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No se seleccionó");
+        }
     }
 
     
