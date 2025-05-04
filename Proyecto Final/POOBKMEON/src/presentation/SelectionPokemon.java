@@ -15,22 +15,28 @@ import java.util.Map.Entry;
 
 public class SelectionPokemon extends JPanel{
     private  String backgroundImage = "emerald";
-    private JLabel texto;
-    private POOBkemonGUI pooBkemonGUI;
-    private Color color;
-    private JButton come;
-    private JButton doneButton; 
-    private JPanel panelScroll;
+    protected JLabel texto;
+    protected POOBkemonGUI pooBkemonGUI;
+    protected Color color;
+    protected JButton come;
+    protected JButton doneButton; 
+    protected JPanel panelScroll;
+    private ArrayList<String> pokemonesChoosen;
+    private ArrayList<JButton> buttons;
+    private final int MAX_POKEMONS=6;
 
     public SelectionPokemon(POOBkemonGUI po, Color newColor){
         pooBkemonGUI = po;
         color = newColor;
         prepareElements();
+        prepareActions();
     }
 
     private void prepareElements(){
         come = new JButton("Back");
         pooBkemonGUI.styleButton(come);
+        pokemonesChoosen = new ArrayList<>();
+        buttons = new ArrayList<>();
 
         setLayout(new BorderLayout());
         setOpaque(false);
@@ -66,12 +72,13 @@ public class SelectionPokemon extends JPanel{
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
-        doneButton.setVisible(false);
+        //doneButton.setVisible(false);
         pooBkemonGUI.styleButton(doneButton);
         down.add(new JLabel(" "),BorderLayout.NORTH);
         down.add(new JLabel(" "),BorderLayout.CENTER);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         booton.setOpaque(false);
+        booton.add(come);
         booton.add(doneButton);
         down.add(booton,BorderLayout.SOUTH);
         add(down, BorderLayout.SOUTH);
@@ -80,7 +87,7 @@ public class SelectionPokemon extends JPanel{
         centro.setOpaque(false);
         //centro.setBackground(color);
 
-        panelScroll = new JPanel(new GridLayout(4,4,1,1)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   
+        panelScroll = new JPanel(new GridLayout(4,4,1,1)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   de dominio
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -131,7 +138,7 @@ public class SelectionPokemon extends JPanel{
 	    centro.add(scrollContainer, BorderLayout.CENTER);
         add(centro, BorderLayout.CENTER);
 
-        scrollContainer.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        //scrollContainer.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         //upPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         //down.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         //left.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -141,16 +148,42 @@ public class SelectionPokemon extends JPanel{
     public JButton getButtonBack(){
         return come;
     }
+    public JButton getNextBJButton(){
+        return doneButton;
+    }
     public void createButtons() {
     for (Entry<String, Pokemon> entry : pooBkemonGUI.domain.getPokedex().entrySet()) {
         String nombre = entry.getKey();
         Pokemon pokemon = entry.getValue();
         String ruta = pokemon.getPokedexIndex().toString() +".png";
-        panelScroll.add(createImageButton(nombre, ruta));
-    }
+        JButton button = createImageButton(nombre, ruta);
+        buttons.add(button);
+        button.addActionListener(e -> 
+        selectionPokemons(button)
+        );
+        panelScroll.add(button);
+        //button.setBackground(Color.GREEN);  //??? :(
+        //button.setBackground(Color.RED);
+        }
     }
     public ArrayList<String> getPokemonChoosen(){
-        return new ArrayList<>();
+        return pokemonesChoosen;
+    }
+    public int sizeChoosen(){
+        return pokemonesChoosen.size();
+    }
+    private void selectionPokemons(JButton button){
+        if (pokemonesChoosen.contains(button.getToolTipText())) {
+            button.setBackground(null);
+            button.setOpaque(false);
+            pokemonesChoosen.remove(button.getToolTipText());
+        }
+        else{
+            button.setBackground(Color.GREEN);
+            button.setOpaque(true);
+            pokemonesChoosen.add(button.getToolTipText());
+        }
+        //System.out.println(pokemonesChoosen);
     }
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;
@@ -160,7 +193,6 @@ public class SelectionPokemon extends JPanel{
         button.setBounds(x, y, width, height);
         
         try {
-
             ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
             
             if (imagePath.toLowerCase().endsWith(".gif")){
@@ -180,11 +212,41 @@ public class SelectionPokemon extends JPanel{
         button.setMaximumSize(smallSize); 
         button.setOpaque(false);
         button.setContentAreaFilled(false);
-        //button.setBorderPainted(false);
+        button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setToolTipText(name);
         
         return button;
+    }
+    private void prepareActions(){
+        doneButton.addActionListener(e -> {
+        if (sizeChoosen() < 1) {
+            JOptionPane.showMessageDialog(this, 
+                "Selecciona al menos 1 Pokémon para la batalla!", 
+                "Incompleta", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (sizeChoosen() > MAX_POKEMONS) {
+            JOptionPane.showMessageDialog(this,
+                "Solo puedes seleccionar máximo " + MAX_POKEMONS + " pokemones",
+                "Límite excedido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
+        pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
+        reset();
+        
+        });
+    }
+
+    public void reset(){
+        pokemonesChoosen.clear();
+        for (JButton button : buttons){
+            button.setBackground(null);
+            button.setOpaque(false);
+        }
+        revalidate();
+        repaint();
     }
     @Override
     protected void paintComponent(Graphics g) {

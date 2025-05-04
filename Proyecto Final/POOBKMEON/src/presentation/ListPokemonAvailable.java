@@ -1,33 +1,24 @@
 package presentation;
-import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-public class ListPokemonAvailable extends JPanel{
-    private String backgroundImage = "download";
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import domain.Pokemon;
+
+import java.awt.event.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+
+public class ListPokemonAvailable extends SelectionPokemon{
+    private String backgroundImage = "emerald";
+    private ArrayList<String> pokemonsChosenFight;
     private JButton come;
-    private POOBkemonGUI po;
-    public ListPokemonAvailable(POOBkemonGUI newPo){
-        po = newPo;
-        setLayout(new BorderLayout());
-        come = new JButton("Back");
-        po.styleButton(come);
-        JPanel buttonPanel = po.invisiblePanelWithOpacity();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,20,10));
-        buttonPanel.add(come);
-        add(buttonPanel,BorderLayout.SOUTH);
+    public ListPokemonAvailable(POOBkemonGUI newPo, Color newColor){
+        super(newPo, newColor);
     }
 
-
-    public JButton getButtonBack(){
-        return come;
-    }
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".GIF"));
-        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
-    }
 }

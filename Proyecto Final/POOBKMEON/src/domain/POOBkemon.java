@@ -32,7 +32,9 @@ public class POOBkemon implements Serializable{
     public TreeMap<String, Pokemon> getPokemons(){
         return pokedex;
     }
-
+    public TreeMap<String, Movement> getMovements(){
+        return movements;
+    }
     public void actionOrderPM(Movement mov){
         Movement mov1 = turn.decide(trainerTurn2.getPokemonInUse());
     }
@@ -96,8 +98,9 @@ public class POOBkemon implements Serializable{
         items.put(item.getName(),item);
     }
     public void addMovement(Movement mov) throws PoobkemonException{
-        if (!movements.containsValue(mov)) movements.put(mov.getName(), mov);
-        throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
+        if (movements.containsValue(mov)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
+        movements.put(mov.getName(), mov);
+        
     }
     public void addPokemon(Pokemon pokemon) {
         pokedex.put(pokemon.getName(), pokemon);

@@ -76,7 +76,7 @@ public class POOBkemonTest implements Serializable {
                 poobkemon.addMovement(brickBreak);
                 poobkemon.addMovement(surf);}
             catch(PoobkemonException e){
-
+                System.out.println(e.getMessage());
             }
 
             //Pokemones con esos movs
@@ -243,6 +243,8 @@ public class POOBkemonTest implements Serializable {
             fail(); 
         }    
     }
+
+    
 
     
 }

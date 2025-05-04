@@ -2,6 +2,8 @@ package presentation;
 import domain.*;
 
 import java.io.File;
+import java.util.TreeMap;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -12,8 +14,8 @@ public class POOBkemonGUI extends JFrame {
     private JMenuItem leave;
     private JMenuItem save;
     private JFileChooser fileChooser;
-    private CardLayout cardLayout;
-    private JPanel panelContenedor;
+    protected CardLayout cardLayout;
+    protected JPanel panelContenedor;
     private PrincipalPanel menuPrincipal;
     private JButton regresarMvsM;
     private PokedexPanel pokedexPanelPrueba;
@@ -27,16 +29,22 @@ public class POOBkemonGUI extends JFrame {
     private ModeMachineVsMachine machineVsMachinePanel;
     private ListPokemonAvailable listPokemonsPanel;
     private InventoryPanel panelInvetory;
+    private SelectionPokemon chooser;
+    protected ListOfMovementsPanel listMovements;
 
     private Inicio inicio;
 
     protected POOBkemon domain = new POOBkemon();
+    protected TreeMap<String,Pokemon> pokemones;
+    protected TreeMap<String, Movement> movimientos;
 
     /**
      * Constructor of POOBkemon
      */
     public POOBkemonGUI(){
         domain = domain.deserializateGame();
+        pokemones = domain.getPokedex();
+        movimientos = domain.getMovements();
         prepareElements();
         prepareActions();
     }
@@ -73,133 +81,6 @@ public class POOBkemonGUI extends JFrame {
                 saveOpen();
             }
         });
-        menuPrincipal.jugar.addActionListener(e -> changePanel("modos de juego"));
-
-        modesOfGamePanel.getButtonNormal().addActionListener(e -> changePanel("normal"));
-
-        modesOfGamePanelNormal.getButtonRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "modos de juego");
-            }
-        });
-        modesOfGamePanelSurvival.getButtonRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "modos de juego");
-            }
-        });
-
-        modesOfGamePanelNormal.getButtonPvsM().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                
-                cardLayout.show(panelContenedor,"chooser"); //aquilocambie
-            }
-        });
-
-        modesOfGamePanelNormal.getButtonPvsP().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"player vs player");
-            }
-        });
-
-        modesOfGamePanelSurvival.getButtonPvsP().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"player vs player survival");
-            }
-        });
-
-        modesOfGamePanelNormal.getButtonMvsM().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"machine vs machine");
-            }
-        });
-
-        machineVsMachinePanel.getBtnRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-        menuPrincipal.pokedex.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "pokedex");
-            }
-        });
-
-        pokedexPanelPrueba.getButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"principal");
-            }
-        });
-        
-        modesOfGamePanel.getButtonRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"principal");
-            }
-        });
-        
-        
-        modesOfGamePanel.getButtonNormal().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-
-        modesOfGamePanel.getButtonSurvival().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"survival");
-            }
-        });
-
-
-        playerVSplayerPanelSurvival.getButtonRegresarSurvival().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"survival");
-            }
-        });
-
-        playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"battle");
-            }
-        });
-
-
-        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-        panelBattle.getRunButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"principal");
-                //resetiar batalla??
-            }
-        });
 
         panelBattle.getFighButton().addActionListener(new ActionListener(){
             @Override
@@ -209,12 +90,6 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-        playerVsMachinePanel.getButtonRegresar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
 
         panelBattle.getFighButton().addActionListener(new ActionListener(){
             @Override
@@ -226,34 +101,6 @@ public class POOBkemonGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 //Mostrar Inventario
-            }
-        });
-
-        panelBattle.getPokemonButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"pokemon list");
-            }
-        });
-
-        panelBattle.getInventoryButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"inventory");
-            }
-        });
-
-        panelInvetory.getButtonBack().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"battle");
-            }
-        });
-
-        listPokemonsPanel.getButtonBack().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"battle");
             }
         });
 
@@ -277,7 +124,7 @@ public class POOBkemonGUI extends JFrame {
             }
             });
 
-
+            prepareMovementActions();
     }
 
     private void changePanel(String namePanel){
@@ -299,6 +146,9 @@ public class POOBkemonGUI extends JFrame {
     private void prepareElementsModesOfGame(){
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
+
+        //chooser = new SelectionPokemon(this, new Color(0, 0, 255));
+        //panelContenedor.add(chooser, "chooser");
 
         inicio = new Inicio(this);
         panelContenedor.add(inicio, "Inicio");
@@ -333,7 +183,7 @@ public class POOBkemonGUI extends JFrame {
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
 
-        listPokemonsPanel = new ListPokemonAvailable(this);
+        listPokemonsPanel = new ListPokemonAvailable(this,Color.RED);
         panelContenedor.add(listPokemonsPanel,"pokemon list");
 
         panelInvetory = new InventoryPanel(this);
@@ -343,8 +193,11 @@ public class POOBkemonGUI extends JFrame {
         //Color azulOpaco = new Color(0, 0, 255); // RGB puro, completamente opaco
         //Color rojoOpaco = new Color(255, 0, 0); // RGB puro, completamente opaco
 
-        JPanel chooser = new SelectionPokemon(this, new Color(0, 0, 255));
+        chooser = new SelectionPokemon(this, new Color(0, 0, 255));
         panelContenedor.add(chooser, "chooser");
+
+        listMovements = new ListOfMovementsPanel(this);
+        panelContenedor.add(listMovements,"movimientos");
 
     }
 
@@ -443,6 +296,194 @@ public class POOBkemonGUI extends JFrame {
     public POOBkemon getDomain(){
         return domain;
     }
+    private void prepareMovementActions(){
+        menuPrincipal.jugar.addActionListener(e -> changePanel("modos de juego"));
+
+        modesOfGamePanel.getButtonNormal().addActionListener(e -> changePanel("normal"));
+
+        modesOfGamePanelNormal.getButtonRegresar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor, "modos de juego");
+            }
+        });
+        modesOfGamePanelSurvival.getButtonRegresar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor, "modos de juego");
+            }
+        });
+
+        modesOfGamePanelNormal.getButtonPvsM().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                
+                cardLayout.show(panelContenedor,"chooser"); //aquilocambie
+            }
+        });
+
+        modesOfGamePanelNormal.getButtonPvsP().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"player vs player");
+            }
+        });
+
+        modesOfGamePanelSurvival.getButtonPvsP().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"player vs player survival");
+            }
+        });
+
+        modesOfGamePanelNormal.getButtonMvsM().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"machine vs machine");
+            }
+        });
+
+        machineVsMachinePanel.getBtnRegresar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        menuPrincipal.pokedex.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor, "pokedex");
+            }
+        });
+
+        pokedexPanelPrueba.getButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"principal");
+            }
+        });
+        
+        modesOfGamePanel.getButtonRegresar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"principal");
+            }
+        });
+        
+        
+        modesOfGamePanel.getButtonNormal().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        chooser.getButtonBack().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+                
+            }
+        });
+
+        modesOfGamePanel.getButtonSurvival().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"survival");
+            }
+        });
+
+
+        playerVSplayerPanelSurvival.getButtonRegresarSurvival().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"survival");
+            }
+        });
+
+        playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
+            }
+        });
+
+
+        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        panelBattle.getRunButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                listMovements.resetPokemonChosen();
+                cardLayout.show(panelContenedor,"principal");
+            }
+        });
+        playerVsMachinePanel.getButtonRegresar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"normal");
+            }
+        });
+
+        panelBattle.getPokemonButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"pokemon list");
+            }
+        });
+
+        panelBattle.getInventoryButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"inventory");
+            }
+        });
+
+        panelInvetory.getButtonBack().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
+            }
+        });
+
+        listPokemonsPanel.getButtonBack().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cardLayout.show(panelContenedor,"battle");
+            }
+        });
+
+        listMovements.getNextButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                listMovements.resetPokemonChosen();
+                cardLayout.show(panelContenedor,"battle");
+            }
+        });
+        listMovements.getComeButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                listMovements.resetPokemonChosen();
+                cardLayout.show(panelContenedor,"chooser");
+            }
+        });
+        
+
+    }
+
     
     public static void main(String args []){
         POOBkemonGUI kemon = new POOBkemonGUI();
