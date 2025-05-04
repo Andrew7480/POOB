@@ -1,10 +1,11 @@
 package domain;
 import java.util.*;
+import java.awt.Color;
 import java.io.*;
 
 public class DefensiveTrainer extends MachineTrainer implements Serializable {
-    public DefensiveTrainer(String newName) {
-        super(newName);
+    public DefensiveTrainer(String newName, Color color) {
+        super(newName,color);
     }
     /*
      * Su enfoque va principalmente a la defensa. 

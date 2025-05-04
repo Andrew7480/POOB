@@ -27,7 +27,7 @@ public class SelectionPokemon extends JPanel{
 
     public SelectionPokemon(POOBkemonGUI po){
         pooBkemonGUI = po;
-        color = new Color(0,0,255,100);
+        color = new Color(85, 85, 85, 100);
         prepareElements();
         prepareActions();
     }
@@ -43,9 +43,9 @@ public class SelectionPokemon extends JPanel{
 
         JPanel upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
-        texto = new JLabel("Player 1");
+        texto = new JLabel("Player");
         texto.setOpaque(true);
-        texto.setBackground(new Color(51, 50, 50));
+        texto.setBackground(color);
         texto.setHorizontalAlignment(JLabel.CENTER);
         texto.setForeground(color);
         upPanel.add(new JLabel(" "),BorderLayout.CENTER);
@@ -147,6 +147,7 @@ public class SelectionPokemon extends JPanel{
     }
     public void setColor(){
         color = pooBkemonGUI.playerVsMachinePanel.getColor();
+        texto.setBackground(color);
     }
 
 
@@ -157,26 +158,21 @@ public class SelectionPokemon extends JPanel{
         return doneButton;
     }
     public void createButtons() {
-    for (Entry<String, Pokemon> entry : pooBkemonGUI.domain.getPokedex().entrySet()) {
-        String nombre = entry.getKey();
-        Pokemon pokemon = entry.getValue();
-        String ruta = pokemon.getPokedexIndex().toString() +".png";
-        JButton button = createImageButton(nombre, ruta);
-        buttons.add(button);
-        button.addActionListener(e -> 
-        selectionPokemons(button)
-        );
-        panelScroll.add(button);
-        //button.setBackground(Color.GREEN);  //??? :(
-        //button.setBackground(Color.RED);
-        }
+        for (Entry<String, Pokemon> entry : pooBkemonGUI.domain.getPokedex().entrySet()) {
+            String nombre = entry.getKey();
+            Pokemon pokemon = entry.getValue();
+            String ruta = pokemon.getPokedexIndex().toString() +".png";
+            JButton button = createImageButton(nombre, ruta);
+            buttons.add(button);
+            button.addActionListener(e -> 
+            selectionPokemons(button)
+            );
+            panelScroll.add(button);
+            //button.setBackground(Color.GREEN);  //??? :(
+            //button.setBackground(Color.RED);
+            }
     }
-    public ArrayList<String> getPokemonChoosen(){
-        return pokemonesChoosen;
-    }
-    public int sizeChoosen(){
-        return pokemonesChoosen.size();
-    }
+    
     private void selectionPokemons(JButton button){
         if (pokemonesChoosen.contains(button.getToolTipText())) {
             button.setBackground(null);
@@ -189,6 +185,12 @@ public class SelectionPokemon extends JPanel{
             pokemonesChoosen.add(button.getToolTipText());
         }
         //System.out.println(pokemonesChoosen);
+    }
+    public ArrayList<String> getPokemonChoosen(){
+        return pokemonesChoosen;
+    }
+    public int sizeChoosen(){
+        return pokemonesChoosen.size();
     }
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;

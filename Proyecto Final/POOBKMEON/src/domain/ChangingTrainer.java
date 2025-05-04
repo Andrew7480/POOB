@@ -1,9 +1,10 @@
 package domain;
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.*;
 public class ChangingTrainer extends MachineTrainer implements Serializable{
-    public ChangingTrainer(String newName) {
-        super(newName);
+    public ChangingTrainer(String newName, Color color) {
+        super(newName, color);
     }
     /*
      * Depende del pokemon que el rival coloque.
@@ -25,7 +26,8 @@ public class ChangingTrainer extends MachineTrainer implements Serializable{
         if (pokemonActual.equals(actualPokemon)){
             doOtherThen(target);
         }
-        return null;
+        //return null; doOtherThen si es una buena opcion?
+        return actualPokemon.aleatoryMovement(target);
     }
 
 

@@ -1,5 +1,6 @@
 package domain;
 import java.util.TreeMap;
+import java.awt.Color;
 import java.io.*;
 /*
  * POOBkemon
@@ -17,8 +18,6 @@ public class POOBkemon implements Serializable{
     private Trainer trainerTurn1;
     private Trainer trainerTurn2;
 
-    //idea 2 y un arreglo de trainser organizado de 2
-    //private int turno = 1;
 
     public POOBkemon() {
     }
@@ -54,7 +53,13 @@ public class POOBkemon implements Serializable{
         }
     }
 
-    private void movementPerfomrmed(Trainer one, Trainer two, Movement movement1, Movement movement2 ){
+    public void setTrainerTurns(Trainer trainer1, Trainer trainer2){
+        trainerTurn1 = trainer1;
+        trainerTurn2 = trainer2;
+        turn = trainer1;
+    }
+
+    public void movementPerfomrmed(Trainer one, Trainer two, Movement movement1, Movement movement2 ){
         try{
             one.getPokemonInUse().useMovement(movement1, two.getPokemonInUse());
         }
@@ -69,7 +74,7 @@ public class POOBkemon implements Serializable{
         }
     }
     
-    private void movementPerformed(Movement mov, Pokemon target) throws PoobkemonException{
+    public void movementPerformed(Movement mov, Pokemon target) throws PoobkemonException{
         turn.pokemonMovement(mov,target);
         turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
     }
@@ -100,8 +105,17 @@ public class POOBkemon implements Serializable{
     public void addMovement(Movement mov) throws PoobkemonException{
         if (movements.containsValue(mov)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
         movements.put(mov.getName(), mov);
-        
     }
+
+    public void addTrainerPlayerVsMachine(String name, Color color) throws PoobkemonException{
+        if (entrenadores.containsKey(name)) throw new PoobkemonException(PoobkemonException.TRAINER_EXIST);
+        entrenadores.put(name, new PlayerTrainer(name,color));
+        turn = entrenadores.get(name);
+        trainerTurn1 = entrenadores.get(name);
+        trainerTurn2 = entrenadores.get("defense");
+
+    }
+
     public void addPokemon(Pokemon pokemon) {
         pokedex.put(pokemon.getName(), pokemon);
     }
@@ -116,6 +130,9 @@ public class POOBkemon implements Serializable{
     }
     public TreeMap<String, Pokemon> getPokedex(){
         return pokedex;
+    }
+    public TreeMap<String,Trainer> getTrainers(){
+        return entrenadores;
     }
     public void addNewPokemon(String entrenador, Pokemon pokemon,Movement m1,Movement m2, Movement m3, Movement m4)throws PoobkemonException{
         pokemon.setMovements(new Movement[]{m1,m2,m3,m4});
@@ -173,12 +190,4 @@ public class POOBkemon implements Serializable{
         String fileName = "gameData";
         return deserializateGame(fileName);
     }
-
-    
-
-    
-
-
-    
-    
 }

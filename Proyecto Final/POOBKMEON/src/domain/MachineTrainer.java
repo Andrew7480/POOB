@@ -1,8 +1,9 @@
 package domain;
+import java.awt.Color;
 import java.util.*;
 public abstract class MachineTrainer extends Trainer{
-    public MachineTrainer(String name){
-        super(name);
+    public MachineTrainer(String name, Color newColor){
+        super(name, newColor);
     }
 
     public abstract Movement decide(Pokemon target);

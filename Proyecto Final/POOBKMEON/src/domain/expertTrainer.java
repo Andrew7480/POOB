@@ -1,10 +1,10 @@
 package domain;
 
 import java.io.Serializable;
-
-public class expertTrainer extends MachineTrainer implements Serializable{
-    public expertTrainer(String newName) {
-        super(newName);
+import java.awt.Color;
+public class ExpertTrainer extends MachineTrainer implements Serializable{
+    public ExpertTrainer(String newName, Color newColor) {
+        super(newName, newColor);
     }
 
 

@@ -16,6 +16,8 @@ public class PoobkemonException  extends Exception {
     public static final String NOT_STATUS_EFFECT = "no hay estado";
     public static final String EFFECT_DURATION_OVER = "duracion terminada";
     public static final String CANT_ADD_MOVEMENT = "no se puede añadir el movimiento";
+    public static final String TRAINER_EXIST = "ya existe este trainer.";
+    public static final String COLOR_EXIST = "ya existe este color";
     public PoobkemonException(String message) {
         super(message);
     }

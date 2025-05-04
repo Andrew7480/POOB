@@ -1,11 +1,12 @@
 package domain;
 import java.io.Serializable;
 import java.util.*;
+import java.awt.Color;
 public class AttackingTrainer extends MachineTrainer implements Serializable {
 
 
-    public AttackingTrainer(String newName) {
-        super(newName);
+    public AttackingTrainer(String newName, Color newColor) {
+        super(newName, newColor);
     }
     //Su enfoque va principalmente al ataque. Utiliza movimientos 
     //que potencian las estadísticas de ataque y/o ataque especial; 
@@ -25,9 +26,11 @@ public class AttackingTrainer extends MachineTrainer implements Serializable {
         if (bestAttackMovement != null){
             return bestAttackMovement;
         }
+        /*
         else{
             doOtherThen(target);
             return null;
-        }
+        }*/ //ARREGLAR ESTO doOtherThen si es una buena opcion?
+        return actualPokemon.aleatoryMovement(target);
     }
 }

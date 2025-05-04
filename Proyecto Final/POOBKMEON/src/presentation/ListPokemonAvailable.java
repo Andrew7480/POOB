@@ -44,7 +44,7 @@ public class ListPokemonAvailable extends JPanel{
 
         JPanel upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
-        texto = new JLabel("Player 1");
+        texto = new JLabel("Player");
         texto.setOpaque(true);
         texto.setBackground(new Color(51, 50, 50));
         texto.setHorizontalAlignment(JLabel.CENTER);

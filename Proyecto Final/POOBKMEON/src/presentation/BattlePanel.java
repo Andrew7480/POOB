@@ -46,10 +46,10 @@ public class BattlePanel extends JPanel {
             e.printStackTrace();
         }
         
-        prepare();
+        prepareElements();
     }
 
-    private void prepare() {
+    private void prepareElements() {
         calculatePokemonPositions();
         playerStatsPanel = createStatsPanel("VENASSUR", 100, 100, true);
         add(playerStatsPanel);

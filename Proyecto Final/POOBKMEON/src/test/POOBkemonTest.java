@@ -2,12 +2,18 @@ package test;
 import domain.*;
 
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import java.awt.Color;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
-import org.junit.Test;
 
 /*
  * POOBkemonTest
@@ -127,6 +133,22 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(raichu);
 
 
+            poobkemon.addPokemon(charizard1);
+            poobkemon.addPokemon(snorlax1);
+            poobkemon.addPokemon(blastoise1);
+            poobkemon.addPokemon(venusaur1);
+            poobkemon.addPokemon(gengar1);
+            poobkemon.addPokemon(dragonite1);
+            poobkemon.addPokemon(togetic1);
+            poobkemon.addPokemon(tyranitar1);
+            poobkemon.addPokemon(gardevoir1);
+            poobkemon.addPokemon(metagross1);
+            poobkemon.addPokemon(donphan1);
+            poobkemon.addPokemon(machamp1);
+            poobkemon.addPokemon(delibird1);
+            poobkemon.addPokemon(raichu1);
+
+
             //pokemones con movimientos predefinidos
             charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw});
             snorlax1.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
@@ -142,6 +164,21 @@ public class POOBkemonTest implements Serializable {
             machamp1.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate});
             delibird1.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze});
             raichu1.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall});
+
+            charizard.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw});
+            snorlax.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
+            blastoise.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam});
+            venusaur.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake});
+            gengar.setMovements(new Movement[] {shadowBall, psychic, poison, sleep});
+            dragonite.setMovements(new Movement[] {dragonClaw, earthquake, quickAttack, hyperBeam});
+            togetic.setMovements(new Movement[] {sleep, psychic, shadowBall, regenerate});
+            tyranitar.setMovements(new Movement[] {earthquake, burn, brickBreak, hyperBeam});
+            gardevoir.setMovements(new Movement[] {psychic, sleep, regenerate, shadowBall});
+            metagross.setMovements(new Movement[] {brickBreak, psychic, earthquake, burn});
+            donphan.setMovements(new Movement[] {earthquake, quickAttack, defense, burn});
+            machamp.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate});
+            delibird.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze});
+            raichu.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall});
 
             //items
             Item revive = new Revive();
@@ -177,16 +214,20 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addItem(psHyperPotion);
 
             //creacion trainers
-            //Trainer defensive = new DefensiveTrainer("defensivo");
-            //Trainer expert = new ExpertTrainer("experto");
-            //Trainer changing = new ChangingTrainer("asustado");
-            //Trainer attacking = new AttackingTrainer("agresivo");
+            Trainer defensive1 = new DefensiveTrainer("defensivo",new Color(0,1,255));
+            Trainer expert = new ExpertTrainer("experto",new Color(3,0,255));
+            Trainer changing1 = new ChangingTrainer("asustado",new Color(0,4,255));
+            Trainer attacking = new AttackingTrainer("agresivo",new Color(0,50,255));
 
-            Trainer defensive = new PlayerTrainer("tulio");
-            Trainer changing = new PlayerTrainer("andrew");
+            Trainer defensive = new PlayerTrainer("tulio",new Color(0,0,255));
+            Trainer changing = new PlayerTrainer("andrew",new Color(255,0,0));
             poobkemon.addTrainer(defensive);
             //poobkemon.addTrainer(expert.getName(), expert);
             poobkemon.addTrainer(changing);
+            poobkemon.addTrainer(defensive1);
+            poobkemon.addTrainer(expert);
+            poobkemon.addTrainer(changing1);
+            poobkemon.addTrainer(attacking);
             //poobkemon.addTrainer(attacking.getName(), attacking);
             //poobkemon.addTrainer(player1.getName(), player1);
             //poobkemon.addTrainer(player2.getName(), player2);
@@ -195,9 +236,9 @@ public class POOBkemonTest implements Serializable {
             //1 denfensive
             Inventory inventarioDefensive = new Inventory(); 
             defensive.setInventory(inventarioDefensive);
-            defensive.addPokemon(snorlax1);
-            defensive.addPokemon(charizard1);
-            defensive.addPokemon(blastoise1);
+            defensive.addPokemon(snorlax);
+            defensive.addPokemon(charizard);
+            defensive.addPokemon(blastoise);
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
             inventarioDefensive.addItem(revive);
@@ -208,9 +249,9 @@ public class POOBkemonTest implements Serializable {
             //2
             Inventory inventarioChanging = new Inventory();
             changing.setInventory(inventarioChanging);
-            changing.addPokemon(snorlax1);
-            changing.addPokemon(charizard1);
-            changing.addPokemon(blastoise1);
+            changing.addPokemon(snorlax);
+            changing.addPokemon(charizard);
+            changing.addPokemon(blastoise);
             inventarioChanging.addItem(psNormalPotion);
             inventarioChanging.addItem(defenseNormalPotion);
             inventarioChanging.addItem(revive);
@@ -243,8 +284,81 @@ public class POOBkemonTest implements Serializable {
             fail(); 
         }    
     }
+    @Test
+    public void shouldTrainerHavePokemons(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        assertEquals(t1.getInventory().getAlivePokemons().get(0).getLevel(),100);
+    }
 
-    
+    @Test
+    public void shouldDoTheRightMovement(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        int psInicial = t2.getPokemonInUse().getPs();
+        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+        int psFinal = t2.getPokemonInUse().getPs();
+        assertNotEquals(psInicial,psFinal); // Es falso ya que el pokemon fue afectado por el movimiento
+    }
 
-    
+    @Test
+    public void shouldChangePokemon(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        Pokemon pokemonStart = t2.getPokemonInUse();
+        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+        try {
+            t2.changePokemon(t2.getInventory().getAlivePokemons().get(1));
+            Pokemon pokemonAfter = t2.getPokemonInUse();
+            assertNotEquals(pokemonStart, pokemonAfter); // ESTE TEST FUNCIONA YA QUE BLASTOISE TRAS RECIBIR X CANTIDAD DE DAÑO LO CAMBIO POR CHARIZARD
+            // POR LO QUE TANTO EL POKEMON INICIAL COMO EL FINAL SON DIFERENTES;
+        } catch (Exception e) {
+            System.out.println("Hola profe");
+        }
+    }
+    @Test
+    public void shouldDiePokemon(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+        assertNotEquals(t2.getInventory().getPokemons().get("Blastoise").isAlive(), true);
+        //Tras recibir varios tipos de ataques blastoise muere y si queremos imprimir el pokemon que tendria este entrenador seria el siguiente
+        //vivo como es Charizard
+        System.out.println(t2.getPokemonInUse().getName());
+    }
+
+    @Test
+    public void shouldFightMachineVsMachine(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("asustado"); //changing
+        Trainer t2 = po.getTrainer("agresivo"); //Attacking
+
+        po.setTrainerTurns(t1, t2);
+
+        int psInicial1 = t1.getPokemonInUse().getPs();
+        int psInicial2 = t2.getPokemonInUse().getPs();
+
+        po.actionOrderMM();
+
+        int psFinal1 = t1.getPokemonInUse().getPs();
+        int psFinal2 = t2.getPokemonInUse().getPs();
+
+        assertNotEquals(psInicial1,psFinal1);
+
+        //Las maquinas escogen respectivamente los mejores movimientos posibles
+        //Debido a la prioridad que hay un pokemon se ve afectado o no
+        //En este caso el pokemon del entrenador 1 es quien se ve afectado
+        //Por lo que no van a ser iguales sus ps iniciales como finales.
+    }
 }

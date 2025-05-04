@@ -16,29 +16,15 @@ public class ListOfMovementsPanel extends JPanel{
     private JButton come;
     private JButton aleatory;
     private JPanel centralPanel;
+    private JLabel texto;
+    private Color color;
     private Map<String, List<String>> movimientosSeleccionados = new HashMap<>();
 
 
     public ListOfMovementsPanel(POOBkemonGUI newPo){
         po = newPo;
-        come = new JButton("Volver");
-        setLayout(new BorderLayout());
-
-        centralPanel = new JPanel(new GridLayout(2,3,10,10));
-        centralPanel.setOpaque(false);
-
-        add(centralPanel, BorderLayout.CENTER);
-
-        nextButton = new JButton("Siguiente");
-        po.styleButton(come);
-        po.styleButton(nextButton);
-        
-        JPanel southPanel = new JPanel();
-        southPanel.setOpaque(false);
-        southPanel.add(come);
-        southPanel.add(nextButton);
-        
-        add(southPanel, BorderLayout.SOUTH);
+        color = new Color(85, 85, 85, 100);;
+        prepareElements();
     }
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
         ArrayList<Pokemon> temp = new ArrayList<>();
@@ -55,7 +41,42 @@ public class ListOfMovementsPanel extends JPanel{
             centralPanel.add(movementPanel);
         }
     }
+    private void prepareElements(){
+        
+        come = new JButton("Volver");
+        setLayout(new BorderLayout());
+        JPanel upPanel = new JPanel(new BorderLayout());
+        upPanel.setOpaque(false); 
 
+        texto = new JLabel("Player");
+        texto.setOpaque(true);
+        texto.setBackground(color);
+        texto.setHorizontalAlignment(JLabel.CENTER);
+        texto.setForeground(color);
+        upPanel.add(new JLabel(" "),BorderLayout.CENTER);
+        upPanel.add(texto, BorderLayout.NORTH);
+
+        add(upPanel,BorderLayout.NORTH);
+        centralPanel = new JPanel(new GridLayout(2,3,10,10));
+        centralPanel.setOpaque(false);
+
+        add(centralPanel, BorderLayout.CENTER);
+
+        nextButton = new JButton("Siguiente");
+        po.styleButton(come);
+        po.styleButton(nextButton);
+        
+        JPanel southPanel = new JPanel();
+        southPanel.setOpaque(false);
+        southPanel.add(come);
+        southPanel.add(nextButton);
+        
+        add(southPanel, BorderLayout.SOUTH);
+    }
+    public void setColor(){
+        color = po.playerVsMachinePanel.getColor();
+        texto.setBackground(color);
+    }
     private JPanel createMovementPanel(String namePokemon, ArrayList<String> movements, String imagePath){ 
         if (namePokemon.equals("") || movements ==null || imagePath.equals("")) return new JPanel();
         JPanel panel = new JPanel(new BorderLayout());
