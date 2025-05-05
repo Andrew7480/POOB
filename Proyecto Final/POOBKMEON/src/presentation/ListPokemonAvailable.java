@@ -23,15 +23,18 @@ public class ListPokemonAvailable extends JPanel{
     private POOBkemonGUI po;
     private JLabel texto;
     private JButton come;
-    public ListPokemonAvailable(POOBkemonGUI newPo,Color newColor){
+    private int MAX_CHANGED = 1;
+    public ListPokemonAvailable(POOBkemonGUI newPo){
         po = newPo;
-        color = newColor;
+        color = new Color(0, 0, 255);
         come = new JButton("Back");
         doneButton = new JButton ("Change");
     }
-    public void inicializate(ArrayList<String> pokemons){
+    public void inicializate(ArrayList<String> pokemons, Color color){
         pokemonsChosenFight = pokemons;
+        setColor(color);
         prepareElements();
+        prepareActions();
     }
     private void prepareElements(){
         
@@ -138,6 +141,34 @@ public class ListPokemonAvailable extends JPanel{
         createButtons();
     }
 
+    private void prepareActions(){
+        doneButton.addActionListener(e -> {
+            if (sizeChoosen() < 1){
+                return;
+            }
+            if (sizeChoosen() > MAX_CHANGED){
+                JOptionPane.showMessageDialog(this, "Solo puedes escoger uno para cambiar " + MAX_CHANGED + "pokemon", 
+                "Límite excedido", JOptionPane.WARNING_MESSAGE);
+
+                return;
+            }
+            if (sizeChoosen() == 1){
+                changeImage();
+            }
+        System.out.println("se ha precionado la lsita de pokemones ");
+        po.cardLayout.show(po.panelContenedor,"battle");
+        });
+    }
+
+    public int sizeChoosen(){
+        return pokemonsChosenFight.size();
+    }
+
+    private void changeImage(){
+        Pokemon po1 = po.pokemones.get(pokemonsChosenFight.get(0));
+        po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
+    }
+
     private void createButtons(){
         System.err.println(pokemonsChosenFight.toString());
         for (String pokemonSelected : pokemonsChosenFight){
@@ -182,6 +213,9 @@ public class ListPokemonAvailable extends JPanel{
         button.setToolTipText(name);
         
         return button;
+    }
+    private void setColor(Color newCorlor){
+        color = newCorlor;
     }
 
     private void selectionPokemons(JButton button){

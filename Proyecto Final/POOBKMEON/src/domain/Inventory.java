@@ -78,5 +78,12 @@ public class Inventory implements Serializable{
         item.useItem(pokemon);
         items.remove(item.getName());
     }
+    public ArrayList<String> getItemsArray(){
+        ArrayList<String> temp = new ArrayList<>();
+        for(Item i: items.keySet()){
+            temp.add(i.getName());
+        }
+        return temp;
+    }
 
 }

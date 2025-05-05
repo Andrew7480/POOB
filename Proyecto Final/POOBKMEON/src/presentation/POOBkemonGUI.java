@@ -2,8 +2,7 @@ package presentation;
 import domain.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,7 +17,6 @@ public class POOBkemonGUI extends JFrame {
     protected CardLayout cardLayout;
     protected JPanel panelContenedor;
     private PrincipalPanel menuPrincipal;
-    private JButton regresarMvsM;
     private PokedexPanel pokedexPanelPrueba;
     private ModesOfGamePanel modesOfGamePanel;
     private ModesOfGamePanelNormal modesOfGamePanelNormal;
@@ -26,13 +24,16 @@ public class POOBkemonGUI extends JFrame {
     protected ModePlayerVSPlayer playerVSplayerPanel;
     protected ModePlayerVSPlayer playerVSplayerPanelSurvival;
     protected ModePlayerVsMachine playerVsMachinePanel;
-    private BattlePanel panelBattle;
+    protected BattlePanel panelBattle;
     private ModeMachineVsMachine machineVsMachinePanel;
     protected ListPokemonAvailable listPokemonsPanel;
-    private InventoryPanel panelInvetory;
+    protected InventoryPanel panelInvetory;
     protected SelectionPokemon chooser;
     protected ListOfMovementsPanel listMovements;
+    protected PanelSelectedPokemon selectedPokemon;
     private JColorChooser colorChooser;
+    protected PotionsPanelSelection potionsSelection;
+    
 
     private Inicio inicio;
 
@@ -115,7 +116,7 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-        panelBattle.getBackOptions().addActionListener(new ActionListener(){
+        panelBattle.getBackOptions().addActionListener(new ActionListener(){ //aqui
             @Override
             public void actionPerformed(ActionEvent e){
                 panelBattle.showBattleOptionsPanel();
@@ -151,8 +152,6 @@ public class POOBkemonGUI extends JFrame {
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
 
-        //chooser = new SelectionPokemon(this, new Color(0, 0, 255));
-        //panelContenedor.add(chooser, "chooser");
 
         inicio = new Inicio(this);
         panelContenedor.add(inicio, "Inicio");
@@ -190,9 +189,8 @@ public class POOBkemonGUI extends JFrame {
         panelInvetory = new InventoryPanel(this);
         panelContenedor.add(panelInvetory,"inventory");
 
-         /*por ahora se borra dps */
-        //Color azulOpaco = new Color(0, 0, 255); // RGB puro, completamente opaco
-        //Color rojoOpaco = new Color(255, 0, 0); // RGB puro, completamente opaco
+        potionsSelection = new PotionsPanelSelection(this);
+        panelContenedor.add(potionsSelection,"potions");
 
         chooser = new SelectionPokemon(this);
         panelContenedor.add(chooser, "chooser");
@@ -200,24 +198,17 @@ public class POOBkemonGUI extends JFrame {
         listMovements = new ListOfMovementsPanel(this);
         panelContenedor.add(listMovements,"movimientos");
 
-        listPokemonsPanel = new ListPokemonAvailable(this,new Color(0, 0, 255));
+
+        selectedPokemon = new PanelSelectedPokemon(this);
+        panelContenedor.add(selectedPokemon,"select pokemon");
+        
+        
+        listPokemonsPanel = new ListPokemonAvailable(this);
         panelContenedor.add(listPokemonsPanel,"pokemon list");
 
     }
 
-    private JPanel modesMachineVsMachine(String backgroundImage,String panelName){
-        JPanel game = background(backgroundImage);
-        game.setLayout(new BorderLayout());
-        JButton btnRegresar = new JButton("Volver");
-        styleButton(btnRegresar);
-        regresarMvsM = btnRegresar;
-        JPanel buttonPanel = invisiblePanelWithOpacity();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
-        buttonPanel.add(btnRegresar);
-        game.add(buttonPanel, BorderLayout.SOUTH);
-        return game;
-    }
+    
     public JPanel invisiblePanelWithoutOpacity(){
         return new JPanel(){
             @Override
@@ -395,7 +386,7 @@ public class POOBkemonGUI extends JFrame {
         chooser.getButtonBack().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"player vs machine");
+                cardLayout.show(panelContenedor,"potions");
                 
             }
         });
@@ -418,7 +409,7 @@ public class POOBkemonGUI extends JFrame {
         playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"battle");
+                //cardLayout.show(panelContenedor,"battle");
             }
         });
 
@@ -451,6 +442,7 @@ public class POOBkemonGUI extends JFrame {
                 playerVsMachinePanel.changeColor();
                 chooser.setColor();
                 listMovements.setColor();
+                System.out.println("Se ha seleccionado el boton de color, se ha puesto en la seleccion de poquemones y movimientos");
             }
         });
 
@@ -483,14 +475,6 @@ public class POOBkemonGUI extends JFrame {
                 cardLayout.show(panelContenedor,"battle");
             }
         });
-
-        listPokemonsPanel.getDoneButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"battle");
-                //HACE EL CAMBIO DE POKEMON EN DADO CASO?
-            }
-        });
         
 
         listMovements.getNextButton().addActionListener(new ActionListener(){
@@ -500,8 +484,15 @@ public class POOBkemonGUI extends JFrame {
                 if (!listMovements.isSelectedMovements()) {
                     return;
                 }
+                try{
+                addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
                 listMovements.resetPokemonChosen();
-                cardLayout.show(panelContenedor,"battle");
+                cardLayout.show(panelContenedor,"select pokemon");
+                System.out.println("Se ha seleccionado seguir y se ha resetiado las listas de movimientos");
+                }
+                catch(PoobkemonException i){
+                    JOptionPane.showMessageDialog(null, i.getMessage());
+                }
             }
         });
         listMovements.getComeButton().addActionListener(new ActionListener(){
@@ -509,9 +500,58 @@ public class POOBkemonGUI extends JFrame {
             public void actionPerformed(ActionEvent e){
                 listMovements.resetPokemonChosen();
                 cardLayout.show(panelContenedor,"chooser");
+                System.out.println("se ha seleccionado ???");
             }
         });
         
+        selectedPokemon.getBackButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                listMovements.resetPokemonChosen();
+                selectedPokemon.reset();
+                cardLayout.show(panelContenedor,"player vs machine");
+                System.out.println("se ha oprimido volver de seleccionar el pokemon inicial y se resetea ese panel y el de lista de movimientos");
+            }
+        });
+        selectedPokemon.getDoneButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (!selectedPokemon.isOneOption()){
+                    JOptionPane.showMessageDialog(null, "Solo se puede escoger 1 pokemon incial");
+                    return;
+                }
+                selectedPokemon.getPokemonChoosed(); //pokemon que escogio
+                System.out.println(selectedPokemon.getPokemonChoosed());
+                listMovements.resetPokemonChosen();
+                selectedPokemon.reset();
+                cardLayout.show(panelContenedor,"battle");
+                System.out.println("Se ha seleccionado un solo pokemon y se va a batalla. Se resetea la seleccion del pokemon principal");
+            }
+        });
+
+        potionsSelection.getButtonBack().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                potionsSelection.reset();
+                cardLayout.show(panelContenedor,"player vs machine");
+                System.out.println("se ha oprimido volver de pitions y se ha resetiado, vuelve a playervsmachine");
+            }
+        });
+
+        }
+        
+
+    
+    private void addPokemonsToTrainer(String trainer, HashMap<String, ArrayList<String>> lista) throws PoobkemonException{
+        for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
+            domain.addNewPokemon(trainer, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
+        }
+    }
+    public ArrayList<String> addItemsToTrainer(String trainer,ArrayList<String> items) throws PoobkemonException{
+        for (String i:items){
+            domain.getTrainer(trainer).getInventory().addItem(domain.getItems().get(i));
+        }
+        return domain.getTrainer(trainer).getInventory().getItemsArray();
 
     }
 /* 

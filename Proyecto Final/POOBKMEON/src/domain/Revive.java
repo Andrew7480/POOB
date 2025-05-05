@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Revive extends Item{
     private final double recover;
     public Revive() {
-        super("Revive","Recupera 50% de la salud de un Pokémon caído en combate.");
+        super("revive","Recupera 50% de la salud de un Pokémon caído en combate.");
         recover = 0.5;
     }
 

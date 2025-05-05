@@ -80,7 +80,9 @@ public class POOBkemonTest implements Serializable {
                 poobkemon.addMovement(dragonClaw);
                 poobkemon.addMovement(shadowBall);
                 poobkemon.addMovement(brickBreak);
-                poobkemon.addMovement(surf);}
+                poobkemon.addMovement(surf);
+                System.out.println("si sirve");
+            }    
             catch(PoobkemonException e){
                 System.out.println(e.getMessage());
             }
@@ -132,7 +134,7 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(delibird);
             poobkemon.addPokemon(raichu);
 
-
+            /* 
             poobkemon.addPokemon(charizard1);
             poobkemon.addPokemon(snorlax1);
             poobkemon.addPokemon(blastoise1);
@@ -147,7 +149,7 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(machamp1);
             poobkemon.addPokemon(delibird1);
             poobkemon.addPokemon(raichu1);
-
+            */
 
             //pokemones con movimientos predefinidos
             charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw});
@@ -164,37 +166,23 @@ public class POOBkemonTest implements Serializable {
             machamp1.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate});
             delibird1.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze});
             raichu1.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall});
-
-            charizard.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw});
-            snorlax.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
-            blastoise.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam});
-            venusaur.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake});
-            gengar.setMovements(new Movement[] {shadowBall, psychic, poison, sleep});
-            dragonite.setMovements(new Movement[] {dragonClaw, earthquake, quickAttack, hyperBeam});
-            togetic.setMovements(new Movement[] {sleep, psychic, shadowBall, regenerate});
-            tyranitar.setMovements(new Movement[] {earthquake, burn, brickBreak, hyperBeam});
-            gardevoir.setMovements(new Movement[] {psychic, sleep, regenerate, shadowBall});
-            metagross.setMovements(new Movement[] {brickBreak, psychic, earthquake, burn});
-            donphan.setMovements(new Movement[] {earthquake, quickAttack, defense, burn});
-            machamp.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate});
-            delibird.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze});
-            raichu.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall});
+            
 
             //items
             Item revive = new Revive();
-            Item potion = new PsPotion("Potion","",PotionType.NORMAL);
-            Item superPotion = new SuperPotion("Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.SUPER);
-            Item hyperPotion = new SuperPotion("Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
+            Item potion = new PsPotion("potion","",PotionType.NORMAL);
+            Item superPotion = new SuperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.SUPER);
+            Item hyperPotion = new SuperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
             
-            Item defenseNormalPotion = new DefensePotion("Posion Defensa", "Aumenta la defensa.", PotionType.NORMAL);
-            Item attackNormalPotion = new AttackPotion("Posion ataque", "Aumenta el ataque.", PotionType.NORMAL);
-            Item psNormalPotion = new PsPotion("Posion vida", "Aumenta la vida.", PotionType.NORMAL);
-            Item defenseSuperPotion = new DefensePotion("Posion Defensa", "Aumenta la defensa.", PotionType.SUPER);
-            Item attackSuperPotion = new AttackPotion("Posion ataque", "Aumenta el ataque.", PotionType.SUPER);
-            Item psSuperPotion = new PsPotion("Posion vida", "Aumenta la vida.", PotionType.SUPER);
-            Item defenseHyperPotion = new DefensePotion("Posion Defensa", "Aumenta la defensa.", PotionType.HYPER);
-            Item attackSHyperPotion = new AttackPotion("Posion ataque", "Aumenta el ataque.", PotionType.HYPER);
-            Item psHyperPotion = new PsPotion("Posion vida", "Aumenta la vida.", PotionType.HYPER);
+            Item defenseNormalPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.NORMAL);
+            Item attackNormalPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.NORMAL);
+            Item psNormalPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+            Item defenseSuperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.SUPER);
+            Item attackSuperPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.SUPER);
+            Item psSuperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.SUPER);
+            Item defenseHyperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.HYPER);
+            Item attackSHyperPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.HYPER);
+            Item psHyperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.HYPER);
             
             poobkemon.addItem(revive);
             poobkemon.addItem(potion);
@@ -214,31 +202,29 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addItem(psHyperPotion);
 
             //creacion trainers
-            Trainer defensive1 = new DefensiveTrainer("defensivo",new Color(0,1,255));
-            Trainer expert = new ExpertTrainer("experto",new Color(3,0,255));
-            Trainer changing1 = new ChangingTrainer("asustado",new Color(0,4,255));
-            Trainer attacking = new AttackingTrainer("agresivo",new Color(0,50,255));
+            Trainer defensive1 = new DefensiveTrainer("Defensive",new Color(0,1,255));
+            Trainer expert = new ExpertTrainer("Expert",new Color(3,0,255));
+            Trainer changing1 = new ChangingTrainer("Changing",new Color(0,4,255));
+            Trainer attacking = new AttackingTrainer("Attacking",new Color(0,50,255));
 
             Trainer defensive = new PlayerTrainer("tulio",new Color(0,0,255));
             Trainer changing = new PlayerTrainer("andrew",new Color(255,0,0));
+
             poobkemon.addTrainer(defensive);
-            //poobkemon.addTrainer(expert.getName(), expert);
             poobkemon.addTrainer(changing);
-            poobkemon.addTrainer(defensive1);
             poobkemon.addTrainer(expert);
-            poobkemon.addTrainer(changing1);
             poobkemon.addTrainer(attacking);
-            //poobkemon.addTrainer(attacking.getName(), attacking);
-            //poobkemon.addTrainer(player1.getName(), player1);
-            //poobkemon.addTrainer(player2.getName(), player2);
+
+            poobkemon.addTrainer(changing1);
+            poobkemon.addTrainer(defensive1);
         try{
             //inventarios
             //1 denfensive
             Inventory inventarioDefensive = new Inventory(); 
             defensive.setInventory(inventarioDefensive);
-            defensive.addPokemon(snorlax);
-            defensive.addPokemon(charizard);
-            defensive.addPokemon(blastoise);
+            defensive.addPokemon(snorlax1);
+            defensive.addPokemon(charizard1);
+            defensive.addPokemon(blastoise1);
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
             inventarioDefensive.addItem(revive);
@@ -249,21 +235,70 @@ public class POOBkemonTest implements Serializable {
             //2
             Inventory inventarioChanging = new Inventory();
             changing.setInventory(inventarioChanging);
-            changing.addPokemon(snorlax);
-            changing.addPokemon(charizard);
-            changing.addPokemon(blastoise);
+            changing.addPokemon(snorlax1);
+            changing.addPokemon(charizard1);
+            changing.addPokemon(blastoise1);
             inventarioChanging.addItem(psNormalPotion);
             inventarioChanging.addItem(defenseNormalPotion);
             inventarioChanging.addItem(revive);
             inventarioChanging.addItem(revive);
+
+
+            //3
+            Inventory inventarioChanging1 = new Inventory();
+            changing1.setInventory(inventarioChanging1);
+            changing1.addPokemon(snorlax1);
+            changing1.addPokemon(charizard1);
+            changing1.addPokemon(blastoise1);
+            inventarioChanging1.addItem(psNormalPotion);
+            inventarioChanging1.addItem(defenseNormalPotion);
+            inventarioChanging1.addItem(revive);
+            inventarioChanging1.addItem(revive);
             System.out.println("Tarea completada.");
-        
+            //4
+            Inventory inventarioAttacking = new Inventory();
+            attacking.setInventory(inventarioAttacking);
+            attacking.addPokemon(snorlax1);
+            attacking.addPokemon(charizard1);
+            attacking.addPokemon(blastoise1);
+            inventarioAttacking.addItem(psNormalPotion);
+            inventarioAttacking.addItem(defenseNormalPotion);
+            inventarioAttacking.addItem(revive);
+            inventarioAttacking.addItem(revive);
+            //5
+            Inventory inventarioExpert = new Inventory();
+            expert.setInventory(inventarioExpert);
+            expert.addPokemon(snorlax1);
+            expert.addPokemon(charizard1);
+            expert.addPokemon(blastoise1);
+            inventarioExpert.addItem(psNormalPotion);
+            inventarioExpert.addItem(defenseNormalPotion);
+            inventarioExpert.addItem(revive);
+            inventarioExpert.addItem(revive);
+
+            //6
+            Inventory inventarioDefensive1 = new Inventory();
+            defensive1.setInventory(inventarioDefensive1);
+            defensive1.addPokemon(snorlax1);
+            defensive1.addPokemon(charizard1);
+            defensive1.addPokemon(blastoise1);
+            inventarioDefensive1.addItem(psNormalPotion);
+            inventarioDefensive1.addItem(defenseNormalPotion);
+            inventarioDefensive1.addItem(revive);
+            inventarioDefensive1.addItem(revive);
+
+
+            System.out.println("Tarea completada.");
+            System.out.println("Tarea completada.");
+            System.out.println("Tarea completada inventarios.");
         }
         catch (Exception e) {
             System.out.println("Error: " + e.getClass().getName() + " - " + e.getMessage());
             e.printStackTrace(); 
             fail(); 
         }
+        
+
         try {
             poobkemon.serializateGame();
         } catch (Exception e) {
@@ -341,8 +376,8 @@ public class POOBkemonTest implements Serializable {
     public void shouldFightMachineVsMachine(){
         POOBkemon kemon = new POOBkemon();
         POOBkemon po = kemon.deserializateGame();
-        Trainer t1 = po.getTrainer("asustado"); //changing
-        Trainer t2 = po.getTrainer("agresivo"); //Attacking
+        Trainer t1 = po.getTrainer("Changing"); //changing
+        Trainer t2 = po.getTrainer("Attacking"); //Attacking
 
         po.setTrainerTurns(t1, t2);
 

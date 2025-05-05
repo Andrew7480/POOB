@@ -338,5 +338,9 @@ public class Pokemon implements Serializable {
         return movementsWeak;
     }
 
+    public Pokemon copy(){
+        return new Pokemon(name,level,ps,attack,specialAttack,defense,specialDefense,velocity,principalType,secondaryType,pokedexIndex);
+    }
+
 }
 

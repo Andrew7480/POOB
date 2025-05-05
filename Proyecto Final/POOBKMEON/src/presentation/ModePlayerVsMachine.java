@@ -46,7 +46,7 @@ public class ModePlayerVsMachine extends JPanel {
         btnRegresar = new JButton("BACK");
         chooserColor = new JButton("CHOOSE COLOR PLAYER");
         nextButton = new JButton("CONTINUE");
-        resetButton = new JButton("Reset");
+        resetButton = new JButton("RESET");
         paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png"};
 
         gameModes = new TreeMap<>(){{
@@ -75,28 +75,41 @@ public class ModePlayerVsMachine extends JPanel {
          
         JPanel buttonPanel = po.invisiblePanelWithOpacity();
         buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,20,10));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
         buttonPanel.add(btnRegresar);
         buttonPanel.add(resetButton);
         buttonPanel.add(nextButton);
         
         add(buttonPanel,BorderLayout.SOUTH);
 
-        add(nameInputPanel, BorderLayout.EAST);
+        add(nameInputPanel, BorderLayout.CENTER);
 
-        JPanel buttonTrainerPanel = new JPanel(new BorderLayout());
-        buttonTrainerPanel.setOpaque(false);
-        buttonTrainer = createImageButton("Trainer1", paths[0]);
-        buttonTrainerPanel.add(buttonTrainer, BorderLayout.CENTER);
-        add(buttonTrainerPanel,BorderLayout.CENTER); 
-
-        JPanel rightPanel = new JPanel(new BorderLayout());
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setOpaque(false);
-        rightPanel.add(new JLabel(" "), BorderLayout.CENTER);
-        rightPanel.add(new JLabel(" "), BorderLayout.WEST);
-        rightPanel.add(new JLabel(" "), BorderLayout.EAST);
 
-        add(rightPanel,BorderLayout.WEST); 
+        JPanel buttonTrainerPanel = new JPanel(new GridLayout(1,1,0,0));
+        buttonTrainerPanel.setOpaque(false);
+        //buttonTrainerPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        buttonTrainer = createImageButton("Trainer1", paths[0]);
+        buttonTrainerPanel.add(buttonTrainer);
+
+        JPanel colorChooserPanel = new JPanel();
+        colorChooserPanel.setOpaque(false);
+        colorChooserPanel.add(chooserColor);
+
+
+        rightPanel.add(colorChooserPanel);
+        rightPanel.add(buttonTrainerPanel);
+        rightPanel.add(Box.createVerticalStrut(10));
+
+
+        add(rightPanel,BorderLayout.EAST); 
+
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        leftPanel.setOpaque(false);
+        leftPanel.setPreferredSize(new Dimension(50, 0));
+        add(leftPanel,BorderLayout.WEST); 
     }
     private void prepareActions(){
         nextButton.addActionListener(new ActionListener(){
@@ -143,22 +156,26 @@ public class ModePlayerVsMachine extends JPanel {
         JPanel namePanel = createPokemonStylePanel();
         namePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        aux.add(namePanel);
-        centerPanel.add(aux);
-        centerPanel.add(Box.createVerticalStrut(20));
-        nameInputPanel.add(centerPanel, BorderLayout.CENTER);
-
-        
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 4); 
-        //centerPanel.setBorder(border);
-        aux.setBorder(border);
-
         panelButtons= new JPanel(new GridLayout(2,2));
         panelButtons.setOpaque(false);
         createButtons();
-        //aux.add(panelButtons);
+
         centerPanel.add(panelButtons);
-        centerPanel.add(chooserColor);
+        centerPanel.add(Box.createVerticalStrut(20));
+
+        aux.add(namePanel);
+        centerPanel.add(aux);
+        centerPanel.add(Box.createVerticalStrut(20));
+
+        nameInputPanel.add(centerPanel, BorderLayout.CENTER);
+
+        
+        //Border border = BorderFactory.createLineBorder(Color.BLACK, 4); 
+        //centerPanel.setBorder(border);
+        //aux.setBorder(border);
+
+        //aux.add(panelButtons);
+        //centerPanel.add(chooserColor);
         
     }
 
@@ -218,10 +235,18 @@ public class ModePlayerVsMachine extends JPanel {
             JOptionPane.showMessageDialog(this, "Select a color", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (gamemodeChoosen.size()>1 || gamemodeChoosen.size() ==0) {
+            JOptionPane.showMessageDialog(this, "Selecciona solo un tipo de juego.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try{
-            po.domain.addTrainerPlayerVsMachine(playerName, colorChosed);
-            po.cardLayout.show(po.panelContenedor,"chooser");
+            po.domain.addTrainerPlayerVsMachine(playerName, colorChosed, gamemodeChoosen.get(0));
+            po.chooser.setTrainer(playerName);
+            po.potionsSelection.setColor(colorChosed);
+            po.panelInvetory.setColor(colorChosed);
+            po.cardLayout.show(po.panelContenedor,"potions");
             reset();
+            System.out.println("Se ha resetiado la toma de datos, se ha enviado a la seleccion de pokemon los colores, el panel del inventario y se cambia a potions");
         }
         catch(PoobkemonException e){ 
             JOptionPane.showMessageDialog(this, "Nombre no disponible", "Error", JOptionPane.ERROR_MESSAGE);

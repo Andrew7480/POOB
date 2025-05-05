@@ -23,6 +23,7 @@ public class SelectionPokemon extends JPanel{
     private JPanel panelScroll;
     private ArrayList<String> pokemonesChoosen;
     private ArrayList<JButton> buttons;
+    private String Trainer;
     private final int MAX_POKEMONS=6;
 
     public SelectionPokemon(POOBkemonGUI po){
@@ -31,6 +32,7 @@ public class SelectionPokemon extends JPanel{
         prepareElements();
         prepareActions();
     }
+    
 
     private void prepareElements(){
         come = new JButton("Back");
@@ -150,6 +152,10 @@ public class SelectionPokemon extends JPanel{
         texto.setBackground(color);
     }
 
+    public Color getColor(){
+        return color;
+    }
+
 
     public JButton getButtonBack(){
         return come;
@@ -184,7 +190,7 @@ public class SelectionPokemon extends JPanel{
             button.setOpaque(true);
             pokemonesChoosen.add(button.getToolTipText());
         }
-        //System.out.println(pokemonesChoosen);
+        System.out.println(pokemonesChoosen);
     }
     public ArrayList<String> getPokemonChoosen(){
         return pokemonesChoosen;
@@ -240,19 +246,23 @@ public class SelectionPokemon extends JPanel{
             return;
         }
         pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
-        pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen);
+        pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen, color);
+        pooBkemonGUI.selectedPokemon.inicializate(pokemonesChoosen, color);
         pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
         reset();
         
         });
     }
+    public String getTrainer(){
+        return Trainer;
+    }
+    public void setTrainer(String tra){
+        Trainer = tra;
+    }
 
     public void reset(){
         pokemonesChoosen.clear();
-        for (JButton button : buttons){
-            button.setBackground(null);
-            button.setOpaque(false);
-        }
+        buttons.clear();
         revalidate();
         repaint();
     }

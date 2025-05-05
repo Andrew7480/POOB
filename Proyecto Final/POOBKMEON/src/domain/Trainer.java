@@ -13,6 +13,8 @@ public abstract class Trainer implements Serializable{
     public Trainer(String newName, Color newColor) {
         name = newName;   
         color = newColor;
+        inventory = new Inventory();
+        
     }
 
     public Inventory getInventory(){

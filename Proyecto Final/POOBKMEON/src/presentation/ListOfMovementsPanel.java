@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import domain.Pokemon;
+import domain.Trainer;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ public class ListOfMovementsPanel extends JPanel{
     private JPanel centralPanel;
     private JLabel texto;
     private Color color;
-    private Map<String, List<String>> movimientosSeleccionados = new HashMap<>();
+    private HashMap<String, ArrayList<String>> movimientosSeleccionados = new HashMap<>();
 
 
     public ListOfMovementsPanel(POOBkemonGUI newPo){
@@ -137,12 +138,12 @@ public class ListOfMovementsPanel extends JPanel{
     public JButton getComeButton(){
         return come;
     }
-    public Map<String, List<String>> getMovementsMap(){
+    public HashMap<String, ArrayList<String>> getMovementsMap(){
         return movimientosSeleccionados;
     }
 
     public boolean isSelectedMovements(){
-        for (Map.Entry<String, List<String>> entry: movimientosSeleccionados.entrySet()){
+        for (Map.Entry<String, ArrayList<String>> entry: movimientosSeleccionados.entrySet()){
             for (String e :entry.getValue()){
                 if(e.equals("")){
                     JOptionPane.showMessageDialog(this,

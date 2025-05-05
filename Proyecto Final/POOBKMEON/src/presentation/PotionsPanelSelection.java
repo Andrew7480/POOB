@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import domain.Item;
 import domain.Pokemon;
+import domain.PoobkemonException;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
-public class InventoryPanel extends JPanel {
+public class PotionsPanelSelection extends JPanel {
     private  String backgroundImage = "emerald";
     private JLabel texto;
     private POOBkemonGUI pooBkemonGUI;
@@ -21,26 +22,21 @@ public class InventoryPanel extends JPanel {
     private JButton come;
     private JButton doneButton; 
     private JPanel panelScroll;
-    private ArrayList<String> itemsSelected;
+    private ArrayList<String> itemsChoosen;
     private ArrayList<JButton> buttons;
     private final int MAX_POKEMONS=2;
 
-    public InventoryPanel(POOBkemonGUI po){
+    public PotionsPanelSelection(POOBkemonGUI po){
         pooBkemonGUI = po;
         color = new Color(85, 85, 85, 100);
-        come = new JButton("Back");
-        doneButton = new JButton ("Done!");
-        texto = new JLabel("Player");
-    }
-
-    public void inicializate(ArrayList<String> items){
-        itemsSelected = items;
         prepareElements();
-        //prepareActions();
+        prepareActions();
     }
 
     private void prepareElements(){
+        come = new JButton("Back");
         pooBkemonGUI.styleButton(come);
+        itemsChoosen = new ArrayList<>();
         buttons = new ArrayList<>();
 
         setLayout(new BorderLayout());
@@ -48,7 +44,7 @@ public class InventoryPanel extends JPanel {
 
         JPanel upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
-        
+        texto = new JLabel("Player");
         texto.setOpaque(true);
         texto.setBackground(color);
         texto.setHorizontalAlignment(JLabel.CENTER);
@@ -76,6 +72,7 @@ public class InventoryPanel extends JPanel {
 
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
+        doneButton = new JButton ("Done!");
         //doneButton.setVisible(false);
         pooBkemonGUI.styleButton(doneButton);
         down.add(new JLabel(" "),BorderLayout.NORTH);
@@ -162,11 +159,10 @@ public class InventoryPanel extends JPanel {
         return doneButton;
     }
     public void createButtons() {
-        System.err.println(itemsSelected.toString());
-        for (String itemSelected : itemsSelected) {
-            Item po1 = pooBkemonGUI.domain.getItems().get(itemSelected);
-            String nombre = po1.getName();
-            String ruta = po1.getName() +".png";
+        for (Entry<String, Item> entry : pooBkemonGUI.domain.getItems().entrySet()) {
+            String nombre = entry.getKey();
+            Item pokemon = entry.getValue();
+            String ruta = pokemon.getName().toString() +".png";
             JButton button = createImageButton(nombre, ruta);
             buttons.add(button);
             button.addActionListener(e -> 
@@ -179,23 +175,23 @@ public class InventoryPanel extends JPanel {
     }
     
     private void selectionItems(JButton button){
-        if (itemsSelected.contains(button.getToolTipText())) {
+        if (itemsChoosen.contains(button.getToolTipText())) {
             button.setBackground(null);
             button.setOpaque(false);
-            itemsSelected.remove(button.getToolTipText());
+            itemsChoosen.remove(button.getToolTipText());
         }
         else{
             button.setBackground(Color.GREEN);
             button.setOpaque(true);
-            itemsSelected.add(button.getToolTipText());
+            itemsChoosen.add(button.getToolTipText());
         }
-        //System.out.println(pokemonesChoosen);
+        System.out.println(itemsChoosen);
     }
     public ArrayList<String> getItemsChoosen(){
-        return itemsSelected;
+        return itemsChoosen;
     }
     public int sizeChoosen(){
-        return itemsSelected.size();
+        return itemsChoosen.size();
     }
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;
@@ -230,7 +226,6 @@ public class InventoryPanel extends JPanel {
         
         return button;
     }
-    /*
     private void prepareActions(){
         doneButton.addActionListener(e -> {
         if (sizeChoosen() < 2) {
@@ -247,16 +242,21 @@ public class InventoryPanel extends JPanel {
         }
         //INICIALIZAR POTIONS.
         //pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
-        //pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen);
-        pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"chooser");
-        reset();
+        try{
+            
+
+            pooBkemonGUI.panelInvetory.inicializate(pooBkemonGUI.addItemsToTrainer(pooBkemonGUI.chooser.getTrainer(),getItemsChoosen()));
+            pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"chooser");
+            reset();
+        }catch(PoobkemonException i){
+                System.out.println(i.getMessage());
+            }
         
         });
     }
-    */
 
     public void reset(){
-        itemsSelected.clear();
+        itemsChoosen.clear();
         for (JButton button : buttons){
             button.setBackground(null);
             button.setOpaque(false);
