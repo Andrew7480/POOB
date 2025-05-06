@@ -80,7 +80,7 @@ public class BattlePanel extends JPanel {
         add(info);
 
 
-        playerStatsPanel = createStatsPanel("VENASSUR", 100, 100, true);
+        playerStatsPanel = createStatsPanel("", 100,100, true);
         add(playerStatsPanel);
         opponentStatsPanel = createStatsPanel("CHARIZARD", 100, 120, false);
         add(opponentStatsPanel);
@@ -429,37 +429,35 @@ public class BattlePanel extends JPanel {
         battleOptionsPanel.revalidate();
         battleOptionsPanel.repaint();
                 
-                int width = c.getWidth();
-                int height = c.getHeight();
+        int width = c.getWidth();
+        int height = c.getHeight();
                 
-                g2d.setColor(new Color(40, 40, 40));
-                g2d.fillRect(0, 0, width, height);
+        g2d.setColor(new Color(40, 40, 40));
+        g2d.fillRect(0, 0, width, height);
                 
-                int max = getModel().getMaximum();
-                int min = getModel().getMinimum();
-                int value = getModel().getValue();
+        int max = getModel().getMaximum();
+        int min = getModel().getMinimum();
+        int value = getModel().getValue();
                 
-                double progress = 0.0;
-                if (max != min) {
-                    progress = (double)(value - min) / (double)(max - min);
-                }
+        double progress = 0.0;
+        if (max != min) {
+            progress = (double)(value - min) / (double)(max - min);
+        }
                 
-                int fillWidth = (int)(width * progress);
+        int fillWidth = (int)(width * progress);
             
-                Color healthColor;
+        Color healthColor;
                 
-                if (value > max * 0.5) {
-                    healthColor = new Color(88, 208, 120);
-                } else if (value > max * 0.2) {
-                    healthColor = new Color(248, 208, 48);
-                } else {
-                    healthColor = new Color(248, 88, 56);  
-                }
-                
-                g2d.setColor(healthColor);
-                g2d.fillRect(0, 0, fillWidth, height);
-                
-                g2d.dispose();
+        if (value > max * 0.5) {
+            healthColor = new Color(88, 208, 120);
+        } else if (value > max * 0.2) {
+            healthColor = new Color(248, 208, 48);
+        } else {
+            healthColor = new Color(248, 88, 56);  
+        }    
+        g2d.setColor(healthColor);
+        g2d.fillRect(0, 0, fillWidth, height);
+        g2d.dispose();
             }
         }
     }

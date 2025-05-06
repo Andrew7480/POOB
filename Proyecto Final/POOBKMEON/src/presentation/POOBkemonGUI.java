@@ -3,6 +3,7 @@ import domain.*;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.Flow;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,11 +17,7 @@ public class POOBkemonGUI extends JFrame {
     private JFileChooser fileChooser;
     protected CardLayout cardLayout;
     protected JPanel panelContenedor;
-    private PrincipalPanel menuPrincipal;
     private PokedexPanel pokedexPanelPrueba;
-    private ModesOfGamePanel modesOfGamePanel;
-    private ModesOfGamePanelNormal modesOfGamePanelNormal;
-    private ModesOfGamePanelSurvival modesOfGamePanelSurvival;
     protected ModePlayerVSPlayer playerVSplayerPanel;
     protected ModePlayerVSPlayer playerVSplayerPanelSurvival;
     protected ModePlayerVsMachine playerVsMachinePanel;
@@ -32,15 +29,22 @@ public class POOBkemonGUI extends JFrame {
     protected ListOfMovementsPanel listMovements;
     protected PanelSelectedPokemon selectedPokemon;
     private JColorChooser colorChooser;
-    protected PotionsPanelSelection potionsSelection;
     
-
-    private Inicio inicio;
+    private JPanel inicio;
+    private JPanel panelPrincipal;
+    private JPanel modesOfGamePanelP;
+    private JPanel modesOfGameNormal;
+    private JPanel modesOfGameSurvival;
 
     protected POOBkemon domain = new POOBkemon();
     protected TreeMap<String,Pokemon> pokemones;
     protected TreeMap<String, Movement> movimientos;
+
+    protected String trainerEscogido;
+    protected String trainerEscogidoMachine;
     protected ArrayList<String> pokemonesEscogidos;
+    protected HashMap<String, ArrayList<String>> pokemonesescogidosConMoviminetos;
+    protected ArrayList<String> itemsEscogidos;
 
     /**
      * Constructor of POOBkemon
@@ -122,14 +126,8 @@ public class POOBkemonGUI extends JFrame {
                 panelBattle.showBattleOptionsPanel();
             }
         });
-        inicio.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                cardLayout.show(panelContenedor,"principal");;
-            }
-            });
 
-            prepareMovementActions();
+        prepareMovementActions();
     }
 
     private void changePanel(String namePanel){
@@ -152,24 +150,23 @@ public class POOBkemonGUI extends JFrame {
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
 
+        inicio = inicio();
+        panelContenedor.add(inicio,"inicio");
 
-        inicio = new Inicio(this);
-        panelContenedor.add(inicio, "Inicio");
-
-        menuPrincipal = new PrincipalPanel(this);
-        panelContenedor.add(menuPrincipal, "principal");
+        panelPrincipal = menuPrincipal();
+        panelContenedor.add(panelPrincipal,"principal");
 
         pokedexPanelPrueba = new PokedexPanel(this);
         panelContenedor.add(pokedexPanelPrueba,"pokedex");
 
-        modesOfGamePanel = new ModesOfGamePanel(this);
-        panelContenedor.add(modesOfGamePanel, "modos de juego");
+        modesOfGamePanelP = modesOfGamePanel();
+        panelContenedor.add(modesOfGamePanelP,"modos de juego");
 
-        modesOfGamePanelNormal = new ModesOfGamePanelNormal(this);
-        panelContenedor.add(modesOfGamePanelNormal,"normal");
-
-        modesOfGamePanelSurvival = new ModesOfGamePanelSurvival(this);
-        panelContenedor.add(modesOfGamePanelSurvival,"survival");
+        modesOfGameNormal = modesOfGamePanelNormal();
+        panelContenedor.add(modesOfGameNormal,"normal");
+        
+        modesOfGameSurvival = modesOfGamePanelSurvival();
+        panelContenedor.add(modesOfGameSurvival,"survival");
 
         playerVSplayerPanel = new ModePlayerVSPlayer(this,true);
         panelContenedor.add(playerVSplayerPanel,"player vs player");
@@ -189,8 +186,8 @@ public class POOBkemonGUI extends JFrame {
         panelInvetory = new InventoryPanel(this);
         panelContenedor.add(panelInvetory,"inventory");
 
-        potionsSelection = new PotionsPanelSelection(this);
-        panelContenedor.add(potionsSelection,"potions");
+        //potionsSelection = new PotionsPanelSelection(this);
+        //panelContenedor.add(potionsSelection,"potions");
 
         chooser = new SelectionPokemon(this);
         panelContenedor.add(chooser, "chooser");
@@ -208,7 +205,198 @@ public class POOBkemonGUI extends JFrame {
 
     }
 
-    
+    private JPanel inicio(){
+        JPanel inicioPanelPrueba = background("inicio");
+        inicioPanelPrueba.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(panelContenedor,"principal");
+            }
+        });
+        return inicioPanelPrueba;
+    }
+    // FALTA AGREGAR IMAGEN DE POOBKEMON
+    /*
+     @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ download+".GIF"));
+        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
+        Image centeredImage = new ImageIcon(getClass().getResource("/resources/"+title+".PNG")).getImage();
+        int scaledWidth = getWidth() / 2;
+        int scaledHeight = getHeight() / 2;
+        int x = (getWidth() - scaledWidth) / 2;
+        int y = (getHeight() - scaledHeight) / 2;
+        g.drawImage(centeredImage, x, y, scaledWidth,scaledHeight, this);
+    }
+     */
+
+    private JPanel menuPrincipal(){
+        JPanel menuPrincipal = background("download");
+        menuPrincipal.setLayout(new BorderLayout());
+        JPanel modosDeJuego = invisiblePanelWithOpacity();
+        modosDeJuego.setOpaque(false);
+        modosDeJuego.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        menuPrincipalButtons(modosDeJuego);
+        menuPrincipal.add(modosDeJuego, BorderLayout.SOUTH);
+        return menuPrincipal;
+    }
+
+    private void menuPrincipalButtons(JPanel modosDeJuego){
+        JButton play = new JButton("Play");
+        JButton pokedex = new JButton("Pokedex");
+        styleButtonExternal(play);
+        styleButtonExternal(pokedex);
+        modosDeJuego.add(play);
+        modosDeJuego.add(pokedex);
+        prepareActionsMenuPrincipal(play, pokedex);
+    }
+
+    private void prepareActionsMenuPrincipal(JButton play, JButton pokedex){
+        pokedex.addActionListener(e -> changePanel("pokedex"));
+        play.addActionListener(e -> changePanel("modos de juego"));
+    }
+
+    private JPanel modesOfGamePanel(){
+        JPanel modesOfGame = background("trainers");
+        modesOfGame.setLayout(new BorderLayout());
+        modesOfGamePanelButtons(modesOfGame);
+        return modesOfGame;
+    }
+
+    private void modesOfGamePanelButtons(JPanel modesOfGame){
+        JButton back = new JButton("BACK");
+        JButton modeNormal = new JButton("MODE NORMAL");
+        JButton modeSurvival = new JButton("MODE SURVIVAL");
+        styleButtonExternal(back);
+        styleButton(modeNormal);
+        styleButton(modeSurvival);
+        JPanel options = modesOfGames(modeNormal, modeSurvival);
+        JPanel centro = new JPanel(new GridBagLayout());
+        centro.setOpaque(false);
+        centro.add(options);
+        modesOfGame.add(centro, BorderLayout.CENTER);
+        JPanel buttonPanel = invisiblePanelWithOpacity();
+        buttonPanel.setOpaque(false);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
+        buttonPanel.add(back);
+        modesOfGame.add(buttonPanel,BorderLayout.SOUTH);
+        prepareActionsModesOfGamePanel(back, modeNormal, modeSurvival);
+    }
+
+    private JPanel modesOfGames(JButton modeNormal, JButton modeSurvival){
+        JPanel options = invisiblePanelWithoutOpacity();
+        options.setOpaque(false);
+        options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
+        modeNormal.setAlignmentX(Component.CENTER_ALIGNMENT);
+        modeSurvival.setAlignmentX(Component.CENTER_ALIGNMENT);
+        options.add(Box.createVerticalStrut(20));
+        options.add(modeNormal);
+        options.add(Box.createVerticalStrut(15));
+        options.add(modeSurvival);
+
+        return options;
+    }
+
+    private void prepareActionsModesOfGamePanel(JButton back, JButton normalMode, JButton survivalMode){
+        back.addActionListener(e -> changePanel("principal"));
+        normalMode.addActionListener(e -> changePanel("normal"));
+        survivalMode.addActionListener(e -> changePanel("survival"));
+    }
+
+    private JPanel modesOfGamePanelNormal(){
+        JPanel modesOfGamePanelNormal = background("trainers");
+        modesOfGamePanelNormal.setLayout(new BorderLayout());
+        modesOfGamePanelNormalButtons(modesOfGamePanelNormal);
+        return modesOfGamePanelNormal;
+    }
+
+    private void modesOfGamePanelNormalButtons(JPanel modesOfGamePanelNormal){
+        JButton back = new JButton("BACK");
+        styleButtonExternal(back);
+        JPanel normalMode = modeNormalPanel(back);
+        JPanel centro = new JPanel(new GridBagLayout());
+        centro.setOpaque(false);
+        centro.add(normalMode);
+        JPanel buttonPanel = invisiblePanelWithOpacity();
+        buttonPanel.setOpaque(false);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,20,20));
+        buttonPanel.add(back);
+        modesOfGamePanelNormal.add(buttonPanel,BorderLayout.SOUTH);
+        modesOfGamePanelNormal.add(centro,BorderLayout.CENTER);
+    }
+
+    private JPanel modeNormalPanel(JButton back){
+
+        JButton playerVsPlayer = new JButton("Player vs Player");
+        JButton playerVsMachine = new JButton("Player vs Machine");
+        JButton machineVsMachine = new JButton("Machine vs Machine");
+        styleButton(playerVsPlayer);
+        styleButton(playerVsMachine);
+        styleButton(machineVsMachine);
+        JPanel options = invisiblePanelWithoutOpacity();
+        options.setOpaque(false);
+        options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
+        playerVsMachine.setAlignmentX(Component.CENTER_ALIGNMENT);
+        machineVsMachine.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerVsPlayer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        options.add(Box.createVerticalStrut(20));
+        options.add(playerVsPlayer);
+        options.add(Box.createVerticalStrut(15));
+        options.add(playerVsMachine);
+        options.add(Box.createVerticalStrut(15));
+        options.add(machineVsMachine);
+        prepareActionsModeNormal(back, playerVsPlayer, playerVsMachine, machineVsMachine);
+
+        return options;
+    }
+
+    private void prepareActionsModeNormal(JButton back, JButton playerVsPlayer, JButton playerVsMachine, JButton machineVsMachine){
+        back.addActionListener(e -> changePanel("modos de juego"));
+        playerVsPlayer.addActionListener(e -> changePanel("player vs player"));
+        playerVsMachine.addActionListener(e -> changePanel("player vs machine"));
+        machineVsMachine.addActionListener(e -> changePanel("machine vs machine"));
+    }
+
+    private JPanel modesOfGamePanelSurvival(){
+        JPanel modeSurvivalPanel = background("download");
+        modeSurvivalPanel.setLayout(new BorderLayout());
+        modesOfGamePanelSurvivalButton(modeSurvivalPanel);
+        return modeSurvivalPanel;
+    }
+
+    private void modesOfGamePanelSurvivalButton(JPanel modeSurvivalPanel){
+        JButton back = new JButton("BACK");
+        styleButtonExternal(back);
+        JPanel modeSurvival = survivalModeMenu(back);
+        JPanel centro = new JPanel(new GridBagLayout());
+        centro.setOpaque(false);
+        centro.add(modeSurvival);
+        JPanel buttonPanel = invisiblePanelWithOpacity();
+        buttonPanel.setOpaque(false);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
+        buttonPanel.add(back);
+        modeSurvivalPanel.add(centro,BorderLayout.CENTER);
+        modeSurvivalPanel.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private JPanel survivalModeMenu(JButton back){
+        JButton playerVsPlayerSurvival = new JButton("Player vs Player");
+        styleButton(playerVsPlayerSurvival);
+        JPanel options = invisiblePanelWithoutOpacity();
+        options.setOpaque(false);
+        options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
+        playerVsPlayerSurvival.setAlignmentX(Component.CENTER_ALIGNMENT);
+        options.add(playerVsPlayerSurvival);
+        prepareActionsSurvivalMode(back,playerVsPlayerSurvival);
+        return options;
+    }
+
+    private void prepareActionsSurvivalMode(JButton back, JButton playerVsPlayerSurvival){
+        back.addActionListener(e -> changePanel("modos de juego"));
+        playerVsPlayerSurvival.addActionListener(e -> changePanel("player vs player survival"));
+    }
+
     public JPanel invisiblePanelWithoutOpacity(){
         return new JPanel(){
             @Override
@@ -240,7 +428,7 @@ public class POOBkemonGUI extends JFrame {
                 super.paintComponent(g);
                 ImageIcon back;
                 try {
-                    back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage));
+                    back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage+".GIF"));
                 } catch (Exception e) {
                     back = new ImageIcon(getClass().getResource("/resources/download.GIF"));
                 }
@@ -292,53 +480,7 @@ public class POOBkemonGUI extends JFrame {
         return domain;
     }
     private void prepareMovementActions(){
-        menuPrincipal.jugar.addActionListener(e -> changePanel("modos de juego"));
-
-        modesOfGamePanel.getButtonNormal().addActionListener(e -> changePanel("normal"));
-
-        modesOfGamePanelNormal.getButtonRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "modos de juego");
-            }
-        });
-        modesOfGamePanelSurvival.getButtonRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "modos de juego");
-            }
-        });
-
-        modesOfGamePanelNormal.getButtonPvsM().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                //chooseDifficult();
-                playerVsMachinePanel.reset();
-                cardLayout.show(panelContenedor,"player vs machine"); //aquilocambie
-            }
-        });
-
-        modesOfGamePanelNormal.getButtonPvsP().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"player vs player");
-            }
-        });
-
-        modesOfGamePanelSurvival.getButtonPvsP().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"player vs player survival");
-            }
-        });
-
-        modesOfGamePanelNormal.getButtonMvsM().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"machine vs machine");
-            }
-        });
-
+    
         machineVsMachinePanel.getBtnRegresar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -353,48 +495,19 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-
-        menuPrincipal.pokedex.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor, "pokedex");
-            }
-        });
-
         pokedexPanelPrueba.getButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"principal");
             }
         });
-        
-        modesOfGamePanel.getButtonRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"principal");
-            }
-        });
-        
-        
-        modesOfGamePanel.getButtonNormal().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
+
 
         chooser.getButtonBack().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"potions");
+                cardLayout.show(panelContenedor,"player vs machine");
                 
-            }
-        });
-
-        modesOfGamePanel.getButtonSurvival().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"survival");
             }
         });
 
@@ -424,7 +537,10 @@ public class POOBkemonGUI extends JFrame {
         panelBattle.getRunButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                //chooser.reset();
                 listMovements.resetPokemonChosen();
+                //selectedPokemon.reset();
+                //playerVsMachinePanel.reset();
                 cardLayout.show(panelContenedor,"principal");
             }
         });
@@ -484,15 +600,17 @@ public class POOBkemonGUI extends JFrame {
                 if (!listMovements.isSelectedMovements()) {
                     return;
                 }
-                try{
-                addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
+                //try{
+                //addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
+                selectedPokemon.inicializate(chooser.getPokemonChoosen(), chooser.getColor());
+                pokemonesescogidosConMoviminetos= listMovements.getMovementsMap();
                 listMovements.resetPokemonChosen();
                 cardLayout.show(panelContenedor,"select pokemon");
                 System.out.println("Se ha seleccionado seguir y se ha resetiado las listas de movimientos");
-                }
-                catch(PoobkemonException i){
-                    JOptionPane.showMessageDialog(null, i.getMessage());
-                }
+                //}
+                //catch(PoobkemonException i){
+                    //J//OptionPane.showMessageDialog(null, i.getMessage());
+                //}
             }
         });
         listMovements.getComeButton().addActionListener(new ActionListener(){
@@ -528,7 +646,7 @@ public class POOBkemonGUI extends JFrame {
                 System.out.println("Se ha seleccionado un solo pokemon y se va a batalla. Se resetea la seleccion del pokemon principal");
             }
         });
-
+        /* 
         potionsSelection.getButtonBack().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -537,23 +655,38 @@ public class POOBkemonGUI extends JFrame {
                 System.out.println("se ha oprimido volver de pitions y se ha resetiado, vuelve a playervsmachine");
             }
         });
+        */
 
         }
-        
-
+        public void createTrainer(Color color){
+            try{
+                if (trainerEscogido == null) {
+                    JOptionPane.showMessageDialog(null, "Error: Player trainer name not set");
+                    return;
+                }
+                if (trainerEscogidoMachine == null) {
+                    JOptionPane.showMessageDialog(null, "Error: Machine trainer type not set");
+                    return;
+                }
+                domain.addTrainerPlayerVsMachine(trainerEscogido,color,trainerEscogidoMachine);
+            }catch(PoobkemonException e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        public void addPokemonsToTrainer() throws PoobkemonException{
+            HashMap<String, ArrayList<String>> lista = pokemonesescogidosConMoviminetos;
+            for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
+                domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
+            }
+        }
+        public ArrayList<String> addItemsToTrainer() throws PoobkemonException{
+            ArrayList<String> items= itemsEscogidos;
+            for (String i:items){
+                domain.getTrainer(trainerEscogido).getInventory().addItem(domain.getItems().get(i));
+            }
+            return domain.getTrainer(trainerEscogido).getInventory().getItemsArray();
     
-    private void addPokemonsToTrainer(String trainer, HashMap<String, ArrayList<String>> lista) throws PoobkemonException{
-        for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
-            domain.addNewPokemon(trainer, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
         }
-    }
-    public ArrayList<String> addItemsToTrainer(String trainer,ArrayList<String> items) throws PoobkemonException{
-        for (String i:items){
-            domain.getTrainer(trainer).getInventory().addItem(domain.getItems().get(i));
-        }
-        return domain.getTrainer(trainer).getInventory().getItemsArray();
-
-    }
 /* 
     private void chooseDifficult(){
         String [] options = {"Changing Trainer","Expert Trainer","Attacking Trainer","Defensive Trainer"};

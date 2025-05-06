@@ -2,6 +2,7 @@ package presentation;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import domain.Item;
 import domain.Pokemon;
@@ -36,48 +37,44 @@ public class InventoryPanel extends JPanel {
     public void inicializate(ArrayList<String> items){
         itemsSelected = items;
         prepareElements();
-        //prepareActions();
     }
 
-    private void prepareElements(){
-        pooBkemonGUI.styleButton(come);
-        buttons = new ArrayList<>();
 
-        setLayout(new BorderLayout());
-        setOpaque(false);
-
-        JPanel upPanel = new JPanel(new BorderLayout());
-        upPanel.setOpaque(false); 
-        
+    private JPanel upPanel(){
+        JPanel up = new JPanel(new BorderLayout());
+        up.setOpaque(false);
         texto.setOpaque(true);
         texto.setBackground(color);
         texto.setHorizontalAlignment(JLabel.CENTER);
         texto.setForeground(color);
-        upPanel.add(new JLabel(" "),BorderLayout.CENTER);
-        upPanel.add(texto, BorderLayout.NORTH);
-        add(upPanel,BorderLayout.NORTH);
+        up.add(new JLabel(" "),BorderLayout.CENTER);
+        up.add(texto, BorderLayout.NORTH);
+        return up;
+    }
 
+    private JPanel rightPanel(){
         JPanel right = new JPanel(new BorderLayout());
         right.setOpaque(false);
         right.add(new JLabel(" "),BorderLayout.WEST);
         right.add(new JLabel(" "),BorderLayout.CENTER);
         right.add(new JLabel(" "),BorderLayout.EAST);
-        add(right, BorderLayout.EAST);
+        return right;
+    }
 
+    private JPanel leftPanel(){
         JPanel left = new JPanel(new BorderLayout());
         left.setOpaque(false);
         left.add(new JLabel(" "),BorderLayout.WEST);
         ImageIcon imagen = new ImageIcon(getClass().getResource("/resources/pokeball1.png"));
-
-
         left.add(new JLabel(imagen),BorderLayout.CENTER);
         left.add(new JLabel(" "),BorderLayout.EAST);
-        add(left, BorderLayout.WEST);
+        return left;
+    }
 
+    private JPanel downPanel(){
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
         //doneButton.setVisible(false);
-        pooBkemonGUI.styleButton(doneButton);
         down.add(new JLabel(" "),BorderLayout.NORTH);
         down.add(new JLabel(" "),BorderLayout.CENTER);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -85,8 +82,23 @@ public class InventoryPanel extends JPanel {
         booton.add(come);
         booton.add(doneButton);
         down.add(booton,BorderLayout.SOUTH);
-        add(down, BorderLayout.SOUTH);
+        return down;
+    }
 
+    private void prepareElements(){
+        buttons = new ArrayList<>();
+        setLayout(new BorderLayout());
+        setOpaque(false);
+        pooBkemonGUI.styleButton(come);
+        pooBkemonGUI.styleButton(doneButton);
+        JPanel upPanel = upPanel();
+        JPanel right = rightPanel();
+        JPanel left = leftPanel();
+        JPanel down = downPanel();
+        add(upPanel,BorderLayout.NORTH);
+        add(right, BorderLayout.EAST);
+        add(left, BorderLayout.WEST);
+        add(down, BorderLayout.SOUTH);
         JPanel centro = new JPanel(new BorderLayout());
         centro.setOpaque(false);
         //centro.setBackground(color);
@@ -153,8 +165,6 @@ public class InventoryPanel extends JPanel {
         color = newColor;
         texto.setBackground(color);
     }
-
-
     public JButton getButtonBack(){
         return come;
     }
@@ -203,10 +213,8 @@ public class InventoryPanel extends JPanel {
         Dimension smallSize = new Dimension(50, 30); 
         JButton button = new JButton();
         button.setBounds(x, y, width, height);
-        
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
-            
             if (imagePath.toLowerCase().endsWith(".gif")){
                 button.setIcon(icon);
                 button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
@@ -219,6 +227,11 @@ public class InventoryPanel extends JPanel {
         }catch (Exception e) {
             button.setText("No imagen");
         }
+        editButton(button, smallSize, name);
+        return button;
+    }
+
+    private JButton editButton(JButton button, Dimension smallSize,String name){
         button.setPreferredSize(smallSize);
         button.setMinimumSize(smallSize);
         button.setMaximumSize(smallSize); 
@@ -227,7 +240,7 @@ public class InventoryPanel extends JPanel {
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setToolTipText(name);
-        
+
         return button;
     }
     /*

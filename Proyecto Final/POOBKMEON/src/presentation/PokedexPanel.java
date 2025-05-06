@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PokedexPanel extends JPanel {
-    private static final String BACKGROUND_IMAGE = "pokedex"; // Ruta a tu imagen de Pokédex
     private static final String POKEMONES = "src/resources/";
     private static final String TYPES = "resources/types/";
     private static final Color POKEDEX_GREEN = new Color(32, 160, 32);
@@ -272,8 +271,8 @@ public class PokedexPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ BACKGROUND_IMAGE+".PNG"));
-        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
+        g.setColor(new Color(220,30,30));
+        g.fillRect(0, 0, getWidth(), getHeight());
     }
     
     public void cargarPokemones(ArrayList<String[]> nuevaLista) {
