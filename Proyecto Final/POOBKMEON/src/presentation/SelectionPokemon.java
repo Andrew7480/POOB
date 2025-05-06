@@ -122,12 +122,6 @@ public class SelectionPokemon extends JPanel{
             button.setOpaque(false);
             itemsChoosen.remove(button.getToolTipText());
         } else {
-            if (itemsChoosen.size() >= MAX_POTIONS) {
-                JOptionPane.showMessageDialog(this,
-                    "Solo puedes seleccionar máximo " + MAX_POTIONS + " pociones",
-                    "Límite excedido", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
             button.setBackground(Color.ORANGE);
             button.setOpaque(true);
             itemsChoosen.add(button.getToolTipText());
@@ -338,15 +332,15 @@ public class SelectionPokemon extends JPanel{
     }
     private void prepareActions(){
         doneButton.addActionListener(e -> {
-        if (sizeChoosen() < 1) {
+        if (sizeChoosen() < 1 || itemsChoosen.size() < 1) {
             JOptionPane.showMessageDialog(this, 
-                "Selecciona al menos 1 Pokémon para la batalla!", 
+                "Selecciona al menos 1 Pokémon para la batalla y dos pociones! ",
                 "Incompleta", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (sizeChoosen() > MAX_POKEMONS) {
+        if (sizeChoosen() > MAX_POKEMONS || itemsChoosen.size() > MAX_POTIONS) {
             JOptionPane.showMessageDialog(this,
-                "Solo puedes seleccionar máximo " + MAX_POKEMONS + " pokemones",
+                "Solo puedes seleccionar máximo " + MAX_POKEMONS + " pokemones y " + MAX_POTIONS + " pociones",
                 "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -391,5 +385,6 @@ public class SelectionPokemon extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
+        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }

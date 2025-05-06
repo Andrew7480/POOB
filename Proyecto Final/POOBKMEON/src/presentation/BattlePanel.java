@@ -80,9 +80,9 @@ public class BattlePanel extends JPanel {
         add(info);
 
 
-        playerStatsPanel = createStatsPanel("", 100,100, true);
+        playerStatsPanel = createStatsPanel("", 0,0, true);
         add(playerStatsPanel);
-        opponentStatsPanel = createStatsPanel("CHARIZARD", 100, 120, false);
+        opponentStatsPanel = createStatsPanel("", 100, 120, false);
         add(opponentStatsPanel);
         
 

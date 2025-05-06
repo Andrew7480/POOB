@@ -180,28 +180,25 @@ public class POOBkemonGUI extends JFrame {
         machineVsMachinePanel = new ModeMachineVsMachine(this);
         panelContenedor.add(machineVsMachinePanel,"machine vs machine");
 
-        panelBattle = new BattlePanel(this);
-        panelContenedor.add(panelBattle,"battle");
-
         panelInvetory = new InventoryPanel(this);
         panelContenedor.add(panelInvetory,"inventory");
-
-        //potionsSelection = new PotionsPanelSelection(this);
-        //panelContenedor.add(potionsSelection,"potions");
-
-        chooser = new SelectionPokemon(this);
-        panelContenedor.add(chooser, "chooser");
 
         listMovements = new ListOfMovementsPanel(this);
         panelContenedor.add(listMovements,"movimientos");
 
+        listPokemonsPanel = new ListPokemonAvailable(this);
+        panelContenedor.add(listPokemonsPanel,"pokemon list");
 
         selectedPokemon = new PanelSelectedPokemon(this);
         panelContenedor.add(selectedPokemon,"select pokemon");
-        
-        
-        listPokemonsPanel = new ListPokemonAvailable(this);
-        panelContenedor.add(listPokemonsPanel,"pokemon list");
+
+        chooser = new SelectionPokemon(this);
+        panelContenedor.add(chooser, "chooser");
+
+        panelBattle = new BattlePanel(this);
+        panelContenedor.add(panelBattle,"battle");
+
+
 
     }
 
@@ -686,7 +683,6 @@ public class POOBkemonGUI extends JFrame {
                 domain.getTrainer(trainerEscogido).getInventory().addItem(domain.getItems().get(i));
             }
             return domain.getTrainer(trainerEscogido).getInventory().getItemsArray();
-    
         }
 /* 
     private void chooseDifficult(){
