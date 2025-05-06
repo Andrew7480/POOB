@@ -3,7 +3,9 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import domain.Item;
 import domain.Pokemon;
+import domain.PoobkemonException;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -21,20 +23,119 @@ public class SelectionPokemon extends JPanel{
     private JButton come;
     private JButton doneButton; 
     private JPanel panelScroll;
+    private JPanel potionsScollPanel;
     private ArrayList<String> pokemonesChoosen;
+    private ArrayList<String> itemsChoosen;
     private ArrayList<JButton> buttons;
+    private ArrayList<JButton> potionButtons;
     private String Trainer;
     private final int MAX_POKEMONS=6;
+    private final int MAX_POTIONS =2;
 
     public SelectionPokemon(POOBkemonGUI po){
         pooBkemonGUI = po;
         color = new Color(85, 85, 85, 100);
-        prepareElements();
+        prepareElementsPokemons();
+        prepareElementsItems();
         prepareActions();
     }
     
+    private void prepareElementsItems(){
+        itemsChoosen = new ArrayList<>();
+        potionButtons = new ArrayList<>();
 
-    private void prepareElements(){
+        potionsScollPanel = new JPanel(new GridLayout(0, 1, 1, 1)) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+
+        potionsScollPanel.setOpaque(false);
+        JScrollPane potionsScroll = new JScrollPane(potionsScollPanel);
+        potionsScroll.setBackground(color);
+        potionsScroll.setOpaque(false);
+        potionsScroll.setPreferredSize(new Dimension(150, 300));
+        potionsScroll.getViewport().setOpaque(false);
+        potionsScroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        potionsScroll.getVerticalScrollBar().setUnitIncrement(15);
+                
+        createPotionButtons();
+                
+        JPanel left = (JPanel)getComponent(2);
+        left.removeAll();
+        left.setLayout(new BorderLayout());
+                
+        JLabel potionsTitle = new JLabel("Items", SwingConstants.CENTER);
+        potionsTitle.setOpaque(true);
+        potionsTitle.setBackground(color);
+        potionsTitle.setForeground(Color.WHITE);
+        potionsTitle.setFont(new Font("Arial", Font.BOLD, 14));
+                
+        left.add(potionsTitle, BorderLayout.NORTH);
+        left.add(potionsScroll, BorderLayout.CENTER);
+        left.add(new JLabel(" "), BorderLayout.WEST);
+        left.add(new JLabel(" "), BorderLayout.EAST);
+
+    }
+
+    private void createPotionButtons() {
+        for (Entry<String, Item> entry : pooBkemonGUI.domain.getItems().entrySet()) {
+            String nombre = entry.getKey();
+            Item item = entry.getValue();
+            String ruta = item.getName() + ".png";
+            JButton button = createPotionButton(nombre, ruta);
+            potionButtons.add(button);
+            button.addActionListener(e -> selectPotion(button));
+            potionsScollPanel.add(button);
+        }
+    }
+
+    private JButton createPotionButton(String name, String imagePath) {
+        int width=40, height=40;
+        JButton button = new JButton(name);
+        button.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
+            Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            button.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception e) {
+           
+        }
+        
+        button.setToolTipText(name);
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(true);
+        button.setFocusPainted(false);
+        button.setPreferredSize(new Dimension(140, 50));
+        
+        return button;
+    }
+
+    private void selectPotion(JButton button) {
+        if (itemsChoosen.contains(button.getToolTipText())) {
+            button.setBackground(null);
+            button.setOpaque(false);
+            itemsChoosen.remove(button.getToolTipText());
+        } else {
+            if (itemsChoosen.size() >= MAX_POTIONS) {
+                JOptionPane.showMessageDialog(this,
+                    "Solo puedes seleccionar máximo " + MAX_POTIONS + " pociones",
+                    "Límite excedido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            button.setBackground(Color.ORANGE);
+            button.setOpaque(true);
+            itemsChoosen.add(button.getToolTipText());
+        }
+        System.out.println("Pociones seleccionadas: " + itemsChoosen);
+    }
+
+    private void prepareElementsPokemons(){
         come = new JButton("Back");
         pooBkemonGUI.styleButton(come);
         pokemonesChoosen = new ArrayList<>();
@@ -86,9 +187,15 @@ public class SelectionPokemon extends JPanel{
         add(down, BorderLayout.SOUTH);
 
         JPanel centro = new JPanel(new BorderLayout());
+        JPanel title = new JPanel(new GridLayout(1,1));
+        JLabel pokemonsTitle = new JLabel("Choose POOBKEMONS",SwingConstants.CENTER);
+        pokemonsTitle.setOpaque(false);
+        pokemonsTitle.setBackground(color);
+        pokemonsTitle.setForeground(Color.WHITE);
+        pokemonsTitle.setFont(new Font("Arial",Font.BOLD,14));
+        title.add(pokemonsTitle);
+        title.setBackground(Color.GRAY);
         centro.setOpaque(false);
-        //centro.setBackground(color);
-
         panelScroll = new JPanel(new GridLayout(4,4,1,1)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   de dominio
             @Override
             protected void paintComponent(Graphics g) {
@@ -136,7 +243,7 @@ public class SelectionPokemon extends JPanel{
 	    scrollContainer.add(Box.createVerticalGlue());
 	    scrollContainer.add(scrollPane);
 	    scrollContainer.add(Box.createVerticalGlue());
-
+        centro.add(title,BorderLayout.NORTH);
 	    centro.add(scrollContainer, BorderLayout.CENTER);
         add(centro, BorderLayout.CENTER);
 
@@ -243,16 +350,25 @@ public class SelectionPokemon extends JPanel{
                 "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
-        pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen, color);
-        pooBkemonGUI.selectedPokemon.inicializate(pokemonesChoosen, color);
-        pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
-        reset();
-        System.out.println(pooBkemonGUI.domain.getTrainers().toString());
-        
+        //try{
+            //pooBkemonGUI.addItemsToTrainer();
+            pooBkemonGUI.itemsEscogidos = getItemsChoosen();
+            pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
+            pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen, color);
+            pooBkemonGUI.selectedPokemon.inicializate(pokemonesChoosen, color);
+            pooBkemonGUI.panelInvetory.inicializate(itemsChoosen);
+            pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
+            reset();
+        //}catch(PoobkemonException x){
+            //OptionPane.showMessageDialog(this, "error" + x.getMessage(), "error",JOptionPane.ERROR_MESSAGE);
+        //}
+        //});
         });
     }
+    private ArrayList<String> getItemsChoosen() {
+        return itemsChoosen;
+    }
+
     public String getTrainer(){
         return Trainer;
     }
@@ -266,6 +382,8 @@ public class SelectionPokemon extends JPanel{
             button.setBackground(null);
             button.setOpaque(false);
         }
+        buttons.clear(); //mirar
+        potionButtons.clear();
         revalidate();
         repaint();
     }
@@ -273,6 +391,5 @@ public class SelectionPokemon extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
-        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }

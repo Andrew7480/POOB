@@ -38,7 +38,6 @@ public class PanelSelectedPokemon extends JPanel{
         setColor(color);
         prepareElements();
         prepareActions();
-        
     }
     private void prepareElements(){
         
@@ -195,9 +194,11 @@ public class PanelSelectedPokemon extends JPanel{
             JButton button = createImageButton(nombre,ruta);
             buttons.add(button);
             button.addActionListener(e -> selectionPokemons(button));
-            panelScroll.add(button);    
+            panelScroll.add(button); 
         }
     }
+
+
 
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;
@@ -273,6 +274,7 @@ public class PanelSelectedPokemon extends JPanel{
         buttons = new  ArrayList<>();
         
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {

@@ -240,13 +240,13 @@ public class ModePlayerVsMachine extends JPanel {
             return;
         }
         try{
-            //po.domain.addTrainerPlayerVsMachine(playerName, colorChosed, gamemodeChoosen.get(0)); //ya no
             po.trainerEscogido = po.domain.isTrainerIsed(playerName);
             po.trainerEscogidoMachine = gamemodeChoosen.get(0);
+            //po.domain.addTrainerPlayerVsMachine(playerName, colorChosed, gamemodeChoosen.get(0));
             po.chooser.setTrainer(playerName);
-            po.potionsSelection.setColor(colorChosed);
+            //po.potionsSelection.setColor(colorChosed);
             po.panelInvetory.setColor(colorChosed);
-            po.cardLayout.show(po.panelContenedor,"potions");
+            po.cardLayout.show(po.panelContenedor,"chooser");
             reset();
             System.out.println("Se ha resetiado la toma de datos, se ha enviado a la seleccion de pokemon los colores, el panel del inventario y se cambia a potions");
             System.out.println(po.domain.getTrainers().toString());

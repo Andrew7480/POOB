@@ -110,9 +110,23 @@ public class POOBkemon implements Serializable{
     public void addTrainerPlayerVsMachine(String name, Color color,String gamemode) throws PoobkemonException{
         if (entrenadores.containsKey(name)) throw new PoobkemonException(PoobkemonException.TRAINER_EXIST);
         entrenadores.put(name, new PlayerTrainer(name,color));
+
+        if (!entrenadores.containsKey(gamemode)) {
+            if (gamemode.equalsIgnoreCase("expert")) {
+                entrenadores.put(gamemode, new ExpertTrainer(gamemode,color));
+            } else if (gamemode.equalsIgnoreCase("attacking")) {
+                entrenadores.put(gamemode, new AttackingTrainer(gamemode,color));
+            } else if (gamemode.equalsIgnoreCase("defensive")) {
+                entrenadores.put(gamemode, new DefensiveTrainer(gamemode,color));
+            } else {
+                entrenadores.put(gamemode, new PlayerTrainer(gamemode,color));
+            }
+        }
         turn = entrenadores.get(name);
         trainerTurn1 = entrenadores.get(name);
+        System.out.println("Profe?");
         trainerTurn2 = entrenadores.get(gamemode);
+        System.out.println("Profe1");
         System.out.println(gamemode);
         System.out.println(trainerTurn2.toString());
     }
