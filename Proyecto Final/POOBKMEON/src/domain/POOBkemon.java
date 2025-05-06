@@ -135,6 +135,11 @@ public class POOBkemon implements Serializable{
     public TreeMap<String,Trainer> getTrainers(){
         return entrenadores;
     }
+    public String isTrainerIsed(String name) throws PoobkemonException{
+        if(entrenadores.containsKey(name)) throw new PoobkemonException(PoobkemonException.TRAINER_EXIST);
+        return name;
+    }
+
     public void addNewPokemon(String entrenador, String pokemon,Movement m1,Movement m2, Movement m3, Movement m4)throws PoobkemonException{
         Pokemon pokemon1 = pokedex.get(pokemon).copy();
         pokemon1.setMovements(new Movement[]{m1,m2,m3,m4});

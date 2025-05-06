@@ -169,8 +169,6 @@ public class PotionsPanelSelection extends JPanel {
             selectionItems(button)
             );
             panelScroll.add(button);
-            //button.setBackground(Color.GREEN);  //??? :(
-            //button.setBackground(Color.RED);
             }
     }
     
@@ -242,15 +240,19 @@ public class PotionsPanelSelection extends JPanel {
         }
         //INICIALIZAR POTIONS.
         //pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
-        try{
-            
-
-            pooBkemonGUI.panelInvetory.inicializate(pooBkemonGUI.addItemsToTrainer(pooBkemonGUI.chooser.getTrainer(),getItemsChoosen()));
+        
+            pooBkemonGUI.itemsEscogidos = getItemsChoosen();
+            //pooBkemonGUI.addItemsToTrainer(pooBkemonGUI.chooser.getTrainer(),getItemsChoosen());
+            pooBkemonGUI.panelInvetory.inicializate(getItemsChoosen());
             pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"chooser");
+            
             reset();
+            System.out.println(pooBkemonGUI.domain.getTrainers().toString());
+        /* 
+        try{
         }catch(PoobkemonException i){
                 System.out.println(i.getMessage());
-            }
+            }*/
         
         });
     }

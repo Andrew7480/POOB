@@ -174,8 +174,6 @@ public class SelectionPokemon extends JPanel{
             selectionPokemons(button)
             );
             panelScroll.add(button);
-            //button.setBackground(Color.GREEN);  //??? :(
-            //button.setBackground(Color.RED);
             }
     }
     
@@ -245,11 +243,13 @@ public class SelectionPokemon extends JPanel{
                 "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
         pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen, color);
         pooBkemonGUI.selectedPokemon.inicializate(pokemonesChoosen, color);
         pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
         reset();
+        System.out.println(pooBkemonGUI.domain.getTrainers().toString());
         
         });
     }
@@ -262,7 +262,10 @@ public class SelectionPokemon extends JPanel{
 
     public void reset(){
         pokemonesChoosen.clear();
-        buttons.clear();
+        for (JButton button : buttons){
+            button.setBackground(null);
+            button.setOpaque(false);
+        }
         revalidate();
         repaint();
     }

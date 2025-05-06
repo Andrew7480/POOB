@@ -159,6 +159,7 @@ public class ListOfMovementsPanel extends JPanel{
 
     public void resetPokemonChosen(){
         centralPanel.removeAll();
+        movimientosSeleccionados.clear();
         revalidate();
         repaint();
     }

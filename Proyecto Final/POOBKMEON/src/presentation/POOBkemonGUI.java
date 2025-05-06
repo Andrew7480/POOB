@@ -40,7 +40,15 @@ public class POOBkemonGUI extends JFrame {
     protected POOBkemon domain = new POOBkemon();
     protected TreeMap<String,Pokemon> pokemones;
     protected TreeMap<String, Movement> movimientos;
+
+    protected String trainerEscogido;
+    protected String trainerEscogidoMachine;
     protected ArrayList<String> pokemonesEscogidos;
+    protected HashMap<String, ArrayList<String>> pokemonesescogidosConMoviminetos;
+    protected ArrayList<String> itemsEscogidos;
+
+
+
 
     /**
      * Constructor of POOBkemon
@@ -450,7 +458,6 @@ public class POOBkemonGUI extends JFrame {
         panelBattle.getPokemonButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //listPokemonsPanel.inicializate(pokemonesEscogidos);
                 cardLayout.show(panelContenedor,"pokemon list");
             }
         });
@@ -484,15 +491,19 @@ public class POOBkemonGUI extends JFrame {
                 if (!listMovements.isSelectedMovements()) {
                     return;
                 }
-                try{
-                addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
+                selectedPokemon.inicializate(chooser.getPokemonChoosen(), chooser.getColor());
+                pokemonesescogidosConMoviminetos= listMovements.getMovementsMap();
+                //addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
+
                 listMovements.resetPokemonChosen();
                 cardLayout.show(panelContenedor,"select pokemon");
+                System.out.println(domain.getTrainers().toString());
                 System.out.println("Se ha seleccionado seguir y se ha resetiado las listas de movimientos");
-                }
+                
+                /*try{}
                 catch(PoobkemonException i){
                     JOptionPane.showMessageDialog(null, i.getMessage());
-                }
+                }*/
             }
         });
         listMovements.getComeButton().addActionListener(new ActionListener(){
@@ -513,6 +524,7 @@ public class POOBkemonGUI extends JFrame {
                 System.out.println("se ha oprimido volver de seleccionar el pokemon inicial y se resetea ese panel y el de lista de movimientos");
             }
         });
+        /*
         selectedPokemon.getDoneButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -528,7 +540,7 @@ public class POOBkemonGUI extends JFrame {
                 System.out.println("Se ha seleccionado un solo pokemon y se va a batalla. Se resetea la seleccion del pokemon principal");
             }
         });
-
+        */
         potionsSelection.getButtonBack().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -540,18 +552,25 @@ public class POOBkemonGUI extends JFrame {
 
         }
         
-
-    
-    private void addPokemonsToTrainer(String trainer, HashMap<String, ArrayList<String>> lista) throws PoobkemonException{
-        for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
-            domain.addNewPokemon(trainer, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
+    public void createTrainer(Color color){
+        try{
+            domain.addTrainerPlayerVsMachine(trainerEscogido,color,trainerEscogidoMachine);
+        }catch(PoobkemonException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    public ArrayList<String> addItemsToTrainer(String trainer,ArrayList<String> items) throws PoobkemonException{
-        for (String i:items){
-            domain.getTrainer(trainer).getInventory().addItem(domain.getItems().get(i));
+    public void addPokemonsToTrainer() throws PoobkemonException{
+        HashMap<String, ArrayList<String>> lista = pokemonesescogidosConMoviminetos;
+        for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
+            domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
         }
-        return domain.getTrainer(trainer).getInventory().getItemsArray();
+    }
+    public ArrayList<String> addItemsToTrainer() throws PoobkemonException{
+        ArrayList<String> items= itemsEscogidos;
+        for (String i:items){
+            domain.getTrainer(trainerEscogido).getInventory().addItem(domain.getItems().get(i));
+        }
+        return domain.getTrainer(trainerEscogido).getInventory().getItemsArray();
 
     }
 /* 

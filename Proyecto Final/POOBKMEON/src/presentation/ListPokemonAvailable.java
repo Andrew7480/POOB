@@ -155,7 +155,7 @@ public class ListPokemonAvailable extends JPanel{
             if (sizeChoosen() == 1){
                 changeImage();
             }
-        System.out.println("se ha precionado la lsita de pokemones ");
+        System.out.println("se ha comfirmado un pokemon a cambiar ");
         po.cardLayout.show(po.panelContenedor,"battle");
         });
     }
