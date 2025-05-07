@@ -2,6 +2,7 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import domain.Movement;
 import domain.Pokemon;
 import domain.Trainer;
 
@@ -34,9 +35,24 @@ public class ListOfMovementsPanel extends JPanel{
             movimientosSeleccionados.put(s, new ArrayList<>(Arrays.asList("", "", "", "")));
         }
         ArrayList<String> temp1 = new ArrayList<>();
-        for (String p: po.movimientos.keySet()){
-            temp1.add(p);
+
+        for (String s : chosenPokemons){
+            Pokemon currentPokemon = po.domain.getPokedex().get(s);
+            System.out.println("Tu eres : " + currentPokemon.getName());
+
+            TreeMap<String,Movement> validMoves = po.domain.validMovements(currentPokemon);
+
+            System.out.println(validMoves.size() + "existe?");
+
+            for (String moveKey : validMoves.keySet()){
+                System.out.println("- " + moveKey + ": " + validMoves.get(moveKey).getName());
+                temp1.add(moveKey);
+            };
         }
+        //System.out.println(temp1);
+        /*for (String p: po.movimientos.keySet()){
+            temp1.add(p);
+        }*/
         for (int i = 0; i < chosenPokemons.size(); i++){
             JPanel movementPanel = createMovementPanel(temp.get(i).getName(), temp1,temp.get(i).getPokedexIndex().toString());
             centralPanel.add(movementPanel);
@@ -141,6 +157,10 @@ public class ListOfMovementsPanel extends JPanel{
     public HashMap<String, ArrayList<String>> getMovementsMap(){
         return movimientosSeleccionados;
     }
+    public ArrayList<String> getPokemonsChoose(){
+        return po.chooser.getPokemonChoosen();
+    }
+    //Enviar la lista de movimientos unicamente validos por pokemon
 
     public boolean isSelectedMovements(){
         for (Map.Entry<String, ArrayList<String>> entry: movimientosSeleccionados.entrySet()){

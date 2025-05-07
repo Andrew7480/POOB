@@ -1,4 +1,6 @@
 package domain;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.awt.Color;
 import java.io.*;
@@ -158,6 +160,26 @@ public class POOBkemon implements Serializable{
         Pokemon pokemon1 = pokedex.get(pokemon).copy();
         pokemon1.setMovements(new Movement[]{m1,m2,m3,m4});
         entrenadores.get(entrenador).addPokemon(pokemon1);
+    }
+
+    public TreeMap<String,Movement> validMovements(Pokemon pokemon){
+        TreeMap<String,Movement> movementsForPokemon = new TreeMap<>();
+        for(Movement movement : movements.values()) {
+            double multiplicador = movement.getMultiplicator(pokemon.getPrincipalType());
+            System.out.println("Movimiento: " + movement.getName() +
+                    " - Tipo: " + movement.getType() +
+                    " - Multiplicador: " + multiplicador);
+
+            if (multiplicador <= 1.0){
+                movementsForPokemon.put(movement.getName(), movement);
+                System.out.println("✓ Movimiento válido añadido: " + movement.getName());
+            } else {
+                System.out.println("✗ Movimiento no válido (multiplicador > 1.0): " + movement.getName());
+            }
+        }
+
+        System.out.println("Movimientos válidos encontrados: " + movementsForPokemon.size());
+        return movementsForPokemon;
     }
 
     private void serializateGame(String fileName) {

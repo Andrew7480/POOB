@@ -171,8 +171,6 @@ public class POOBkemonGUI extends JFrame {
         playerVSplayerPanel = new ModePlayerVSPlayer(this,true);
         panelContenedor.add(playerVSplayerPanel,"player vs player");
 
-        playerVSplayerPanelSurvival = new ModePlayerVSPlayer(this,false);
-        panelContenedor.add(playerVSplayerPanelSurvival,"player vs player survival");
 
         playerVsMachinePanel = new ModePlayerVsMachine(this);
         panelContenedor.add(playerVsMachinePanel,"player vs machine");
@@ -508,13 +506,14 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-
+        /*
         playerVSplayerPanelSurvival.getButtonRegresarSurvival().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"survival");
             }
         });
+        */
 
         playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
             @Override

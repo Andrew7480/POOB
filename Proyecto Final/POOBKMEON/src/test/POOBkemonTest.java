@@ -43,6 +43,80 @@ public class POOBkemonTest implements Serializable {
             TributeEffect Electrocuted  = new TributeEffect("Electrocutar ", "Le inflinge daño al inicio de turno.", 4,new HashMap<String, Integer>() {{
                 put("Attack", -20);
                 put("PS", -30);}});
+// Efectos de tributo adicionales
+            TributeEffect confusionEffect = new TributeEffect("Efecto de confusión", "Puede hacer que el Pokémon se ataque a sí mismo.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Accuracy", -20);
+                    }});
+
+            TributeEffect flinchEffect = new TributeEffect("Efecto de retroceso", "Impide que el Pokémon actúe en su turno.", 1,
+                    new HashMap<String, Integer>() {{
+                        put("Priority", -100);
+                    }});
+
+            TributeEffect badlyPoisonEffect = new TributeEffect("Efecto de envenenamiento grave", "Causa daño creciente en cada turno.", 5,
+                    new HashMap<String, Integer>() {{
+                        put("PS", -15);
+                        // El daño aumenta cada turno, representado por el tiempo de duración
+                    }});
+
+            TributeEffect infatuationEffect = new TributeEffect("Efecto de enamoramiento", "El Pokémon puede no atacar por amor.", 4,
+                    new HashMap<String, Integer>() {{
+                        put("Accuracy", -50);
+                    }});
+
+            TributeEffect leechSeedEffect = new TributeEffect("Efecto de drenadoras", "Drena PS cada turno y los transfiere al oponente.", 8,
+                    new HashMap<String, Integer>() {{
+                        put("PS", -20);
+                    }});
+
+            TributeEffect raiseAttackEffect = new TributeEffect("Aumentar Ataque", "Aumenta considerablemente el ataque del Pokémon.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Attack", 80);
+                    }});
+
+            TributeEffect raiseDefenseEffect = new TributeEffect("Aumentar Defensa", "Aumenta considerablemente la defensa del Pokémon.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Defense", 80);
+                    }});
+
+            TributeEffect raiseSpecialEffect = new TributeEffect("Aumentar Especial", "Aumenta el ataque y defensa especial del Pokémon.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Special Attack", 50);
+                        put("Special Defense", 50);
+                    }});
+
+            TributeEffect raiseAttackSpeedEffect = new TributeEffect("Aumentar Ataque y Velocidad", "Aumenta el ataque y la velocidad del Pokémon.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Attack", 50);
+                        put("Velocity", 50);
+                    }});
+
+    // Creación de estados de efecto
+            StatusEffect Confusion = new StatusMovil("Confusión", "El Pokémon está confundido y puede dañarse a sí mismo.", 3, confusionEffect, 0.33);
+            StatusEffect Flinch = new StatusEffect("Retroceso", "El Pokémon retrocede y no puede moverse este turno.", 1, 1.0);
+            StatusEffect BadlyPoison = new StatusMovil("Gravemente Envenenado", "El veneno causa daño creciente cada turno.", 5, badlyPoisonEffect, 0.95);
+            StatusEffect Infatuation = new StatusMovil("Enamoramiento", "El Pokémon está enamorado y puede no atacar.", 4, infatuationEffect, 0.50);
+            StatusEffect LeechSeed = new StatusMovil("Drenadoras", "Semillas que drenan PS en cada turno y los transfieren al oponente.", 8, leechSeedEffect, 1.0);
+            TributeEffect RaiseAttack = new TributeEffect("Aumentar Ataque", "Aumenta considerablemente el ataque.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Attack", 80);
+                    }});
+            TributeEffect RaiseDefense = new TributeEffect("Aumentar Defensa", "Aumenta considerablemente la defensa.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Defense", 80);
+                    }});
+            TributeEffect RaiseSpecial = new TributeEffect("Aumentar Especial", "Aumenta el ataque y defensa especial.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Special Attack", 50);
+                        put("Special Defense", 50);
+                    }});
+            TributeEffect RaiseAttackSpeed = new TributeEffect("Aumentar Ataque y Velocidad", "Aumenta el ataque y velocidad.", 3,
+                    new HashMap<String, Integer>() {{
+                        put("Attack", 50);
+                        put("Velocity", 50);
+                    }});
+
             
             //Movimientos con sus efectos
             MovementState paralyze = new MovementState("Paralyze","",30, 30,50, PokemonType.PLANTA,Paralyze, 60, 0);
@@ -62,7 +136,67 @@ public class POOBkemonTest implements Serializable {
             Movement shadowBall = new SpecialMovement("Shadow ball","Throws a ball of dark energy. You can lower the special defense.",15,80,100,PokemonType.FANTASMA,0);
             Movement brickBreak = new PhysicalMovement("Brick break","Break the barriers of Reflection and Light Display.",15,75,100,PokemonType.LUCHA,0);
             Movement surf = new SpecialMovement("Surf","A water attack that hits all Pokémon in battle, except your partner in double battles.",15,90,100,PokemonType.AGUA,0);
-            
+
+            MovementState confused = new MovementState("Confundir", "Confunde al oponente y puede atacarse a sí mismo.", 20, 0, 100, PokemonType.PSIQUICO, Confusion, 70, 0);
+            MovementState flinch = new MovementState("Intimidar", "Puede hacer retroceder al oponente.", 15, 65, 85, PokemonType.SINIESTRO, Flinch, 30, 0);
+            MovementState toxic = new MovementState("Tóxico", "Envenena gravemente al oponente con daño creciente.", 10, 0, 90, PokemonType.VENENO, BadlyPoison, 100, 0);
+            MovementState attract = new MovementState("Atracción", "Enamora al oponente del género opuesto.", 15, 0, 100, PokemonType.NORMAL, Infatuation, 100, 0);
+            MovementState leechSeed = new MovementState("Drenadoras", "Planta semillas que drenan PS del oponente cada turno.", 10, 0, 90, PokemonType.PLANTA, LeechSeed, 100, 0);
+
+            MovementTribute swordsDance = new MovementTribute("Danza Espada", "Eleva mucho el ataque.", 20, 0, 100, PokemonType.NORMAL, RaiseAttack, 0);
+            MovementTribute ironDefense = new MovementTribute("Defensa Férrea", "Aumenta considerablemente la defensa.", 15, 0, 100, PokemonType.ACERO, RaiseDefense, 0);
+            MovementTribute calmMind = new MovementTribute("Paz Mental", "Aumenta ataque especial y defensa especial.", 20, 0, 100, PokemonType.PSIQUICO, RaiseSpecial, 0);
+            MovementTribute dragonDance = new MovementTribute("Danza Dragón", "Aumenta ataque y velocidad.", 20, 0, 100, PokemonType.DRAGON, RaiseAttackSpeed, 0);
+            MovementTribute willOWisp = new MovementTribute("Fuego Fatuo", "Quema al oponente.", 15, 0, 85, PokemonType.FUEGO, Burn, 100);
+
+            PhysicalMovement closeCombat = new PhysicalMovement("A Bocajarro", "Poderoso ataque que reduce defensas propias.", 5, 120, 100, PokemonType.LUCHA, 0);
+            PhysicalMovement outrage = new PhysicalMovement("Enfado", "Ataca durante 2-3 turnos pero confunde al usuario.", 10, 120, 100, PokemonType.DRAGON, 0);
+            PhysicalMovement rockSlide = new PhysicalMovement("Avalancha", "Lanza rocas que pueden hacer retroceder.", 10, 75, 90, PokemonType.ROCA, 30);
+            PhysicalMovement ironHead = new PhysicalMovement("Cabeza Hierro", "Golpea con cabeza metálica, puede hacer retroceder.", 15, 80, 100, PokemonType.ACERO, 30);
+            PhysicalMovement crunch = new PhysicalMovement("Triturar", "Muerde con colmillos afilados, puede bajar defensa.", 15, 80, 100, PokemonType.SINIESTRO, 20);
+            PhysicalMovement leafBlade = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
+            PhysicalMovement xScissor = new PhysicalMovement("Tijera X", "Corta al oponente en forma de X con guadañas.", 15, 80, 100, PokemonType.BICHO, 0);
+            PhysicalMovement playRough = new PhysicalMovement("Carantoña", "Juega rudamente, puede bajar el ataque del rival.", 10, 90, 90, PokemonType.HADA, 10);
+            PhysicalMovement poisonJab = new PhysicalMovement("Puya Nociva", "Ataca con tentáculo o brazo tóxico, puede envenenar.", 20, 80, 100, PokemonType.VENENO, 30);
+            PhysicalMovement aquaJet = new PhysicalMovement("Acua Jet", "Ataque rápido de agua que siempre golpea primero.", 20, 40, 100, PokemonType.AGUA, 1);
+            PhysicalMovement bravebird = new PhysicalMovement("Pájaro Osado", "Ataque temerario que también daña al usuario.", 15, 120, 100, PokemonType.VOLADOR, 0);
+
+    // MOVIMIENTOS ESPECIALES
+            SpecialMovement flamethrower = new SpecialMovement("Lanzallamas", "Lanza fuego intenso que puede quemar.", 15, 90, 100, PokemonType.FUEGO, 10);
+            SpecialMovement thunderbolt = new SpecialMovement("Rayo", "Descarga eléctrica que puede paralizar.", 15, 90, 100, PokemonType.ELECTRICO, 10);
+            SpecialMovement iceBeam = new SpecialMovement("Rayo Hielo", "Rayo congelante que puede congelar al oponente.", 10, 90, 100, PokemonType.HIELO, 10);
+            SpecialMovement darkPulse = new SpecialMovement("Pulso Umbrío", "Onda siniestra que puede hacer retroceder.", 15, 80, 100, PokemonType.SINIESTRO, 20);
+            SpecialMovement energyBall = new SpecialMovement("Energibola", "Bombardea con energía natural, puede bajar def. especial.", 10, 90, 100, PokemonType.PLANTA, 10);
+            SpecialMovement moonblast = new SpecialMovement("Fuerza Lunar", "Ataca con poder lunar, puede bajar ataque especial.", 15, 95, 100, PokemonType.HADA, 30);
+            SpecialMovement flashCannon = new SpecialMovement("Foco Resplandor", "Rayo de luz que puede bajar defensa especial.", 10, 80, 100, PokemonType.ACERO, 10);
+            SpecialMovement bugBuzz = new SpecialMovement("Zumbido", "Vibración de alas que puede bajar defensa especial.", 10, 90, 100, PokemonType.BICHO, 10);
+            SpecialMovement earthPower = new SpecialMovement("Tierra Viva", "La tierra explota bajo el rival, puede bajar def. especial.", 10, 90, 100, PokemonType.TIERRA, 10);
+            SpecialMovement dragonPulse = new SpecialMovement("Pulso Dragón", "Onda de choque con forma de dragón.", 10, 85, 100, PokemonType.DRAGON, 0);
+            SpecialMovement hurricane = new SpecialMovement("Vendaval", "Poderoso tornado que puede confundir.", 10, 110, 70, PokemonType.VOLADOR, 30);
+            SpecialMovement sludgeBomb = new SpecialMovement("Bomba Lodo", "Lanza fango que puede envenenar.", 10, 90, 100, PokemonType.VENENO, 30);
+            SpecialMovement focusBlast = new SpecialMovement("Onda Certera", "Concentra energía y libera un golpe, puede bajar def. especial.", 5, 120, 70, PokemonType.LUCHA, 10);
+            SpecialMovement hydroPump = new SpecialMovement("Hidrobomba", "Potente chorro de agua a presión.", 5, 110, 80, PokemonType.AGUA, 0);
+            SpecialMovement powerGem = new SpecialMovement("Joya de Luz", "Ataca con rayos de luz que parecen joyas.", 20, 80, 100, PokemonType.ROCA, 0);
+            SpecialMovement dreameater = new SpecialMovement("Come Sueños", "Absorbe PS de un oponente dormido.", 15, 100, 100, PokemonType.PSIQUICO, 0);
+
+    // MOVIMIENTOS MIXTOS (FÍSICOS/ESPECIALES ÚNICOS)
+            Movement solarBeam = new SpecialMovement("Rayo Solar", "Absorbe luz un turno y ataca en el siguiente.", 10, 120, 100, PokemonType.PLANTA, 0);
+            Movement fakeOut = new PhysicalMovement("Intimidación", "Siempre ataca primero y hace retroceder, sólo funciona el primer turno.", 10, 40, 100, PokemonType.NORMAL, 100);
+            Movement megaDrain = new SpecialMovement("Mega Drenado", "Absorbe la mitad del daño causado.", 15, 40, 100, PokemonType.PLANTA, 0);
+            Movement hyperVoice = new SpecialMovement("Vozarrón", "Ataca con un potente grito.", 10, 90, 100, PokemonType.NORMAL, 0);
+            Movement thunderPunch = new PhysicalMovement("Puño Trueno", "Puñetazo eléctrico que puede paralizar.", 15, 75, 100, PokemonType.ELECTRICO, 10);
+            Movement firePunch = new PhysicalMovement("Puño Fuego", "Puñetazo ardiente que puede quemar.", 15, 75, 100, PokemonType.FUEGO, 10);
+            Movement icePunch = new PhysicalMovement("Puño Hielo", "Puñetazo helado que puede congelar.", 15, 75, 100, PokemonType.HIELO, 10);
+            Movement drillPeck = new PhysicalMovement("Pico Taladro", "Picotea con pico giratorio a gran velocidad.", 20, 80, 100, PokemonType.VOLADOR, 0);
+            Movement stoneedge = new PhysicalMovement("Roca Afilada", "Ataque con piedras puntiagudas, alta prob. de crítico.", 5, 100, 80, PokemonType.ROCA, 0);
+            Movement waterPulse = new SpecialMovement("Pulso Agua", "Ondas de agua que pueden confundir.", 20, 60, 100, PokemonType.AGUA, 20);
+            Movement gigaDrain = new SpecialMovement("Giga Drenado", "Absorbe la mitad del daño causado.", 10, 75, 100, PokemonType.PLANTA, 0);
+            Movement airSlash = new SpecialMovement("Tajo Aéreo", "Corta con aire comprimido, puede hacer retroceder.", 15, 75, 95, PokemonType.VOLADOR, 30);
+            Movement zenHeadbutt = new PhysicalMovement("Cabezazo Zen", "Concentra poder psíquico y golpea, puede hacer retroceder.", 15, 80, 90, PokemonType.PSIQUICO, 20);
+            Movement shadowClaw = new PhysicalMovement("Garra Umbría", "Ataca con sombra afilada, alta prob. de crítico.", 15, 70, 100, PokemonType.FANTASMA, 0);
+            Movement psychoCut = new PhysicalMovement("Psicocorte", "Corta con cuchillas psíquicas, alta prob. de crítico.", 20, 70, 100, PokemonType.PSIQUICO, 0);
+            Movement poisonFang = new PhysicalMovement("Colmillo Veneno", "Muerde con colmillos tóxicos, puede envenenar gravemente.", 15, 50, 100, PokemonType.VENENO, 50);
+
             //movimientos que puede escoger el usuario para un pokemon
             try{
                 poobkemon.addMovement(paralyze);
@@ -81,6 +215,68 @@ public class POOBkemonTest implements Serializable {
                 poobkemon.addMovement(shadowBall);
                 poobkemon.addMovement(brickBreak);
                 poobkemon.addMovement(surf);
+                poobkemon.addMovement(confused);
+                poobkemon.addMovement(flinch);
+                poobkemon.addMovement(toxic);
+                poobkemon.addMovement(attract);
+                poobkemon.addMovement(leechSeed);
+
+                // Añadir los movimientos tributo adicionales
+                poobkemon.addMovement(swordsDance);
+                poobkemon.addMovement(ironDefense);
+                poobkemon.addMovement(calmMind);
+                poobkemon.addMovement(dragonDance);
+                poobkemon.addMovement(willOWisp);
+
+                // Añadir los movimientos físicos
+                poobkemon.addMovement(closeCombat);
+                poobkemon.addMovement(outrage);
+                poobkemon.addMovement(rockSlide);
+                poobkemon.addMovement(ironHead);
+                poobkemon.addMovement(crunch);
+                poobkemon.addMovement(leafBlade);
+                poobkemon.addMovement(xScissor);
+                poobkemon.addMovement(playRough);
+                poobkemon.addMovement(poisonJab);
+                poobkemon.addMovement(aquaJet);
+                poobkemon.addMovement(bravebird);
+
+                // Añadir los movimientos especiales
+                poobkemon.addMovement(flamethrower);
+                poobkemon.addMovement(thunderbolt);
+                poobkemon.addMovement(iceBeam);
+                poobkemon.addMovement(darkPulse);
+                poobkemon.addMovement(energyBall);
+                poobkemon.addMovement(moonblast);
+                poobkemon.addMovement(flashCannon);
+                poobkemon.addMovement(bugBuzz);
+                poobkemon.addMovement(earthPower);
+                poobkemon.addMovement(dragonPulse);
+                poobkemon.addMovement(hurricane);
+                poobkemon.addMovement(sludgeBomb);
+                poobkemon.addMovement(focusBlast);
+                poobkemon.addMovement(hydroPump);
+                poobkemon.addMovement(powerGem);
+                poobkemon.addMovement(dreameater);
+
+                // Añadir los movimientos mixtos
+                poobkemon.addMovement(solarBeam);
+                poobkemon.addMovement(fakeOut);
+                poobkemon.addMovement(megaDrain);
+                poobkemon.addMovement(hyperVoice);
+                poobkemon.addMovement(thunderPunch);
+                poobkemon.addMovement(firePunch);
+                poobkemon.addMovement(icePunch);
+                poobkemon.addMovement(drillPeck);
+                poobkemon.addMovement(stoneedge);
+                poobkemon.addMovement(waterPulse);
+                poobkemon.addMovement(gigaDrain);
+                poobkemon.addMovement(airSlash);
+                poobkemon.addMovement(zenHeadbutt);
+                poobkemon.addMovement(shadowClaw);
+                poobkemon.addMovement(psychoCut);
+                poobkemon.addMovement(poisonFang);
+
                 System.out.println("si sirve");
             }    
             catch(PoobkemonException e){
@@ -151,21 +347,20 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(raichu1);
             */
 
-            //pokemones con movimientos predefinidos
-            charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw});
+            charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw, flamethrower, airSlash});
             snorlax1.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
-            blastoise1.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam});
-            venusaur1.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake});
-            gengar1.setMovements(new Movement[] {shadowBall, psychic, poison, sleep});
-            dragonite1.setMovements(new Movement[] {dragonClaw, earthquake, quickAttack, hyperBeam});
-            togetic1.setMovements(new Movement[] {sleep, psychic, shadowBall, regenerate});
-            tyranitar1.setMovements(new Movement[] {earthquake, burn, brickBreak, hyperBeam});
-            gardevoir1.setMovements(new Movement[] {psychic, sleep, regenerate, shadowBall});
-            metagross1.setMovements(new Movement[] {brickBreak, psychic, earthquake, burn});
-            donphan1.setMovements(new Movement[] {earthquake, quickAttack, defense, burn});
-            machamp1.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate});
-            delibird1.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze});
-            raichu1.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall});
+            blastoise1.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam, hydroPump, iceBeam});
+            venusaur1.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake, gigaDrain, leechSeed});
+            gengar1.setMovements(new Movement[] {shadowBall, psychic, poison, sleep, dreameater});
+            dragonite1.setMovements(new Movement[] {dragonClaw, earthquake, quickAttack, hyperBeam, outrage, dragonDance});
+            togetic1.setMovements(new Movement[] {sleep, psychic, shadowBall, regenerate, moonblast, airSlash});
+            tyranitar1.setMovements(new Movement[] {earthquake, burn, brickBreak, hyperBeam, stoneedge, crunch});
+            gardevoir1.setMovements(new Movement[] {psychic, sleep, regenerate, shadowBall, moonblast, calmMind});
+            metagross1.setMovements(new Movement[] {brickBreak, psychic, earthquake, burn, zenHeadbutt, flashCannon});
+            donphan1.setMovements(new Movement[] {earthquake, quickAttack, defense, burn, stoneedge});
+            machamp1.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate, closeCombat, rockSlide});
+            delibird1.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze, iceBeam, drillPeck});
+            raichu1.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall, thunderbolt, thunderPunch});
             
 
             //items
