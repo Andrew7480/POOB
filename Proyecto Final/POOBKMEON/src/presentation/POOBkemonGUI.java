@@ -130,7 +130,7 @@ public class POOBkemonGUI extends JFrame {
         prepareMovementActions();
     }
 
-    private void changePanel(String namePanel){
+    public void changePanel(String namePanel){
         cardLayout.show(panelContenedor,namePanel);
     }
 
