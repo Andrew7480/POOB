@@ -1,5 +1,7 @@
 package presentation;
 
+import domain.Pokemon;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
@@ -312,6 +314,12 @@ public class PokedexPanel extends JPanel {
         for (int i = 0; i < pokemones.size(); i++) {
             String[] pokemon = pokemones.get(i);
             final int index = i;
+            System.out.println(pokemon);
+
+            //Pokemon pokemon1 = new Pokemon(
+                    //pokemones.get(i).getName(),pokemon[1],pokemon[2],pokemon[3],pokemon[4],pokemon[5],pokemon[6],pokemon[7],pokemon[8],pokemon[9],pokemon[10]
+            //);
+
             JButton pokemonButton = new JButton() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -331,7 +339,9 @@ public class PokedexPanel extends JPanel {
             pokemonButton.setFont(cargarFuentePixel(14));
             pokemonButton.setPreferredSize(new Dimension(250, 30));
             pokemonButton.setMaximumSize(new Dimension(250, 30));
-            
+
+            //pokemonButton.setToolTipText(pokemon1.createPokemonForToolTip());
+
             if (i == currentIndex[0]) {
                 pokemonButton.setBackground(new Color(255, 200, 0));
                 pokemonButton.setFont(cargarFuentePixel(14).deriveFont(Font.BOLD));

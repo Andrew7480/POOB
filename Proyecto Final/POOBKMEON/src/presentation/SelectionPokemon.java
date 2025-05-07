@@ -87,6 +87,8 @@ public class SelectionPokemon extends JPanel{
             Item item = entry.getValue();
             String ruta = item.getName() + ".png";
             JButton button = createPotionButton(nombre, ruta);
+            button.setToolTipText(item.createPokemonForToolTip());
+            ToolTipManager.sharedInstance().setInitialDelay(500);
             potionButtons.add(button);
             button.addActionListener(e -> selectPotion(button));
             potionsScollPanel.add(button);
@@ -112,19 +114,22 @@ public class SelectionPokemon extends JPanel{
         button.setBorderPainted(true);
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(140, 50));
-        
+        button.setActionCommand(name);
+
+
         return button;
     }
 
     private void selectPotion(JButton button) {
-        if (itemsChoosen.contains(button.getToolTipText())) {
+        String itemName = button.getActionCommand();
+        if (itemsChoosen.contains(itemName)) {
             button.setBackground(null);
             button.setOpaque(false);
-            itemsChoosen.remove(button.getToolTipText());
+            itemsChoosen.remove(itemName);
         } else {
             button.setBackground(Color.ORANGE);
             button.setOpaque(true);
-            itemsChoosen.add(button.getToolTipText());
+            itemsChoosen.add(itemName);
         }
         System.out.println("Pociones seleccionadas: " + itemsChoosen);
     }
@@ -269,7 +274,7 @@ public class SelectionPokemon extends JPanel{
             String nombre = entry.getKey();
             Pokemon pokemon = entry.getValue();
             String ruta = pokemon.getPokedexIndex().toString() +".png";
-            JButton button = createImageButton(nombre, ruta);
+            JButton button = createImageButton(pokemon);
             buttons.add(button);
             button.addActionListener(e -> 
             selectionPokemons(button)
@@ -277,17 +282,18 @@ public class SelectionPokemon extends JPanel{
             panelScroll.add(button);
             }
     }
-    
+
     private void selectionPokemons(JButton button){
-        if (pokemonesChoosen.contains(button.getToolTipText())) {
+        String pokemonName = button.getActionCommand();
+        if (pokemonesChoosen.contains(pokemonName)) {
             button.setBackground(null);
             button.setOpaque(false);
-            pokemonesChoosen.remove(button.getToolTipText());
+            pokemonesChoosen.remove(pokemonName);
         }
         else{
             button.setBackground(Color.GREEN);
             button.setOpaque(true);
-            pokemonesChoosen.add(button.getToolTipText());
+            pokemonesChoosen.add(pokemonName);
         }
         System.out.println(pokemonesChoosen);
     }
@@ -327,9 +333,19 @@ public class SelectionPokemon extends JPanel{
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setToolTipText(name);
+        button.setActionCommand(name);
         
         return button;
     }
+    private JButton createImageButton(Pokemon pokemon) {
+        String name = pokemon.getName();
+        String imagePath = pokemon.getPokedexIndex() + ".png";
+        JButton button = createImageButton(name, imagePath);
+        button.setToolTipText(pokemon.createPokemonForToolTip());
+        ToolTipManager.sharedInstance().setInitialDelay(500);
+        return button;
+    }
+
     private void prepareActions(){
         doneButton.addActionListener(e -> {
         if (sizeChoosen() < 1 || itemsChoosen.size() < 1) {

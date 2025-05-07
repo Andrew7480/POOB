@@ -184,7 +184,10 @@ public class PanelSelectedPokemon extends JPanel{
     private void changeImage(){
         Pokemon po1 = po.pokemones.get(pokemonsChosenFight.get(0));
         po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
-        //po.panelBattle.setSecondPokemon(po.domain.getTrainers().get(po.chooser.getTrainer()).getPokemonInUse().getPokedexIndex().toString());
+    }
+
+    public void changeImageMachine(){
+
     }
 
     private void createButtons(){

@@ -24,6 +24,7 @@ public class BattlePanel extends JPanel {
     private JPanel opciones;
     private JPanel battleOptionsPanel;
     private JButton backToOptionsBattle;
+    //private ListOfMovementsPanel listMovements;
 
     private JPanel playerStatsPanel;
     private JPanel opponentStatsPanel;
@@ -80,8 +81,14 @@ public class BattlePanel extends JPanel {
         trainer = po.domain.getTrainers().get(trainerName);
         trainerMachine = po.domain.getTrainers().get(trainerNameMachine);
         trainer.setPokemonInUse(po.pokemones.get(pokemonInicial));
+        trainerMachine.inicialPokemon("professor");
         playerStatsPanel = createStatsPanel(trainer.getPokemonInUse().getName(), trainer.getPokemonInUse().getLevel(),trainer.getPokemonInUse().getPs(), true);
+        opponentStatsPanel = createStatsPanel(trainerMachine.getPokemonInUse().getName(),trainerMachine.getPokemonInUse().getLevel(), trainerMachine.getPokemonInUse().getPs(), false);
+        setSecondPokemon(trainerMachine.getPokemonInUse().getPokedexIndex().toString());
         add(playerStatsPanel);
+        add(opponentStatsPanel);
+
+        prepareMovementButtons(); // MOVER A INICIALIZATE
     }
 
     private void prepareElements() {
@@ -98,13 +105,6 @@ public class BattlePanel extends JPanel {
         info.setOpaque(true);
         info.setBounds(xFirst + 400, yFirst + 350, 300, 40);
         add(info);
-
-
-        /*playerStatsPanel = createStatsPanel("", 0,0, true);
-        add(playerStatsPanel);*/
-        opponentStatsPanel = createStatsPanel("", 100, 120, false);
-        add(opponentStatsPanel);
-        
 
         JPanel panelIz = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelIz.setOpaque(false);
@@ -151,59 +151,84 @@ public class BattlePanel extends JPanel {
         battleOptionsPanel.add(pokemonButton);
         battleOptionsPanel.add(runButton);
 
-        prepareMovementButtons();
+        //prepareMovementButtons(); // MOVER A INICIALIZATE
 
         opciones.add(battleOptionsPanel, "Opciones");
         
         showBattleOptionsPanel();
     }
 
-    private void prepareMovementButtons(){
+    private void prepareMovementButtons() {
         movesPanel = new JPanel(new BorderLayout());
-        movesPanel.setOpaque(false);        
-        JPanel moveMessagePanel = new JPanel();
-        moveMessagePanel.setLayout(new BorderLayout());
-        moveMessagePanel.setBackground(actualColor);
-        moveMessagePanel.setBorder(BorderFactory.createCompoundBorder(
-            new LineBorder(new Color(40, 40, 40), 3, true),
-            BorderFactory.createEmptyBorder(10, 15, 10, 15)
-        ));
-        
-        JLabel moveMessageLabel = new JLabel("¿Qué movimiento debería usar?");
-        moveMessageLabel.setFont(pokemonFont);
-        moveMessageLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        moveMessagePanel.add(moveMessageLabel, BorderLayout.CENTER);
-        
-        JPanel movesButtonsPanel = new JPanel(new GridLayout(2, 2));
+        movesPanel.setOpaque(false);
+
+        JPanel movesButtonsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
         movesButtonsPanel.setOpaque(false);
-        //TreeMap
-        String[] moves = {"PLACAJE", "GRUÑIDO", "ASCUAS", "GARRA METAL"};
 
-        for (String move : moves) {
-            JButton movementButton = new JButton(move);
+        JPanel messagePanel = new JPanel();
+        messagePanel.setBackground(new Color(248, 248, 248, 220));
+        messagePanel.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(new Color(40, 40, 40), 3, true),
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)
+        ));
+        messagePanel.setLayout(new BorderLayout());
 
-            po.styleButton(movementButton);
-            movementButton.setFont(pokemonFont);
-            movementButton.setPreferredSize(new Dimension(50, 25));
+        JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + trainer.getPokemonInUse().getName() + "?");
+        moveLabel.setFont(pokemonFont);
+        messagePanel.add(moveLabel, BorderLayout.CENTER);
+        System.out.println(trainer.getPokemonInUse().getMovements());
+        for (Movement move : trainer.getPokemonInUse().getMovements()) {
+            JButton moveBtn = new JButton(move.getName());
+            po.styleButton(moveBtn);
+            moveBtn.setFont(pokemonFont);
+            moveBtn.setPreferredSize(new Dimension(150, 40));
+            moveBtn.setMinimumSize(new Dimension(150, 40));
 
-            movesButtonsPanel.add(movementButton);
+            moveBtn.addActionListener(e -> {
+                System.out.println("Selected move: " + move.getName());
+                showBattleOptionsPanel();
+            });
+
+            movesButtonsPanel.add(moveBtn);
         }
-        
-        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        backPanel.setOpaque(false);
-        backToOptionsBattle.setFont(pokemonFont);
-        backPanel.add(moveMessagePanel);
-        backPanel.add(backToOptionsBattle);
-        
-        
-        movesPanel.add(movesButtonsPanel, BorderLayout.SOUTH);
-        movesPanel.add(backPanel, BorderLayout.CENTER);
 
-        opciones.add(movesPanel,"Movimientos");
+        JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        backButtonPanel.setOpaque(false);
+        backToOptionsBattle.setPreferredSize(new Dimension(100, 30));
+        backButtonPanel.add(backToOptionsBattle);
 
-        revalidate();
-        repaint();
+        JPanel topSection = new JPanel(new BorderLayout());
+        topSection.setOpaque(false);
+        topSection.add(messagePanel, BorderLayout.CENTER);
+        topSection.add(backButtonPanel, BorderLayout.SOUTH);
+
+        movesPanel.add(topSection, BorderLayout.NORTH);
+        movesPanel.add(movesButtonsPanel, BorderLayout.CENTER);
+
+        JPanel paddingPanel = new JPanel();
+        paddingPanel.setOpaque(false);
+        paddingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        paddingPanel.setLayout(new BorderLayout());
+        paddingPanel.add(movesButtonsPanel, BorderLayout.CENTER);
+
+        movesPanel.add(paddingPanel, BorderLayout.CENTER);
+
+        opciones.add(movesPanel, "MovimientosP");
+
+        fightButton.addActionListener(e -> {
+            System.out.println("Fight button clicked, showing moves panel");
+            showMovesPanel();
+        });
+
+        backToOptionsBattle.addActionListener(e -> {
+            showBattleOptionsPanel();
+        });
+
+        // Force layout update
+        movesPanel.revalidate();
+        movesPanel.repaint();
     }
+
     public void actualizarCreateStatsPanel(String pokemonName, int level, int health, boolean isPlayer){
         remove(playerStatsPanel);
         playerStatsPanel = createStatsPanel(pokemonName, level, health, isPlayer);
@@ -211,8 +236,12 @@ public class BattlePanel extends JPanel {
     }
 
     public void showMovesPanel() {
-        cardLayout.show(opciones,"Movimientos");
-        startTimer();  
+        System.out.println("Showing moves panel");
+        cardLayout.show(opciones, "MovimientosP");
+        startTimer();
+        // Force visibility update
+        opciones.revalidate();
+        opciones.repaint();
     }
 
 

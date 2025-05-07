@@ -20,7 +20,12 @@ public abstract class Item implements Serializable{
         if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         if(!pokemon.isAlive()) throw new PoobkemonException(PoobkemonException.ITEM_NOT_USABLE);
     }
-
+    public String createPokemonForToolTip(){
+        return "<html>" +
+                "<b style='font-size:12px; color:blue;'>" + name + "</b><br>" +
+                "Type: " + description + "<br>" +
+                "</html>";
+    }
    
     
 }

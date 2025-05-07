@@ -155,6 +155,7 @@ public class ListOfMovementsPanel extends JPanel{
         return come;
     }
     public HashMap<String, ArrayList<String>> getMovementsMap(){
+        System.out.println(movimientosSeleccionados);
         return movimientosSeleccionados;
     }
     public ArrayList<String> getPokemonsChoose(){

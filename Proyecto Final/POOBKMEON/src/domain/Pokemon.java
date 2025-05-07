@@ -341,6 +341,25 @@ public class Pokemon implements Serializable {
     public Pokemon copy(){
         return new Pokemon(name,level,ps,attack,specialAttack,defense,specialDefense,velocity,principalType,secondaryType,pokedexIndex);
     }
+    public ArrayList<PokemonType> getTypes(){
+        ArrayList<PokemonType> temp = new ArrayList<>();
+        temp.add(principalType);
+        if (secondaryType != null) temp.add(secondaryType);
+        return temp;
+    }
+    public  String createPokemonForToolTip() {
+        return "<html>" +
+                "<b style='font-size:12px; color:blue;'>" + name + "</b><br>" +
+                "Type: " + getTypes() + "<br>" +
+                "Level: " + level + "<br>" +
+                "HP: " + ps + "<br>" +
+                "Attack: " + attack + "<br>" +
+                "Defense: " + defense + "<br>" +
+                "Velocity: " +velocity+"<br>"+
+                "Special Attack: " +specialAttack+"<br>"+
+                "Special Defense: " +specialDefense+"<br>"+
+                "</html>";
+    }
 
 }
 
