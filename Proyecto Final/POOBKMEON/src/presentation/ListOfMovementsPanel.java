@@ -154,9 +154,13 @@ public class ListOfMovementsPanel extends JPanel{
     public JButton getComeButton(){
         return come;
     }
-    public HashMap<String, ArrayList<String>> getMovementsMap(){
-        System.out.println(movimientosSeleccionados);
-        return movimientosSeleccionados;
+    public HashMap<String, ArrayList<String>> getMovementsMap() {
+        HashMap<String, ArrayList<String>> deepCopy = new HashMap<>();
+        for (Map.Entry<String, ArrayList<String>> entry : movimientosSeleccionados.entrySet()) {
+            ArrayList<String> valuesCopy = new ArrayList<>(entry.getValue());
+            deepCopy.put(entry.getKey(), valuesCopy);
+        }
+        return deepCopy;
     }
     public ArrayList<String> getPokemonsChoose(){
         return po.chooser.getPokemonChoosen();

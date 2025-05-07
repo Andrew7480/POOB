@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -164,7 +165,10 @@ public class PanelSelectedPokemon extends JPanel{
         System.out.println(po.domain.getTrainers().toString());
         
         po.createTrainer(color);
-        try{po.addPokemonsToTrainer();po.addItemsToTrainer();}
+        try{po.addPokemonsToTrainer();
+            System.out.println(po.domain.getTrainers());
+            po.addItemsToTrainer();
+        }
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
         }

@@ -600,6 +600,7 @@ public class POOBkemonGUI extends JFrame {
                 //addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
                 selectedPokemon.inicializate(chooser.getPokemonChoosen(), chooser.getColor());
                 pokemonesescogidosConMoviminetos= listMovements.getMovementsMap();
+                System.out.println("profe " + pokemonesescogidosConMoviminetos);
                 listMovements.resetPokemonChosen();
                 cardLayout.show(panelContenedor,"select pokemon");
                 System.out.println(domain.getTrainers().toString());
@@ -673,7 +674,9 @@ public class POOBkemonGUI extends JFrame {
         }
         public void addPokemonsToTrainer() throws PoobkemonException{
             HashMap<String, ArrayList<String>> lista = pokemonesescogidosConMoviminetos;
+            System.out.println(pokemonesescogidosConMoviminetos + "profeeeeeeeeeeeeeeeeeeeeee");
             for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
+                System.out.println(trainerEscogido + "? "+   entry.getKey());
                 domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
             }
         }

@@ -159,6 +159,7 @@ public class POOBkemon implements Serializable{
     public void addNewPokemon(String entrenador, String pokemon,Movement m1,Movement m2, Movement m3, Movement m4)throws PoobkemonException{
         Pokemon pokemon1 = pokedex.get(pokemon).copy();
         pokemon1.setMovements(new Movement[]{m1,m2,m3,m4});
+        System.out.println(pokemon1.toString());
         entrenadores.get(entrenador).addPokemon(pokemon1);
     }
 
