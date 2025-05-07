@@ -64,6 +64,10 @@ public class BattlePanel extends JPanel {
 
     }
 
+    private void inicializate(String trainer){
+        
+    }
+
     private void prepareElements() {
         calculatePokemonPositions();
 
@@ -156,7 +160,7 @@ public class BattlePanel extends JPanel {
         
         JPanel movesButtonsPanel = new JPanel(new GridLayout(2, 2));
         movesButtonsPanel.setOpaque(false);
-
+        //TreeMap
         String[] moves = {"PLACAJE", "GRUÑIDO", "ASCUAS", "GARRA METAL"};
 
         for (String move : moves) {

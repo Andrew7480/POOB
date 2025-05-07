@@ -171,6 +171,7 @@ public class PanelSelectedPokemon extends JPanel{
         po.cardLayout.show(po.panelContenedor,"movimientos");
         System.out.println(po.domain.getTrainers().toString());
         System.out.println("se ha precionado la lsita de pokemones ");
+        po.panelBattle.inicializate(po.trainerEscogido);
         po.cardLayout.show(po.panelContenedor,"battle");
         reset();
         });

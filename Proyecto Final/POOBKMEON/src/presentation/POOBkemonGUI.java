@@ -42,7 +42,7 @@ public class POOBkemonGUI extends JFrame {
 
     protected String trainerEscogido;
     protected String trainerEscogidoMachine;
-    protected ArrayList<String> pokemonesEscogidos;
+    //protected ArrayList<String> pokemonesEscogidos;
     protected HashMap<String, ArrayList<String>> pokemonesescogidosConMoviminetos;
     protected ArrayList<String> itemsEscogidos;
 

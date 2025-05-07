@@ -221,14 +221,12 @@ public class POOBkemonTest implements Serializable {
                 poobkemon.addMovement(attract);
                 poobkemon.addMovement(leechSeed);
 
-                // Añadir los movimientos tributo adicionales
                 poobkemon.addMovement(swordsDance);
                 poobkemon.addMovement(ironDefense);
                 poobkemon.addMovement(calmMind);
                 poobkemon.addMovement(dragonDance);
                 poobkemon.addMovement(willOWisp);
 
-                // Añadir los movimientos físicos
                 poobkemon.addMovement(closeCombat);
                 poobkemon.addMovement(outrage);
                 poobkemon.addMovement(rockSlide);
