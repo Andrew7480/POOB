@@ -64,12 +64,14 @@ public abstract class Trainer implements Serializable{
     public void inicialPokemon(String pokemon){
         actualPokemon = inventory.getPokemons().get(pokemon);
     }
+
     public void addPokemon(Pokemon pokemon) throws PoobkemonException{
         inventory.addPokemon(pokemon);
     }
     public void setInventory(Inventory newInventory){
         inventory = newInventory;
     }
+
     public void setPokemonInUse(Pokemon pokemonNew){
         if (pokemonNew != null && pokemonNew.isAlive()){
             actualPokemon = pokemonNew;

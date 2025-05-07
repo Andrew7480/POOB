@@ -1,9 +1,15 @@
 package presentation;
+import domain.Movement;
+import domain.Pokemon;
+import domain.Trainer;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class BattlePanel extends JPanel {
     private String backgroundImage = "battle";
@@ -42,6 +48,12 @@ public class BattlePanel extends JPanel {
     private Font pokemonFont;
     protected CardLayout cardLayout;
 
+    private Trainer trainer;
+    private Trainer trainerMachine;
+    private ArrayList<Pokemon> pokemonListTrainer;
+    private ArrayList<Pokemon> pokemonListTrainerMachine;
+
+
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
         actualColor = new Color(100,100,100,100);
@@ -64,8 +76,12 @@ public class BattlePanel extends JPanel {
 
     }
 
-    private void inicializate(String trainer){
-        
+    public void inicializate(String trainerName, String trainerNameMachine, String pokemonInicial){
+        trainer = po.domain.getTrainers().get(trainerName);
+        trainerMachine = po.domain.getTrainers().get(trainerNameMachine);
+        trainer.setPokemonInUse(po.pokemones.get(pokemonInicial));
+        playerStatsPanel = createStatsPanel(trainer.getPokemonInUse().getName(), trainer.getPokemonInUse().getLevel(),trainer.getPokemonInUse().getPs(), true);
+        add(playerStatsPanel);
     }
 
     private void prepareElements() {
@@ -84,8 +100,8 @@ public class BattlePanel extends JPanel {
         add(info);
 
 
-        playerStatsPanel = createStatsPanel("", 0,0, true);
-        add(playerStatsPanel);
+        /*playerStatsPanel = createStatsPanel("", 0,0, true);
+        add(playerStatsPanel);*/
         opponentStatsPanel = createStatsPanel("", 100, 120, false);
         add(opponentStatsPanel);
         
@@ -188,6 +204,11 @@ public class BattlePanel extends JPanel {
         revalidate();
         repaint();
     }
+    public void actualizarCreateStatsPanel(String pokemonName, int level, int health, boolean isPlayer){
+        remove(playerStatsPanel);
+        playerStatsPanel = createStatsPanel(pokemonName, level, health, isPlayer);
+        add(playerStatsPanel);
+    }
 
     public void showMovesPanel() {
         cardLayout.show(opciones,"Movimientos");
@@ -204,7 +225,7 @@ public class BattlePanel extends JPanel {
     }
 
 
-    private JPanel createStatsPanel(String pokemonName, int level, int health, boolean isPlayer) {
+    public JPanel createStatsPanel(String pokemonName, int level, int health, boolean isPlayer) {
 
         JPanel statsPanel = new JPanel();
         statsPanel.setLayout(null);
@@ -226,7 +247,7 @@ public class BattlePanel extends JPanel {
         nameLabel.setBounds(20, 10, 200, 20);
         innerPanel.add(nameLabel);
         
-        CustomHealthBar healthBar = new CustomHealthBar(0, 100, isPlayer);
+        CustomHealthBar healthBar = new CustomHealthBar(0, health, isPlayer);
         healthBar.setValue(health);
         healthBar.setBounds(60, 40, 180, 15);
         innerPanel.add(healthBar);
@@ -236,7 +257,7 @@ public class BattlePanel extends JPanel {
         psLabel.setBounds(20, 38, 30, 20);
         innerPanel.add(psLabel);
         
-        JLabel healthLabel = new JLabel(health + "/" + 100);
+        JLabel healthLabel = new JLabel(health + "/" + health);
         healthLabel.setFont(new Font(pokemonFont.getName(), Font.PLAIN, 12));
         healthLabel.setBounds(180, 55, 80, 20);
         healthLabel.setHorizontalAlignment(SwingConstants.RIGHT);

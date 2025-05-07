@@ -154,6 +154,7 @@ public class ListPokemonAvailable extends JPanel{
             }
             if (sizeChoosen() == 1){
                 changeImage();
+                //pokemons
             }
         System.out.println("se ha comfirmado un pokemon a cambiar ");
         po.cardLayout.show(po.panelContenedor,"battle");
@@ -167,6 +168,7 @@ public class ListPokemonAvailable extends JPanel{
     private void changeImage(){
         Pokemon po1 = po.pokemones.get(pokemonsChosenFight.get(0));
         po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
+        po.panelBattle.actualizarCreateStatsPanel(pokemonsChosenFight.get(0),po.domain.getPokemons().get(pokemonsChosenFight.get(0)).getLevel(),po.domain.getPokemons().get(pokemonsChosenFight.get(0)).getPs(),true);
     }
 
     private void createButtons(){

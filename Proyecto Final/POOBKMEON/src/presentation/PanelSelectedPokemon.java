@@ -168,10 +168,10 @@ public class PanelSelectedPokemon extends JPanel{
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
         }
-        po.cardLayout.show(po.panelContenedor,"movimientos");
+        //po.cardLayout.show(po.panelContenedor,"movimientos");
         System.out.println(po.domain.getTrainers().toString());
         System.out.println("se ha precionado la lsita de pokemones ");
-        po.panelBattle.inicializate(po.trainerEscogido);
+        po.panelBattle.inicializate(po.trainerEscogido,po.trainerEscogidoMachine,pokemonsChosenFight.get(0));
         po.cardLayout.show(po.panelContenedor,"battle");
         reset();
         });
