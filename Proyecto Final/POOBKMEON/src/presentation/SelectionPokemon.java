@@ -387,15 +387,24 @@ public class SelectionPokemon extends JPanel{
     }
 
     public void reset(){
+        System.out.println("resetea todo de la seleccion");
+        Trainer = "";
         pokemonesChoosen.clear();
+        itemsChoosen.clear();
         for (JButton button : buttons){
             button.setBackground(null);
             button.setOpaque(false);
+            button.revalidate();
+            button.repaint();
         }
-        buttons.clear(); //mirar
-        potionButtons.clear();
-        revalidate();
-        repaint();
+        for (JButton button : potionButtons){
+            button.setBackground(null);
+            button.setOpaque(false);
+            button.revalidate();
+            button.repaint();
+        }
+        panelScroll.revalidate();
+        panelScroll.repaint();
     }
     @Override
     protected void paintComponent(Graphics g) {

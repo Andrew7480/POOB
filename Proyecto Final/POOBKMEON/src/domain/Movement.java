@@ -58,7 +58,7 @@ public abstract class Movement implements Attackable, Serializable{
 
     public boolean canMakeMove(){return (PP>0);}
     
-    //public abstract int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException;
+    public abstract int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException;
 
     public void AttackToStruggle(Pokemon attacker, Pokemon target){
         try{

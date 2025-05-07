@@ -38,21 +38,11 @@ public class ListOfMovementsPanel extends JPanel{
 
         for (String s : chosenPokemons){
             Pokemon currentPokemon = po.domain.getPokedex().get(s);
-            System.out.println("Tu eres : " + currentPokemon.getName());
-
             TreeMap<String,Movement> validMoves = po.domain.validMovements(currentPokemon);
-
-            System.out.println(validMoves.size() + "existe?");
-
             for (String moveKey : validMoves.keySet()){
-                System.out.println("- " + moveKey + ": " + validMoves.get(moveKey).getName());
                 temp1.add(moveKey);
             };
         }
-        //System.out.println(temp1);
-        /*for (String p: po.movimientos.keySet()){
-            temp1.add(p);
-        }*/
         for (int i = 0; i < chosenPokemons.size(); i++){
             JPanel movementPanel = createMovementPanel(temp.get(i).getName(), temp1,temp.get(i).getPokedexIndex().toString());
             centralPanel.add(movementPanel);
@@ -183,6 +173,7 @@ public class ListOfMovementsPanel extends JPanel{
     
 
     public void resetPokemonChosen(){
+        System.out.println("resetea todo de los movimientos");
         centralPanel.removeAll();
         movimientosSeleccionados.clear();
         revalidate();

@@ -1,6 +1,7 @@
 package presentation;
 import domain.Movement;
 import domain.Pokemon;
+import domain.PoobkemonException;
 import domain.Trainer;
 
 import javax.swing.*;
@@ -49,7 +50,7 @@ public class BattlePanel extends JPanel {
     private Font pokemonFont;
     protected CardLayout cardLayout;
 
-    private Trainer trainer;
+    protected Trainer trainer;
     private Trainer trainerMachine;
     private ArrayList<Pokemon> pokemonListTrainer;
     private ArrayList<Pokemon> pokemonListTrainerMachine;
@@ -158,7 +159,7 @@ public class BattlePanel extends JPanel {
         showBattleOptionsPanel();
     }
 
-    private void prepareMovementButtons() {
+    public void prepareMovementButtons() {
         movesPanel = new JPanel(new BorderLayout());
         movesPanel.setOpaque(false);
 
@@ -176,7 +177,6 @@ public class BattlePanel extends JPanel {
         JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + trainer.getPokemonInUse().getName() + "?");
         moveLabel.setFont(pokemonFont);
         messagePanel.add(moveLabel, BorderLayout.CENTER);
-        System.out.println(trainer.getPokemonInUse().getMovements());
         for (Movement move : trainer.getPokemonInUse().getMovements()) {
             JButton moveBtn = new JButton(move.getName());
             po.styleButton(moveBtn);
@@ -186,7 +186,12 @@ public class BattlePanel extends JPanel {
 
             moveBtn.addActionListener(e -> {
                 System.out.println("Selected move: " + move.getName());
+                //try {
+                    //po.domain.movementPerformed(move, trainerMachine.getPokemonInUse());
                 showBattleOptionsPanel();
+                //}catch(PoobkemonException i){
+                    //System.out.println("NO HUBO DAÑADO DIOS");
+                //}
             });
 
             movesButtonsPanel.add(moveBtn);
@@ -224,9 +229,13 @@ public class BattlePanel extends JPanel {
             showBattleOptionsPanel();
         });
 
-        // Force layout update
         movesPanel.revalidate();
         movesPanel.repaint();
+    }
+
+    public void removeMovement(){
+        opciones.remove(movesPanel);
+        movesPanel = null;
     }
 
     public void actualizarCreateStatsPanel(String pokemonName, int level, int health, boolean isPlayer){
@@ -236,10 +245,8 @@ public class BattlePanel extends JPanel {
     }
 
     public void showMovesPanel() {
-        System.out.println("Showing moves panel");
         cardLayout.show(opciones, "MovimientosP");
         startTimer();
-        // Force visibility update
         opciones.revalidate();
         opciones.repaint();
     }

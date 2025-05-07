@@ -165,10 +165,27 @@ public class ListPokemonAvailable extends JPanel{
         return pokemonsChosenFight.size();
     }
 
-    private void changeImage(){
-        Pokemon po1 = po.pokemones.get(pokemonsChosenFight.get(0));
-        po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
-        po.panelBattle.actualizarCreateStatsPanel(po1.getName(),po1.getLevel(),po1.getPs(),true);
+    private void changeImage() {
+        String pokemonName = pokemonsChosenFight.get(0);
+        Pokemon trainerPokemon = null;
+        for (Pokemon p : po.panelBattle.trainer.getInventory().getPokemons().values()) {
+            if (p.getName().equals(pokemonName)) {
+                trainerPokemon = p;
+                break;
+            }
+        }
+        if (trainerPokemon != null) {
+            po.panelBattle.trainer.setPokemonInUse(trainerPokemon);
+            po.panelBattle.setFirstPokemon(trainerPokemon.getPokedexIndex().toString());
+            po.panelBattle.actualizarCreateStatsPanel(trainerPokemon.getName(),
+                    trainerPokemon.getLevel(),
+                    trainerPokemon.getPs(),
+                    true);
+            po.panelBattle.removeMovement();
+            po.panelBattle.prepareMovementButtons();
+        } else {
+            System.err.println("ERROR NO SE ACTUALIZAN LOS MOVIMIENTOS DE:  " + pokemonName);
+        }
     }
 
     private void createButtons(){

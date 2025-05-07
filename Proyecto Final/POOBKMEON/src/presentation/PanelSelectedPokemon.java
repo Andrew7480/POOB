@@ -277,6 +277,7 @@ public class PanelSelectedPokemon extends JPanel{
         return pokemonsChosenFight.size() ==1;
     }
     public void reset(){
+        System.out.println("reset panel de seleccion");
         pokemonsChosenFight = new ArrayList<>();
         for (JButton button : buttons){
             button.setBackground(null);

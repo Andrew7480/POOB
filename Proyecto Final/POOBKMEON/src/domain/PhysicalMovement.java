@@ -19,6 +19,7 @@ public class PhysicalMovement extends Movement {
         damage *= 0.85 + (Math.random() * 0.15);
         target.losePS(damage);
         losePP();
+        System.out.println(damage + "FUNCIONO?");
         return (int)damage;
     }
     @Override
