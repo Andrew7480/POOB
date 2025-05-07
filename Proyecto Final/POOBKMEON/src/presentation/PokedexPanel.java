@@ -23,7 +23,7 @@ public class PokedexPanel extends JPanel {
     private static final Color POKEDEX_GREEN = new Color(32, 160, 32);
     private static final Color POKEDEX_YELLOW = new Color(255, 235, 59);
     private static final Color POKEDEX_SCREEN_BG = new Color(220, 220, 200);
-    
+
     private JPanel pokedexPanel;
     private POOBkemonGUI po;
     private JLabel imagenLabel;
@@ -36,12 +36,12 @@ public class PokedexPanel extends JPanel {
     private JButton backButton;
     private JButton prevButton;
     private JButton nextButton;
-    
-    
+
+
     private ArrayList<String[]> pokemones;
     private final int[] currentIndex = {0};
     private ArrayList<JButton> pokemonButtons = new ArrayList<>();
-    
+
     public PokedexPanel(POOBkemonGUI newPo) {
         po = newPo;
         setLayout(null);
@@ -64,10 +64,10 @@ public class PokedexPanel extends JPanel {
         pokedexPanel.setLayout(null);
         pokedexPanel.setBounds(0, 0, 1000, 500);
         add(pokedexPanel);
-        
+
         setupPokedexComponents();
         initSampleData();
-        
+
         addPokedexStartupEffect();
     }
 
@@ -78,7 +78,7 @@ public class PokedexPanel extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setBounds(255, 80, 230, 320);
         pokedexPanel.add(mainScreen);
-        
+
         imagenLabel = new JLabel();
         imagenLabel.setBounds(40, 85, 150, 150);
         mainScreen.add(imagenLabel);
@@ -90,22 +90,22 @@ public class PokedexPanel extends JPanel {
         imagenAbajo = new JLabel();
         imagenAbajo.setBounds(90, 250, 50, 50);
         mainScreen.add(imagenAbajo);
-        
+
         typesPanel = new JPanel();
         typesPanel.setLayout(new BoxLayout(typesPanel, BoxLayout.Y_AXIS));
         typesPanel.setBounds(90, 120, 130, 280);
         typesPanel.setOpaque(false);
         pokedexPanel.add(typesPanel);
-        
+
         pokemonListPanel = new JPanel();
         pokemonListPanel.setLayout(new BoxLayout(pokemonListPanel, BoxLayout.Y_AXIS));
         pokemonListPanel.setBackground(POKEDEX_YELLOW);
-        
+
         listScrollPane = new JScrollPane(pokemonListPanel);
         listScrollPane.setBounds(615, 80, 260, 320);
         listScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         pokedexPanel.add(listScrollPane);
-        
+
         backButton.setBounds(75, 385, 100, 40);
         backButton.setFont(cargarFuentePixel(18));
         backButton.setForeground(Color.WHITE);
@@ -113,14 +113,14 @@ public class PokedexPanel extends JPanel {
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
         pokedexPanel.add(backButton);
-        
+
         prevButton = new JButton("");
         prevButton.setBounds(345, 45, 40, 40);
         prevButton.setFont(cargarFuentePixel(14));
         prevButton.setFocusPainted(false);
         prevButton.addActionListener(e -> moverSeleccion(-1));
         pokedexPanel.add(prevButton);
-        
+
         nextButton = new JButton("");
         nextButton.setBounds(345, 400, 40, 40);
         nextButton.setFont(cargarFuentePixel(14));
@@ -128,10 +128,10 @@ public class PokedexPanel extends JPanel {
         nextButton.addActionListener(e -> moverSeleccion(1));
         pokedexPanel.add(nextButton);
     }
-    
+
     private void moverSeleccion(int delta) {
         if (pokemones == null || pokemones.isEmpty()) return;
-        
+
         int newIndex = currentIndex[0] + delta;
         if (newIndex >= 0 && newIndex < pokemones.size()) {
             currentIndex[0] = newIndex;
@@ -157,7 +157,7 @@ public class PokedexPanel extends JPanel {
 
         actualizarTiposPaneles(typeOne, typeTwo);
         updatePositionIndicators();
-        
+
         for (int i = 0; i < pokemonButtons.size(); i++) {
             if (i == currentIndex[0]) {
                 pokemonButtons.get(i).setBackground(new Color(255, 200, 0));
@@ -170,7 +170,7 @@ public class PokedexPanel extends JPanel {
             }
         }
     }
-    
+
     private void actualizarTiposPaneles(String typeOne, String typeTwo) {
         typesPanel.removeAll();
         typesPanel.revalidate();
@@ -185,7 +185,7 @@ public class PokedexPanel extends JPanel {
             typesPanel.add(tipo2Panel);
         }
     }
-    
+
     private JPanel createTypePanel(String typeName) {
         Color typeColor;
         switch (typeName.toLowerCase()) {
@@ -197,7 +197,7 @@ public class PokedexPanel extends JPanel {
             case "poison": typeColor = new Color(153, 51, 204); break;
             default: typeColor = new Color(153, 153, 153);
         }
-        
+
         JPanel tipoPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -212,17 +212,17 @@ public class PokedexPanel extends JPanel {
                 super.paintComponent(g);
             }
         };
-        
+
         tipoPanel.setOpaque(false);
         tipoPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         tipoPanel.setPreferredSize(new Dimension(120, 40));
         tipoPanel.setMaximumSize(new Dimension(120, 40));
-        
+
         JLabel tipoLabel = new JLabel(typeName.toUpperCase());
         tipoLabel.setFont(cargarFuentePixel(16));
         tipoLabel.setForeground(Color.WHITE);
         tipoPanel.add(tipoLabel);
-        
+
         return tipoPanel;
     }
 
@@ -231,7 +231,7 @@ public class PokedexPanel extends JPanel {
             String prevId = pokemones.get(currentIndex[0] - 1)[0];
             String prevPath = POKEMONES + prevId + ".PNG";
             File prevFile = new File(prevPath);
-            
+
             if (prevFile.exists()) {
                 ImageIcon prevIcon = new ImageIcon(prevPath);
                 Image prevImg = prevIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -243,12 +243,12 @@ public class PokedexPanel extends JPanel {
         } else {
             imagenArriba.setVisible(false);
         }
-        
+
         if (currentIndex[0] < pokemones.size() - 1) {
             String nextId = pokemones.get(currentIndex[0] + 1)[0];
             String nextPath = POKEMONES + nextId + ".PNG";
             File nextFile = new File(nextPath);
-            
+
             if (nextFile.exists()) {
                 ImageIcon nextIcon = new ImageIcon(nextPath);
                 Image nextImg = nextIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -260,8 +260,8 @@ public class PokedexPanel extends JPanel {
         } else {
             imagenAbajo.setVisible(false);
         }
-    } 
-    
+    }
+
     private Font cargarFuentePixel(float tamaño) {
         return new Font("Monospaced", Font.BOLD, (int)tamaño);
     }
@@ -269,14 +269,14 @@ public class PokedexPanel extends JPanel {
     public JButton getButton() {
         return backButton;
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(new Color(220,30,30));
         g.fillRect(0, 0, getWidth(), getHeight());
     }
-    
+
     public void cargarPokemones(ArrayList<String[]> nuevaLista) {
         pokemones = nuevaLista;
         currentIndex[0] = 0;
@@ -301,12 +301,12 @@ public class PokedexPanel extends JPanel {
         pokemones.add(new String[]{"248", "Tyranitar", "Rock", "Dark", "600", "100", "134", "110", "95", "100", "61"});
         pokemones.add(new String[]{"282", "Gardevoir", "Psychic", "Fairy", "518", "68", "65", "65", "125", "115", "80"});
         pokemones.add(new String[]{"376", "Metagross", "Steel", "Psychic", "600", "80", "135", "130", "95", "90", "70"});
-        
+
         actualizarListaPokemones();
         currentIndex[0] = 0;
         actualizarVista();
     }
-    
+
     private void actualizarListaPokemones() {
         if (pokemones == null || pokemones.isEmpty()) return;
         pokemonListPanel.removeAll();
@@ -314,12 +314,6 @@ public class PokedexPanel extends JPanel {
         for (int i = 0; i < pokemones.size(); i++) {
             String[] pokemon = pokemones.get(i);
             final int index = i;
-            System.out.println(pokemon);
-
-            //Pokemon pokemon1 = new Pokemon(
-                    //pokemones.get(i).getName(),pokemon[1],pokemon[2],pokemon[3],pokemon[4],pokemon[5],pokemon[6],pokemon[7],pokemon[8],pokemon[9],pokemon[10]
-            //);
-
             JButton pokemonButton = new JButton() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -340,22 +334,21 @@ public class PokedexPanel extends JPanel {
             pokemonButton.setPreferredSize(new Dimension(250, 30));
             pokemonButton.setMaximumSize(new Dimension(250, 30));
 
-            //pokemonButton.setToolTipText(pokemon1.createPokemonForToolTip());
 
             if (i == currentIndex[0]) {
                 pokemonButton.setBackground(new Color(255, 200, 0));
                 pokemonButton.setFont(cargarFuentePixel(14).deriveFont(Font.BOLD));
             }
-            
+
             pokemonButton.addActionListener(e -> {
                 currentIndex[0] = index;
                 actualizarVista();
             });
-            
+
             pokemonButtons.add(pokemonButton);
             pokemonListPanel.add(pokemonButton);
         }
-        
+
         pokemonListPanel.revalidate();
         pokemonListPanel.repaint();
     }
@@ -368,7 +361,7 @@ public class PokedexPanel extends JPanel {
             listScrollPane.getViewport().scrollRectToVisible(rect);
         }
     }
-    
+
     private void addPokedexStartupEffect() {
         mainScreen.setVisible(true);
         listScrollPane.setVisible(true);

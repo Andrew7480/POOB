@@ -210,24 +210,25 @@ public class POOBkemonGUI extends JFrame {
         });
         return inicioPanelPrueba;
     }
-    // FALTA AGREGAR IMAGEN DE POOBKEMON
-    /*
-     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ download+".GIF"));
-        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
-        Image centeredImage = new ImageIcon(getClass().getResource("/resources/"+title+".PNG")).getImage();
-        int scaledWidth = getWidth() / 2;
-        int scaledHeight = getHeight() / 2;
-        int x = (getWidth() - scaledWidth) / 2;
-        int y = (getHeight() - scaledHeight) / 2;
-        g.drawImage(centeredImage, x, y, scaledWidth,scaledHeight, this);
+    private JPanel backgroundMenu(String backgroundImage){
+        return new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage + ".GIF"));
+                g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
+                Image centeredImage = new ImageIcon(getClass().getResource("/resources/" + "title" + ".PNG")).getImage();
+                int scaledWidth = getWidth() / 2;
+                int scaledHeight = getHeight() / 2;
+                int x = (getWidth() - scaledWidth) / 2;
+                int y = (getHeight() - scaledHeight) / 2;
+                g.drawImage(centeredImage, x, y, scaledWidth, scaledHeight, this);
+            }
+        };
     }
-     */
 
     private JPanel menuPrincipal(){
-        JPanel menuPrincipal = background("download");
+        JPanel menuPrincipal = backgroundMenu("download");
         menuPrincipal.setLayout(new BorderLayout());
         JPanel modosDeJuego = invisiblePanelWithOpacity();
         modosDeJuego.setOpaque(false);

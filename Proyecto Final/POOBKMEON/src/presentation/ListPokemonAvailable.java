@@ -168,7 +168,7 @@ public class ListPokemonAvailable extends JPanel{
     private void changeImage(){
         Pokemon po1 = po.pokemones.get(pokemonsChosenFight.get(0));
         po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
-        po.panelBattle.actualizarCreateStatsPanel(pokemonsChosenFight.get(0),po.domain.getPokemons().get(pokemonsChosenFight.get(0)).getLevel(),po.domain.getPokemons().get(pokemonsChosenFight.get(0)).getPs(),true);
+        po.panelBattle.actualizarCreateStatsPanel(po1.getName(),po1.getLevel(),po1.getPs(),true);
     }
 
     private void createButtons(){

@@ -36,8 +36,10 @@ public class Inventory implements Serializable{
     }
 
     public void addPokemon(Pokemon pokemon) throws PoobkemonException{
+        System.out.println("hola?");
         if (pokemons.containsValue(pokemon)) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         pokemons.put(pokemon.getName(), pokemon);
+        System.out.println(pokemons.put(pokemon.getName(), pokemon));
     }
     public boolean contains(Pokemon pokemon){
         return pokemons.containsKey(pokemon.getName());

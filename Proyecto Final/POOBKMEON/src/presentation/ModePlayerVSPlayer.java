@@ -82,11 +82,11 @@ public class ModePlayerVSPlayer extends JPanel {
                     player2Name = player2NameField.getText().trim();
 
                     if(player1Name.isEmpty() || player2Name.isEmpty()){
-                        JOptionPane.showMessageDialog(null, "Ambos nombres deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(ModePlayerVSPlayer.this, "Ambos nombres deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     if(colorChosedPlayer1 == null || colorChosedPlayer2 == null){
-                        JOptionPane.showMessageDialog(null,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(ModePlayerVSPlayer.this,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                     }
 
                     po.trainerEscogido = player1Name;
