@@ -93,7 +93,7 @@ public class POOBkemon implements Serializable{
         //reset o metodo acabar batalla, que seria guardar los estados del pokemon items etc?
     }
 
-    public boolean theGameIsOVer(){
+    public boolean GameIsOVer(){
         return (trainerTurn1.canStillFighting() && trainerTurn2.canStillFighting());
     }
 
@@ -126,11 +126,7 @@ public class POOBkemon implements Serializable{
         }
         turn = entrenadores.get(name);
         trainerTurn1 = entrenadores.get(name);
-        System.out.println("Profe?");
         trainerTurn2 = entrenadores.get(gamemode);
-        System.out.println("Profe1");
-        System.out.println(gamemode);
-        System.out.println(trainerTurn2.toString());
     }
 
     public void addPokemon(Pokemon pokemon) {
@@ -159,7 +155,6 @@ public class POOBkemon implements Serializable{
     public void addNewPokemon(String entrenador, String pokemon,Movement m1,Movement m2, Movement m3, Movement m4)throws PoobkemonException{
         Pokemon pokemon1 = pokedex.get(pokemon).copy();
         pokemon1.setMovements(new Movement[]{m1,m2,m3,m4});
-        System.out.println(pokemon1.toString());
         entrenadores.get(entrenador).addPokemon(pokemon1);
     }
 
@@ -167,19 +162,12 @@ public class POOBkemon implements Serializable{
         TreeMap<String,Movement> movementsForPokemon = new TreeMap<>();
         for(Movement movement : movements.values()) {
             double multiplicador = movement.getMultiplicator(pokemon.getPrincipalType());
-            System.out.println("Movimiento: " + movement.getName() +
-                    " - Tipo: " + movement.getType() +
-                    " - Multiplicador: " + multiplicador);
 
             if (multiplicador <= 1.0){
                 movementsForPokemon.put(movement.getName(), movement);
-                System.out.println("✓ Movimiento válido añadido: " + movement.getName());
-            } else {
-                System.out.println("✗ Movimiento no válido (multiplicador > 1.0): " + movement.getName());
             }
         }
 
-        System.out.println("Movimientos válidos encontrados: " + movementsForPokemon.size());
         return movementsForPokemon;
     }
 

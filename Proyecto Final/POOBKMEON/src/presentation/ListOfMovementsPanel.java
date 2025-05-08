@@ -21,14 +21,21 @@ public class ListOfMovementsPanel extends JPanel{
     private JLabel texto;
     private Color color;
     private HashMap<String, ArrayList<String>> movimientosSeleccionados = new HashMap<>();
+    private ArrayList<String> chosenPok;
 
 
     public ListOfMovementsPanel(POOBkemonGUI newPo){
         po = newPo;
         color = new Color(85, 85, 85, 100);;
+        chosenPok = new ArrayList<>();
         prepareElements();
     }
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
+        for (String s :chosenPokemons){
+            chosenPok.add(s);
+        }
+
+
         ArrayList<Pokemon> temp = new ArrayList<>();
         for (String s:chosenPokemons){
             temp.add(po.pokemones.get(s));
@@ -84,6 +91,10 @@ public class ListOfMovementsPanel extends JPanel{
         color = po.playerVsMachinePanel.getColor();
         texto.setBackground(color);
     }
+    public Color  getColor(){
+        return color;
+    }
+    
     private JPanel createMovementPanel(String namePokemon, ArrayList<String> movements, String imagePath){ 
         if (namePokemon.equals("") || movements ==null || imagePath.equals("")) return new JPanel();
         JPanel panel = new JPanel(new BorderLayout());
@@ -170,7 +181,9 @@ public class ListOfMovementsPanel extends JPanel{
         }
         return true;
     }
-    
+    public ArrayList<String> getPokemonChoosen(){
+        return chosenPok;
+    }
 
     public void resetPokemonChosen(){
         System.out.println("resetea todo de los movimientos");

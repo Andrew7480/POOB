@@ -21,16 +21,27 @@ public class PanelSelectedPokemon extends JPanel{
     private ArrayList<JButton> buttons;
     private JPanel panelScroll;
     private JButton doneButton;
+
+    private JPanel upPanel;
+    private JScrollPane scrollPane;
+    private JPanel centro;
+
     private Color color;
     private POOBkemonGUI po;
     private JLabel texto;
     private JButton come;
     private int MAX_CHANGED = 1;
+
+
     public PanelSelectedPokemon(POOBkemonGUI newPo){
         po = newPo;
         color = new Color(0, 0, 255);
         come = new JButton("BACK");
         doneButton = new JButton ("Selecciona tu pokemon inicial");
+        pokemonsChosenFight= new ArrayList<>();
+        setLayout(new BorderLayout());
+        setOpaque(false);
+
     }
 
     public void inicializate(ArrayList<String> pokemons, Color color){
@@ -41,15 +52,11 @@ public class PanelSelectedPokemon extends JPanel{
         prepareActions();
     }
     private void prepareElements(){
-        
+    
         po.styleButton(come);
         buttons = new ArrayList<>();
 
-        setLayout(new BorderLayout());
-        setOpaque(false);
-
-
-        JPanel upPanel = new JPanel(new BorderLayout());
+        upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
         texto = new JLabel("Player");
         texto.setOpaque(true);
@@ -90,8 +97,9 @@ public class PanelSelectedPokemon extends JPanel{
         down.add(booton,BorderLayout.SOUTH);
         add(down, BorderLayout.SOUTH);
 
-        JPanel centro = new JPanel(new BorderLayout());
+        centro = new JPanel(new BorderLayout());
         centro.setOpaque(false);
+        //centro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 
         panelScroll = new JPanel(new GridLayout(4,4,1,1)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   de dominio
             @Override
@@ -102,7 +110,7 @@ public class PanelSelectedPokemon extends JPanel{
             }
         };
 
-        JScrollPane scrollPane = new JScrollPane(panelScroll);
+        scrollPane = new JScrollPane(panelScroll);
         scrollPane.setBackground(Color.BLUE);
         scrollPane.setOpaque(false);
 	    scrollPane.setPreferredSize(new Dimension(300, 400));
@@ -139,8 +147,8 @@ public class PanelSelectedPokemon extends JPanel{
         panelScroll.setOpaque(false);
         panelScroll.setBackground(Color.BLUE);
 
-        centro.add(scrollContainer, BorderLayout.CENTER);
-        add(centro, BorderLayout.CENTER);
+        centro.add(scrollContainer, BorderLayout.CENTER); //tal vez por eso se demora en clock?
+        add(scrollContainer, BorderLayout.CENTER);
 
         createButtons();
     }
@@ -172,11 +180,7 @@ public class PanelSelectedPokemon extends JPanel{
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
         }
-        //po.cardLayout.show(po.panelContenedor,"movimientos");
-        System.out.println(po.domain.getTrainers().toString());
-        System.out.println("INVENTARRIO");
-        System.out.println(po.domain.getTrainers().get(po.trainerEscogido).getInventory().getPokemons().toString());
-        System.out.println("se ha precionado la lsita de pokemones ");
+        
         po.panelBattle.inicializate(po.trainerEscogido,po.trainerEscogidoMachine,pokemonsChosenFight.get(0));
         po.cardLayout.show(po.panelContenedor,"battle");
         reset();
@@ -277,14 +281,17 @@ public class PanelSelectedPokemon extends JPanel{
         return pokemonsChosenFight.size() ==1;
     }
     public void reset(){
-        System.out.println("reset panel de seleccion");
+        System.out.println("reset panel de seleccion inicial");
+        pokemonsChosenFight.clear();
         pokemonsChosenFight = new ArrayList<>();
         for (JButton button : buttons){
-            button.setBackground(null);
-            button.setOpaque(false);
+        button.setBackground(null);
+        button.setOpaque(false);
         }
         buttons = new  ArrayList<>();
-        
+        removeAll();
+        revalidate(); 
+        repaint();
     }
 
 

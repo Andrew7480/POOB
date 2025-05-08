@@ -360,19 +360,18 @@ public class SelectionPokemon extends JPanel{
                 "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        //try{
-            //pooBkemonGUI.addItemsToTrainer();
+
             pooBkemonGUI.itemsEscogidos = getItemsChoosen();
+
             pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
+
             pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen, color);
-            pooBkemonGUI.selectedPokemon.inicializate(pokemonesChoosen, color);
+
+
             pooBkemonGUI.panelInvetory.inicializate(itemsChoosen);
+
             pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
             reset();
-        //}catch(PoobkemonException x){
-            //OptionPane.showMessageDialog(this, "error" + x.getMessage(), "error",JOptionPane.ERROR_MESSAGE);
-        //}
-        //});
         });
     }
     private ArrayList<String> getItemsChoosen() {
@@ -386,7 +385,7 @@ public class SelectionPokemon extends JPanel{
         Trainer = tra;
     }
 
-    public void reset(){
+    public void reset(){ 
         System.out.println("resetea todo de la seleccion");
         Trainer = "";
         pokemonesChoosen.clear();
@@ -406,6 +405,7 @@ public class SelectionPokemon extends JPanel{
         panelScroll.revalidate();
         panelScroll.repaint();
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

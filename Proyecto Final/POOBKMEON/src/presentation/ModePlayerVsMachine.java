@@ -242,12 +242,16 @@ public class ModePlayerVsMachine extends JPanel {
         try{
             po.trainerEscogido = po.domain.isTrainerIsed(playerName);
             po.trainerEscogidoMachine = gamemodeChoosen.get(0);
+
             po.chooser.setTrainer(playerName);
+            po.chooser.reset(); 
 
             po.panelInvetory.setColor(colorChosed);
             po.cardLayout.show(po.panelContenedor,"chooser");
             reset();
+            System.out.println("Se ha resetiado la toma de datos, se ha enviado a la seleccion de pokemon los colores, el panel del inventario y se cambia a potions");
         }
+
         catch(PoobkemonException e){ 
             JOptionPane.showMessageDialog(this, "Nombre no disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -283,8 +287,8 @@ public class ModePlayerVsMachine extends JPanel {
         System.out.println("resetea todo de la informacion ususario.");
         colorChosed = null;
         playerName = "";
-        playerNameField.setText("");
-        playerNameField.setEnabled(true);
+        playerNameField.setText(""); 
+        playerNameField.setEnabled(true); 
         nameLabel.setText("¿Whats your name?");
         //colorChooser = new JColorChooser();
         //playerNameField = new JTextField();

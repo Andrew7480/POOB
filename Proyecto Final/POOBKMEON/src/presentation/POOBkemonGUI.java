@@ -42,7 +42,6 @@ public class POOBkemonGUI extends JFrame {
 
     protected String trainerEscogido;
     protected String trainerEscogidoMachine;
-    //protected ArrayList<String> pokemonesEscogidos;
     protected HashMap<String, ArrayList<String>> pokemonesescogidosConMoviminetos;
     protected ArrayList<String> itemsEscogidos;
 
@@ -502,6 +501,7 @@ public class POOBkemonGUI extends JFrame {
         chooser.getButtonBack().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                chooser.reset();
                 cardLayout.show(panelContenedor,"player vs machine");
                 
             }
@@ -596,27 +596,25 @@ public class POOBkemonGUI extends JFrame {
                 if (!listMovements.isSelectedMovements()) {
                     return;
                 }
-                //try{
-                //addPokemonsToTrainer(chooser.getTrainer(),listMovements.getMovementsMap());
-                selectedPokemon.inicializate(chooser.getPokemonChoosen(), chooser.getColor());
+                System.out.println("?dsd");
+                System.out.println(chooser.getPokemonChoosen().toString());
+                System.out.println("?dsd");
+                selectedPokemon.inicializate(listMovements.getPokemonChoosen(), listMovements.getColor());
+
                 pokemonesescogidosConMoviminetos= listMovements.getMovementsMap();
-                System.out.println("profe " + pokemonesescogidosConMoviminetos);
                 listMovements.resetPokemonChosen();
+                //selectedPokemon.reset();
                 cardLayout.show(panelContenedor,"select pokemon");
-                System.out.println(domain.getTrainers().toString());
                 System.out.println("Se ha seleccionado seguir y se ha resetiado las listas de movimientos");
-                //}
-                //catch(PoobkemonException i){
-                    //J//OptionPane.showMessageDialog(null, i.getMessage());
-                //}
+
             }
         });
         listMovements.getComeButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 listMovements.resetPokemonChosen();
+                selectedPokemon.reset();
                 cardLayout.show(panelContenedor,"chooser");
-                System.out.println("se ha seleccionado ???");
             }
         });
         
@@ -626,6 +624,7 @@ public class POOBkemonGUI extends JFrame {
                 listMovements.resetPokemonChosen();
                 selectedPokemon.reset();
                 cardLayout.show(panelContenedor,"player vs machine");
+                
                 System.out.println("se ha oprimido volver de seleccionar el pokemon inicial y se resetea ese panel y el de lista de movimientos");
             }
         });
@@ -674,9 +673,7 @@ public class POOBkemonGUI extends JFrame {
         }
         public void addPokemonsToTrainer() throws PoobkemonException{
             HashMap<String, ArrayList<String>> lista = pokemonesescogidosConMoviminetos;
-            System.out.println(pokemonesescogidosConMoviminetos + "profeeeeeeeeeeeeeeeeeeeeee");
             for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
-                System.out.println(trainerEscogido + "? "+   entry.getKey());
                 domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
             }
         }
@@ -687,17 +684,7 @@ public class POOBkemonGUI extends JFrame {
             }
             return domain.getTrainer(trainerEscogido).getInventory().getItemsArray();
         }
-/* 
-    private void chooseDifficult(){
-        String [] options = {"Changing Trainer","Expert Trainer","Attacking Trainer","Defensive Trainer"};
-        int seleccion = JOptionPane.showOptionDialog(null, "Choose Machine Difficult", "Selector Difficulty", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        if (seleccion >= 0){
-            JOptionPane.showMessageDialog(null, "Elegiste: " + options[seleccion]);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "No se seleccionó");
-        }
-    }*/
+
 
     
     public static void main(String args []){
