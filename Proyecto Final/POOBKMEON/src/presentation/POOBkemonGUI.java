@@ -145,6 +145,11 @@ public class POOBkemonGUI extends JFrame {
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
 
+        
+        //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
+
+        //panelContenedor.add(Panelpeuw, "prueba");
+
         inicio = inicio();
         panelContenedor.add(inicio,"inicio");
 

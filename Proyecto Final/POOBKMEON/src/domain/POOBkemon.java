@@ -32,6 +32,7 @@ public class POOBkemon implements Serializable{
     }
 
     public void actionCambiar(String pok) throws PoobkemonException{
+        System.out.println(pok + " LLEGO A POOBKEMON CORRECTO?");
         battle.changePokemon(pok);
     }
 
@@ -74,13 +75,19 @@ public class POOBkemon implements Serializable{
         return battle.getOponentPokemonName();
     }
     public int getOponentPokemonLevel(){
-        return battle.getCurrentPokemonLevel();
+        return battle.getOponentPokemonLevel();
     }
     public int getOponentPokemonPs(){
-        return battle.getCurrentPokemonPs();
+        return battle.getOponentPokemonPs();
     }
     public int getOponentPokemonPokedexIndex(){
         return battle.getOponentPokemonPokedexIndex();
+    }
+    public int getcurrentMaxPs(){
+        return battle.getCurrentMaxPs();
+    }
+    public int getOponentMaxPs(){
+        return battle.getOponentMaxPs();
     }
 
     //-------------------------------------------------------------------------------------

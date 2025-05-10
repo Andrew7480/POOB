@@ -53,7 +53,10 @@ public class Pokemon implements Serializable {
     public int getPs(){
         return ps;
     }
-    
+    public int getMaxPs(){
+        return maxPs;
+    }
+
     public int getVelocity(){
         return velocity;
     }
@@ -260,6 +263,7 @@ public class Pokemon implements Serializable {
         //if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
         //statusEffectVerify();
         if (dontHavePPForAllMovement()){actionF(target);}
+        System.out.println(movimiento);
         movimiento.doAttackTo(this, target);
     }
     public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{

@@ -21,42 +21,6 @@ public class Battle implements Serializable {
         isOver = false;
     }
 
-    /* 
-    public void doMovements(){
-        if (turnTrainers.size() == 2){
-            Trainer trainer1 = turnTrainers.get(0);
-            Trainer trainer2 = turnTrainers.get(1);
-
-            Movement mov1 = trainer1.decide(trainer2.getPokemonInUse());
-            Movement mov2 = trainer2.decide(trainer1.getPokemonInUse());
-
-            if (mov1.getPriority() > mov2.getPriority()){
-                performMovements(trainer1, trainer2, mov1, mov2);
-            }
-            else if (mov1.getPriority() == mov2.getPriority()){
-                if (trainer1.getPokemonInUse().getVelocity() > trainer2.getPokemonInUse().getVelocity()){
-                    performMovements(trainer1, trainer2, mov1, mov2);
-                }
-                else{
-                    performMovements(trainer2, trainer1, mov2, mov1);
-                }
-            }
-        }
-
-        checkBattleState();
-    }
-
-    private void performMovements(Trainer first, Trainer second, Movement firstMove, Movement secondMove){
-        try{
-            first.getPokemonInUse().useMovement(firstMove, second.getPokemonInUse());
-
-            if(second.getPokemonInUse().isAlive()){
-                second.getPokemonInUse().useMovement(secondMove,first.getPokemonInUse());
-            }
-        } catch(PoobkemonException e){
-            System.out.println(e.getMessage());
-        }
-    }*/
 
     public void executeMovement(String move) throws PoobkemonException{ 
         Trainer current = getCurrentTrainer();
@@ -66,7 +30,9 @@ public class Battle implements Serializable {
     }
 
     public void changePokemon(String pokemon) throws PoobkemonException{
+        System.out.println("LLEGA BIEN A ENTRENADOR? " + pokemon);
         getCurrentTrainer().changePokemon(pokemon);
+        System.out.println(getCurrentTrainer().getName());
         afterAction();
     }
 
@@ -76,7 +42,7 @@ public class Battle implements Serializable {
     }
 
     public void afterAction(){
-        advanceTurn();
+        //advanceTurn();
         checkBattleState();
     }
 
@@ -137,7 +103,12 @@ public class Battle implements Serializable {
         return getCurrentTrainer().getPokemonInUse().getPs();
     }
     public int getCurrentPokemonPokedexIndex(){
+        System.out.println(getCurrentTrainer().getPokemonInUse().getName() + "SE IMPRIME DOS VECES?");
+        System.out.println(getCurrentTrainer().getPokemonInUse().getPokedexIndex());
         return getCurrentTrainer().getPokemonInUse().getPokedexIndex();
+    }
+    public int getCurrentMaxPs(){
+        return getCurrentTrainer().getPokemonInUse().getMaxPs();
     }
 
     public String getOponentPokemonName(){
@@ -152,6 +123,9 @@ public class Battle implements Serializable {
 
     public int getOponentPokemonPokedexIndex(){
         return getOpponentTrainer().getPokemonInUse().getPokedexIndex();
+    }
+    public int getOponentMaxPs(){
+        return getOpponentTrainer().getPokemonInUse().getMaxPs();
     }
     
     public ArrayList<Trainer> getTurnTrainers(){

@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import domain.Pokemon;
 import domain.PoobkemonException;
+import domain.Trainer;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -205,12 +206,10 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     private void changeImage(){
-        Pokemon po1 = po.pokemones.get(pokemonInicialChosen.get(0));
-        po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
-    }
-
-    public void changeImageMachine(){
-
+        int primero = po.domain.getCurrentPokemonPokedexIndex();
+        int segundo = po.domain.getOponentPokemonPokedexIndex();
+        po.panelBattle.setFirstPokemon(Integer.toString(primero));
+        po.panelBattle.setSecondPokemon(Integer.toString(segundo));
     }
 
     private void createButtons(){
