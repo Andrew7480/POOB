@@ -12,14 +12,16 @@ public abstract class MachineTrainer extends Trainer {
         Random random = new Random();
         int randomIndex = random.nextInt(4);
         if (randomIndex == 0) pokemonMovementDecide(target);
-        if (randomIndex == 1) useItem(null);
+        if (randomIndex == 1) useItem();
         else {
             changePokemon();
         }
     }
 
-    @Override
-    public void changePokemon(Pokemon pokemon) {
+    public void changePokemon(Pokemon pokemon) { //mirar pues
+        changePokemon();
+    }
+    public void changePokemon(String pokemon) {
         changePokemon();
     }
 
@@ -30,13 +32,16 @@ public abstract class MachineTrainer extends Trainer {
         actualPokemon = stillAlive.get(choicesToPick);
     }
 
-    @Override
+    public void useItem(String item) {
+        useItem();
+    }
+
     public void useItem(Item item) {
         useItem();
     }
 
     public void useItem() {
-
+        //falta???????? NOOOOOOOOOOO
     }
 
     @Override

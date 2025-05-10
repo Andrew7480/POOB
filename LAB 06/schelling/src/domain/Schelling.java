@@ -10,6 +10,7 @@ public class Schelling extends Person
      * @param int row
      * @param int column
     */
+
     public Schelling(City city, int row, int column){
         super(city,row,column);
         color = Color.MAGENTA;

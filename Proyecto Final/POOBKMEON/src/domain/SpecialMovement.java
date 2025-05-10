@@ -7,7 +7,7 @@ public class SpecialMovement extends Movement {
     }
 
     public int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException{
-        if (!canMakeMove()) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
+        if (!canMakeMove()) throw new PoobkemonException(PoobkemonException.CANT_DO_THE_MOVE);
         if (Math.random() * 100 > precision) {
             losePP();
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);

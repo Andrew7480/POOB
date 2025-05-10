@@ -173,7 +173,7 @@ public class Pokemon implements Serializable {
 
 
     public void revivedByItem(double recover) throws PoobkemonException{
-        if ( isAlive || usedReviveItem) throw new PoobkemonException(PoobkemonException.ITEM_NOT_USABLE);
+        if ( isAlive || usedReviveItem) throw new PoobkemonException(PoobkemonException.THE_POKEMON_IS_ALIVE_OR_REVIVE_CANT_BE_USE);
         ps = (int) (maxPs*recover);
         isAlive = true;
         usedReviveItem = true;
@@ -233,11 +233,11 @@ public class Pokemon implements Serializable {
     }
 
     public void addEffect(TributeEffect effect) throws PoobkemonException{
-        if(!tributeEffects.contains(effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT);
+        if(!tributeEffects.contains(effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_TRIBUTE_EFFECT);
         tributeEffects.add(effect);
     }
     public void addEffect(StatusEffect effect) throws PoobkemonException{
-        if(!statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT);
+        if(!statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_STATUS_EFFECT);
         statusEffect = effect;
     }
 
@@ -248,13 +248,23 @@ public class Pokemon implements Serializable {
     }
     
     public void useMovement(Movement movimiento, Pokemon target) throws PoobkemonException{
-        if (!isAlive) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
+        if (!isAlive) throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
+        if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.POKEMON_DONT_HAVE_THESE_MOVEMENT);
         //if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
         //statusEffectVerify();
         if (dontHavePPForAllMovement()){actionF(target);}
         movimiento.doAttackTo(this, target);
     }
+    public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{
+        for (Movement m : movements){
+            if(m.getName().equals(movimiento)) {
+                useMovement(m, target);
+                return;
+            }
+        }
+        throw new PoobkemonException(PoobkemonException.MOVEMENT_NOT_FOUND);
+    }
+
     public void statusEffectVerify() throws PoobkemonException{
         if (statusEffect == null) throw new PoobkemonException(PoobkemonException.NOT_STATUS_EFFECT);
         statusEffect.affectPokemon(this);

@@ -137,8 +137,8 @@ public class CityGUI extends JFrame{
             int choice = fileChooser.showOpenDialog(null);
             if (choice == JFileChooser.APPROVE_OPTION){
             File archivo = fileChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(this, "Funcionalidad Abrir en construccion, Archivo seleccionado: "+ archivo.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
-            theCity.importar(archivo);
+            theCity = theCity.importar01(archivo);
+            photo.repaint();
         }
         } catch (CityException e) {
             System.out.println(e.getMessage());
@@ -149,7 +149,6 @@ public class CityGUI extends JFrame{
             int choice = fileChooser.showOpenDialog(null);
             if (choice == JFileChooser.APPROVE_OPTION){
             File archivo = fileChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(this, "Funcionalidad Abrir en construccion, Archivo seleccionado: "+ archivo.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
             theCity.export(archivo);
             }
         }catch(CityException e){
@@ -169,21 +168,26 @@ public class CityGUI extends JFrame{
         CityGUI cg=new CityGUI();
         cg.setVisible(true);
     }
+    //Option new creates a new city
     private void optionNew(){
         theCity = new City();
         photo.repaint();
 
     }
     /*
-     * Do the action of close the window
+     * Do the action of close the window without any confirmation
      */
     private void optionExit(){
+        /*
         int option = JOptionPane.showConfirmDialog(this,"Estas seguro de que quieres salir?",
         "Confirmar salida",JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
             dispose();
             System.exit(0);
         }
+        */
+        dispose();
+        System.exit(0);
         
     }
     /*

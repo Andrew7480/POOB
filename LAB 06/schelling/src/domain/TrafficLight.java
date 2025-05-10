@@ -14,6 +14,7 @@ public class TrafficLight implements Item, Serializable{
    private int row, column;
    private int count = 1;
    public final static char YELLOW='y', RED='r', GREEN='g';
+
    /**
      * Create a new Kind of Item (Traffic Light) in the city
      * @param City city

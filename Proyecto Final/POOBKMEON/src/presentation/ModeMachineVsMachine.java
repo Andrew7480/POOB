@@ -78,8 +78,8 @@ public class ModeMachineVsMachine extends JPanel {
                     return;
                 }
                 try {
-                    po.trainerEscogido = "AI1";
-                    po.trainerEscogidoMachine = gameModeChoosen1.get(0);
+                    //po.trainerEscogido = "AI1";
+                    //po.trainerEscogidoMachine = gameModeChoosen1.get(0);
                     //po.cardLayout.show(po.panelContenedor, "chooser");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(ModeMachineVsMachine.this, ex.getMessage());

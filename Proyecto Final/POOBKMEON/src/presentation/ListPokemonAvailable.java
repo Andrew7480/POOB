@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import domain.Pokemon;
+import domain.PoobkemonException;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -29,12 +30,13 @@ public class ListPokemonAvailable extends JPanel{
         color = new Color(0, 0, 255);
         come = new JButton("Back");
         doneButton = new JButton ("Change");
+        prepareActions();
     }
     public void inicializate(ArrayList<String> pokemons, Color color){
         pokemonsChosenFight = pokemons;
         setColor(color);
         prepareElements();
-        prepareActions();
+       
     }
     private void prepareElements(){
         
@@ -175,7 +177,9 @@ public class ListPokemonAvailable extends JPanel{
             }
         }
         if (trainerPokemon != null) {
-            po.panelBattle.trainer.setPokemonInUse(trainerPokemon);
+            try{
+                po.panelBattle.trainer.setPokemonInUse(trainerPokemon);}
+            catch(PoobkemonException e){System.out.println(e.getMessage());} //aqui tambien
             po.panelBattle.setFirstPokemon(trainerPokemon.getPokedexIndex().toString());
             po.panelBattle.actualizarCreateStatsPanel(trainerPokemon.getName(),
                     trainerPokemon.getLevel(),

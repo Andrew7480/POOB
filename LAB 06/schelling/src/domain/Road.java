@@ -11,6 +11,7 @@ public class Road implements Item, Serializable
 {
    private City city;
    private int row, column;
+
    /**
      * Create a new Kind of Item (Road) in the city
      * @param City city

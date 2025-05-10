@@ -9,6 +9,7 @@ package domain;
  */
 public class Slider extends Person
 {
+
     /**
      * Create a new Kind of person (Slider) in the city
      * @param City city

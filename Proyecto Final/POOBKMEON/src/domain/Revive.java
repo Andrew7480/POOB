@@ -12,7 +12,7 @@ public class Revive extends Item{
     @Override
     public void useItem(Pokemon pokemon) throws PoobkemonException { 
         if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
-        if(pokemon.isAlive() || pokemon.haveUsedReviveItem()) throw new PoobkemonException(PoobkemonException.ITEM_NOT_USABLE);
+        if(pokemon.isAlive() || pokemon.haveUsedReviveItem()) throw new PoobkemonException(PoobkemonException.POKEMON_IS_ALIVE_OR_THE_REVIVED_ITEM_HAS_ALREADY_BEEN_USED);
         pokemon.revivedByItem(recover);
     }
 

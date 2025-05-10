@@ -1,11 +1,15 @@
 package test;
 import domain.*;
 import java.awt.Color;
+import java.beans.Transient;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 /**
  * The test class CTest.
  *
@@ -20,6 +24,156 @@ public class CTest
     public CTest()
     {
     }
+    /*
+        Pruebas de unidad laboratorio 06
+     */
+    @Test
+    public void shouldNotSave(){
+        City city = new City();
+        File archivo = null;
+        try{
+            archivo = File.createTempFile("pruebaNotOpen",".randomtxt");
+            File finalArchivo = archivo;
+            finalArchivo.setReadOnly();
+            assertThrows(CityException.class, () -> city.save(finalArchivo));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotOpen(){
+        City city = new City();
+        File archivo = null;
+        try{
+            archivo = File.createTempFile("pruebaNoAbre",".dat");
+            File finalArchivo = archivo;
+            finalArchivo.setReadable(false);
+            assertThrows(CityException.class, () -> city.open(finalArchivo));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shoudlNotExport02(){
+        City city = new City();
+        File archivo = new File("C:\\hola.exe2?");
+        assertThrows(CityException.class, () -> city.export02(archivo));
+    }
+
+    @Test
+    public void shouldNotImport02(){
+        City city = new City();
+        File archivo = new File("C:\\hola.juan2?");
+        assertThrows(CityException.class, () -> city.importar02(archivo));
+    }
+
+    @Test
+    public void shoudlNotExport03(){
+        City city = new City();
+        File archivo = new File("C:\\hola.exe2?");
+        assertThrows(CityException.class, () -> city.export03(archivo));
+    }
+
+    @Test
+    public void shouldNotImport03(){
+        City city = new City();
+        File archivo = new File("C:\\hola.juan3?");
+        assertThrows(CityException.class, () -> city.importar03(archivo));
+    }
+
+
+
+    @Test
+    public void shouldExportAFile(){
+        City city = new City();
+        File archivo = null;
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        try{
+            archivo = File.createTempFile("pruebaExportar",".txt");
+            city.export01(archivo);
+            assertTrue(archivo.exists());
+        } catch (IOException e) {
+            e.getMessage();
+        } catch (CityException e) {
+            e.getMessage();
+        }
+    }
+
+    @Test
+    public void shouldImportAFile(){
+        City city = new City();
+        File archivo = null;
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        try{
+            archivo = File.createTempFile("pruebaExportar",".txt");
+            city.export01(archivo);
+            City city2 = city.importar01(archivo);
+            assertFalse(city2.isEmpty(0,0));
+            //Cuando nosotros importamos estamos reconociendo todo tipo de objetos definidos inicialmente
+            //entonces solo colocamos un objeto donde no haya nada es decir null
+        } catch (IOException e) {
+            e.getMessage();
+        } catch (CityException e) {
+            e.getMessage();
+        }
+    }
+
+
+
+    @Test
+    public void shouldSaveANewCity(){
+        City city = new City();
+        File archivo = null;
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        try {
+            archivo = File.createTempFile("prueba",".dat");
+            city.save01(archivo);
+            assertTrue(archivo.exists());
+        }catch (CityException e){
+            e.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    public void shouldOpenAFileWithANewCity(){
+        City city = new City();
+        File archivo = null;
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        city.ticTac();
+        try {
+            archivo = File.createTempFile("prueba",".dat");
+            city.save01(archivo);
+            City city2 = city.open01(archivo);
+            assertFalse(city2.isEmpty(3,4));
+            //Tras crear una ciudad y hacer cuatro tic tacs se observa que en la posicion
+            // [3,4] hay un objeto entonces no puede estar vacio.
+        }catch (CityException e){
+            e.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Test
     public void shouldBeCreateAWalker(){
         City city = new City();

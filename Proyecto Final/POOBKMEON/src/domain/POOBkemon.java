@@ -14,105 +14,44 @@ public class POOBkemon implements Serializable{
     private TreeMap<String, Item> items = new TreeMap<>(); //los items necsrios
     private TreeMap<String, Movement> movements = new TreeMap<>(); //movimientos predefinidos qu epuede escoger el usuario
 
-    //turno actual
-    private Trainer turn;
-    //son los que estan en la batalla
-    private Trainer trainerTurn1;
-    private Trainer trainerTurn2;
+    private Battle battle;
+    public POOBkemon() {}
 
 
-    public POOBkemon() {
-    }
-
-
-    public void iniciarJuego(String jugabilidad){  // ya existen pokemones, items, movimientos y estados y/o ytaines defectos
-        ///leer el archivo de juego
-        /// 
-        //while hastya que los todos pokemones de alguno mueran
-    }
     public TreeMap<String, Pokemon> getPokemons(){
         return pokedex;
     }
     public TreeMap<String, Movement> getMovements(){
         return movements;
     }
-    public void actionOrderPM(Movement mov){
-        Movement mov1 = turn.decide(trainerTurn2.getPokemonInUse());
-    }
-
-    public void actionOrderMM(){
-        Movement mov1 = trainerTurn1.decide(trainerTurn2.getPokemonInUse());
-        Movement mov2 = trainerTurn2.decide(trainerTurn1.getPokemonInUse());
-        if (mov1.getPriority() > mov2.getPriority()) {
-            movementPerfomrmed(trainerTurn1, trainerTurn2, mov1, mov2);
-        } 
-        else if (mov1.getPriority() == mov2.getPriority()) {
-            if (trainerTurn1.getPokemonInUse().getVelocity() > trainerTurn2.getPokemonInUse().getVelocity()) {
-                movementPerfomrmed(trainerTurn1, trainerTurn2, mov1, mov2);
-            } else {
-                movementPerfomrmed(trainerTurn2, trainerTurn1, mov2, mov1);
-            }
-        }
-    }
-
-    public void setTrainerTurns(Trainer trainer1, Trainer trainer2){
-        trainerTurn1 = trainer1;
-        trainerTurn2 = trainer2;
-        turn = trainer1;
-    }
-
-    public void movementPerfomrmed(Trainer one, Trainer two, Movement movement1, Movement movement2 ){
-        try{
-            one.getPokemonInUse().useMovement(movement1, two.getPokemonInUse());
-        }
-        catch(PoobkemonException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            two.getPokemonInUse().useMovement(movement2, one.getPokemonInUse());
-        }
-        catch(PoobkemonException e){
-            System.out.println(e.getMessage());
-        }
-    }
+    //-------------------------------------------------------------------------------------
     
-    public void movementPerformed(Movement mov, Pokemon target) throws PoobkemonException{
-        turn.pokemonMovement(mov,target);
-        turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
+    
+    public void movementPerformed(String mov) throws PoobkemonException{
+        battle.executeMovement(mov);
     }
 
-    public void actiontrainerTurnoDelTrainerCambiar(Pokemon pok) throws PoobkemonException{
-        turn.changePokemon(pok);
-        turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
+    public void actionCambiar(String pok) throws PoobkemonException{
+        battle.changePokemon(pok);
     }
-    public void actiontrainerTurnoInventario(Item item) throws PoobkemonException{
-        turn.useItem(item);
-        turn = (turn.equals(trainerTurn1)) ? trainerTurn2 : trainerTurn1;
+
+    public void actionuseItem(String item) throws PoobkemonException{
+        battle.useItem(item);
     }
     public void actuinHuir() throws PoobkemonException{
-        //reset o metodo acabar batalla, que seria guardar los estados del pokemon items etc?
+        battle.huir();
+        //o resetiar batalla  battle = null para luego crear la nueva
     }
-
-    public boolean GameIsOVer(){
-        return (trainerTurn1.canStillFighting() && trainerTurn2.canStillFighting());
-    }
-
-
-    public TreeMap<String, Item> getItems() {
-        return items;
-    }
-    public void addItem(Item  item){
-        items.put(item.getName(),item);
-    }
-    public void addMovement(Movement mov) throws PoobkemonException{
-        if (movements.containsValue(mov)) throw new PoobkemonException(PoobkemonException.INVALID_MOVEMENT);
-        movements.put(mov.getName(), mov);
-    }
-
-    public void addTrainerPlayerVsMachine(String name, Color color,String gamemode) throws PoobkemonException{
-        if (entrenadores.containsKey(name)) throw new PoobkemonException(PoobkemonException.TRAINER_EXIST);
-        entrenadores.put(name, new PlayerTrainer(name,color));
-
+    
+    public void inicializateBattle(String player1, String player2){ //mirar pues
+        Trainer trainer1 = entrenadores.get(player1);
+        Trainer trainer2 = entrenadores.get(player2);
+        battle = new Battle(trainer1, trainer2);
+        
+        /* 
+        String gamemode = "";
+        Color color = new Color(0);
+        
         if (!entrenadores.containsKey(gamemode)) {
             if (gamemode.equalsIgnoreCase("expert")) {
                 entrenadores.put(gamemode, new ExpertTrainer(gamemode,color));
@@ -123,12 +62,28 @@ public class POOBkemon implements Serializable{
             } else {
                 entrenadores.put(gamemode, new PlayerTrainer(gamemode,color));
             }
-        }
-        turn = entrenadores.get(name);
-        trainerTurn1 = entrenadores.get(name);
-        trainerTurn2 = entrenadores.get(gamemode);
+        }*/
     }
 
+    //-------------------------------------------------------------------------------------
+    public void addNewTrainer(String name, Color color) throws PoobkemonException{
+        if (entrenadores.containsKey(name)) throw new PoobkemonException(PoobkemonException.TRAINER_EXIST);
+        entrenadores.put(name, new PlayerTrainer(name,color));
+    }
+
+    public boolean GameIsOVer(){
+        return battle.isOver();
+    }
+    public TreeMap<String, Item> getItems() {
+        return items;
+    }
+    public void addItem(Item  item){
+        items.put(item.getName(),item);
+    }
+    public void addMovement(Movement mov) throws PoobkemonException{
+        if (movements.containsValue(mov)) throw new PoobkemonException(PoobkemonException.MOVEMENT_ALREADY_EXIST);
+        movements.put(mov.getName(), mov);
+    }
     public void addPokemon(Pokemon pokemon) {
         pokedex.put(pokemon.getName(), pokemon);
     }

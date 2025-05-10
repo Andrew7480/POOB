@@ -10,6 +10,7 @@ import java.awt.Color;
  */
 public class Walker extends Person
 {
+
     /**
      * Create a new Kind of person (Walker) in the city
      * @param City city

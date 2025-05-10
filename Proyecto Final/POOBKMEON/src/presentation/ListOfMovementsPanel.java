@@ -189,6 +189,7 @@ public class ListOfMovementsPanel extends JPanel{
         System.out.println("resetea todo de los movimientos");
         centralPanel.removeAll();
         movimientosSeleccionados.clear();
+        chosenPok.clear();
         revalidate();
         repaint();
     }

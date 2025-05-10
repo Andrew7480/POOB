@@ -361,7 +361,7 @@ public class SelectionPokemon extends JPanel{
             return;
         }
 
-            pooBkemonGUI.itemsEscogidos = getItemsChoosen();
+            pooBkemonGUI.playerVsMachinePanel.itemsEscogidos = getItemsChoosen();
 
             pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
 

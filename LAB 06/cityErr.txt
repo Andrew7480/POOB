@@ -1,0 +1,5 @@
+Person 10 10
+Road 3 x
+Andres 5 10
+TrafficLight 25 25
+Person 15 h

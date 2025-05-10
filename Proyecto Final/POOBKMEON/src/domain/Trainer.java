@@ -42,14 +42,23 @@ public abstract class Trainer implements Serializable{
         return inventory.canStillFighting();
     }
 
-    public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException{
+    public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException{ //ya no se necesita?
         actualPokemon.useMovement(mov, target);
     }
+    
+    public void pokemonMovement(String mov, Pokemon target) throws PoobkemonException{
+        actualPokemon.useMovement(mov, target);
+    }
+
+
     //public abstract Movement getMovementTodo();
+    public abstract void changePokemon(String newPokemon) throws PoobkemonException;
 
     public abstract void changePokemon(Pokemon newPokemon) throws PoobkemonException;
     
     public abstract void useItem(Item item) throws PoobkemonException;
+
+    public abstract void useItem(String item) throws PoobkemonException;
     
     public abstract Movement decide(Pokemon pok);
 
@@ -72,9 +81,15 @@ public abstract class Trainer implements Serializable{
         inventory = newInventory;
     }
 
-    public void setPokemonInUse(Pokemon pokemonNew){
-        if (pokemonNew != null && pokemonNew.isAlive()){
-            actualPokemon = pokemonNew;
-        }
+    public void setPokemonInUse(Pokemon pokemonNew) throws PoobkemonException{
+        if(! pokemonNew.isAlive())throw new PoobkemonException(PoobkemonException.CANT_CHANGE_POKEMON);
+        actualPokemon = pokemonNew;//actualPokemon == null &&        
+    }
+    public void setPokemonInUse(String pokemonNew) throws PoobkemonException{
+        System.out.println(getPokemonByName(pokemonNew).getName());
+        setPokemonInUse(getPokemonByName(pokemonNew));
+    }
+    public Pokemon getPokemonByName(String name) throws PoobkemonException{
+        return inventory.getPokemonByName(name);
     }
 }

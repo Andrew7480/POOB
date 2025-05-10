@@ -55,6 +55,8 @@ public class BattlePanel extends JPanel {
     private ArrayList<Pokemon> pokemonListTrainer;
     private ArrayList<Pokemon> pokemonListTrainerMachine;
 
+    private ArrayList<String> trainersInBattle;
+
 
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
@@ -72,16 +74,17 @@ public class BattlePanel extends JPanel {
         }
         
         prepareElements();
-        
         initializeTimer();
-
-
     }
 
     public void inicializate(String trainerName, String trainerNameMachine, String pokemonInicial){
         trainer = po.domain.getTrainers().get(trainerName);
         trainerMachine = po.domain.getTrainers().get(trainerNameMachine);
-        trainer.setPokemonInUse(trainer.getInventory().getPokemons().get(pokemonInicial));
+        
+        try{
+            trainer.setPokemonInUse(trainer.getInventory().getPokemons().get(pokemonInicial));
+            //po.domain.
+        }catch(PoobkemonException e){System.out.println(e.getMessage());}
         trainerMachine.inicialPokemon("professor");
         playerStatsPanel = createStatsPanel(trainer.getPokemonInUse().getName(), trainer.getPokemonInUse().getLevel(),trainer.getPokemonInUse().getPs(), true);
         opponentStatsPanel = createStatsPanel(trainerMachine.getPokemonInUse().getName(),trainerMachine.getPokemonInUse().getLevel(), trainerMachine.getPokemonInUse().getPs(), false);

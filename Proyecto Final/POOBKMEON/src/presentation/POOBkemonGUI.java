@@ -40,10 +40,6 @@ public class POOBkemonGUI extends JFrame {
     protected TreeMap<String,Pokemon> pokemones;
     protected TreeMap<String, Movement> movimientos;
 
-    protected String trainerEscogido;
-    protected String trainerEscogidoMachine;
-    protected HashMap<String, ArrayList<String>> pokemonesescogidosConMoviminetos;
-    protected ArrayList<String> itemsEscogidos;
 
     /**
      * Constructor of POOBkemon
@@ -597,11 +593,12 @@ public class POOBkemonGUI extends JFrame {
                     return;
                 }
                 System.out.println("?dsd");
-                System.out.println(chooser.getPokemonChoosen().toString());
+                System.out.println(listMovements.getPokemonChoosen().toString());
+                System.out.println(listMovements.getPokemonChoosen().toString());
                 System.out.println("?dsd");
                 selectedPokemon.inicializate(listMovements.getPokemonChoosen(), listMovements.getColor());
 
-                pokemonesescogidosConMoviminetos= listMovements.getMovementsMap();
+                playerVsMachinePanel.pokemonsWithMovs= listMovements.getMovementsMap();
                 listMovements.resetPokemonChosen();
                 //selectedPokemon.reset();
                 cardLayout.show(panelContenedor,"select pokemon");
@@ -628,62 +625,36 @@ public class POOBkemonGUI extends JFrame {
                 System.out.println("se ha oprimido volver de seleccionar el pokemon inicial y se resetea ese panel y el de lista de movimientos");
             }
         });
-        /*
-        selectedPokemon.getDoneButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                if (!selectedPokemon.isOneOption()){
-                    JOptionPane.showMessageDialog(null, "Solo se puede escoger 1 pokemon incial");
-                    return;
-                }
-                selectedPokemon.getPokemonChoosed(); //pokemon que escogio
-                System.out.println(selectedPokemon.getPokemonChoosed());
-                listMovements.resetPokemonChosen();
-                selectedPokemon.reset();
-                cardLayout.show(panelContenedor,"battle");
-                System.out.println("Se ha seleccionado un solo pokemon y se va a batalla. Se resetea la seleccion del pokemon principal");
-            }
-        });
-        /* 
-        potionsSelection.getButtonBack().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                potionsSelection.reset();
-                cardLayout.show(panelContenedor,"player vs machine");
-                System.out.println("se ha oprimido volver de pitions y se ha resetiado, vuelve a playervsmachine");
-            }
-        });
-        */
-
         }
-        public void createTrainer(Color color){
+
+/////////////////////////////////////////////////////////////////////////////////////////
+        public void createTrainer(String trainerEscogido ,Color color){
             try{
                 if (trainerEscogido == null) {
                     JOptionPane.showMessageDialog(null, "Error: Player trainer name not set");
                     return;
                 }
-                if (trainerEscogidoMachine == null) {
-                    JOptionPane.showMessageDialog(null, "Error: Machine trainer type not set");
-                    return;
-                }
-                domain.addTrainerPlayerVsMachine(trainerEscogido,color,trainerEscogidoMachine);
+                domain.addNewTrainer(trainerEscogido,color);
             }catch(PoobkemonException e){
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-        public void addPokemonsToTrainer() throws PoobkemonException{
-            HashMap<String, ArrayList<String>> lista = pokemonesescogidosConMoviminetos;
+
+        public void addPokemonsToTrainer(String trainerEscogido,HashMap<String, ArrayList<String>> pokemonsWithAll) throws PoobkemonException{
+            HashMap<String, ArrayList<String>> lista = pokemonsWithAll;
             for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
                 domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
             }
         }
-        public ArrayList<String> addItemsToTrainer() throws PoobkemonException{
-            ArrayList<String> items= itemsEscogidos;
+
+        public ArrayList<String> addItemsToTrainer(String trainerEscogido,ArrayList<String> itemsEscogidos) throws PoobkemonException{
+            ArrayList<String> items = itemsEscogidos;
             for (String i:items){
                 domain.getTrainer(trainerEscogido).getInventory().addItem(domain.getItems().get(i));
             }
             return domain.getTrainer(trainerEscogido).getInventory().getItemsArray();
         }
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
     

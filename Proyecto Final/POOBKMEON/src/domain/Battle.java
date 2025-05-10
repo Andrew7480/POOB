@@ -21,6 +21,7 @@ public class Battle implements Serializable {
         isOver = false;
     }
 
+    /* 
     public void doMovements(){
         if (turnTrainers.size() == 2){
             Trainer trainer1 = turnTrainers.get(0);
@@ -55,38 +56,35 @@ public class Battle implements Serializable {
         } catch(PoobkemonException e){
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
-    public void executeMovement(Movement move){
+    public void executeMovement(String move) throws PoobkemonException{ 
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
-        try {
-            current.getPokemonInUse().useMovement(move, opponent.getPokemonInUse());
-            advanceTurn();
-            checkBattleState();
-        } catch (PoobkemonException e) {
-            System.out.println(e.getMessage());
-        }
+        current.pokemonMovement(move, opponent.getPokemonInUse());
+        afterAction();
     }
 
-    public void changePokemon(Pokemon pokemon) throws PoobkemonException{
+    public void changePokemon(String pokemon) throws PoobkemonException{
         getCurrentTrainer().changePokemon(pokemon);
-
-        advanceTurn();
-        checkBattleState();
+        afterAction();
     }
 
-    public void useItem(Item item) throws PoobkemonException{
+    public void useItem(String item) throws PoobkemonException{
         getCurrentTrainer().useItem(item);
+        afterAction();
+    }
+
+    public void afterAction(){
         advanceTurn();
         checkBattleState();
     }
 
-    public void advanceTurn(){
+    private void advanceTurn(){
         turnIndex = (turnIndex + 1) % turnTrainers.size();
     }
 
-    public void setTurn(Trainer trainer){
+    private void setTurn(Trainer trainer){
         int index = turnTrainers.indexOf(trainer);
         if (index != -1){
             turnIndex = index;
@@ -96,8 +94,11 @@ public class Battle implements Serializable {
     public void resetTurn(){
         turnIndex = 0;
     }
+    public void huir(){
+        //
+    }
 
-    private void checkBattleState(){
+    private void checkBattleState(){  //no extensible??
         if (turnTrainers.size() == 2){
             Trainer trainer1 = turnTrainers.get(0);
             Trainer trainer2 = turnTrainers.get(1);
@@ -123,7 +124,7 @@ public class Battle implements Serializable {
         return turnTrainers.get(turnIndex);
     }
 
-    public int getTurnIndex(){
+    private int getTurnIndex(){
         return turnIndex;
     }
 
@@ -135,7 +136,7 @@ public class Battle implements Serializable {
         return turnTrainers.get((turnIndex + 1) % turnTrainers.size());
     }
 
-    public boolean coinToss(){
+    public boolean coinToss(){ //extensiblr??
         boolean result = random.nextBoolean();
         String coinside = result ? "Cara" : "Cruz";
 
@@ -145,6 +146,6 @@ public class Battle implements Serializable {
                     " - Comienza " + turnTrainers.get(turnIndex).getName());
         }
 
-        return result;
+        return result; // Organizar arreglo dependiendo el resultado
     }
 }

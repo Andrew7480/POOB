@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 public class PanelSelectedPokemon extends JPanel{
     private String backgroundImage = "emerald";
     private ArrayList<String> pokemonsChosenFight;
+    private ArrayList<String> pokemonInicialChosen;
     private ArrayList<JButton> buttons;
     private JPanel panelScroll;
     private JButton doneButton;
@@ -35,26 +36,33 @@ public class PanelSelectedPokemon extends JPanel{
 
     public PanelSelectedPokemon(POOBkemonGUI newPo){
         po = newPo;
-        color = new Color(0, 0, 255);
-        come = new JButton("BACK");
-        doneButton = new JButton ("Selecciona tu pokemon inicial");
-        pokemonsChosenFight= new ArrayList<>();
-        setLayout(new BorderLayout());
-        setOpaque(false);
-
-    }
-
-    public void inicializate(ArrayList<String> pokemons, Color color){
-        pokemonsChosenFight = pokemons;
-        System.out.println(pokemonsChosenFight.toString());
-        setColor(color);
+        
         prepareElements();
         prepareActions();
     }
     private void prepareElements(){
-    
-        po.styleButton(come);
+        color = new Color(0, 0, 255);
+        come = new JButton("BACK");
+        doneButton = new JButton ("Selecciona tu pokemon inicial");
+        pokemonsChosenFight= new ArrayList<>();
+        pokemonInicialChosen = new ArrayList<>();
+        setLayout(new BorderLayout());
+        setOpaque(false);
         buttons = new ArrayList<>();
+    }
+
+    public void inicializate(ArrayList<String> pokemons, Color color){
+        System.out.println("lets see");
+        System.out.println(pokemonsChosenFight.toString());
+        pokemonsChosenFight = pokemons;
+        System.out.println(pokemonsChosenFight.toString());
+        setColor(color);
+        prepareElementsToStart();
+    }
+
+    private void prepareElementsToStart(){
+        po.styleButton(come);
+        
 
         upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
@@ -148,40 +156,37 @@ public class PanelSelectedPokemon extends JPanel{
         panelScroll.setBackground(Color.BLUE);
 
         centro.add(scrollContainer, BorderLayout.CENTER); //tal vez por eso se demora en clock?
-        add(scrollContainer, BorderLayout.CENTER);
+        add(centro, BorderLayout.CENTER);
 
         createButtons();
     }
 
     private void prepareActions(){
         doneButton.addActionListener(e ->{
-            if (sizeChoosen() < 1){
+            if (sizeChosenPokemon() < 1){
                 JOptionPane.showMessageDialog(this, "Debes escoger " + MAX_CHANGED + "pokemon para iniciar la batalla", 
                 "Límite excedido", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (sizeChoosen() > MAX_CHANGED){
+            if (sizeChosenPokemon() > MAX_CHANGED){
                 JOptionPane.showMessageDialog(this, "Solo puedes escoger uno para cambiar " + MAX_CHANGED + "pokemon", 
                 "Límite excedido", JOptionPane.WARNING_MESSAGE);
 
                 return;
             }
-            if (sizeChoosen() == 1){
-                changeImage();
-            }
-        
+        changeImage();    
         System.out.println(po.domain.getTrainers().toString());
         
-        po.createTrainer(color);
-        try{po.addPokemonsToTrainer();
+        po.createTrainer(po.playerVsMachinePanel.trainerEscogido,color);
+        try{
+            po.addPokemonsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.pokemonsWithMovs);
             System.out.println(po.domain.getTrainers());
-            po.addItemsToTrainer();
+            po.addItemsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.itemsEscogidos);
         }
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
         }
-        
-        po.panelBattle.inicializate(po.trainerEscogido,po.trainerEscogidoMachine,pokemonsChosenFight.get(0));
+        po.panelBattle.inicializate(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.trainerEscogidoMachine,pokemonInicialChosen.get(0));
         po.cardLayout.show(po.panelContenedor,"battle");
         reset();
         });
@@ -190,9 +195,12 @@ public class PanelSelectedPokemon extends JPanel{
     public int sizeChoosen(){
         return pokemonsChosenFight.size();
     }
+    public int sizeChosenPokemon(){
+        return pokemonInicialChosen.size();
+    }
 
     private void changeImage(){
-        Pokemon po1 = po.pokemones.get(pokemonsChosenFight.get(0));
+        Pokemon po1 = po.pokemones.get(pokemonInicialChosen.get(0));
         po.panelBattle.setFirstPokemon(po1.getPokedexIndex().toString());
     }
 
@@ -201,14 +209,14 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     private void createButtons(){
-        System.err.println(pokemonsChosenFight.toString());
         for (String pokemonSelected : pokemonsChosenFight){
             Pokemon po1 = po.pokemones.get(pokemonSelected);
             String nombre = po1.getName();
             String ruta = po1.getPokedexIndex().toString() + ".png";
             JButton button = createImageButton(nombre,ruta);
             buttons.add(button);
-            button.addActionListener(e -> selectionPokemons(button));
+            button.addActionListener(e -> 
+            selectionPokemons(button));
             panelScroll.add(button); 
         }
     }
@@ -255,41 +263,46 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     private void selectionPokemons(JButton button){
-        if (pokemonsChosenFight.contains(button.getToolTipText()) ) {
+        
+        if (pokemonInicialChosen.contains(button.getToolTipText()) ) {
             button.setBackground(null);
             button.setOpaque(false);
-            pokemonsChosenFight.remove(button.getToolTipText());
+            pokemonInicialChosen.remove(button.getToolTipText());
         }
         else{
             button.setBackground(Color.GREEN);
             button.setOpaque(true);
-            pokemonsChosenFight.add(button.getToolTipText());
+            pokemonInicialChosen.add(button.getToolTipText());
         }
+        System.out.println(pokemonInicialChosen.toString());
     }
 
     public JButton getBackButton(){
         return come;
     }
     public String getPokemonChoosed(){
-        return pokemonsChosenFight.get(0);
+        return pokemonInicialChosen.get(0);
     }
 
     public JButton getDoneButton(){
         return doneButton;
     }
     public boolean isOneOption(){
-        return pokemonsChosenFight.size() ==1;
+        return pokemonInicialChosen.size() ==1;
     }
+
     public void reset(){
         System.out.println("reset panel de seleccion inicial");
         pokemonsChosenFight.clear();
         pokemonsChosenFight = new ArrayList<>();
+        pokemonInicialChosen = new ArrayList<>();
         for (JButton button : buttons){
         button.setBackground(null);
         button.setOpaque(false);
         }
         buttons = new  ArrayList<>();
         removeAll();
+        
         revalidate(); 
         repaint();
     }

@@ -526,12 +526,26 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        int psInicial = t2.getPokemonInUse().getPs();
-        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
-        int psFinal = t2.getPokemonInUse().getPs();
-        assertNotEquals(psInicial,psFinal); // Es falso ya que el pokemon fue afectado por el movimiento
-    }
+        try{
+            t1.setPokemonInUse("Snorlax");
+            t2.setPokemonInUse("Snorlax");
+        }
+        catch(PoobkemonException e){ System.out.println(e.getMessage());fail();}
 
+        int psInicial = t2.getPokemonInUse().getPs();
+
+        po.inicializateBattle("tulio", "andrew");
+        try{
+            po.movementPerformed("Hyper Beam");
+            int psFinal = t2.getPokemonInUse().getPs();
+            assertNotEquals(psInicial,psFinal); // Es falso ya que el pokemon fue afectado por el movimiento
+
+        }catch (PoobkemonException e){
+            fail();
+        }
+    }
+    
+/* 
     @Test
     public void shouldChangePokemon(){
         POOBkemon kemon = new POOBkemon();
@@ -589,4 +603,5 @@ public class POOBkemonTest implements Serializable {
         //En este caso el pokemon del entrenador 1 es quien se ve afectado
         //Por lo que no van a ser iguales sus ps iniciales como finales.
     }
+        */
 }

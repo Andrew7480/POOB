@@ -89,7 +89,7 @@ public class ModePlayerVSPlayer extends JPanel {
                         JOptionPane.showMessageDialog(ModePlayerVSPlayer.this,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                     }
 
-                    po.trainerEscogido = player1Name;
+                    //po.trainerEscogido = player1Name;
 
                     po.cardLayout.show(po.panelContenedor, "chooser");
                 } catch (Exception ex) {

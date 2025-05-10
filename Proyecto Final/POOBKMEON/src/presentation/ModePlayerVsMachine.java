@@ -8,9 +8,6 @@ import domain.PoobkemonException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.*;
 public class ModePlayerVsMachine extends JPanel {
     private String backgroundImage = "fondoAnimado2";
@@ -34,6 +31,11 @@ public class ModePlayerVsMachine extends JPanel {
     private TreeMap<String,String> gameModes; 
     private ArrayList<JButton> buttons;
     private int indexPath=0;
+
+    protected String trainerEscogido;
+    protected String trainerEscogidoMachine;
+    protected HashMap<String, ArrayList<String>> pokemonsWithMovs;
+    protected ArrayList<String> itemsEscogidos;
 
 
     public ModePlayerVsMachine(POOBkemonGUI newPo){
@@ -240,8 +242,8 @@ public class ModePlayerVsMachine extends JPanel {
             return;
         }
         try{
-            po.trainerEscogido = po.domain.isTrainerIsed(playerName);
-            po.trainerEscogidoMachine = gamemodeChoosen.get(0);
+            trainerEscogido = po.domain.isTrainerIsed(playerName);
+            trainerEscogidoMachine = gamemodeChoosen.get(0);
 
             po.chooser.setTrainer(playerName);
             po.chooser.reset(); 

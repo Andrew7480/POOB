@@ -1,0 +1,5 @@
+Person 15 h
+Person 10 10
+Road 3 x
+Andres 5 tulio
+Semaforo j 25
