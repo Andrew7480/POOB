@@ -91,7 +91,14 @@ public class Pokemon implements Serializable {
     public ArrayList<Movement> getMovements(){
         return movements;
     }
-    
+    public ArrayList<String> getMovementsString(){
+        ArrayList<String> movementNames = new ArrayList<>();
+        for (Movement movement : movements) {
+            movementNames.add(movement.getName());
+        }
+        return movementNames;
+    }
+
     public ArrayList<TributeEffect> getTributeEffects(){
         return tributeEffects;
     }
@@ -283,15 +290,22 @@ public class Pokemon implements Serializable {
         return temp;
     }
 
-    public ArrayList<Movement> specialsMovements(){
+    /*public ArrayList<Movement> specialsMovements(){
         ArrayList<Movement> temp = new ArrayList<>();
         for(Movement m: movements){
-            if (m.canMakeMove() && m.getClass().getName().equals("SpecialMovement")){
+            if (m.canMakeMove() && m.getClass().getSimpleName().equals("SpecialMovement")){
                 temp.add(m);
             }
         }
         return temp;
+    }*/
+
+   public void limitOfTime(){
+    for (Movement move: movements){
+        move.limitOfTime();
     }
+   }
+
 
     public Movement aleatoryMovement(Pokemon target){
         ArrayList<Movement> temp = movementsUsables();
@@ -301,13 +315,6 @@ public class Pokemon implements Serializable {
         return aleatoryMovement;
     }
 
-
-    public void limitOfTime(){ //cuando no hace algo en 20 s
-        for(Movement m: specialsMovements()){
-            try{m.losePP();}
-            catch(PoobkemonException e){}
-        }
-    }
 
     public boolean dontHavePPForAllMovement(){
         for (Movement m : movements){
@@ -325,7 +332,7 @@ public class Pokemon implements Serializable {
         return equals((Pokemon) ob);
     }
 
-    public boolean equals(Pokemon pokemon){
+    public boolean equals(Pokemon pokemon){  //mirar caso null
         return name.equals(pokemon.getName()) &&
            level == pokemon.getLevel() &&
            ps == pokemon.getPs() &&

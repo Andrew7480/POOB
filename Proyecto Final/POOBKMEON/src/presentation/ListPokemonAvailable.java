@@ -25,6 +25,7 @@ public class ListPokemonAvailable extends JPanel{
     private JLabel texto;
     private JButton come;
     private int MAX_CHANGED = 1;
+
     public ListPokemonAvailable(POOBkemonGUI newPo){
         po = newPo;
         color = new Color(0, 0, 255);
@@ -169,27 +170,16 @@ public class ListPokemonAvailable extends JPanel{
 
     private void changeImage() {
         String pokemonName = pokemonsChosenFight.get(0);
-        Pokemon trainerPokemon = null;
-        for (Pokemon p : po.panelBattle.trainer.getInventory().getPokemons().values()) {
-            if (p.getName().equals(pokemonName)) {
-                trainerPokemon = p;
-                break;
-            }
-        }
-        if (trainerPokemon != null) {
-            try{
-                po.panelBattle.trainer.setPokemonInUse(trainerPokemon);}
-            catch(PoobkemonException e){System.out.println(e.getMessage());} //aqui tambien
-            po.panelBattle.setFirstPokemon(trainerPokemon.getPokedexIndex().toString());
-            po.panelBattle.actualizarCreateStatsPanel(trainerPokemon.getName(),
-                    trainerPokemon.getLevel(),
-                    trainerPokemon.getPs(),
-                    true);
-            po.panelBattle.removeMovement();
-            po.panelBattle.prepareMovementButtons();
-        } else {
-            System.err.println("ERROR NO SE ACTUALIZAN LOS MOVIMIENTOS DE:  " + pokemonName);
-        }
+        try{po.domain.actionCambiar(pokemonName);}
+        catch(PoobkemonException e){System.out.println(e.getMessage());}
+
+
+        po.panelBattle.setFirstPokemon(String.valueOf(po.domain.getCurrentPokemonPokedexIndex()));
+
+        po.panelBattle.actualizarCreateStatsPanel(true);
+
+        po.panelBattle.removeMovement();
+        po.panelBattle.prepareMovementButtons();
     }
 
     private void createButtons(){

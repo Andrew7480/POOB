@@ -14,13 +14,10 @@ public class ModePlayerVSPlayer extends JPanel {
     private POOBkemonGUI po;
 
     private JColorChooser colorChooser;
-    private Color colorChosed;
     private Color colorChosedPlayer1;
     private Color colorChosedPlayer2;
 
     private JPanel chooseDifficulty;
-    private JPanel nameInputPanel;
-
 
     private JButton player1;
     private JButton player2;
@@ -30,47 +27,46 @@ public class ModePlayerVSPlayer extends JPanel {
 
     private JTextField player1NameField;
     private JTextField player2NameField;
-    private JLabel player1nameLabel;
-    private JLabel player2nameLabel;
-    private String player1Name ="";
-    private String player2Name ="";
+    private String player1Name = "";
+    private String player2Name = "";
 
     public ModePlayerVSPlayer(POOBkemonGUI newPo, boolean normal){
         po = newPo;
+        chooserColorPlayer1 = new JButton("Choose Color");
+        chooserColorPlayer2 = new JButton("Choose Color");
         prepareElements(normal);
         prepareActions();
     }
+    
     private void prepareElements(boolean normal){
         setLayout(new BorderLayout());
         colorChooser = new JColorChooser();
         paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png"};
-        setupNameInputPanel();
+        
         prepareButtons(normal);
+        playerPanel();
     }
 
     private void prepareButtons(boolean normal){
         JButton regresar = new JButton("Back");
         continuar = new JButton("CONTINUE");
-        chooserColorPlayer1 = new JButton("Choose Color");
-        chooserColorPlayer2 = new JButton("Choose Color");
         po.styleButton(continuar);
         po.styleButton(regresar);
         po.styleButton(chooserColorPlayer1);
         po.styleButton(chooserColorPlayer2);
+        
         if(normal){
             btnRegresarNormal = regresar;
-        }
-        else{
+        } else {
             btnRegresarSurvival = regresar;
         }
+        
         JPanel buttonPanel = po.invisiblePanelWithOpacity();
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
         buttonPanel.add(regresar);
         buttonPanel.add(continuar);
-        add(buttonPanel,BorderLayout.SOUTH);
-
-        playerPanel();
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void prepareActions(){
@@ -87,9 +83,8 @@ public class ModePlayerVSPlayer extends JPanel {
                     }
                     if(colorChosedPlayer1 == null || colorChosedPlayer2 == null){
                         JOptionPane.showMessageDialog(ModePlayerVSPlayer.this,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
-
-                    //po.trainerEscogido = player1Name;
 
                     po.cardLayout.show(po.panelContenedor, "chooser");
                 } catch (Exception ex) {
@@ -102,112 +97,128 @@ public class ModePlayerVSPlayer extends JPanel {
             po.changePanel("modos de juego");
         });
 
-        chooserColorPlayer1.addActionListener(e -> chooserColorPlayer1.setBackground(colorChosed));
-        chooserColorPlayer1.addActionListener(e -> changeColor());
-        chooserColorPlayer2.addActionListener(e -> chooserColorPlayer2.setBackground(colorChosed));
-        chooserColorPlayer2.addActionListener(e -> changeColor());
+        chooserColorPlayer1.addActionListener(e -> {
+            Color choice = colorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
+            if (choice != null) {
+                colorChosedPlayer1 = choice;
+                chooserColorPlayer1.setBackground(colorChosedPlayer1);
+            }
+        });
+        
+        chooserColorPlayer2.addActionListener(e -> {
+            Color choice = colorChooser.showDialog(this, "Selecciona tu color", Color.RED);
+            if (choice != null) {
+                colorChosedPlayer2 = choice;
+                chooserColorPlayer2.setBackground(colorChosedPlayer2);
+            }
+        });
     }
 
-    private void setupNameInputPanel(){
-        nameInputPanel = new JPanel();
-        nameInputPanel.setLayout(new GridLayout(1,2));
-        nameInputPanel.setOpaque(false);
-
-        JPanel player1NamePanel = createPokemonStylePanel("Player 1", true);
-        JPanel player2NamePanel = createPokemonStylePanel("Player 2", true);
-
-        nameInputPanel.add(player1NamePanel);
-        nameInputPanel.add(player2NamePanel);
-    }
-
-    private JPanel createPokemonStylePanel(String playerTitle, boolean isPlayer1){
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setOpaque(false);
-
-        JPanel dialogPanel = new JPanel();
-        dialogPanel.setLayout(new BorderLayout());
-        dialogPanel.setPreferredSize(new Dimension(100, 100));
-        dialogPanel.setBorder(BorderFactory.createLineBorder(new Color(56,56,56),3));
-
-        JLabel nameLabel = new JLabel("Enter name for " + playerTitle);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        nameLabel.setHorizontalAlignment(JLabel.CENTER);
-
-        JTextField nameField = new JTextField(10);
-        nameField.setFont(new Font("Arial", Font.BOLD, 20));
-        nameField.setHorizontalAlignment(JTextField.CENTER);
-        nameField.setMaximumSize(new Dimension(180, 40));
-        nameField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(56,56,56),2),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        if (isPlayer1){
-            player1NameField = nameField;
-            player1nameLabel = nameLabel;
-        } else{
-            player2NameField = nameField;
-            player2nameLabel = nameLabel;
-        }
-        JPanel nameFieldPanel = new JPanel();
-        nameFieldPanel.setOpaque(false);
-        nameFieldPanel.add(nameField);
-
-        dialogPanel.add(nameLabel, BorderLayout.NORTH);
-        dialogPanel.add(nameFieldPanel, BorderLayout.CENTER);
-
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(dialogPanel);
-        panel.add(Box.createVerticalStrut(10));
-
-        return panel;
-    }
-
-    private void playerPanel(){
+    private void playerPanel() {
         chooseDifficulty = new JPanel();
         chooseDifficulty.setLayout(new GridLayout(1, 2));
         chooseDifficulty.setOpaque(false);
-
+        
         JPanel player1Panel = new JPanel();
-        player1Panel.setLayout(new BorderLayout());
+        player1Panel.setLayout(new BoxLayout(player1Panel, BoxLayout.Y_AXIS));
         player1Panel.setOpaque(false);
-
-        JPanel player2panel = new JPanel();
-        player2panel.setLayout(new BorderLayout());
-        player2panel.setOpaque(false);
-
-        JPanel trainerPlayerOneSelector = createPlayerTrainer(1);
-        JPanel trainerPlayerTwoSelector = createPlayerTrainer(2);
-
-        JPanel colorChooserPlayer1 = new JPanel();
-        colorChooserPlayer1.setOpaque(false);
-        colorChooserPlayer1.add(chooserColorPlayer1);
-
-        JPanel colorChooserPlayer2 = new JPanel();
-        colorChooserPlayer2.setOpaque(false);
-        colorChooserPlayer2.add(chooserColorPlayer2);
-
-        player1Panel.add(new JLabel("Player One", JLabel.CENTER), BorderLayout.NORTH);
-        player1Panel.add(trainerPlayerOneSelector, BorderLayout.CENTER);
-        player1Panel.add(colorChooserPlayer1, BorderLayout.SOUTH);
-
-        player2panel.add(new JLabel("Player Two", JLabel.CENTER), BorderLayout.NORTH);
-        player2panel.add(trainerPlayerTwoSelector, BorderLayout.CENTER);
-        player2panel.add(colorChooserPlayer2, BorderLayout.SOUTH);
-
-        chooseDifficulty.add(nameInputPanel);
-
-        JPanel trainerSelectionPanel = new JPanel(new GridLayout(1,2));
-        trainerSelectionPanel.setOpaque(false);
-        trainerSelectionPanel.add(player1Panel);
-        trainerSelectionPanel.add(player2panel);
-        chooseDifficulty.add(trainerSelectionPanel);
-
+        
+        JLabel player1Label = new JLabel("Player One", JLabel.CENTER);
+        player1Label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player1Label.setFont(new Font("Arial", Font.BOLD, 20));
+        
+        player1Panel.add(player1Label);
+        player1Panel.add(Box.createVerticalStrut(10));
+        
+        JPanel trainerPanel1 = createPlayerTrainer(1);
+        trainerPanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player1Panel.add(trainerPanel1);
+        player1Panel.add(Box.createVerticalStrut(20));
+        
+        JPanel namePanel1 = new JPanel();
+        namePanel1.setLayout(new BoxLayout(namePanel1, BoxLayout.Y_AXIS));
+        namePanel1.setOpaque(false);
+        namePanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel nameLabel1 = new JLabel("Enter name for Player 1");
+        nameLabel1.setFont(new Font("Arial", Font.BOLD, 18));
+        nameLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        namePanel1.add(nameLabel1);
+        
+        player1NameField = new JTextField(10);
+        player1NameField.setFont(new Font("Arial", Font.BOLD, 20));
+        player1NameField.setHorizontalAlignment(JTextField.CENTER);
+        player1NameField.setMaximumSize(new Dimension(180, 40));
+        player1NameField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(56,56,56), 2),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        player1NameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        namePanel1.add(Box.createVerticalStrut(5));
+        namePanel1.add(player1NameField);
+        player1Panel.add(namePanel1);
+        player1Panel.add(Box.createVerticalStrut(15));
+        
+        JPanel colorPanel1 = new JPanel();
+        colorPanel1.setOpaque(false);
+        colorPanel1.add(chooserColorPlayer1);
+        colorPanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player1Panel.add(colorPanel1);
+        
+        JPanel player2Panel = new JPanel();
+        player2Panel.setLayout(new BoxLayout(player2Panel, BoxLayout.Y_AXIS));
+        player2Panel.setOpaque(false);
+        
+        JLabel player2Label = new JLabel("Player Two", JLabel.CENTER);
+        player2Label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player2Label.setFont(new Font("Arial", Font.BOLD, 20));
+        
+        player2Panel.add(player2Label);
+        player2Panel.add(Box.createVerticalStrut(10));
+        
+        JPanel trainerPanel2 = createPlayerTrainer(2);
+        trainerPanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player2Panel.add(trainerPanel2);
+        player2Panel.add(Box.createVerticalStrut(20));
+        
+        JPanel namePanel2 = new JPanel();
+        namePanel2.setLayout(new BoxLayout(namePanel2, BoxLayout.Y_AXIS));
+        namePanel2.setOpaque(false);
+        namePanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel nameLabel2 = new JLabel("Enter name for Player 2");
+        nameLabel2.setFont(new Font("Arial", Font.BOLD, 18));
+        nameLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        namePanel2.add(nameLabel2);
+        
+        player2NameField = new JTextField(10);
+        player2NameField.setFont(new Font("Arial", Font.BOLD, 20));
+        player2NameField.setHorizontalAlignment(JTextField.CENTER);
+        player2NameField.setMaximumSize(new Dimension(180, 40));
+        player2NameField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(56,56,56), 2),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        player2NameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        namePanel2.add(Box.createVerticalStrut(5));
+        namePanel2.add(player2NameField);
+        player2Panel.add(namePanel2);
+        player2Panel.add(Box.createVerticalStrut(15));
+        
+        JPanel colorPanel2 = new JPanel();
+        colorPanel2.setOpaque(false);
+        colorPanel2.add(chooserColorPlayer2);
+        colorPanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player2Panel.add(colorPanel2);
+        
+        chooseDifficulty.add(player1Panel);
+        chooseDifficulty.add(player2Panel);
+        
         add(chooseDifficulty, BorderLayout.CENTER);
     }
 
     private JPanel createPlayerTrainer(int trainerNum) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
 
         JButton trainerButton;
@@ -250,15 +261,12 @@ public class ModePlayerVSPlayer extends JPanel {
         }
     }
 
-
     private JButton createImageButton(String name, String imagePath) {
         int width = 70, height = 70;
-        Dimension smallSize = new Dimension(50, 30);
         JButton button = new JButton();
 
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-
             if (imagePath.toLowerCase().endsWith(".gif")) {
                 button.setIcon(icon);
                 button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
@@ -270,39 +278,27 @@ public class ModePlayerVSPlayer extends JPanel {
             button.setText("No imagen, intenta de nuevo.");
         }
 
-        button.setPreferredSize(smallSize);
-        button.setMinimumSize(smallSize);
-        button.setMaximumSize(smallSize);
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setFocusPainted(false);
         button.setToolTipText(name);
-        button.setPreferredSize(new Dimension(200, 40));
+        button.setPreferredSize(new Dimension(width, height));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return button;
-    }
-    public void changeColor(){
-        Color choice = colorChooser.showDialog(this,"Seleccion tu color. ",Color.BLUE);
-        setColor(choice);
-    }
-    public void setColor(Color choicePlayer){
-        colorChosed = choicePlayer;
-    }
-    public Color getColor(){
-        return colorChosed;
     }
 
     public JButton getBtnRegresarNormal(){
         return btnRegresarNormal;
     }
+    
     public JButton getButtonContinuar(){
         return continuar;
     }
+    
     public JButton getButtonRegresarSurvival(){
         return btnRegresarSurvival;
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {

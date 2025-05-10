@@ -174,7 +174,7 @@ public class PanelSelectedPokemon extends JPanel{
 
                 return;
             }
-        changeImage();    
+            
         System.out.println(po.domain.getTrainers().toString());
         
         po.createTrainer(po.playerVsMachinePanel.trainerEscogido,color);
@@ -182,11 +182,16 @@ public class PanelSelectedPokemon extends JPanel{
             po.addPokemonsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.pokemonsWithMovs);
             System.out.println(po.domain.getTrainers());
             po.addItemsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.itemsEscogidos);
+            po.domain.inicialTrainerPokemon(po.playerVsMachinePanel.trainerEscogido, pokemonInicialChosen.get(0));
+            po.domain.inicialTrainerPokemon(po.playerVsMachinePanel.trainerEscogidoMachine,"professor");
         }
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
+            return;
         }
-        po.panelBattle.inicializate(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.trainerEscogidoMachine,pokemonInicialChosen.get(0));
+        po.domain.inicializateBattle(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.trainerEscogidoMachine );
+        po.panelBattle.inicializate(po.domain.inicialTrainerMovements(po.playerVsMachinePanel.trainerEscogido));
+        changeImage();
         po.cardLayout.show(po.panelContenedor,"battle");
         reset();
         });

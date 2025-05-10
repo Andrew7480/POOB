@@ -48,21 +48,39 @@ public class POOBkemon implements Serializable{
         Trainer trainer2 = entrenadores.get(player2);
         battle = new Battle(trainer1, trainer2);
         
-        /* 
-        String gamemode = "";
-        Color color = new Color(0);
-        
-        if (!entrenadores.containsKey(gamemode)) {
-            if (gamemode.equalsIgnoreCase("expert")) {
-                entrenadores.put(gamemode, new ExpertTrainer(gamemode,color));
-            } else if (gamemode.equalsIgnoreCase("attacking")) {
-                entrenadores.put(gamemode, new AttackingTrainer(gamemode,color));
-            } else if (gamemode.equalsIgnoreCase("defensive")) {
-                entrenadores.put(gamemode, new DefensiveTrainer(gamemode,color));
-            } else {
-                entrenadores.put(gamemode, new PlayerTrainer(gamemode,color));
-            }
-        }*/
+    }
+
+    public void inicialTrainerPokemon(String trainer, String pokemon) throws PoobkemonException{
+        Trainer trainer1 = entrenadores.get(trainer);
+        trainer1.setPokemonInUse(pokemon);
+    }
+    public ArrayList<String> inicialTrainerMovements(String trainer){
+        Trainer trainer1 = entrenadores.get(trainer);
+        return trainer1.getPokemonInUse().getMovementsString();
+    }
+    public String getCurrentPokemonName(){
+        return battle.getCurrentPokemonName();
+    }
+    public int getCurrentPokemonLevel(){
+        return battle.getCurrentPokemonLevel();
+    }
+    public int getCurrentPokemonPs(){
+        return battle.getCurrentPokemonPs();
+    }
+    public int getCurrentPokemonPokedexIndex(){
+        return battle.getCurrentPokemonPokedexIndex();
+    }
+    public String getOponentPokemonName(){
+        return battle.getOponentPokemonName();
+    }
+    public int getOponentPokemonLevel(){
+        return battle.getCurrentPokemonLevel();
+    }
+    public int getOponentPokemonPs(){
+        return battle.getCurrentPokemonPs();
+    }
+    public int getOponentPokemonPokedexIndex(){
+        return battle.getOponentPokemonPokedexIndex();
     }
 
     //-------------------------------------------------------------------------------------

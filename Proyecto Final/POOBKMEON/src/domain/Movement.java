@@ -52,6 +52,9 @@ public abstract class Movement implements Attackable, Serializable{
         return power;
     }
 
+    public void limitOfTime(){}
+
+
     public void losePP()throws PoobkemonException{
         if (PP - 1 <= 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
         PP --;}

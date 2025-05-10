@@ -127,7 +127,33 @@ public class Battle implements Serializable {
     private int getTurnIndex(){
         return turnIndex;
     }
+    public String getCurrentPokemonName(){
+        return getCurrentTrainer().getPokemonInUse().getName();
+    }
+    public int getCurrentPokemonLevel(){
+        return getCurrentTrainer().getPokemonInUse().getLevel();
+    }
+    public int getCurrentPokemonPs(){
+        return getCurrentTrainer().getPokemonInUse().getPs();
+    }
+    public int getCurrentPokemonPokedexIndex(){
+        return getCurrentTrainer().getPokemonInUse().getPokedexIndex();
+    }
 
+    public String getOponentPokemonName(){
+        return getOpponentTrainer().getPokemonInUse().getName();
+    }
+    public int getOponentPokemonLevel(){
+        return getOpponentTrainer().getPokemonInUse().getLevel();
+    }
+    public int getOponentPokemonPs(){
+        return getOpponentTrainer().getPokemonInUse().getPs();
+    }
+
+    public int getOponentPokemonPokedexIndex(){
+        return getOpponentTrainer().getPokemonInUse().getPokedexIndex();
+    }
+    
     public ArrayList<Trainer> getTurnTrainers(){
         return turnTrainers;
     }

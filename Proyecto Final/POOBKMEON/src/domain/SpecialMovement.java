@@ -28,4 +28,13 @@ public class SpecialMovement extends Movement {
         return new SpecialMovement(name, description, PP, power, precision, type, priority);
     }
 
+    @Override
+    public void limitOfTime(){
+        try{
+            super.losePP();
+        }catch (PoobkemonException e){
+            LogPOOBKEMON.record(e);
+        }
+    }
+
 }

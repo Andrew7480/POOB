@@ -25,7 +25,6 @@ public class BattlePanel extends JPanel {
     private JPanel opciones;
     private JPanel battleOptionsPanel;
     private JButton backToOptionsBattle;
-    //private ListOfMovementsPanel listMovements;
 
     private JPanel playerStatsPanel;
     private JPanel opponentStatsPanel;
@@ -50,18 +49,20 @@ public class BattlePanel extends JPanel {
     private Font pokemonFont;
     protected CardLayout cardLayout;
 
-    protected Trainer trainer;
+    /*protected Trainer trainer;
     private Trainer trainerMachine;
     private ArrayList<Pokemon> pokemonListTrainer;
-    private ArrayList<Pokemon> pokemonListTrainerMachine;
+    private ArrayList<Pokemon> pokemonListTrainerMachine;*/
 
-    private ArrayList<String> trainersInBattle;
+    private ArrayList<String> trainerActualMovements;
 
 
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
         actualColor = new Color(100,100,100,100);
-        info = new JLabel(" aqui va la info de lo que va a ir pasando");
+
+        info = new JLabel("Aqui va la info de lo que va a ir pasando");
+
         backToOptionsBattle = new JButton("Back");
         po.styleButton(backToOptionsBattle);
         setPreferredSize(new Dimension(800, 600));
@@ -77,26 +78,31 @@ public class BattlePanel extends JPanel {
         initializeTimer();
     }
 
-    public void inicializate(String trainerName, String trainerNameMachine, String pokemonInicial){
-        trainer = po.domain.getTrainers().get(trainerName);
-        trainerMachine = po.domain.getTrainers().get(trainerNameMachine);
+    public void inicializate(ArrayList<String> movs){
+        trainerActualMovements = movs;
+
+        String nameCurrent = po.domain.getCurrentPokemonName();
+        int psCurrent = po.domain.getCurrentPokemonPs();
+        int levelCurrent = po.domain.getCurrentPokemonLevel();
         
-        try{
-            trainer.setPokemonInUse(trainer.getInventory().getPokemons().get(pokemonInicial));
-            //po.domain.
-        }catch(PoobkemonException e){System.out.println(e.getMessage());}
-        trainerMachine.inicialPokemon("professor");
-        playerStatsPanel = createStatsPanel(trainer.getPokemonInUse().getName(), trainer.getPokemonInUse().getLevel(),trainer.getPokemonInUse().getPs(), true);
-        opponentStatsPanel = createStatsPanel(trainerMachine.getPokemonInUse().getName(),trainerMachine.getPokemonInUse().getLevel(), trainerMachine.getPokemonInUse().getPs(), false);
-        setSecondPokemon(trainerMachine.getPokemonInUse().getPokedexIndex().toString());
+        playerStatsPanel = createStatsPanel(nameCurrent, levelCurrent ,psCurrent, true);
+
+        String nameOponent = po.domain.getOponentPokemonName();
+        int psOponent = po.domain.getOponentPokemonPs();
+        int levelOponent = po.domain.getOponentPokemonLevel();
+
+        opponentStatsPanel = createStatsPanel(nameOponent,psOponent,levelOponent, false);
+        
+
         add(playerStatsPanel);
         add(opponentStatsPanel);
-
         prepareMovementButtons(); // MOVER A INICIALIZATE
     }
 
     private void prepareElements() {
         calculatePokemonPositions();
+
+        trainerActualMovements = new ArrayList<>();
 
         info = new JLabel("Elige tu acción");
         info.setFont(pokemonFont);
@@ -177,18 +183,18 @@ public class BattlePanel extends JPanel {
         ));
         messagePanel.setLayout(new BorderLayout());
 
-        JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + trainer.getPokemonInUse().getName() + "?");
+        JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + po.domain.getCurrentPokemonName() + "?");
         moveLabel.setFont(pokemonFont);
         messagePanel.add(moveLabel, BorderLayout.CENTER);
-        for (Movement move : trainer.getPokemonInUse().getMovements()) {
-            JButton moveBtn = new JButton(move.getName());
+        for (String move : trainerActualMovements) {
+            JButton moveBtn = new JButton(move);
             po.styleButton(moveBtn);
             moveBtn.setFont(pokemonFont);
             moveBtn.setPreferredSize(new Dimension(150, 40));
             moveBtn.setMinimumSize(new Dimension(150, 40));
 
             moveBtn.addActionListener(e -> {
-                System.out.println("Selected move: " + move.getName());
+                System.out.println("Selected move: " + move);
                 //try {
                     //po.domain.movementPerformed(move, trainerMachine.getPokemonInUse());
                 showBattleOptionsPanel();
@@ -241,7 +247,11 @@ public class BattlePanel extends JPanel {
         movesPanel = null;
     }
 
-    public void actualizarCreateStatsPanel(String pokemonName, int level, int health, boolean isPlayer){
+    public void actualizarCreateStatsPanel(boolean isPlayer){
+        String pokemonName = po.domain.getCurrentPokemonName();
+        int health = po.domain.getCurrentPokemonPs();
+        int level = po.domain.getCurrentPokemonLevel();
+
         remove(playerStatsPanel);
         playerStatsPanel = createStatsPanel(pokemonName, level, health, isPlayer);
         add(playerStatsPanel);

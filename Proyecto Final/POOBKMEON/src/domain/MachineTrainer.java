@@ -24,9 +24,14 @@ public abstract class MachineTrainer extends Trainer {
     public void changePokemon(String pokemon) {
         changePokemon();
     }
+    @Override
+    public void setPokemonInUse(String pokemonNew) throws PoobkemonException{
+        changePokemon();
+    }
 
     public void changePokemon() {
-        ArrayList<Pokemon> stillAlive = inventory.getAlivePokemons(actualPokemon);
+        ArrayList<Pokemon> stillAlive = inventory.getAlivePokemons();
+        System.out.println(stillAlive.size());
         Random random = new Random();
         int choicesToPick = random.nextInt(stillAlive.size());
         actualPokemon = stillAlive.get(choicesToPick);

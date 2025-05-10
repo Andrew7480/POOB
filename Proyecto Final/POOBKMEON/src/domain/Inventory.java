@@ -82,6 +82,7 @@ public class Inventory implements Serializable{
         return poke;
     }
 
+
     public boolean canChange(Pokemon pokemon){
         return pokemon.isAlive() && pokemons.containsValue(pokemon);
     }
