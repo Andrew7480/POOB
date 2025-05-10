@@ -10,6 +10,7 @@ public class PlayerTrainer extends Trainer{
 
     public void changePokemon(Pokemon newPokemon) throws PoobkemonException{
         if (!inventory.contains(newPokemon)) throw new PoobkemonException(PoobkemonException.POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST);
+        System.out.println("LLEGO A PLAYER TRAINER BIEN? " + newPokemon.getName());
         setPokemonInUse(newPokemon);
     }
     public void changePokemon(String newPokemon) throws PoobkemonException{

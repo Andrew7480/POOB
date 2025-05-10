@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 
 public class SelectionPokemonItemPlayers extends JPanel{
     private  String backgroundImage = "emerald";
-
     private POOBkemonGUI pooBkemonGUI;
     private JButton come;
     private JButton doneButton; 

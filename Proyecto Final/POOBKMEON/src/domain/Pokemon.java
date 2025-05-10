@@ -53,7 +53,10 @@ public class Pokemon implements Serializable {
     public int getPs(){
         return ps;
     }
-    
+    public int getMaxPs(){
+        return maxPs;
+    }
+
     public int getVelocity(){
         return velocity;
     }
@@ -240,11 +243,12 @@ public class Pokemon implements Serializable {
     }
 
     public void addEffect(TributeEffect effect) throws PoobkemonException{
-        if(!tributeEffects.contains(effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_TRIBUTE_EFFECT);
+        if(tributeEffects.contains(effect)) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_TRIBUTE_EFFECT);
         tributeEffects.add(effect);
     }
+
     public void addEffect(StatusEffect effect) throws PoobkemonException{
-        if(!statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_STATUS_EFFECT);
+        if(statusEffect !=null && !statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_STATUS_EFFECT);
         statusEffect = effect;
     }
 
@@ -257,9 +261,13 @@ public class Pokemon implements Serializable {
     public void useMovement(Movement movimiento, Pokemon target) throws PoobkemonException{
         if (!isAlive) throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.POKEMON_DONT_HAVE_THESE_MOVEMENT);
-        //if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
-        //statusEffectVerify();
-        if (dontHavePPForAllMovement()){actionF(target);}
+        if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
+        statusEffectVerify();
+
+        if (dontHavePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
+
+
+        System.out.println(movimiento);
         movimiento.doAttackTo(this, target);
     }
     public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{
@@ -273,9 +281,10 @@ public class Pokemon implements Serializable {
     }
 
     public void statusEffectVerify() throws PoobkemonException{
-        if (statusEffect == null) throw new PoobkemonException(PoobkemonException.NOT_STATUS_EFFECT);
-        statusEffect.affectPokemon(this);
+        if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
+        //statusEffect.affectPokemon(this);
     }
+
     public void removeStatusEffect(){
         statusEffect = null;
     }

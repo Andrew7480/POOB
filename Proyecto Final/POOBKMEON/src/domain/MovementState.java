@@ -22,7 +22,7 @@ public class MovementState extends SpecialMovement{
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
         target.addEffect(state);
-        System.out.println(damageBase + "FUNCIONO?");
+        System.out.println(damageBase + "Movimiento estado?");
         return damageBase;
     }
     
