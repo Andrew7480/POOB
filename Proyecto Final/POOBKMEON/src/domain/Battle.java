@@ -1,5 +1,6 @@
 package domain;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,6 +45,13 @@ public class Battle implements Serializable {
     public void afterAction(){
         //advanceTurn();
         checkBattleState();
+    }
+    
+    public ArrayList<String> getMovementsStringCurrent(){
+        return getCurrentTrainer().getPokemonInUse().getMovementsString();
+    }
+    public ArrayList<String> getMovementsStringOponent(){
+        return getOpponentTrainer().getPokemonInUse().getMovementsString();
     }
 
     private void advanceTurn(){
@@ -109,6 +117,9 @@ public class Battle implements Serializable {
     }
     public int getCurrentMaxPs(){
         return getCurrentTrainer().getPokemonInUse().getMaxPs();
+    }
+    public Color getCurrentColor(){
+        return getCurrentTrainer().getColor();
     }
 
     public String getOponentPokemonName(){

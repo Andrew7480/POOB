@@ -32,6 +32,8 @@ public class BattlePanel extends JPanel {
     private CustomHealthBar playerHealthBar;
     private CustomHealthBar opponentHealthBar;
     private JLabel info;
+    private JPanel panelInfo; 
+
     private JLabel playerHealthLabel;
     private JLabel opponentHealthLabel;
     private JLabel playerNameLabel;
@@ -55,8 +57,6 @@ public class BattlePanel extends JPanel {
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
         actualColor = new Color(100,100,100,100);
-
-        info = new JLabel("Aqui va la info de lo que va a ir pasando");
 
         backToOptionsBattle = new JButton("Back");
         po.styleButton(backToOptionsBattle);
@@ -94,6 +94,14 @@ public class BattlePanel extends JPanel {
         add(playerStatsPanel);
         add(opponentStatsPanel);
         prepareMovementButtons(); // MOVER A INICIALIZATE
+
+        info.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(po.domain.getCurrentColor(), 2, true),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        info.setBackground(po.domain.getCurrentColor());
+
+        panelInfo.setBorder(BorderFactory.createLineBorder(po.domain.getCurrentColor(), 2));
     }
 
     private void prepareElements() {
@@ -104,23 +112,16 @@ public class BattlePanel extends JPanel {
         info = new JLabel("Elige tu acción");
         info.setFont(pokemonFont);
         info.setHorizontalAlignment(SwingConstants.CENTER);
-        info.setBorder(BorderFactory.createCompoundBorder(
-            new LineBorder(Color.BLACK, 2, true),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        info.setBackground(new Color(248, 248, 248, 220));
         info.setOpaque(true);
-        info.setBounds(xFirst + 400, yFirst + 350, 300, 40);
-        add(info);
-
+        //info.setBounds(xFirst + 400, yFirst + 350, 300, 40);
+        
         JPanel panelIz = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelIz.setOpaque(false);
 
-        JPanel temp = new JPanel();
-        temp.setOpaque(false);
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
-        temp.setBorder(border); 
-        temp.add(info);
+        panelInfo = new JPanel();
+        panelInfo.setOpaque(false);
+         
+        panelInfo.add(info);
 
 
         add(panelIz, BorderLayout.SOUTH);
@@ -132,7 +133,7 @@ public class BattlePanel extends JPanel {
         cardLayout = new CardLayout();
         opciones.setLayout(cardLayout);
 
-        panelIz.add(temp);
+        panelIz.add(panelInfo);
         panelIz.add(opciones);
 
         battleOptionsPanel = new JPanel(new GridLayout(2,2,1,1));
@@ -252,21 +253,20 @@ public class BattlePanel extends JPanel {
         System.out.println("VIDA TRAS ATAQUE " + health);
         System.out.println("VIDA TRAS ATAQUE " + pokemonName);
 
-
         String pokemonNameCurrent = po.domain.getCurrentPokemonName();
         int healthCurrent = po.domain.getCurrentPokemonPs();
         int levelCurrent = po.domain.getCurrentPokemonLevel();
         int maxPsCurrent = po.domain.getcurrentMaxPs();
         System.out.println("VIDA TRAS ATAQUE DEL ACTUAL " + healthCurrent);
         System.out.println("VIDA TRAS ATAQUE DEL ACTUAL " + pokemonNameCurrent);
-
-
+        remove(opponentStatsPanel);
+        remove(playerStatsPanel);
+        opponentStatsPanel = createStatsPanel(pokemonName,level,health,maxPs,false);
+        playerStatsPanel = createStatsPanel(pokemonNameCurrent,levelCurrent,healthCurrent,maxPsCurrent,true);
+        add(playerStatsPanel);
+        add(opponentStatsPanel);
         actualizarHealt(healthCurrent,maxPsCurrent,health,maxPs);
-
-        
     }
-
-
 
 
     public void showMovesPanel() {
@@ -461,6 +461,9 @@ public class BattlePanel extends JPanel {
         updateTimerDisplay();
     }
 
+    public void actualizarListaMovements(){
+        trainerActualMovements = po.domain.getMovementsStringCurrent();
+    }
 
 
     @Override

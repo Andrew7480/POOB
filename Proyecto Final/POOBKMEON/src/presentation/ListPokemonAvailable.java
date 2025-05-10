@@ -169,6 +169,7 @@ public class ListPokemonAvailable extends JPanel{
     }
 
     private void changeImage() {
+        System.out.println(pokemonsChosenFight.size());
         String pokemonName = pokemonsChosenFight.get(0);
         System.out.println(pokemonsChosenFight);
         try{po.domain.actionCambiar(pokemonName);}
@@ -176,8 +177,8 @@ public class ListPokemonAvailable extends JPanel{
         System.out.println(pokemonName);
 
         po.panelBattle.setFirstPokemon(String.valueOf(po.domain.getCurrentPokemonPokedexIndex()));
-        //po.panelBattle.actualizarCreateStatsPanelAfterMove();
-
+        po.panelBattle.actualizarCreateStatsPanelAfterMove();
+        po.panelBattle.actualizarListaMovements();
         po.panelBattle.removeMovement();
         po.panelBattle.prepareMovementButtons();
     }

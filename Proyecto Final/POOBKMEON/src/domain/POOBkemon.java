@@ -25,7 +25,12 @@ public class POOBkemon implements Serializable{
         return movements;
     }
     //-------------------------------------------------------------------------------------
-    
+    public ArrayList<String> getMovementsStringCurrent(){
+        return battle.getMovementsStringCurrent();
+    }
+    public ArrayList<String> getMovementsStringOponent(){
+        return battle.getMovementsStringOponent();
+    }
     
     public void movementPerformed(String mov) throws PoobkemonException{
         battle.executeMovement(mov);
@@ -49,6 +54,9 @@ public class POOBkemon implements Serializable{
         Trainer trainer2 = entrenadores.get(player2);
         battle = new Battle(trainer1, trainer2);
         
+    }
+    public Color getCurrentColor(){
+        return battle.getCurrentColor();
     }
 
     public void inicialTrainerPokemon(String trainer, String pokemon) throws PoobkemonException{
