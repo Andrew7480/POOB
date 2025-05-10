@@ -86,7 +86,7 @@ public class ModePlayerVSPlayer extends JPanel {
                         return;
                     }
 
-                    po.cardLayout.show(po.panelContenedor, "chooser");
+                    po.cardLayout.show(po.panelContenedor, "chooser"); //qie se hace aqui :( 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(ModePlayerVSPlayer.this, ex.getMessage());
                 }
@@ -113,6 +113,7 @@ public class ModePlayerVSPlayer extends JPanel {
             }
         });
     }
+    
 
     private void playerPanel() {
         chooseDifficulty = new JPanel();
