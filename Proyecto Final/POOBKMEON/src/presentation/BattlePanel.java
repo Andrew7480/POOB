@@ -193,9 +193,20 @@ public class BattlePanel extends JPanel {
 
             moveBtn.addActionListener(e -> {
                 System.out.println("Selected move: " + move);
-                try{po.domain.movementPerformed(move);
-                    if(!po.domain.isAliveOpponentPokemon()){
-                      setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
+                try{
+                    int oldIndex = po.domain.getOponentPokemonPokedexIndex();
+                    po.domain.movementPerformed(move);
+
+                    JButton button = (JButton) e.getSource();
+                    //e -> objeto que se pasa en el action listener
+                    //getSource() -> devuelve el componente que genero el evento
+                    //devuelve el objeto componente especifico que generó el evento.
+                    int currentPP = po.domain.getPPInBattle(move);
+                    button.setToolTipText("PP: "+ currentPP);
+
+                    if (!po.domain.isAliveOpponentPokemon() || oldIndex != po.domain.getOponentPokemonPokedexIndex()){
+                        int newIndex = po.domain.getOponentPokemonPokedexIndex();
+                        setSecondPokemon(Integer.toString(newIndex));
                     }
                     actualizarCreateStatsPanelAfterMove();
                 }
