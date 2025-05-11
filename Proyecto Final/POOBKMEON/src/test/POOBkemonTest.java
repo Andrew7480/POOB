@@ -544,8 +544,6 @@ public class POOBkemonTest implements Serializable {
             fail();
         }
     }
-    
-/* 
     @Test
     public void shouldChangePokemon(){
         POOBkemon kemon = new POOBkemon();
@@ -553,14 +551,16 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
         Pokemon pokemonStart = t2.getPokemonInUse();
-        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
+
+        po.inicializateBattle("tulio", "andrew");
         try {
+            po.movementPerformed("dragonClaw");
             t2.changePokemon(t2.getInventory().getAlivePokemons().get(1));
             Pokemon pokemonAfter = t2.getPokemonInUse();
             assertNotEquals(pokemonStart, pokemonAfter); // ESTE TEST FUNCIONA YA QUE BLASTOISE TRAS RECIBIR X CANTIDAD DE DAÑO LO CAMBIO POR CHARIZARD
             // POR LO QUE TANTO EL POKEMON INICIAL COMO EL FINAL SON DIFERENTES;
         } catch (Exception e) {
-            System.out.println("Hola profe");
+            System.out.println("Los pokemones son iguales, tras la funcionalidad de cambio ");
         }
     }
     @Test
@@ -569,16 +569,28 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
-        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
-        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
-        po.movementPerfomrmed(t1,t2,t1.getPokemonInUse().getMovements().get(1),t2.getPokemonInUse().getMovements().get(0));
-        assertNotEquals(t2.getInventory().getPokemons().get("Blastoise").isAlive(), true);
+        po.inicializateBattle("tulio", "andrew");
+        try {
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            assertNotEquals(t2.getInventory().getPokemons().get("Blastoise").isAlive(), true);
+            System.out.println(t2.getPokemonInUse().getName());
+        } catch (PoobkemonException e) {
+            System.out.println(t2.getPokemonInUse().getName());
+        }
         //Tras recibir varios tipos de ataques blastoise muere y si queremos imprimir el pokemon que tendria este entrenador seria el siguiente
         //vivo como es Charizard
-        System.out.println(t2.getPokemonInUse().getName());
     }
-
     @Test
     public void shouldFightMachineVsMachine(){
         POOBkemon kemon = new POOBkemon();
@@ -586,22 +598,23 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = po.getTrainer("Changing"); //changing
         Trainer t2 = po.getTrainer("Attacking"); //Attacking
 
-        po.setTrainerTurns(t1, t2);
+        po.inicializateBattle("Changing", "Attacking");
 
         int psInicial1 = t1.getPokemonInUse().getPs();
         int psInicial2 = t2.getPokemonInUse().getPs();
-
-        po.actionOrderMM();
-
-        int psFinal1 = t1.getPokemonInUse().getPs();
-        int psFinal2 = t2.getPokemonInUse().getPs();
-
-        assertNotEquals(psInicial1,psFinal1);
-
+        try {
+            po.movementPerformed(t2.getPokemonInUse().getMovements().get(0).getName());
+            int psFinal1 = t1.getPokemonInUse().getPs();
+            int psFinal2 = t2.getPokemonInUse().getPs();
+            assertNotEquals(psInicial1,psFinal1);
+        } catch (PoobkemonException e) {
+            System.out.println("Son iguales los ps, no fue exitoso el ataque entre maquinas");
+        }
         //Las maquinas escogen respectivamente los mejores movimientos posibles
         //Debido a la prioridad que hay un pokemon se ve afectado o no
         //En este caso el pokemon del entrenador 1 es quien se ve afectado
         //Por lo que no van a ser iguales sus ps iniciales como finales.
     }
-        */
+
+
 }
