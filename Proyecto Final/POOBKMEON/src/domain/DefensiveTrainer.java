@@ -2,18 +2,32 @@ package domain;
 import java.util.*;
 import java.awt.Color;
 import java.io.*;
-
 public class DefensiveTrainer extends MachineTrainer implements Serializable {
+    
+    /**
+     * Constructor for creating a new DefensiveTrainer
+     * 
+     * @param newName The name of the AI trainer
+     * @param color The color associated with the trainer
+     */
     public DefensiveTrainer(String newName, Color color) {
         super(newName,color);
     }
-    /*
-     * Su enfoque va principalmente a la defensa. 
-     * Utiliza movimientos que potencian las estadísticas de
-     * defensa y/o defensa especial, que brindan protección contra ataques
-     * rivales o que bajan las estadísticas de ataque y/o ataque especial del jugador rival.
+    
+    /**
+     * Determines the best defensive strategy against an opponent's Pokemon.
+     * This implementation prioritizes moves that enhance defense stats.
+     * If no suitable defensive moves with PP remaining are found, it falls back to
+     * other strategies like attacking, switching Pokemon, or using items.
+     * 
+     * The strategy focuses on:
+     * - Using moves that increase defense or special defense
+     * - Using moves that provide protection against opponent attacks
+     * - Using moves that lower the opponent's attack or special attack
+     * 
+     * @param target The opponent's Pokemon to defend against
+     * @return The name of the selected movement to use, or null if falling back to an alternative strategy
      */
-    // actualPokemon -> referencia
     @Override
     public String decide(Pokemon target){
         //Cambiar Movement -> MovementState
