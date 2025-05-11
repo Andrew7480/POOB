@@ -160,6 +160,7 @@ public class ListPokemonAvailable extends JPanel{
                 //pokemons
             }
         System.out.println("se ha comfirmado un pokemon a cambiar ");
+        reset();
         po.cardLayout.show(po.panelContenedor,"battle");
         });
     }
@@ -251,6 +252,16 @@ public class ListPokemonAvailable extends JPanel{
 
     public JButton getDoneButton(){
         return doneButton;
+    }
+    public void reset(){
+        System.out.println("resetea todo del cambio de pokemon");
+        pokemonsChosenFight.clear();
+        for (JButton button : buttons){
+            button.setBackground(null);
+            button.setOpaque(false);
+            button.revalidate();
+            button.repaint();
+        }
     }
 
     @Override

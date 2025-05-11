@@ -585,6 +585,7 @@ public class POOBkemonGUI extends JFrame {
         listPokemonsPanel.getBackButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                listPokemonsPanel.reset();
                 cardLayout.show(panelContenedor,"battle");
             }
         });

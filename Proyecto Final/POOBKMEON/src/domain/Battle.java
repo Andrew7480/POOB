@@ -164,6 +164,7 @@ public class Battle implements Serializable {
     }
 
     public boolean isAliveOpponentPokemon(){
+        System.out.println(getOpponentTrainer().getPokemonInUse().isAlive());
         return getOpponentTrainer().getPokemonInUse().isAlive();
     }
 
