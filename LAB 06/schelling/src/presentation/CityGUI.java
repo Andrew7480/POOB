@@ -137,7 +137,7 @@ public class CityGUI extends JFrame{
             int choice = fileChooser.showOpenDialog(null);
             if (choice == JFileChooser.APPROVE_OPTION){
             File archivo = fileChooser.getSelectedFile();
-            theCity = theCity.importar01(archivo);
+            theCity = theCity.importar(archivo);
             photo.repaint();
         }
         } catch (CityException e) {

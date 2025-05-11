@@ -19,13 +19,13 @@ public class City implements Serializable{
         }
         someItems();
     }
-
     //OPEN
     public City open(File file) throws CityException{
         if (!file.exists()) {
             System.err.println("Error: El archivo " + file.getName() + " no existe.");
             return null;
         }
+
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
             City city= (City) in.readObject();
@@ -124,14 +124,15 @@ public class City implements Serializable{
     public City importar(File fileName) throws CityException {
         if (!fileName.exists()) {
             System.err.println("Error: El archivo " + fileName.getName() + " no existe.");
+            throw new CityException("El archivo " + fileName.getName() + " no existe.");
+
         }
         int numeroDeLinea = 0;
         String linea = "";
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
             City newCity = new City();
-            linea = in.readLine();
-            while ((linea) != null) {
+            while ((linea= in.readLine()) != null) {
                 numeroDeLinea++;
                 linea = linea.trim();
                 String[] division = linea.split(" ");
@@ -143,9 +144,11 @@ public class City implements Serializable{
                     posJ = Integer.parseInt(division[2]);
                 } catch (NumberFormatException e) {
                     System.err.println("Linea " + numeroDeLinea + ": " + linea + " Posicion invalida o fuera del rango definido");
+                    continue;
                 }
                 if (posI < 0 || posI >= SIZE || posJ < 0 || posJ >= SIZE) {
                     System.err.println("Linea " + numeroDeLinea + ": " + linea + " Posiciones fuera de rango");
+                    continue;
                 }
                 if (newCity.getItem(posI, posJ) == null) {
                     try{
@@ -155,9 +158,9 @@ public class City implements Serializable{
                         newCity.setItem(posI, posJ, (Item) objPrueba);
                     }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                         System.err.println("Linea " + numeroDeLinea + ": " + linea + "Clase no reconocida: ");
+                        continue;
                     }
                 }
-                linea = in.readLine();
             }
             return newCity;
         } catch (FileNotFoundException e) {
@@ -201,12 +204,11 @@ public class City implements Serializable{
         }
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
-            String linea = in.readLine();
+            String linea = "";
             City newCity = new City();
             int numeroDeLinea = 0;
-            while ((linea) != null) {
+            while ((linea= in.readLine()) != null) {
                 numeroDeLinea++;
-                linea = in.readLine();
                 linea = linea.trim();
                 String[] division = linea.split(" ");
                 String name = division[0];
@@ -238,7 +240,6 @@ public class City implements Serializable{
                         System.err.println("Linea "+ numeroDeLinea + ": " + linea + "Clase no reconocida: ");
                     }
                 }
-                linea = in.readLine();
             }
             return newCity;
         } catch (FileNotFoundException e) {
