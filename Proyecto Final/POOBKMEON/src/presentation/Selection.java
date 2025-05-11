@@ -27,8 +27,8 @@ public class Selection extends JPanel{
     private ArrayList<JButton> buttons;
     private ArrayList<JButton> potionButtons;
     private String Trainer;
-    private final int MAX_POKEMONS=6;
-    private final int MAX_POTIONS =2;
+    public static final int MAX_POKEMONS=6;
+    public static final int MAX_POTIONS =2;
 
     public Selection(POOBkemonGUI po, Color newColor){
         pooBkemonGUI = po;
@@ -142,9 +142,9 @@ public class Selection extends JPanel{
         upPanel.setOpaque(false); 
         texto = new JLabel("Player");
         texto.setOpaque(true);
-        //texto.setBackground(color);
+        texto.setBackground(color);
         texto.setHorizontalAlignment(JLabel.CENTER);
-        //texto.setForeground(color);
+        texto.setForeground(color);
         upPanel.add(new JLabel(" "),BorderLayout.CENTER);
         upPanel.add(texto, BorderLayout.NORTH);
         add(upPanel,BorderLayout.NORTH);
@@ -186,7 +186,7 @@ public class Selection extends JPanel{
         title.add(pokemonsTitle);
         title.setBackground(Color.GRAY);
         centro.setOpaque(false);
-        panelScroll = new JPanel(new GridLayout(8,2,10,10)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   de dominio
+        panelScroll = new JPanel(new GridLayout(8,2,10,10)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -241,6 +241,12 @@ public class Selection extends JPanel{
 
     public Color getColor(){
         return color;
+    }
+    public void setColor(Color newColor){
+        color = newColor;
+        texto.setBackground(newColor);
+        repaint();
+
     }
 
 
@@ -322,7 +328,7 @@ public class Selection extends JPanel{
     }
 
     
-    private ArrayList<String> getItemsChoosen() {
+    public ArrayList<String> getItemsChoosen() {
         return itemsChoosen;
     }
 

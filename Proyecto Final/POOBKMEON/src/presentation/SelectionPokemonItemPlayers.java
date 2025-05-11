@@ -17,12 +17,18 @@ import java.util.Map.Entry;
 
 public class SelectionPokemonItemPlayers extends JPanel{
     private  String backgroundImage = "emerald";
-    private POOBkemonGUI pooBkemonGUI;
+    private POOBkemonGUI po;
     private JButton come;
     private JButton doneButton; 
+    private ModePlayerVSPlayer gameMode;
 
-    public SelectionPokemonItemPlayers(POOBkemonGUI po){
-        pooBkemonGUI = po;
+    private Selection selection1;
+    private Selection selection2;
+
+
+    public SelectionPokemonItemPlayers(POOBkemonGUI pooBkemonGUI, ModePlayerVSPlayer father){
+        gameMode = father;
+        po = pooBkemonGUI;
         prepareElements();
         prepareActions();
     }
@@ -33,8 +39,10 @@ public class SelectionPokemonItemPlayers extends JPanel{
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-        temp.add(new Selection(pooBkemonGUI, new Color(1,2,4,100)));
-        temp.add(new Selection(pooBkemonGUI, new Color(30,100,30,100)));
+        selection1 = new Selection(po, new Color(1,2,4,100));
+        selection2 = new Selection(po, new Color(30,100,30,100));
+        temp.add(selection1);
+        temp.add(selection2);
 
         add(temp, BorderLayout.CENTER);
 
@@ -43,7 +51,8 @@ public class SelectionPokemonItemPlayers extends JPanel{
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
         //doneButton.setVisible(false);
-        pooBkemonGUI.styleButton(doneButton);
+        po.styleButton(doneButton);
+        po.styleButton(come);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         booton.setOpaque(false);
         booton.add(come);
@@ -53,7 +62,35 @@ public class SelectionPokemonItemPlayers extends JPanel{
     }
 
     private void prepareActions(){
-        
+        doneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (selection1.getPokemonChoosen().size()<1|| selection1.getItemsChoosen().size()<1 ||selection2.getPokemonChoosen().size()<1|| selection2.getItemsChoosen().size()<1 ){
+                        JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this, 
+                            "Selecciona al menos 1 Pokémon para la batalla y dos pociones! ",
+                            "Incompleta", JOptionPane.WARNING_MESSAGE);
+                    return;
+                    }
+
+                   if(selection1.getPokemonChoosen().size()> selection1.MAX_POKEMONS|| selection1.getItemsChoosen().size()> selection1.MAX_POTIONS 
+                   ||selection2.getPokemonChoosen().size()> selection1.MAX_POKEMONS|| selection2.getItemsChoosen().size()> selection1.MAX_POTIONS ){
+                        JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this,
+                            "Solo puedes seleccionar máximo " + selection1.MAX_POKEMONS + " pokemones y " + selection1.MAX_POTIONS + " pociones",
+                            "Límite excedido", JOptionPane.WARNING_MESSAGE);
+                        return;
+                   }
+                   System.out.println("si sirve");
+                   gameMode.changePanel("");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this, ex.getMessage());
+                }
+            }
+        });
+
+        come.addActionListener(e -> {
+            gameMode.changePanel("Datos");
+        });
     }
 
     public JButton getButtonBack(){
@@ -64,7 +101,10 @@ public class SelectionPokemonItemPlayers extends JPanel{
         return doneButton;
     }
 
-    
+    public void inicializate(Color color1, Color color2){
+        selection1.setColor(color1);
+        selection2.setColor(color2);
+    }
     
 
     public void reset(){ 

@@ -58,7 +58,7 @@ public class POOBkemonGUI extends JFrame {
     private void prepareElements(){
         setTitle("POOBkemon Esmeralda");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int)screenSize.getWidth()/2, (int)screenSize.getHeight()/2);
+        setSize((int)(screenSize.getWidth() / 1.5), (int)(screenSize.getHeight() / 1.5));
         fileChooser = new JFileChooser();
         colorChooser = new JColorChooser();
         prepareElementsMenu();
@@ -145,11 +145,6 @@ public class POOBkemonGUI extends JFrame {
         cardLayout = new CardLayout();
         panelContenedor = new JPanel(cardLayout);
 
-        
-        //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
-
-        //panelContenedor.add(Panelpeuw, "prueba");
-
         inicio = inicio();
         panelContenedor.add(inicio,"inicio");
 
@@ -168,7 +163,7 @@ public class POOBkemonGUI extends JFrame {
         modesOfGameSurvival = modesOfGamePanelSurvival();
         panelContenedor.add(modesOfGameSurvival,"survival");
 
-        playerVSplayerPanel = new ModePlayerVSPlayer(this,true);
+        playerVSplayerPanel = new ModePlayerVSPlayer(this);
         panelContenedor.add(playerVSplayerPanel,"player vs player");
 
 
@@ -195,6 +190,10 @@ public class POOBkemonGUI extends JFrame {
 
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
+
+        //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
+
+        //panelContenedor.add(Panelpeuw, "prueba");
 
 
 
@@ -585,6 +584,7 @@ public class POOBkemonGUI extends JFrame {
         listPokemonsPanel.getBackButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                listPokemonsPanel.reset();
                 cardLayout.show(panelContenedor,"battle");
             }
         });
