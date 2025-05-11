@@ -9,6 +9,7 @@ public class SpecialMovement extends Movement {
     public int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException{
         if (!canMakeMove()) throw new PoobkemonException(PoobkemonException.CANT_DO_THE_MOVE);
         if (Math.random() * 100 > precision) {
+            System.out.println("No se ha hecho el especial por precision.");
             losePP();
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
@@ -20,7 +21,7 @@ public class SpecialMovement extends Movement {
         damage *= 0.85 + (Math.random() * 0.15);
         target.losePS(damage);
         losePP();
-        System.out.println(damage + "FUNCIONO?");
+        System.out.println("Movimiento especial: "+name+" ha realizado "+ damage);
         return (int)damage;
     }
     @Override

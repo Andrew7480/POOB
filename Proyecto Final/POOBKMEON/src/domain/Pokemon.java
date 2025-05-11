@@ -101,9 +101,16 @@ public class Pokemon implements Serializable {
         }
         return movementNames;
     }
+    
 
-    public ArrayList<TributeEffect> getTributeEffects(){
+    public ArrayList<TributeEffect> getTributeEffects() {
         return tributeEffects;
+    }
+    public int getPPByName(String name)throws PoobkemonException{
+        for(Movement mov : movements){
+            if (mov.getName().equals(name)) return mov.getPP();
+        }
+        throw new PoobkemonException(PoobkemonException.MOVEMENT_NOT_FOUND);
     }
 
     //AÑADIR MOVIMIENTOS QUE SEAN DIFERENTES A LA DEBILIDAD DEL POKEMON?
@@ -267,7 +274,7 @@ public class Pokemon implements Serializable {
         if (dontHavePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
 
 
-        System.out.println(movimiento);
+        System.out.println(name +" ha usado: "+ movimiento);
         movimiento.doAttackTo(this, target);
     }
     public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{

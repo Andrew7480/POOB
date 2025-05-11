@@ -12,7 +12,7 @@ public class ChangingTrainer extends MachineTrainer implements Serializable{
      * efectividad contra el pokemon que el rival utilice.
     */
     @Override
-    public Movement decide(Pokemon target){
+    public String decide(Pokemon target){
         TreeMap<String,Pokemon> p = inventory.getPokemons();
         Pokemon pokemonActual = actualPokemon;
         double possible = 0;
@@ -27,7 +27,7 @@ public class ChangingTrainer extends MachineTrainer implements Serializable{
             doOtherThen(target);
         }
         //return null; doOtherThen si es una buena opcion?
-        return actualPokemon.aleatoryMovement(target);
+        return actualPokemon.aleatoryMovement(target).getName();
     }
 
 

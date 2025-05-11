@@ -13,6 +13,8 @@ public class Battle implements Serializable {
     private boolean isOver;
     private Trainer winner;
 
+    private String lastAction = "¿Decide.?";
+
     public Battle(Trainer trainer1, Trainer trainer2){
         turnTrainers = new ArrayList<>();
         turnTrainers.add(trainer1);
@@ -21,6 +23,10 @@ public class Battle implements Serializable {
         winner = null;
         isOver = false;
     }
+    public void verifyTurnMachine(){
+        if (lastAction.equals("No decido yo.")) advanceTurn();
+    }
+
 
 
     public void executeMovement(String move) throws PoobkemonException{ 
@@ -28,13 +34,16 @@ public class Battle implements Serializable {
         Trainer opponent = getOpponentTrainer();
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();
+        lastAction = current.decide(opponent.getPokemonInUse());
+        
     }
 
     public void changePokemon(String pokemon) throws PoobkemonException{
-        System.out.println("LLEGA BIEN A ENTRENADOR? " + pokemon);
-        getCurrentTrainer().changePokemon(pokemon);
-        System.out.println(getCurrentTrainer().getName());
+        Trainer current = getCurrentTrainer();
+        Trainer opponent = getOpponentTrainer();
+        current.changePokemon(pokemon);
         afterAction();
+        lastAction = current.decide(opponent.getPokemonInUse());
     }
 
     public void useItem(String item) throws PoobkemonException{
@@ -43,11 +52,12 @@ public class Battle implements Serializable {
     }
 
     public void afterAction(){
-        //advanceTurn();
+       //advanceTurn();
         checkBattleState();
     }
     
     public ArrayList<String> getMovementsStringCurrent(){
+        System.out.println(lastAction);
         return getCurrentTrainer().getPokemonInUse().getMovementsString();
     }
     public ArrayList<String> getMovementsStringOponent(){
@@ -63,6 +73,9 @@ public class Battle implements Serializable {
         if (index != -1){
             turnIndex = index;
         }
+    }
+    public int getPPInBattle(String name) throws PoobkemonException{
+        return getCurrentTrainer().getPokemonInUse().getPPByName(name);
     }
 
     public void resetTurn(){
@@ -84,6 +97,7 @@ public class Battle implements Serializable {
                 winner = trainer1;
             }
         }
+        
     }
 
     public boolean isOver(){
@@ -111,8 +125,6 @@ public class Battle implements Serializable {
         return getCurrentTrainer().getPokemonInUse().getPs();
     }
     public int getCurrentPokemonPokedexIndex(){
-        System.out.println(getCurrentTrainer().getPokemonInUse().getName() + "SE IMPRIME DOS VECES?");
-        System.out.println(getCurrentTrainer().getPokemonInUse().getPokedexIndex());
         return getCurrentTrainer().getPokemonInUse().getPokedexIndex();
     }
     public int getCurrentMaxPs(){
@@ -145,6 +157,14 @@ public class Battle implements Serializable {
 
     public Trainer getOpponentTrainer(){
         return turnTrainers.get((turnIndex + 1) % turnTrainers.size());
+    }
+
+    public boolean isAliveCurrentPokemon(){
+        return getCurrentTrainer().getPokemonInUse().isAlive();
+    }
+
+    public boolean isAliveOpponentPokemon(){
+        return getOpponentTrainer().getPokemonInUse().isAlive();
     }
 
     public boolean coinToss(){ //extensiblr??

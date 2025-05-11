@@ -6,7 +6,7 @@ public abstract class MachineTrainer extends Trainer {
         super(name, newColor);
     }
 
-    public abstract Movement decide(Pokemon target);
+    public abstract String decide(Pokemon target);
 
     public void doOtherThen(Pokemon target) {
         Random random = new Random();
@@ -31,7 +31,6 @@ public abstract class MachineTrainer extends Trainer {
 
     public void changePokemon() {
         ArrayList<Pokemon> stillAlive = inventory.getAlivePokemons();
-        System.out.println(stillAlive.size());
         Random random = new Random();
         int choicesToPick = random.nextInt(stillAlive.size());
         actualPokemon = stillAlive.get(choicesToPick);
@@ -46,7 +45,6 @@ public abstract class MachineTrainer extends Trainer {
     }
 
     public void useItem() {
-        //falta???????? NOOOOOOOOOOO
     }
 
     @Override

@@ -12,7 +12,7 @@ public class AttackingTrainer extends MachineTrainer implements Serializable {
     //que potencian las estadísticas de ataque y/o ataque especial; 
     //o que bajan las estadísticas de defensa y/o defensa especial del jugador rival.
     
-    public Movement decide(Pokemon target){
+    public String decide(Pokemon target){
         ArrayList<MovementTribute> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getMovementsGiveAttack();
         Movement bestAttackMovement = null;
         double possibleAttackMovement = 0;
@@ -24,13 +24,13 @@ public class AttackingTrainer extends MachineTrainer implements Serializable {
             }
         }
         if (bestAttackMovement != null){
-            return bestAttackMovement;
+            return bestAttackMovement.getName();
         }
         /*
         else{
             doOtherThen(target);
             return null;
         }*/ //ARREGLAR ESTO doOtherThen si es una buena opcion?
-        return actualPokemon.aleatoryMovement(target);
+        return actualPokemon.aleatoryMovement(target).getName();
     }
 }

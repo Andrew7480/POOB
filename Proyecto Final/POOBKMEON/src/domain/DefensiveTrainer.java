@@ -15,7 +15,7 @@ public class DefensiveTrainer extends MachineTrainer implements Serializable {
      */
     // actualPokemon -> referencia
     @Override
-    public Movement decide(Pokemon target){
+    public String decide(Pokemon target){
         //Cambiar Movement -> MovementState
         ArrayList<MovementTribute> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getMovementsGiveDefense();
         Movement bestMovementDefensive = null;
@@ -28,7 +28,7 @@ public class DefensiveTrainer extends MachineTrainer implements Serializable {
         }
 
         if (bestMovementDefensive != null){
-            return bestMovementDefensive;
+            return bestMovementDefensive.getName();
         }
         else{
             //hace otro movimiento que seria hacer un ataque o cambiar o gg 

@@ -60,7 +60,7 @@ public abstract class Trainer implements Serializable{
 
     public abstract void useItem(String item) throws PoobkemonException;
     
-    public abstract Movement decide(Pokemon pok);
+    public abstract String decide(Pokemon pok);
 
     @Override
     public boolean equals(Object ob){
@@ -86,7 +86,6 @@ public abstract class Trainer implements Serializable{
         actualPokemon = pokemonNew;//actualPokemon == null &&        
     }
     public void setPokemonInUse(String pokemonNew) throws PoobkemonException{
-        System.out.println(getPokemonByName(pokemonNew).getName());
         setPokemonInUse(getPokemonByName(pokemonNew));
     }
     public Pokemon getPokemonByName(String name) throws PoobkemonException{

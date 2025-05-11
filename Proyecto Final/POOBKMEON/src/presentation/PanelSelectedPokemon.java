@@ -53,10 +53,7 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     public void inicializate(ArrayList<String> pokemons, Color color){
-        System.out.println("lets see");
-        System.out.println(pokemonsChosenFight.toString());
         pokemonsChosenFight = pokemons;
-        System.out.println(pokemonsChosenFight.toString());
         setColor(color);
         prepareElementsToStart();
     }
@@ -176,12 +173,10 @@ public class PanelSelectedPokemon extends JPanel{
                 return;
             }
             
-        System.out.println(po.domain.getTrainers().toString());
         
         po.createTrainer(po.playerVsMachinePanel.trainerEscogido,color);
         try{
             po.addPokemonsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.pokemonsWithMovs);
-            System.out.println(po.domain.getTrainers());
             po.addItemsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.itemsEscogidos);
             po.domain.inicialTrainerPokemon(po.playerVsMachinePanel.trainerEscogido, pokemonInicialChosen.get(0));
             po.domain.inicialTrainerPokemon(po.playerVsMachinePanel.trainerEscogidoMachine,"professor");
@@ -278,7 +273,7 @@ public class PanelSelectedPokemon extends JPanel{
             button.setOpaque(true);
             pokemonInicialChosen.add(button.getToolTipText());
         }
-        System.out.println(pokemonInicialChosen.toString());
+        System.out.println("Inicial: "+pokemonInicialChosen.toString());
     }
 
     public JButton getBackButton(){

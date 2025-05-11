@@ -67,6 +67,7 @@ public abstract class Movement implements Attackable, Serializable{
         try{
             int newValueAttacker = (doAttackTo(attacker, target)); //mirar desespspps
             attacker.losePS(newValueAttacker);
+            losePP();
         }
         catch (PoobkemonException e){
             e.getMessage();

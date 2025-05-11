@@ -75,6 +75,7 @@ public class BattlePanel extends JPanel {
 
     public void inicializate(ArrayList<String> movs){
         trainerActualMovements = movs;
+        actualColor = po.domain.getCurrentColor();
 
         String nameCurrent = po.domain.getCurrentPokemonName();
         int psCurrent = po.domain.getCurrentPokemonPs();
@@ -90,18 +91,11 @@ public class BattlePanel extends JPanel {
 
         opponentStatsPanel = createStatsPanel(nameOponent,levelOponent,psOponent,maxPsOponent, false);
         
-        System.out.println(nameOponent);
         add(playerStatsPanel);
         add(opponentStatsPanel);
         prepareMovementButtons(); // MOVER A INICIALIZATE
-
-        info.setBorder(BorderFactory.createCompoundBorder(
-            new LineBorder(po.domain.getCurrentColor(), 2, true),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        info.setBackground(po.domain.getCurrentColor());
-
-        panelInfo.setBorder(BorderFactory.createLineBorder(po.domain.getCurrentColor(), 2));
+        actualizarColor();
+        
     }
 
     private void prepareElements() {
@@ -113,7 +107,6 @@ public class BattlePanel extends JPanel {
         info.setFont(pokemonFont);
         info.setHorizontalAlignment(SwingConstants.CENTER);
         info.setOpaque(true);
-        //info.setBounds(xFirst + 400, yFirst + 350, 300, 40);
         
         JPanel panelIz = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelIz.setOpaque(false);
@@ -122,7 +115,13 @@ public class BattlePanel extends JPanel {
         panelInfo.setOpaque(false);
          
         panelInfo.add(info);
+        info.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(actualColor, 2, true),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        info.setBackground(actualColor);
 
+        panelInfo.setBorder(BorderFactory.createLineBorder(actualColor, 2));
 
         add(panelIz, BorderLayout.SOUTH);
 
@@ -189,15 +188,19 @@ public class BattlePanel extends JPanel {
             moveBtn.setFont(pokemonFont);
             moveBtn.setPreferredSize(new Dimension(150, 40));
             moveBtn.setMinimumSize(new Dimension(150, 40));
+            try{moveBtn.setToolTipText("PP: "+String.valueOf(po.domain.getPPInBattle(move)));}
+            catch(PoobkemonException e){System.out.println(e.getMessage());}
 
             moveBtn.addActionListener(e -> {
                 System.out.println("Selected move: " + move);
                 try{po.domain.movementPerformed(move);
+                    if(!po.domain.isAliveOpponentPokemon()){
+                      setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
+                    }
                     actualizarCreateStatsPanelAfterMove();
                 }
                 catch(PoobkemonException h){
-                    System.out.println("NO SE HACE EL ATAQUE");
-                    System.out.println(h.getMessage());
+                    System.out.println("No se hace el ataque: "+ h.getMessage());
                 }
                 showBattleOptionsPanel();
             });
@@ -229,7 +232,6 @@ public class BattlePanel extends JPanel {
         opciones.add(movesPanel, "MovimientosP");
 
         fightButton.addActionListener(e -> {
-            System.out.println("Fight button clicked, showing moves panel");
             showMovesPanel();
         });
 
@@ -246,26 +248,31 @@ public class BattlePanel extends JPanel {
         movesPanel = null;
     }
     public void actualizarCreateStatsPanelAfterMove(){
+        actualizarColor();
+
         String pokemonName = po.domain.getOponentPokemonName();
         int health = po.domain.getOponentPokemonPs();
         int level = po.domain.getOponentPokemonLevel();
         int maxPs = po.domain.getOponentMaxPs();
-        System.out.println("VIDA TRAS ATAQUE " + health);
-        System.out.println("VIDA TRAS ATAQUE " + pokemonName);
 
         String pokemonNameCurrent = po.domain.getCurrentPokemonName();
         int healthCurrent = po.domain.getCurrentPokemonPs();
         int levelCurrent = po.domain.getCurrentPokemonLevel();
         int maxPsCurrent = po.domain.getcurrentMaxPs();
-        System.out.println("VIDA TRAS ATAQUE DEL ACTUAL " + healthCurrent);
-        System.out.println("VIDA TRAS ATAQUE DEL ACTUAL " + pokemonNameCurrent);
-        remove(opponentStatsPanel);
-        remove(playerStatsPanel);
-        opponentStatsPanel = createStatsPanel(pokemonName,level,health,maxPs,false);
-        playerStatsPanel = createStatsPanel(pokemonNameCurrent,levelCurrent,healthCurrent,maxPsCurrent,true);
-        add(playerStatsPanel);
-        add(opponentStatsPanel);
-        actualizarHealt(healthCurrent,maxPsCurrent,health,maxPs);
+
+        playerHealthBar.setValue(healthCurrent);
+        opponentHealthBar.setValue(health);
+
+        playerHealthLabel.setText(healthCurrent + "/" + maxPsCurrent);
+        opponentHealthLabel.setText(health + "/" + maxPs);
+
+        playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
+        opponentNameLabel.setText(pokemonName + " Nv. "+ level);
+
+        playerStatsPanel.repaint();
+        opponentStatsPanel.repaint();
+
+
     }
 
 
@@ -277,12 +284,24 @@ public class BattlePanel extends JPanel {
     }
 
 
+    public void actualizarColor(){
+        actualColor = po.domain.getCurrentColor();
+        info.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(actualColor, 2, true),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        info.setBackground(actualColor);
 
+        panelInfo.setBorder(BorderFactory.createLineBorder(actualColor, 2));
+    }
 
 
     public void showBattleOptionsPanel() {
         stopTimer();
         cardLayout.show(opciones,"Opciones"); 
+    }
+    public void actualizaInfo(){
+        info.setText("puta vida de mierda");
     }
 
 
@@ -480,8 +499,6 @@ public class BattlePanel extends JPanel {
         opponentStatsPanel.repaint();
 
         timerLabel.setBounds(375,20,50,30);
-
-        info.setBounds(xFirst+400,yFirst + 350, 300,40);
 
         ImageIcon back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage + ".JPG"));
         g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);

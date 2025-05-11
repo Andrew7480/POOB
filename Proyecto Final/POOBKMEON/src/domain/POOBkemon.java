@@ -25,6 +25,9 @@ public class POOBkemon implements Serializable{
         return movements;
     }
     //-------------------------------------------------------------------------------------
+    public int getPPInBattle(String name) throws PoobkemonException{
+        return battle.getPPInBattle(name);
+    }
     public ArrayList<String> getMovementsStringCurrent(){
         return battle.getMovementsStringCurrent();
     }
@@ -37,7 +40,6 @@ public class POOBkemon implements Serializable{
     }
 
     public void actionCambiar(String pok) throws PoobkemonException{
-        System.out.println(pok + " LLEGO A POOBKEMON CORRECTO?");
         battle.changePokemon(pok);
     }
 
@@ -67,6 +69,7 @@ public class POOBkemon implements Serializable{
         Trainer trainer1 = entrenadores.get(trainer);
         return trainer1.getPokemonInUse().getMovementsString();
     }
+    
     public String getCurrentPokemonName(){
         return battle.getCurrentPokemonName();
     }
@@ -97,6 +100,15 @@ public class POOBkemon implements Serializable{
     public int getOponentMaxPs(){
         return battle.getOponentMaxPs();
     }
+
+    public boolean isAliveCurrentPokemon(){
+        return battle.isAliveCurrentPokemon();
+    }
+
+    public boolean isAliveOpponentPokemon(){
+        return battle.isAliveOpponentPokemon();
+    }
+
 
     //-------------------------------------------------------------------------------------
     public void addNewTrainer(String name, Color color) throws PoobkemonException{
@@ -191,7 +203,6 @@ public class POOBkemon implements Serializable{
         if (deserializedObject instanceof POOBkemon) {
             POOBkemon poobkemon = (POOBkemon) deserializedObject;
             System.out.println("Juego cargado exitosamente desde " + fileName);
-            //System.out.println("Pokédex: " + poobkemon.getPokedex());
             return poobkemon;
         } else {
             System.err.println("El archivo no contiene un objeto de tipo POOBkemon.");
