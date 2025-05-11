@@ -202,7 +202,8 @@ public class CityGUI extends JFrame{
                 photo.repaint();
             }
             catch (CityException e){
-                JOptionPane.showMessageDialog(this, "Funcionalidad Abrir en construccion, Archivo seleccionado: "+ archivo.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "Funcionalidad Abrir en construccion, Archivo seleccionado: "+ archivo.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -217,7 +218,8 @@ public class CityGUI extends JFrame{
                 theCity.save(archive);
             }
             catch(CityException e){
-                JOptionPane.showMessageDialog(this, "Funcionalidad Guardar en construccion, Lugar donde se guarda: "+ archive.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "Funcionalidad Guardar en construccion, Lugar donde se guarda: "+ archive.getName(), "Informacion ", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(e.getMessage());
             }
         }
     }

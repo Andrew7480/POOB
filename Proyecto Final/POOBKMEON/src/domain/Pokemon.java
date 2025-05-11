@@ -274,9 +274,10 @@ public class Pokemon implements Serializable {
         if (dontHavePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
 
 
-        System.out.println(name +" ha usado: "+ movimiento);
+        System.out.println(name +" ha usado: "+ movimiento.getName());
         movimiento.doAttackTo(this, target);
     }
+    
     public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{
         for (Movement m : movements){
             if(m.getName().equals(movimiento)) {

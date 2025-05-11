@@ -31,27 +31,38 @@ public class City implements Serializable{
             City city= (City) in.readObject();
             System.out.println("Juego cargado exitosamente desde " + file.getName());
             return city;
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            throw new CityException(CityException.OPEN_ERROR);
+        } catch (FileNotFoundException e) {
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
+        } catch (InvalidClassException e) {
+            throw new CityException("Clase Invalida: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new CityException("Clase no encontrada " + e.getMessage());
+        } catch (ClassCastException e) {
+            throw new CityException("Casteo de clase error: " + e.getMessage());
+        } catch (IOException e) {
+            throw new CityException("Posible error al serializar? " + e.getMessage());
         }
     }
+
     //Save
     public void save(File fileName) throws CityException {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
             out.writeObject(this);
             out.close();
+        } 
+        catch (FileNotFoundException e) {
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
+        } catch (NotSerializableException e) {
+            throw new CityException("No es un objeto seralizabl " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.SAVE_ERROR);
+            throw new CityException("Posible error al serializar? " + e.getMessage());
         }
     }
+    
 
     //OPEN
     public City open01(File file) throws CityException{
-        if (!file.exists()) {
-            System.err.println("Error: El archivo " + file.getName() + " no existe.");
-            return null;
-        }
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
             City city= (City) in.readObject();
@@ -86,6 +97,9 @@ public class City implements Serializable{
      * do the function of export
      * */
     public void export(File file) throws CityException{
+        if (!file.exists()) {
+            System.err.println("Error: El archivo " + file.getName() + " no existe.");
+        }
         try{
             BufferedWriter in = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < locations.length; i++){
@@ -97,8 +111,10 @@ public class City implements Serializable{
                 }
             }
             in.close();
+        } catch (NotSerializableException e) {
+            System.err.println("Error al serializar: " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.EXPORT_ERROR);
+            System.err.println( e.getMessage());
         }
     }
     /**
@@ -106,6 +122,9 @@ public class City implements Serializable{
      * Do the function of import (mini-compiler) with a java function (reflection)
      * */
     public City importar(File fileName) throws CityException {
+        if (!fileName.exists()) {
+            System.err.println("Error: El archivo " + fileName.getName() + " no existe.");
+        }
         int numeroDeLinea = 0;
         String linea = "";
         try {
@@ -141,8 +160,10 @@ public class City implements Serializable{
                 linea = in.readLine();
             }
             return newCity;
+        } catch (FileNotFoundException e) {
+            throw new CityException("Archivo no encontrado: " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.IMPORT_ERROR);
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
         }
     }
     /**
@@ -150,6 +171,9 @@ public class City implements Serializable{
      * do the function of export
      * */
     public void export03(File file) throws CityException{
+        if (!file.exists()) {
+            System.err.println("Error: El archivo " + file.getName() + " no existe.");
+        }
         try{
             BufferedWriter in = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < locations.length; i++){
@@ -161,8 +185,10 @@ public class City implements Serializable{
                 }
             }
             in.close();
+        } catch (NotSerializableException e) {
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.EXPORT_ERROR_COMPILADOR);
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
         }
     }
     /**
@@ -170,6 +196,9 @@ public class City implements Serializable{
      * Do the function of import with a mini-compiler
      * */
     public City importar03(File fileName) throws CityException {
+        if (!fileName.exists()) {
+            System.err.println("Error: El archivo " + fileName.getName() + " no existe.");
+        }
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
             String linea = in.readLine();
@@ -212,8 +241,10 @@ public class City implements Serializable{
                 linea = in.readLine();
             }
             return newCity;
+        } catch (FileNotFoundException e) {
+            throw new CityException("Archivo no encontrado: " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.IMPORT_ERROR_COMPILADOR);
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
         }
     }
 
@@ -222,6 +253,9 @@ public class City implements Serializable{
      * do the function of export
      * */
     public void export02(File file) throws CityException{
+        if (!file.exists()) {
+            System.err.println("Error: El archivo " + file.getName() + " no existe.");
+        }
         try{
             BufferedWriter in = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < locations.length; i++){
@@ -233,8 +267,10 @@ public class City implements Serializable{
                 }
             }
             in.close();
+        } catch (NotSerializableException e) {
+            System.err.println("Objeto no serializable " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.EXPORT_ERROR_COMPILADOR);
+            throw new CityException("Posible error al serializar? " + e.getMessage());
         }
     }
     /**
@@ -242,6 +278,9 @@ public class City implements Serializable{
      * Do the function of import
      * */
     public City importar02(File fileName) throws CityException {
+        if (!fileName.exists()) {
+            System.err.println("Error: El archivo " + fileName.getName() + " no existe.");
+        }
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
             String linea = in.readLine();;
@@ -273,8 +312,10 @@ public class City implements Serializable{
                 linea = in.readLine();
             }
             return newCity;
+        } catch (FileNotFoundException e) {
+            throw new CityException("Archivo no encontrado: " + e.getMessage());
         } catch (IOException e) {
-            throw new CityException(CityException.IMPORT_ERROR_COMPILADOR);
+            throw new CityException("Error al leer el archivo: " + e.getMessage());
         }
     }
 
@@ -327,7 +368,7 @@ public class City implements Serializable{
                     } else if (name.equals("Walker")) {
                         newCity.setItem(posI, posJ, (Item) new Walker(newCity,posI,posJ));
                     } else {
-                        System.err.println("Clase no reconocida o posición ocupada en la línea: " + linea);
+                        System.out.println("Clase no reconocida o posición ocupada en la línea: " + linea);
                     }
                 }
                 linea = in.readLine();
@@ -405,7 +446,6 @@ public class City implements Serializable{
           Schelling tulio3 = new Schelling(this,16,0 );
           Schelling tulio4 = new Schelling(this,16,1 );
           Slider a = new Slider(this,0,1);
-        
     }
     /**
      * Verify if the neighbors of the item are instance of Person
