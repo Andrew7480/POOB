@@ -31,8 +31,18 @@ public abstract class MachineTrainer extends Trainer {
     public void doOtherThen(Pokemon target) {
         Random random = new Random();
         int randomIndex = random.nextInt(4);
-        if (randomIndex == 0) pokemonMovementDecide(target);
-        if (randomIndex == 1) useItem();
+        if (randomIndex == 0) {
+            Movement actual = null;
+            try{
+                actual = pokemonMovementDecide(target);
+                actual.doAttackTo(actualPokemon, target);
+            }
+            catch(PoobkemonException i){
+                System.out.println("Fallo movimiento machine: "+ actual.getName()+" "+i.getMessage());            
+            }
+            
+        }
+        //if (randomIndex == 1) useItem();
         else {
             changePokemon();
         }

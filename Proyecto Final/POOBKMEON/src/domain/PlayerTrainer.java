@@ -3,6 +3,7 @@ package domain;
 import java.awt.Color;
 public class PlayerTrainer extends Trainer{
 
+
     /**
      * Constructor for creating a new PlayerTrainer
      * Initializes the trainer with the given name and color.
@@ -23,6 +24,7 @@ public class PlayerTrainer extends Trainer{
      */
     public void changePokemon(Pokemon newPokemon) throws PoobkemonException{
         if (!inventory.contains(newPokemon)) throw new PoobkemonException(PoobkemonException.POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST);
+        if(!newPokemon.isAlive()) throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         setPokemonInUse(newPokemon);
     }
     
@@ -66,6 +68,6 @@ public class PlayerTrainer extends Trainer{
      * @return A string indicating that decisions are made by the player
      */
     public String decide(Pokemon pokemon){
-        return "No decido yo.";
+        return "Ya decidi";
     }
 }

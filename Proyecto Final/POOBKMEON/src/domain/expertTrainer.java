@@ -37,8 +37,20 @@ public class ExpertTrainer extends MachineTrainer implements Serializable{
             }
         }
         if (bestAttackMovement != null){
+            try{
+                bestAttackMovement.doAttackTo(actualPokemon, target);}
+            catch(PoobkemonException i){
+                System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());
+                
+            }
             return bestAttackMovement.getName();
         }
-        return actualPokemon.aleatoryMovement(target).getName();
+        bestAttackMovement = actualPokemon.aleatoryMovement(target);
+        try{
+            bestAttackMovement.doAttackTo(actualPokemon, target);}
+        catch(PoobkemonException i){
+            System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());            
+        }
+        return bestAttackMovement.getName();
     }
 }

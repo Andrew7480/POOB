@@ -42,12 +42,16 @@ public class DefensiveTrainer extends MachineTrainer implements Serializable {
         }
 
         if (bestMovementDefensive != null){
+            try{bestMovementDefensive.doAttackTo(target, target);}
+            catch(PoobkemonException i){
+            System.out.println("Fallo movimiento machine: "+ bestMovementDefensive.getName()+" "+i.getMessage());            
+        }
             return bestMovementDefensive.getName();
         }
         else{
             //hace otro movimiento que seria hacer un ataque o cambiar o gg 
             doOtherThen(target);
-            return null;
+            return "Ha hecho otra accion.";
         }
     }
 }

@@ -22,7 +22,7 @@ public class Battle implements Serializable {
     private Trainer winner;
 
     /** Stores the last action taken in the battle */
-    private String lastAction = "¿Decide.?";
+    private String lastAction = "¿Decide?";
 
     /**
      * Constructor for creating a new battle between two trainers
@@ -39,14 +39,7 @@ public class Battle implements Serializable {
         isOver = false;
     }
     
-    /**
-     * Verifies if an AI trainer's turn should be advanced
-     * If the last action indicates the AI isn't deciding, advances to the next turn
-     */
-    public void verifyTurnMachine(){
-        if (lastAction.equals("No decido yo.")) advanceTurn();
-    }
-
+    
     /**
      * Executes a movement/attack for the current trainer
      * Updates battle state and determines AI's next decision
@@ -59,7 +52,6 @@ public class Battle implements Serializable {
         Trainer opponent = getOpponentTrainer();
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();
-        lastAction = current.decide(opponent.getPokemonInUse());
     }
 
     /**
@@ -74,7 +66,6 @@ public class Battle implements Serializable {
         Trainer opponent = getOpponentTrainer();
         current.changePokemon(pokemon);
         afterAction();
-        lastAction = current.decide(opponent.getPokemonInUse());
     }
 
     /**
@@ -93,11 +84,29 @@ public class Battle implements Serializable {
      * Performs post-action checks
      * Checks if the battle state has changed after an action
      */
-    public void afterAction(){
-       //advanceTurn();
+    public void afterAction() throws PoobkemonException{
+        Trainer current = getCurrentTrainer();
+        Trainer opponent = getOpponentTrainer();
+        lastAction = current.decide(opponent.getPokemonInUse());
+        verifyTurnMachine();
         checkBattleState();
     }
-    
+    /**
+     * Verifies if an AI trainer's turn should be advanced
+     * If the last action indicates the AI isn't deciding, advances to the next turn
+     */
+    public void verifyTurnMachine(){
+        Trainer current = getCurrentTrainer();
+        Trainer opponent = getOpponentTrainer();
+        if (lastAction.equals("Ya decidi")) {
+            lastAction = opponent.decide(current.getPokemonInUse());
+            System.out.println("Ya jugue maquina: " + lastAction);
+        }
+        else{
+            advanceTurn();
+        }
+    }
+
     /**
      * Gets a list of movement names available to the current trainer's Pokemon
      * 
@@ -166,18 +175,24 @@ public class Battle implements Serializable {
      * Checks if the battle has ended and determines the winner
      * A trainer loses if they cannot continue fighting
      */
-    private void checkBattleState(){  //no extensible??
-        if (turnTrainers.size() == 2){
-            Trainer trainer1 = turnTrainers.get(0);
-            Trainer trainer2 = turnTrainers.get(1);
-            if(!trainer1.canStillFighting()){
-                isOver = true;
-                winner = trainer2;
-            }else if(trainer2.canStillFighting()){
-                isOver = true;
-                winner = trainer1;
-            }
+    private void checkBattleState() throws PoobkemonException{  //no extensible??
+        Trainer trainer1 = turnTrainers.get(0);
+        Trainer trainer2 = turnTrainers.get(1);
+        if(!trainer1.canStillFighting()){
+            isOver = true;
+            winner = trainer2;
         }
+        else if(!trainer2.canStillFighting()){
+            isOver = true;
+            winner = trainer1;
+        }
+        if(trainer1.getPokemonInUse() == null){//!trainer1.getPokemonInUse().isAlive() || 
+            throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
+        }
+        if( trainer2.getPokemonInUse() == null){//!trainer2.getPokemonInUse().isAlive()||
+            throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
+        }
+        
     }
 
     /**
@@ -194,8 +209,8 @@ public class Battle implements Serializable {
      * 
      * @return The trainer who won the battle, or null if the battle is ongoing
      */
-    public Trainer getWinner(){
-        return winner;
+    public String getWinner(){
+        return winner.getName();
     }
 
     /**

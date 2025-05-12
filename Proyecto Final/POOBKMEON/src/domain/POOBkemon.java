@@ -253,6 +253,13 @@ public class POOBkemon implements Serializable{
     public boolean GameIsOVer(){
         return battle.isOver();
     }
+        /**
+     * Checks if the current battle is over
+     * @return the winner
+     */
+    public String getWinner(){
+        return battle.getWinner();
+    }
 
     /**
      * Gets all items available in the game

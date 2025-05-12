@@ -1,4 +1,5 @@
 package presentation;
+
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,18 +16,18 @@ import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class SelectionPokemonItemPlayers extends JPanel{
+public class SelectionMovementsTwoPlayers extends JPanel {
     private  String backgroundImage = "emerald";
     private POOBkemonGUI po;
     private JButton come;
     private JButton doneButton; 
     private ModePlayerVSPlayer gameMode;
 
-    private Selection selection1;
-    private Selection selection2;
+    private SelectionMovementsPanel selection1;
+    private SelectionMovementsPanel selection2;
 
 
-    public SelectionPokemonItemPlayers(POOBkemonGUI pooBkemonGUI, ModePlayerVSPlayer father){
+    public SelectionMovementsTwoPlayers(POOBkemonGUI pooBkemonGUI, ModePlayerVSPlayer father){
         gameMode = father;
         po = pooBkemonGUI;
         prepareElements();
@@ -39,8 +40,8 @@ public class SelectionPokemonItemPlayers extends JPanel{
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-        selection1 = new Selection(po, new Color(1,2,4,100));
-        selection2 = new Selection(po, new Color(30,100,30,100));
+        selection1 = new SelectionMovementsPanel(po);
+        selection2 = new SelectionMovementsPanel(po);
         temp.add(selection1);
         temp.add(selection2);
 
@@ -66,38 +67,18 @@ public class SelectionPokemonItemPlayers extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (selection1.getPokemonChoosen().size()<1|| selection1.getItemsChoosen().size()<1 ||selection2.getPokemonChoosen().size()<1|| selection2.getItemsChoosen().size()<1 ){
-                        JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this, 
-                            "Selecciona al menos 1 Pokémon para la batalla y dos pociones! ",
-                            "Incompleta", JOptionPane.WARNING_MESSAGE);
-                    return;
-                    }
-
-                   if(selection1.getPokemonChoosen().size()> selection1.MAX_POKEMONS|| selection1.getItemsChoosen().size()> selection1.MAX_POTIONS 
-                   ||selection2.getPokemonChoosen().size()> selection1.MAX_POKEMONS|| selection2.getItemsChoosen().size()> selection1.MAX_POTIONS ){
-                        JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this,
-                            "Solo puedes seleccionar máximo " + selection1.MAX_POKEMONS + " pokemones y " + selection1.MAX_POTIONS + " pociones",
-                            "Límite excedido", JOptionPane.WARNING_MESSAGE);
-                        return;
-                   }
-                   System.out.println("si sirve");
-
-                   selection1.getPokemonChoosen();
-                   selection2.getPokemonChoosen();
-
-                   selection1.getItemsChoosen();
-                   selection2.getItemsChoosen();
+                
 
                    
                    gameMode.changePanel("");
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this, ex.getMessage());
+                    JOptionPane.showMessageDialog(SelectionMovementsTwoPlayers.this, ex.getMessage());
                 }
             }
         });
 
         come.addActionListener(e -> {
-            gameMode.changePanel("Datos");
+            gameMode.changePanel("Inventory");
         });
     }
 
@@ -110,13 +91,13 @@ public class SelectionPokemonItemPlayers extends JPanel{
     }
 
     public void inicializate(Color color1, Color color2){
-        selection1.setColor(color1);
-        selection2.setColor(color2);
+        //selection1.setColor(color1);
+        //selection2.setColor(color2);
     }
     
 
     public void reset(){ 
-        System.out.println("resetea todo de la seleccion players");
+        System.out.println("resetea todo de la seleccion movimientos dos players");
     }
 
     @Override

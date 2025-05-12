@@ -27,8 +27,8 @@ public class Selection extends JPanel{
     private ArrayList<JButton> buttons;
     private ArrayList<JButton> potionButtons;
     private String Trainer;
-    public static final int MAX_POKEMONS=6;
-    public static final int MAX_POTIONS =2;
+    public static final int MAX_POKEMONS = 6;
+    public static final int MAX_POTIONS = 2;
 
     public Selection(POOBkemonGUI po, Color newColor){
         pooBkemonGUI = po;

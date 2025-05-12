@@ -194,6 +194,7 @@ public class BattlePanel extends JPanel {
             moveBtn.addActionListener(e -> {
                 System.out.println("Selected move: " + move);
                 try{
+                    gameEnd();
                     int oldIndex = po.domain.getOponentPokemonPokedexIndex();
                     po.domain.movementPerformed(move);
 
@@ -270,6 +271,7 @@ public class BattlePanel extends JPanel {
         int healthCurrent = po.domain.getCurrentPokemonPs();
         int levelCurrent = po.domain.getCurrentPokemonLevel();
         int maxPsCurrent = po.domain.getcurrentMaxPs();
+        System.out.println("vida afectada a mi pokemon : "+healthCurrent);
 
         playerHealthBar.setValue(healthCurrent);
         opponentHealthBar.setValue(health);
@@ -282,8 +284,15 @@ public class BattlePanel extends JPanel {
 
         playerStatsPanel.repaint();
         opponentStatsPanel.repaint();
+        gameEnd();
+    }
 
-
+    public void gameEnd(){
+        if (po.domain.GameIsOVer()){
+            JOptionPane.showMessageDialog(this, "Ha ganado: "+ po.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
+            po.changePanel("inicio");
+        }
+        
     }
 
 
