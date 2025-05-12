@@ -200,11 +200,20 @@ public class PanelSelectedPokemon extends JPanel{
         return pokemonInicialChosen.size();
     }
 
-    private void changeImage(){
+    public void changeImage(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
         po.panelBattle.setFirstPokemon(Integer.toString(primero));
         po.panelBattle.setSecondPokemon(Integer.toString(segundo));
+        System.out.println(primero + " " + segundo);
+    }
+
+    public void changeImageMvsM(){
+        int primero = po.domain.getCurrentPokemonPokedexIndex();
+        int segundo = po.domain.getOponentPokemonPokedexIndex();
+        po.panelMvsM.setFirstPokemon(Integer.toString(primero));
+        po.panelMvsM.setSecondPokemon(Integer.toString(segundo));
+        System.out.println(primero + " " + segundo);
     }
 
     private void createButtons(){

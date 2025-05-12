@@ -22,6 +22,8 @@ public class ModeMachineVsMachine extends JPanel {
 
     private JButton buttonTrainer1;
     private JButton buttonTrainer2;
+    protected String machineTrainerFirst;
+    protected String machineTrainerSecond;
     private String[] paths;
     private int indexPath1 = 0;
     private int indexPath2 = 0;
@@ -71,25 +73,34 @@ public class ModeMachineVsMachine extends JPanel {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (gameModeChoosen1.size() != 1 || gameModeChoosen2.size() != 1) {
-                    JOptionPane.showMessageDialog(ModeMachineVsMachine.this,
-                            "Error",
-                            "Selection Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                try {
-                    //po.trainerEscogido = "AI1";
-                    //po.trainerEscogidoMachine = gameModeChoosen1.get(0);
-                    //po.cardLayout.show(po.panelContenedor, "chooser");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(ModeMachineVsMachine.this, ex.getMessage());
-                }
+                confirmMachinesInfo();
             }
         });
 
         btnRegresar.addActionListener(e -> {
             po.changePanel("modos de juego");
         });
+    }
+
+    private void confirmMachinesInfo(){
+        if (gameModeChoosen1.size() != 1 || gameModeChoosen2.size() != 1) {
+            JOptionPane.showMessageDialog(ModeMachineVsMachine.this,
+                            "Error",
+                            "Selection Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            machineTrainerFirst = gameModeChoosen1.get(0);
+            machineTrainerSecond = gameModeChoosen2.get(0);
+            po.domain.inicialTrainerPokemon(machineTrainerFirst, "machine one");
+            po.domain.inicialTrainerPokemon(machineTrainerSecond, "machine two");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(ModeMachineVsMachine.this, ex.getMessage());
+        }
+        po.domain.inicializateBattle(machineTrainerFirst, machineTrainerSecond);
+        po.panelMvsM.inicializate(po.domain.inicialTrainerMovements(machineTrainerFirst));
+        po.selectedPokemon.changeImageMvsM();
+        po.cardLayout.show(po.panelContenedor, "battle m");
     }
 
     private void chooseDifficulty(){

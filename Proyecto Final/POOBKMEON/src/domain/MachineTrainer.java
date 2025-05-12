@@ -129,6 +129,10 @@ public abstract class MachineTrainer extends Trainer {
     public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException {
         //actualPokemon.useMovement(mov, target);
     }
+    @Override
+    public void pokemonMovement(String mov, Pokemon target) throws PoobkemonException{
+        
+    }
 
     /**
      * Selects a random movement for the active Pokemon to use against the target

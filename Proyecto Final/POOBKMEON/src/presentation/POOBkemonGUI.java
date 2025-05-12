@@ -28,6 +28,7 @@ public class POOBkemonGUI extends JFrame {
     protected SelectionPokemon chooser;
     protected ListOfMovementsPanel listMovements;
     protected PanelSelectedPokemon selectedPokemon;
+    protected BattlePanelMvsM panelMvsM;
     private JColorChooser colorChooser;
     
     private JPanel inicio;
@@ -190,6 +191,9 @@ public class POOBkemonGUI extends JFrame {
 
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
+
+        panelMvsM = new BattlePanelMvsM(this);
+        panelContenedor.add(panelMvsM,"battle m");
 
         //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
 
