@@ -210,6 +210,7 @@ public class BattlePanel extends JPanel {
                         setSecondPokemon(Integer.toString(newIndex));
                     }
                     actualizarCreateStatsPanelAfterMove();
+                    actualizarColor();
                 }
                 catch(PoobkemonException h){
                     System.out.println("No se hace el ataque: "+ h.getMessage());
@@ -312,7 +313,7 @@ public class BattlePanel extends JPanel {
             BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
         info.setBackground(actualColor);
-
+        panelInfo.setBackground(actualColor);
         panelInfo.setBorder(BorderFactory.createLineBorder(actualColor, 2));
     }
 

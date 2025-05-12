@@ -216,6 +216,14 @@ public class PanelSelectedPokemon extends JPanel{
         System.out.println(primero + " " + segundo);
     }
 
+    public void changeImagePvsP(){
+        int primero = po.domain.getCurrentPokemonPokedexIndex();
+        int segundo = po.domain.getOponentPokemonPokedexIndex();
+        po.panelBattle.setFirstPokemon(Integer.toString(primero));
+        po.panelBattle.setSecondPokemon(Integer.toString(segundo));
+        System.out.println(primero + " " + segundo);
+    }
+
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){
             Pokemon po1 = po.pokemones.get(pokemonSelected);

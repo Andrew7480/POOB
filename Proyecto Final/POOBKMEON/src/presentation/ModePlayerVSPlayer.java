@@ -91,8 +91,9 @@ public class ModePlayerVSPlayer extends JPanel {
             JOptionPane.showMessageDialog(null, i.getMessage());
             return;
         }
-        po.domain.inicializateBattle(firsName,secondName );
+        po.domain.inicializateBattle(firsName,secondName);
         batalla.inicializate(po.domain.inicialTrainerMovements(firsName));
+        po.selectedPokemon.changeImagePvsP();
     }
     
 
