@@ -38,6 +38,7 @@ public class ExpertTrainer extends MachineTrainer implements Serializable{
         }
         if (bestAttackMovement != null){
             try{
+                actualPokemon.affectPokemonStatus();
                 bestAttackMovement.doAttackTo(actualPokemon, target);}
             catch(PoobkemonException i){
                 System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());
@@ -47,6 +48,7 @@ public class ExpertTrainer extends MachineTrainer implements Serializable{
         }
         bestAttackMovement = actualPokemon.aleatoryMovement(target);
         try{
+            actualPokemon.affectPokemonStatus();
             bestAttackMovement.doAttackTo(actualPokemon, target);}
         catch(PoobkemonException i){
             System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());            

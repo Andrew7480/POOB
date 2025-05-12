@@ -27,11 +27,12 @@ public class SelectionMovementsPanel extends JPanel{
         chosenPok = new ArrayList<>();
         prepareElements();
     }
+
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
+        
         for (String s :chosenPokemons){
             chosenPok.add(s);
         }
-
 
         ArrayList<Pokemon> temp = new ArrayList<>();
         for (String s:chosenPokemons){
@@ -51,10 +52,12 @@ public class SelectionMovementsPanel extends JPanel{
             JPanel movementPanel = createMovementPanel(temp.get(i).getName(), temp1,temp.get(i).getPokedexIndex().toString());
             centralPanel.add(movementPanel);
         }
+        
     }
     private void prepareElements(){
         
         setLayout(new BorderLayout());
+        setOpaque(false);
         JPanel upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
 
@@ -78,8 +81,8 @@ public class SelectionMovementsPanel extends JPanel{
         
         add(southPanel, BorderLayout.SOUTH);
     }
-    public void setColor(){
-        color = po.playerVsMachinePanel.getColor();
+    public void setColor(Color newColor){
+        color = newColor;
         texto.setBackground(color);
     }
     public Color  getColor(){
@@ -153,9 +156,6 @@ public class SelectionMovementsPanel extends JPanel{
         for (Map.Entry<String, ArrayList<String>> entry: movimientosSeleccionados.entrySet()){
             for (String e :entry.getValue()){
                 if(e.equals("")){
-                    JOptionPane.showMessageDialog(this,
-                    "Tienes que escoger todos los movimientos.",
-                    "Movimientos no seleccionados.", JOptionPane.WARNING_MESSAGE);
                      return false;
                 }
             }
@@ -166,6 +166,9 @@ public class SelectionMovementsPanel extends JPanel{
         return chosenPok;
     }
 
+    public HashMap<String, ArrayList<String>> getPokemonMovs(){
+        return movimientosSeleccionados;
+    }
     public void resetPokemonChosen(){
         System.out.println("resetea todo de los movimientos");
         centralPanel.removeAll();

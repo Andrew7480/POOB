@@ -1,8 +1,12 @@
 package presentation;
 import javax.swing.*;
+
+import domain.PoobkemonException;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 public class ModePlayerVSPlayer extends JPanel {
     private String backgroundImage = "fondoAnimado2";
@@ -11,7 +15,17 @@ public class ModePlayerVSPlayer extends JPanel {
     private CardLayout cardLayout;
     protected DatosTwoPlayers datos;
     protected SelectionPokemonItemPlayers inventory;
-    
+    protected SelectionMovementsTwoPlayers movements;
+    protected InicialPokemonsPlayers inicialPoks;
+    protected BattlePanel batalla;
+
+    protected String firsName;
+    protected String secondName;
+    protected ArrayList<String> firstItems;
+    protected ArrayList<String> secondItems;
+    protected HashMap<String, ArrayList<String>> firstPokemonMovs;
+    protected HashMap<String, ArrayList<String>> secondPokemonMovs;
+
     private POOBkemonGUI po;
 
 
@@ -27,11 +41,22 @@ public class ModePlayerVSPlayer extends JPanel {
         continuar = new JButton("Continuar");
         setLayout(cardLayout);
 
+        
+
         datos = new DatosTwoPlayers(po,this);
         add(datos, "Datos");
 
         inventory = new SelectionPokemonItemPlayers(po,this);
         add(inventory, "Inventory");
+
+        movements = new SelectionMovementsTwoPlayers(po, this);
+        add(movements,"Movimientos");
+        
+        inicialPoks = new InicialPokemonsPlayers(po, this);
+        add(inicialPoks, "Iniciales");
+
+        batalla = new BattlePanel(po);
+        add(batalla, "Battle");
     }
 
     private void prepareActions(){
@@ -48,6 +73,28 @@ public class ModePlayerVSPlayer extends JPanel {
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);
     }
+
+    public void inicializateBattle(Color color1, Color color2, String pok1, String pok2){
+        po.createTrainer(firsName,color1);
+        po.createTrainer(secondName,color2);
+        try{
+            po.addPokemonsToTrainer(firsName,firstPokemonMovs);
+            po.addPokemonsToTrainer(secondName,secondPokemonMovs);
+
+            po.addItemsToTrainer(firsName,firstItems);
+            po.addItemsToTrainer(secondName,secondItems);
+
+            po.domain.inicialTrainerPokemon(firsName,pok1);
+            po.domain.inicialTrainerPokemon(secondName,pok2);
+            }
+        catch(PoobkemonException i){
+            JOptionPane.showMessageDialog(null, i.getMessage());
+            return;
+        }
+        po.domain.inicializateBattle(firsName,secondName );
+        batalla.inicializate(po.domain.inicialTrainerMovements(firsName));
+    }
+    
 
 
 }

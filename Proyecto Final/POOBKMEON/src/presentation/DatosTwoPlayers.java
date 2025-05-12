@@ -1,5 +1,8 @@
 package presentation;
 import javax.swing.*;
+
+import domain.PoobkemonException;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,7 +78,18 @@ public class DatosTwoPlayers extends JPanel {
                 try {
                     player1Name = player1NameField.getText().trim();
                     player2Name = player2NameField.getText().trim();
-
+                    try{
+                        po.domain.isTrainerIsed(player1Name);
+                        po.domain.isTrainerIsed(player2Name);
+                    }
+                    catch(PoobkemonException i){
+                        JOptionPane.showMessageDialog(DatosTwoPlayers.this, "Nombre no disponible", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (player1Name.equals(player2Name)){
+                        JOptionPane.showMessageDialog(DatosTwoPlayers.this, "No pueden tener el mismo nombre.","Error",JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     if(player1Name.isEmpty() || player2Name.isEmpty()){
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this, "Ambos nombres deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                         return;
@@ -84,6 +98,9 @@ public class DatosTwoPlayers extends JPanel {
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                     }
+                    gameMode.firsName = player1Name;
+                    gameMode.secondName = player2Name;
+
                     gameMode.inventory.inicializate(choice1,choice2);
                     gameMode.changePanel("Inventory");
                 } catch (Exception ex) {

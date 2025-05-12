@@ -291,6 +291,7 @@ public class BattlePanel extends JPanel {
         if (po.domain.GameIsOVer()){
             JOptionPane.showMessageDialog(this, "Ha ganado: "+ po.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
             po.changePanel("inicio");
+            reset();
         }
         
     }
@@ -321,7 +322,7 @@ public class BattlePanel extends JPanel {
         cardLayout.show(opciones,"Opciones"); 
     }
     public void actualizaInfo(){
-        info.setText("puta vida de mierda");
+        info.setText("");
     }
 
 
@@ -499,6 +500,11 @@ public class BattlePanel extends JPanel {
         timeRemaining = 20;
         updateTimerDisplay();
     }
+    public void reset(){
+        trainerActualMovements.clear();
+        po.panelInvetory.reset();
+
+    }
 
     public void actualizarListaMovements(){
         trainerActualMovements = po.domain.getMovementsStringCurrent();
@@ -535,6 +541,7 @@ public class BattlePanel extends JPanel {
             g.drawImage(pokemonTwo.getImage(), xSecond - 15, ySecond + 50, scaledWidth, scaledHeight, this);
         }
     }
+
     private class CustomHealthBar extends JProgressBar {
         private boolean isPlayer;
 

@@ -34,6 +34,7 @@ public abstract class MachineTrainer extends Trainer {
         if (randomIndex == 0) {
             Movement actual = null;
             try{
+                actualPokemon.affectPokemonStatus();
                 actual = pokemonMovementDecide(target);
                 actual.doAttackTo(actualPokemon, target);
             }

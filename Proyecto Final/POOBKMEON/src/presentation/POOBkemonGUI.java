@@ -191,9 +191,7 @@ public class POOBkemonGUI extends JFrame {
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
 
-        //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
-
-        //panelContenedor.add(Panelpeuw, "prueba");
+        
 
 
 
@@ -538,6 +536,7 @@ public class POOBkemonGUI extends JFrame {
                 listMovements.resetPokemonChosen();
                 //selectedPokemon.reset();
                 //playerVsMachinePanel.reset();
+                panelBattle.reset();
                 cardLayout.show(panelContenedor,"principal");
             }
         });
@@ -597,10 +596,9 @@ public class POOBkemonGUI extends JFrame {
                 if (!listMovements.isSelectedMovements()) {
                     return;
                 }
-                System.out.println("?dsd");
                 System.out.println(listMovements.getPokemonChoosen().toString());
                 System.out.println(listMovements.getPokemonChoosen().toString());
-                System.out.println("?dsd");
+                
                 selectedPokemon.inicializate(listMovements.getPokemonChoosen(), listMovements.getColor());
 
                 playerVsMachinePanel.pokemonsWithMovs= listMovements.getMovementsMap();

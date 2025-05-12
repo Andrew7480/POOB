@@ -42,6 +42,7 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         temp.setOpaque(false);
         selection1 = new SelectionMovementsPanel(po);
         selection2 = new SelectionMovementsPanel(po);
+
         temp.add(selection1);
         temp.add(selection2);
 
@@ -67,10 +68,18 @@ public class SelectionMovementsTwoPlayers extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                
-
+                    if (!selection1.isSelectedMovements() || ! selection1.isSelectedMovements()) {
+                        JOptionPane.showMessageDialog(SelectionMovementsTwoPlayers.this,
+                    "Tienes que escoger todos los movimientos.",
+                    "Movimientos no seleccionados.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                    gameMode.firstPokemonMovs = selection1.getPokemonMovs();
+                    gameMode.secondPokemonMovs = selection2.getPokemonMovs();
+                    
                    
-                   gameMode.changePanel("");
+                   gameMode.inicialPoks.inicializate(selection1.getColor(), selection1.getPokemonChoosen(), selection2.getColor(), selection2.getPokemonChoosen());
+                   gameMode.changePanel("Iniciales");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(SelectionMovementsTwoPlayers.this, ex.getMessage());
                 }
@@ -78,6 +87,7 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         });
 
         come.addActionListener(e -> {
+            reset();
             gameMode.changePanel("Inventory");
         });
     }
@@ -90,14 +100,20 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         return doneButton;
     }
 
-    public void inicializate(Color color1, Color color2){
-        //selection1.setColor(color1);
-        //selection2.setColor(color2);
+    public void inicializate(Color color1, ArrayList<String> pok1, Color color2, ArrayList<String> pok2){
+        selection1.setColor(color1);
+        selection2.setColor(color2);
+        selection1.infoSelectedPokemons(pok1);
+        selection2.infoSelectedPokemons(pok2);
     }
     
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion movimientos dos players");
+        selection1.resetPokemonChosen();
+        selection2.resetPokemonChosen();
+        repaint();
+        revalidate();
     }
 
     @Override
