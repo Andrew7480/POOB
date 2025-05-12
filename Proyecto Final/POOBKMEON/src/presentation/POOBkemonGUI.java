@@ -28,6 +28,7 @@ public class POOBkemonGUI extends JFrame {
     protected SelectionPokemon chooser;
     protected ListOfMovementsPanel listMovements;
     protected PanelSelectedPokemon selectedPokemon;
+    protected BattlePanelMvsM panelMvsM;
     private JColorChooser colorChooser;
     
     private JPanel inicio;
@@ -191,7 +192,12 @@ public class POOBkemonGUI extends JFrame {
         panelBattle = new BattlePanel(this);
         panelContenedor.add(panelBattle,"battle");
 
-        
+        panelMvsM = new BattlePanelMvsM(this);
+        panelContenedor.add(panelMvsM,"battle m");
+
+        //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
+
+        //panelContenedor.add(Panelpeuw, "prueba");
 
 
 
@@ -505,14 +511,6 @@ public class POOBkemonGUI extends JFrame {
             }
         });
 
-        /*
-        playerVSplayerPanelSurvival.getButtonRegresarSurvival().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"survival");
-            }
-        });
-        */
 
         playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
             @Override
