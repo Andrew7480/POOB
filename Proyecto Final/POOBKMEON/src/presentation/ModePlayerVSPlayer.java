@@ -93,6 +93,13 @@ public class ModePlayerVSPlayer extends JPanel {
         }
         po.domain.inicializateBattle(firsName,secondName);
         batalla.inicializate(po.domain.inicialTrainerMovements(firsName));
+
+        String firstPokemonIndex = String.valueOf(po.domain.getCurrentPokemonPokedexIndex());
+        String secondPokemonIndex = String.valueOf(po.domain.getOponentPokemonPokedexIndex());
+
+        batalla.setFirstPokemon(firstPokemonIndex);
+        batalla.setSecondPokemon(secondPokemonIndex);
+
         po.selectedPokemon.changeImagePvsP();
     }
     
