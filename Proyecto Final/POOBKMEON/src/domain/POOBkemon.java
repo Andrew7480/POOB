@@ -1,9 +1,11 @@
 package domain;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 import java.awt.Color;
 import java.io.*;
+import java.util.Random;
 public class POOBkemon implements Serializable{
     private TreeMap<String, Pokemon> pokedex = new TreeMap<>(); // Pokemones sin movimientos, los movimientos los pone y se añaden al jugador
     private TreeMap<String, Trainer> entrenadores = new TreeMap<>();
@@ -13,6 +15,7 @@ public class POOBkemon implements Serializable{
 
     private Battle battle;
     
+
     /**
      * Default constructor for POOBkemon
      * Initializes a new POOBkemon game instance
@@ -375,14 +378,50 @@ public class POOBkemon implements Serializable{
         TreeMap<String,Movement> movementsForPokemon = new TreeMap<>();
         for(Movement movement : movements.values()) {
             double multiplicador = movement.getMultiplicator(pokemon.getPrincipalType());
-
             if (multiplicador <= 1.0){
                 movementsForPokemon.put(movement.getName(), movement);
             }
         }
-
         return movementsForPokemon;
     }
+
+    public void generateRandomSelectionPokemon(String trainerEscogido){
+        Random random = new Random();
+        ArrayList<String> generalLista = new ArrayList<>(pokedex.keySet());
+        ArrayList<String> pokemonesEscogidos = new ArrayList<>();
+        int count = 0;
+        while (count < 6){
+            int number = random.nextInt(generalLista.size());
+            ArrayList<Movement> p = generateRandomMovementForPokemons();
+            pokemonesEscogidos.add(generalLista.get(number));
+            try{
+                addNewPokemon(trainerEscogido, generalLista.get(number), p.get(0), p.get(1), p.get(2), p.get(3));
+                count++;
+            }catch(PoobkemonException e){
+                e.getMessage();
+            }
+        }
+        try{
+            inicialTrainerPokemon(trainerEscogido,pokemonesEscogidos.get(0));
+        }catch (PoobkemonException h){
+            h.getMessage();
+        }
+    }
+    public String getFirstPokemonOfThelist(ArrayList<String> pokemonesEscogidos){
+        return pokemonesEscogidos.get(0);
+    }
+
+    public ArrayList<Movement> generateRandomMovementForPokemons(){
+        Random random = new Random();
+        ArrayList<Movement> listaMovimientos = new ArrayList<>(movements.values());
+        ArrayList<Movement> listRandom = new ArrayList<>();
+        while (listRandom.size() < 4){
+            int number = random.nextInt(listaMovimientos.size());
+            listRandom.add(listaMovimientos.get(number));
+        }
+        return listRandom;
+    }
+
 
     /**
      * Saves the current game state to a file

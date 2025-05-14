@@ -29,6 +29,7 @@ public class POOBkemonGUI extends JFrame {
     protected ListOfMovementsPanel listMovements;
     protected PanelSelectedPokemon selectedPokemon;
     protected BattlePanelMvsM panelMvsM;
+    protected ModePlayerVSPlayerSurvival panelPvsPSurvival;
     private JColorChooser colorChooser;
     
     private JPanel inicio;
@@ -166,13 +167,15 @@ public class POOBkemonGUI extends JFrame {
 
         playerVSplayerPanel = new ModePlayerVSPlayer(this);
         panelContenedor.add(playerVSplayerPanel,"player vs player");
-
-
+            
         playerVsMachinePanel = new ModePlayerVsMachine(this);
         panelContenedor.add(playerVsMachinePanel,"player vs machine");
 
         machineVsMachinePanel = new ModeMachineVsMachine(this);
         panelContenedor.add(machineVsMachinePanel,"machine vs machine");
+
+        panelPvsPSurvival = new ModePlayerVSPlayerSurvival(this);
+        panelContenedor.add(panelPvsPSurvival,"player vs player survival");
 
         panelInvetory = new InventoryPanel(this);
         panelContenedor.add(panelInvetory,"inventory");
@@ -194,12 +197,6 @@ public class POOBkemonGUI extends JFrame {
 
         panelMvsM = new BattlePanelMvsM(this);
         panelContenedor.add(panelMvsM,"battle m");
-
-        //JPanel Panelpeuw = new SelectionPokemonItemPlayers(this);
-
-        //panelContenedor.add(Panelpeuw, "prueba");
-
-
 
     }
 
