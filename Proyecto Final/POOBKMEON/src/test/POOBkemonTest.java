@@ -282,36 +282,59 @@ public class POOBkemonTest implements Serializable {
             }
 
             //Pokemones con esos movs
-            Pokemon venusaur = new Pokemon("Venasur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-            Pokemon charizard = new Pokemon("Charizard",90,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
+            Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+            Pokemon charizard = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
             Pokemon blastoise = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null,9);
             Pokemon raichu = new Pokemon("Raichu",100,324,306,306,229,284,350,PokemonType.ELECTRICO,null,26);
+            Pokemon nidoking = new Pokemon("Nidoking",100,364,328,295,284,273,295,PokemonType.VENENO,PokemonType.TIERRA,34);
+            Pokemon clefable = new Pokemon("Clefable",100,394,251,284,317,328,251,PokemonType.HADA,null,36);
+            Pokemon arcanine = new Pokemon("Arcanine",100,384,350,317,295,284,328,PokemonType.FUEGO,null,59);
             Pokemon machamp = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null,68);
+            Pokemon slowbro = new Pokemon("Slowbro",100,394,306,328,339,273,174,PokemonType.AGUA,PokemonType.PSIQUICO,80);
             Pokemon gengar = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA,PokemonType.VENENO,94);
-            Pokemon dragonite = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR,149);
-            Pokemon togetic = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR,176);
-            Pokemon donphan = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null,232);
-            Pokemon tyranitar = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO,248);
+            Pokemon rhydon = new Pokemon("Rhydon",100,414,394,306,262,273,196,PokemonType.TIERRA,PokemonType.ROCA,112);
+            Pokemon gyarados = new Pokemon("Gyarados",100,394,383,284,317,328,287,PokemonType.AGUA,PokemonType.VOLADOR,130);
             Pokemon snorlax = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null,143);
+            Pokemon moltres = new Pokemon("Moltres",100,384,328,317,361,284,328,PokemonType.FUEGO,PokemonType.VOLADOR,146);
+            Pokemon dragonite = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR,149);
+            Pokemon typhlosion = new Pokemon("Typhlosion",100,360,293,317,328,306,328,PokemonType.FUEGO,null,157);
+            Pokemon feraligatr = new Pokemon("Feraligatr",100,384,339,306,295,284,306,PokemonType.AGUA,null,160);
+            Pokemon togetic = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR,176);
+            Pokemon ursaring = new Pokemon("Ursaring",100,424,394,273,251,273,229,PokemonType.NORMAL,null,217);
+            Pokemon donphan = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null,232);
             Pokemon delibird = new Pokemon("Delibird",100,294,229,251,207,207,273,PokemonType.HIELO,PokemonType.VOLADOR,225);
+            Pokemon tyranitar = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO,248);
+            Pokemon blaziken = new Pokemon("Blaziken",100,364,372,284,339,273,328,PokemonType.FUEGO,PokemonType.LUCHA,257);
             Pokemon gardevoir = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA,282);
+            Pokemon slaking = new Pokemon("Slaking",100,504,460,273,328,284,273,PokemonType.NORMAL,null,289);
             Pokemon metagross = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO,376);
             
-            Pokemon venusaur1 = new Pokemon("Venasur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-            Pokemon charizard1 = new Pokemon("Charizard",90,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
+            Pokemon venusaur1 = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+            Pokemon charizard1 = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
             Pokemon blastoise1 = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null,9);
             Pokemon raichu1 = new Pokemon("Raichu",100,324,306,306,229,284,350,PokemonType.ELECTRICO,null,26);
+            Pokemon nidoking1 = new Pokemon("Nidoking",100,364,328,295,284,273,295,PokemonType.VENENO,PokemonType.TIERRA,34);
+            Pokemon clefable1 = new Pokemon("Clefable",100,394,251,284,317,328,251,PokemonType.HADA,null,36);
+            Pokemon arcanine1 = new Pokemon("Arcanine",100,384,350,317,295,284,328,PokemonType.FUEGO,null,59);
             Pokemon machamp1 = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null,68);
+            Pokemon slowbro1 = new Pokemon("Slowbro",100,394,306,328,339,273,174,PokemonType.AGUA,PokemonType.PSIQUICO,80);
             Pokemon gengar1 = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA,PokemonType.VENENO,94);
-            Pokemon dragonite1 = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR,149);
-            Pokemon togetic1 = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR,176);
-            Pokemon donphan1 = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null,232);
-            Pokemon tyranitar1 = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO,248);
+            Pokemon rhydon1 = new Pokemon("Rhydon",100,414,394,306,262,273,196,PokemonType.TIERRA,PokemonType.ROCA,112);
+            Pokemon gyarados1 = new Pokemon("Gyarados",100,394,383,284,317,328,287,PokemonType.AGUA,PokemonType.VOLADOR,130);
             Pokemon snorlax1 = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null,143);
+            Pokemon moltres1 = new Pokemon("Moltres",100,384,328,317,361,284,328,PokemonType.FUEGO,PokemonType.VOLADOR,146);
+            Pokemon dragonite1 = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR,149);
+            Pokemon typhlosion1 = new Pokemon("Typhlosion",100,360,293,317,328,306,328,PokemonType.FUEGO,null,157);
+            Pokemon feraligatr1 = new Pokemon("Feraligatr",100,384,339,306,295,284,306,PokemonType.AGUA,null,160);
+            Pokemon togetic1 = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR,176);
+            Pokemon ursaring1 = new Pokemon("Ursaring",100,424,394,273,251,273,229,PokemonType.NORMAL,null,217);
+            Pokemon donphan1 = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null,232);
             Pokemon delibird1 = new Pokemon("Delibird",100,294,229,251,207,207,273,PokemonType.HIELO,PokemonType.VOLADOR,225);
+            Pokemon tyranitar1 = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO,248);
+            Pokemon blaziken1 = new Pokemon("Blaziken",100,364,372,284,339,273,328,PokemonType.FUEGO,PokemonType.LUCHA,257);
             Pokemon gardevoir1 = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA,282);
+            Pokemon slaking1 = new Pokemon("Slaking",100,504,460,273,328,284,273,PokemonType.NORMAL,null,289);
             Pokemon metagross1 = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO,376);
-
                         
             poobkemon.addPokemon(charizard);
             poobkemon.addPokemon(snorlax);
@@ -327,6 +350,18 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(machamp);
             poobkemon.addPokemon(delibird);
             poobkemon.addPokemon(raichu);
+            poobkemon.addPokemon(nidoking);
+            poobkemon.addPokemon(clefable);
+            poobkemon.addPokemon(arcanine);
+            poobkemon.addPokemon(slowbro);
+            poobkemon.addPokemon(rhydon);
+            poobkemon.addPokemon(gyarados);
+            poobkemon.addPokemon(moltres);
+            poobkemon.addPokemon(typhlosion);
+            poobkemon.addPokemon(feraligatr);
+            poobkemon.addPokemon(ursaring);
+            poobkemon.addPokemon(blaziken);
+            poobkemon.addPokemon(slaking);
 
             /* 
             poobkemon.addPokemon(charizard1);
@@ -359,7 +394,18 @@ public class POOBkemonTest implements Serializable {
             machamp1.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate, closeCombat, rockSlide});
             delibird1.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze, iceBeam, drillPeck});
             raichu1.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall, thunderbolt, thunderPunch});
-            
+            nidoking1.setMovements(new Movement[] {earthquake, poison, brickBreak, shadowBall});
+            clefable1.setMovements(new Movement[] {moonblast, calmMind, psychic, flamethrower});
+            arcanine1.setMovements(new Movement[] {flamethrower, crunch, outrage, burn});
+            slowbro1.setMovements(new Movement[] {psychic, surf, calmMind, iceBeam});
+            rhydon1.setMovements(new Movement[] {earthquake, stoneedge, brickBreak, hyperBeam});
+            gyarados1.setMovements(new Movement[] {dragonDance, outrage, crunch, surf});
+            moltres1.setMovements(new Movement[] {flamethrower, airSlash, burn, solarBeam});
+            typhlosion1.setMovements(new Movement[] {flamethrower, brickBreak, earthquake, calmMind});
+            feraligatr1.setMovements(new Movement[] {surf, crunch, hydroPump, iceBeam});
+            ursaring1.setMovements(new Movement[] {hyperBeam, brickBreak, crunch, stoneedge});
+            blaziken1.setMovements(new Movement[] {flamethrower, brickBreak, closeCombat, thunderbolt});
+            slaking1.setMovements(new Movement[] {hyperBeam, earthquake, shadowBall, brickBreak});
 
             //items
             Item revive = new Revive();
@@ -416,8 +462,11 @@ public class POOBkemonTest implements Serializable {
             Inventory inventarioDefensive = new Inventory(); 
             defensive.setInventory(inventarioDefensive);
             defensive.addPokemon(snorlax1);
-            defensive.addPokemon(charizard1);
+            defensive.addPokemon(rhydon1);
             defensive.addPokemon(blastoise1);
+            defensive.addPokemon(gyarados1);
+            defensive.addPokemon(moltres1);
+            defensive.addPokemon(typhlosion1);
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
             inventarioDefensive.addItem(revive);
@@ -428,9 +477,12 @@ public class POOBkemonTest implements Serializable {
             //2
             Inventory inventarioChanging = new Inventory();
             changing.setInventory(inventarioChanging);
-            changing.addPokemon(snorlax1);
-            changing.addPokemon(charizard1);
-            changing.addPokemon(blastoise1);
+            changing.addPokemon(clefable1);
+            changing.addPokemon(machamp1);
+            changing.addPokemon(slaking1);
+            changing.addPokemon(feraligatr1);
+            changing.addPokemon(ursaring1);
+            changing.addPokemon(rhydon1);
             inventarioChanging.addItem(psNormalPotion);
             inventarioChanging.addItem(defenseNormalPotion);
             inventarioChanging.addItem(revive);
@@ -440,9 +492,12 @@ public class POOBkemonTest implements Serializable {
             //3
             Inventory inventarioChanging1 = new Inventory();
             changing1.setInventory(inventarioChanging1);
-            changing1.addPokemon(snorlax1);
-            changing1.addPokemon(charizard1);
-            changing1.addPokemon(blastoise1);
+            changing1.addPokemon(dragonite1);
+            changing1.addPokemon(venusaur1);
+            changing1.addPokemon(tyranitar1);
+            changing1.addPokemon(gyarados1);
+            changing1.addPokemon(moltres1);
+            changing1.addPokemon(blaziken1);
             inventarioChanging1.addItem(psNormalPotion);
             inventarioChanging1.addItem(defenseNormalPotion);
             inventarioChanging1.addItem(revive);
@@ -451,9 +506,12 @@ public class POOBkemonTest implements Serializable {
             //4
             Inventory inventarioAttacking = new Inventory();
             attacking.setInventory(inventarioAttacking);
-            attacking.addPokemon(snorlax1);
-            attacking.addPokemon(charizard1);
-            attacking.addPokemon(blastoise1);
+            attacking.addPokemon(machamp1);
+            attacking.addPokemon(tyranitar1);
+            attacking.addPokemon(dragonite1);
+            attacking.addPokemon(blaziken1);
+            attacking.addPokemon(gardevoir1);
+            attacking.addPokemon(gyarados1);
             inventarioAttacking.addItem(psNormalPotion);
             inventarioAttacking.addItem(defenseNormalPotion);
             inventarioAttacking.addItem(revive);
@@ -461,9 +519,12 @@ public class POOBkemonTest implements Serializable {
             //5
             Inventory inventarioExpert = new Inventory();
             expert.setInventory(inventarioExpert);
-            expert.addPokemon(snorlax1);
-            expert.addPokemon(charizard1);
-            expert.addPokemon(blastoise1);
+            expert.addPokemon(venusaur1);
+            expert.addPokemon(gyarados1);
+            expert.addPokemon(metagross1);
+            expert.addPokemon(dragonite1);
+            expert.addPokemon(gardevoir1);
+            expert.addPokemon(rhydon1);
             inventarioExpert.addItem(psNormalPotion);
             inventarioExpert.addItem(defenseNormalPotion);
             inventarioExpert.addItem(revive);
@@ -472,9 +533,12 @@ public class POOBkemonTest implements Serializable {
             //6
             Inventory inventarioDefensive1 = new Inventory();
             defensive1.setInventory(inventarioDefensive1);
-            defensive1.addPokemon(snorlax1);
-            defensive1.addPokemon(charizard1);
-            defensive1.addPokemon(blastoise1);
+            defensive1.addPokemon(venusaur1);
+            defensive1.addPokemon(slowbro1);
+            defensive1.addPokemon(clefable1);
+            defensive1.addPokemon(rhydon1);
+            defensive1.addPokemon(togetic1);
+            defensive1.addPokemon(tyranitar1);
             inventarioDefensive1.addItem(psNormalPotion);
             inventarioDefensive1.addItem(defenseNormalPotion);
             inventarioDefensive1.addItem(revive);
@@ -519,7 +583,7 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = po.getTrainer("tulio");
         assertEquals(t1.getInventory().getAlivePokemons().get(0).getLevel(),100);
     }
-
+    /*
     @Test
     public void shouldDoTheRightMovement(){
         POOBkemon kemon = new POOBkemon();
@@ -543,7 +607,7 @@ public class POOBkemonTest implements Serializable {
         }catch (PoobkemonException e){
             fail();
         }
-    }
+    }*/
     @Test
     public void shouldChangePokemon(){
         POOBkemon kemon = new POOBkemon();

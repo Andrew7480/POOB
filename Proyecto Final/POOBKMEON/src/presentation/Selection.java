@@ -252,9 +252,7 @@ public class Selection extends JPanel{
 
     public void createButtons() {
         for (Entry<String, Pokemon> entry : pooBkemonGUI.domain.getPokedex().entrySet()) {
-            String nombre = entry.getKey();
             Pokemon pokemon = entry.getValue();
-            String ruta = pokemon.getPokedexIndex().toString() +".png";
             JButton button = createImageButton(pokemon);
             buttons.add(button);
             button.addActionListener(e -> 
@@ -293,6 +291,7 @@ public class Selection extends JPanel{
         
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
+            System.out.println("LAS QUE ESTAN BIEN: " + imagePath);
             
             if (imagePath.toLowerCase().endsWith(".gif")){
                 button.setIcon(icon);
@@ -304,6 +303,8 @@ public class Selection extends JPanel{
             }
             //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
+            System.out.println(imagePath + "QUE ESTA PASANDO ACA?");
+            e.printStackTrace();
             button.setText("No imagen");
         }
         button.setPreferredSize(smallSize);
@@ -321,6 +322,7 @@ public class Selection extends JPanel{
     private JButton createImageButton(Pokemon pokemon) {
         String name = pokemon.getName();
         String imagePath = pokemon.getPokedexIndex() + ".png";
+        //System.out.println(imagePath);
         JButton button = createImageButton(name, imagePath);
         button.setToolTipText(pokemon.createPokemonForToolTip());
         ToolTipManager.sharedInstance().setInitialDelay(500);
