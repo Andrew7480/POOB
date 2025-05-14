@@ -11,7 +11,7 @@ public class PoobkemonException extends Exception {
     public static final String ITEM_NOT_USABLE = "No se peude usar el item.";
 
     /** Error message when an item is not found in a trainer's inventory */
-    public static final String ITEM_NOT_FOUND = "No se ha encontrado.";
+    public static final String ITEM_NOT_FOUND = "No se ha encontrado el ITEM.";
 
     /** Error message when a movement cannot be executed */
     public static final String INVALID_MOVEMENT = "no se puede hacer el movimiento.";

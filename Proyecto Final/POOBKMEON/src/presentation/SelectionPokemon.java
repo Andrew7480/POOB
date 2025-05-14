@@ -363,14 +363,24 @@ public class SelectionPokemon extends JPanel{
 
             pooBkemonGUI.playerVsMachinePanel.itemsEscogidos = getItemsChoosen();
 
+            System.out.println(getItemsChoosen() + "METODO ITEMS CHOOSEN");
+
+            System.out.println("ANTES DE ITEMS ESCOGIDOS VARIABLE");
+
+            System.out.println(pooBkemonGUI.playerVsMachinePanel.itemsEscogidos + "PROFE?");
+
+            System.out.println("PROFE");
+
             pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
 
             pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen, color);
 
-
             pooBkemonGUI.panelInvetory.inicializate(itemsChoosen);
 
+            System.out.println(itemsChoosen + "PANEL CHOOSER");
+
             pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"movimientos");
+
             reset();
         });
     }

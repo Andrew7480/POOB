@@ -79,6 +79,8 @@ public class Battle implements Serializable {
      * @throws PoobkemonException If there is an issue using the item
      */
     public void useItem(String item) throws PoobkemonException{
+        System.out.println("LLEGAS A BATALLA?" + item);
+        System.out.println(getCurrentTrainer().getName());
         getCurrentTrainer().useItem(item);
         afterAction();
     }

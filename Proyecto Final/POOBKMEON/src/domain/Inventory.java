@@ -118,6 +118,9 @@ public class Inventory implements Serializable{
      */
     public Item getItemByName(String name) throws PoobkemonException{
         for (Item i : items.keySet()){
+            System.out.println(i.getName() + "quien eres?");
+        }
+        for (Item i : items.keySet()){
             if (name.equals(i.getName())) return i;
         }
         throw new PoobkemonException(PoobkemonException.ITEM_NOT_FOUND);
@@ -190,8 +193,18 @@ public class Inventory implements Serializable{
      *                            POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST if the Pokemon is not in the inventory
      */
     public void useItem(Pokemon pokemon,Item item) throws PoobkemonException{
-        if (! items.containsKey(item.getName())) throw new PoobkemonException(PoobkemonException.ITEM_NOT_FOUND);
-        if (! pokemons.containsKey(pokemon.getName())) throw new PoobkemonException(PoobkemonException.POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST);
+        System.out.println("items: " + item.getName());
+        for (Item i : items.keySet()){
+            System.out.println(i.getName());
+        }
+        System.out.println("hola? Inventory");
+        if (!items.containsKey(item.getName())) {
+            System.out.println(item.getName());
+            throw new PoobkemonException(PoobkemonException.ITEM_NOT_FOUND);
+        }
+        if (!pokemons.containsKey(pokemon.getName())) throw new PoobkemonException(PoobkemonException.POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST);
+        System.out.println("Item: " + item);
+        System.out.println("POKEMON: " + pokemon.getName());
         item.useItem(pokemon);
         items.remove(item.getName());
     }
@@ -205,6 +218,8 @@ public class Inventory implements Serializable{
      * @throws PoobkemonException Various exceptions depending on item and Pokemon status
      */
     public void useItem(Pokemon pokemon,String item) throws PoobkemonException{
+        System.out.println("LLEGAS AL INVENTARIO DEL TRAINER?");
+        System.out.println(pokemon.getName() + " " + item);
         useItem(pokemon, getItemByName(item));
     }
 

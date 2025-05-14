@@ -86,6 +86,7 @@ public class POOBkemon implements Serializable{
      * @throws PoobkemonException If the item cannot be used or doesn't exist
      */
     public void actionuseItem(String item) throws PoobkemonException{
+        System.out.println("LLEGAS A POOBKEMON?");
         battle.useItem(item);
     }
 
@@ -274,6 +275,7 @@ public class POOBkemon implements Serializable{
      * @param item Item to add
      */
     public void addItem(Item item){
+        System.out.println(item.getName() + "HOLA");
         items.put(item.getName(),item);
     }
 

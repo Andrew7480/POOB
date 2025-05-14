@@ -81,19 +81,19 @@ public class BattlePanel extends JPanel {
         int psCurrent = po.domain.getCurrentPokemonPs();
         int levelCurrent = po.domain.getCurrentPokemonLevel();
         int maxPs = po.domain.getcurrentMaxPs();
-        
+        setFirstPokemon(Integer.toString(po.domain.getCurrentPokemonPokedexIndex()));
         playerStatsPanel = createStatsPanel(nameCurrent, levelCurrent ,psCurrent,maxPs, true);
 
         String nameOponent = po.domain.getOponentPokemonName();
         int psOponent = po.domain.getOponentPokemonPs();
         int levelOponent = po.domain.getOponentPokemonLevel();
         int maxPsOponent = po.domain.getOponentMaxPs();
-
+        setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
         opponentStatsPanel = createStatsPanel(nameOponent,levelOponent,psOponent,maxPsOponent, false);
         
         add(playerStatsPanel);
         add(opponentStatsPanel);
-        prepareMovementButtons(); // MOVER A INICIALIZATE
+        prepareMovementButtons();
         actualizarColor();
         
     }
@@ -267,13 +267,15 @@ public class BattlePanel extends JPanel {
         int health = po.domain.getOponentPokemonPs();
         int level = po.domain.getOponentPokemonLevel();
         int maxPs = po.domain.getOponentMaxPs();
+        setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
 
         String pokemonNameCurrent = po.domain.getCurrentPokemonName();
         int healthCurrent = po.domain.getCurrentPokemonPs();
         int levelCurrent = po.domain.getCurrentPokemonLevel();
         int maxPsCurrent = po.domain.getcurrentMaxPs();
         System.out.println("vida afectada a mi pokemon : "+healthCurrent);
-
+        setFirstPokemon(Integer.toString(po.domain.getCurrentPokemonPokedexIndex()));
+        
         playerHealthBar.setValue(healthCurrent);
         opponentHealthBar.setValue(health);
 

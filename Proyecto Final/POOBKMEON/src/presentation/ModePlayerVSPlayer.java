@@ -19,7 +19,7 @@ public class ModePlayerVSPlayer extends JPanel {
     protected InicialPokemonsPlayers inicialPoks;
     protected BattlePanel batalla;
 
-    protected String firsName;
+    protected String firstName;
     protected String secondName;
     protected ArrayList<String> firstItems;
     protected ArrayList<String> secondItems;
@@ -75,31 +75,24 @@ public class ModePlayerVSPlayer extends JPanel {
     }
 
     public void inicializateBattle(Color color1, Color color2, String pok1, String pok2){
-        po.createTrainer(firsName,color1);
+        po.createTrainer(firstName,color1);
         po.createTrainer(secondName,color2);
         try{
-            po.addPokemonsToTrainer(firsName,firstPokemonMovs);
+            po.addPokemonsToTrainer(firstName,firstPokemonMovs);
             po.addPokemonsToTrainer(secondName,secondPokemonMovs);
 
-            po.addItemsToTrainer(firsName,firstItems);
+            po.addItemsToTrainer(firstName,firstItems);
             po.addItemsToTrainer(secondName,secondItems);
 
-            po.domain.inicialTrainerPokemon(firsName,pok1);
+            po.domain.inicialTrainerPokemon(firstName,pok1);
             po.domain.inicialTrainerPokemon(secondName,pok2);
             }
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
             return;
         }
-        po.domain.inicializateBattle(firsName,secondName);
-        batalla.inicializate(po.domain.inicialTrainerMovements(firsName));
-
-        String firstPokemonIndex = String.valueOf(po.domain.getCurrentPokemonPokedexIndex());
-        String secondPokemonIndex = String.valueOf(po.domain.getOponentPokemonPokedexIndex());
-
-        batalla.setFirstPokemon(firstPokemonIndex);
-        batalla.setSecondPokemon(secondPokemonIndex);
-
+        po.domain.inicializateBattle(firstName,secondName);
+        batalla.inicializate(po.domain.inicialTrainerMovements(firstName));
         po.selectedPokemon.changeImagePvsP();
     }
     

@@ -6,6 +6,7 @@ import javax.swing.border.Border;
 
 import domain.Item;
 import domain.Pokemon;
+import domain.PoobkemonException;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -24,19 +25,21 @@ public class InventoryPanel extends JPanel {
     private JPanel panelScroll;
     private ArrayList<String> itemsSelected;
     private ArrayList<JButton> buttons;
-    private final int MAX_POKEMONS=2;
+    private final int MAX_ITEM_SELECT = 1;
 
     public InventoryPanel(POOBkemonGUI po){
         pooBkemonGUI = po;
         color = new Color(85, 85, 85, 100);
-        come = new JButton("Back");
-        doneButton = new JButton ("Done!");
+        come = new JButton("Back To Battle!");
+        doneButton = new JButton ("Use Item");
         texto = new JLabel("Player");
     }
 
     public void inicializate(ArrayList<String> items){
         itemsSelected = items;
+        System.out.println(itemsSelected + "PANEL INVENTORY?");
         prepareElements();
+        prepareActions();
     }
 
 
@@ -267,6 +270,24 @@ public class InventoryPanel extends JPanel {
         });
     }
     */
+    private void prepareActions(){
+        doneButton.addActionListener(e ->{
+            if (itemsSelected.size() == 1){
+                try{
+                    System.out.println(pooBkemonGUI.domain.getCurrentPokemonPs());
+                    System.out.println(itemsSelected.get(0));
+                    pooBkemonGUI.domain.actionuseItem(itemsSelected.get(0));
+                    System.out.println(pooBkemonGUI.domain.getCurrentPokemonPs());
+                    pooBkemonGUI.panelBattle.actualizarCreateStatsPanelAfterMove();
+                }catch(PoobkemonException h){
+                    System.out.println(h.getMessage());
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Solo puedes utilizar una poción por pókemon", "Límite excedido", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+    }
 
     public void reset(){
         itemsSelected.clear();

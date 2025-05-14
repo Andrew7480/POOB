@@ -98,7 +98,7 @@ public class DatosTwoPlayers extends JPanel {
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    gameMode.firsName = player1Name;
+                    gameMode.firstName = player1Name;
                     gameMode.secondName = player2Name;
 
                     gameMode.inventory.inicializate(choice1,choice2);

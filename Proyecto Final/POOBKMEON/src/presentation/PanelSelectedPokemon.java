@@ -177,6 +177,9 @@ public class PanelSelectedPokemon extends JPanel{
         po.createTrainer(po.playerVsMachinePanel.trainerEscogido,color);
         try{
             po.addPokemonsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.pokemonsWithMovs);
+            System.out.println(po.playerVsMachinePanel.itemsEscogidos + "QUE ESTA PASANDO ACA?????????????");
+            System.out.println(po.playerVsMachinePanel.trainerEscogido);
+            System.out.println(po.playerVsMachinePanel.pokemonsWithMovs + "ESTO ESTA VACIO?");
             po.addItemsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.itemsEscogidos);
             po.domain.inicialTrainerPokemon(po.playerVsMachinePanel.trainerEscogido, pokemonInicialChosen.get(0));
             po.domain.inicialTrainerPokemon(po.playerVsMachinePanel.trainerEscogidoMachine,"professor");
