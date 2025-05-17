@@ -50,7 +50,6 @@ public class Battle implements Serializable {
     public void executeMovement(String move) throws PoobkemonException{ 
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
-        System.out.println(current.getName());
         current.getPokemonInUse().affectPokemonStatus();
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();

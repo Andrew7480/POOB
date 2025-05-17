@@ -179,4 +179,8 @@ public abstract class Movement implements Attackable, Serializable{
      * @return A new Movement object with identical properties
      */
     public abstract Movement copy();
+
+    public abstract String createMovementForToolTip();
+
+
 }

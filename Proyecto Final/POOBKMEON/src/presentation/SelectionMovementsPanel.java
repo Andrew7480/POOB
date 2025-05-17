@@ -122,6 +122,7 @@ public class SelectionMovementsPanel extends JPanel{
                 
                 for (String move : movements) {
                     JMenuItem menuItem = new JMenuItem(move);
+                    menuItem.setToolTipText(po.domain.getMovements().get(move).createMovementForToolTip());
                     menuItem.addActionListener(ev -> {
                         moveButton.setText(move);
                         movimientosSeleccionados.get(namePokemon).set(buttonIndex, move);
