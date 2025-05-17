@@ -21,6 +21,7 @@ public class MovementTribute extends SpecialMovement{
     public MovementTribute(String newName, String newDescription, int newPP, int newPower, int newPrecision, PokemonType newPT, TributeEffect estado, int newpPriority){
         super(newName,newDescription,newPP,newPower,newPrecision,newPT, newpPriority);
         state = estado;
+        typeOfMovement = "Tribute";
     }
 
     /**

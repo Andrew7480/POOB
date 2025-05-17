@@ -260,7 +260,7 @@ public class Pokemon implements Serializable {
     public ArrayList<MovementState> getStateMovements() {
         ArrayList<MovementState> stateMovements = new ArrayList<>();
         for (Movement movement : movements) {
-            if (movement instanceof MovementState) {
+            if (movement.getTypeOfMove().equals("State")) {
                 stateMovements.add((MovementState) movement);
             }
         }
@@ -275,7 +275,7 @@ public class Pokemon implements Serializable {
     public ArrayList<MovementTribute> gettTributeMovements() {
         ArrayList<MovementTribute> tributeMovements = new ArrayList<>();
         for (Movement movement : movements) {
-            if (movement instanceof MovementTribute) {
+            if (movement.getTypeOfMove().equals("Tribute")) {
                 tributeMovements.add((MovementTribute) movement);
             }
         }

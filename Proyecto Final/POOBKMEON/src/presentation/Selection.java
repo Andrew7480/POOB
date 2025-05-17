@@ -291,7 +291,6 @@ public class Selection extends JPanel{
         
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
-            System.out.println("LAS QUE ESTAN BIEN: " + imagePath);
             
             if (imagePath.toLowerCase().endsWith(".gif")){
                 button.setIcon(icon);
@@ -303,7 +302,6 @@ public class Selection extends JPanel{
             }
             //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
-            System.out.println(imagePath + "QUE ESTA PASANDO ACA?");
             e.printStackTrace();
             button.setText("No imagen");
         }

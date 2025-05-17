@@ -37,6 +37,10 @@ public class POOBkemon implements Serializable{
     public TreeMap<String, Movement> getMovements(){
         return movements;
     }
+    
+    public Battle getBattle() {
+    	return battle;
+    }
 
     //-------------------------------------------------------------------------------------
     /**

@@ -20,6 +20,7 @@ public class MovementState extends SpecialMovement{
         super(newName,newDescription,newPP,newPower,newPrecision,newPT, newpPriority);
         state = estado;
         damageBase = newDamageBase;
+        typeOfMovement = "State";
     }
 
     /**

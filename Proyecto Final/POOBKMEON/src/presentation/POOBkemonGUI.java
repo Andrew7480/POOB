@@ -447,8 +447,11 @@ public class POOBkemonGUI extends JFrame {
         button.setBackground(new Color(70, 130, 180));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createRaisedBevelBorder());
+        button.setBorder(BorderFactory.createCompoundBorder(
+        		BorderFactory.createLineBorder(new Color(20, 20, 140), 2),
+        		BorderFactory.createEmptyBorder(5,10,5,10)));
         button.setPreferredSize(new Dimension(180, 35));
+        
     }
     /*
      * Do the action of close the window

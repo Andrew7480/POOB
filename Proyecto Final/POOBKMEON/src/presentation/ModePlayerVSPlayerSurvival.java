@@ -46,7 +46,7 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         try {
             po.domain.generateRandomSelectionPokemon(player1Name);
             po.domain.generateRandomSelectionPokemon(player2Name);
-            } catch (Exception i) {
+            }catch (Exception i) {
                 JOptionPane.showMessageDialog(null, i.getMessage());
                 return;
             }

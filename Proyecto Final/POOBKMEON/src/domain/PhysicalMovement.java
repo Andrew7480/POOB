@@ -14,6 +14,7 @@ public class PhysicalMovement extends Movement {
      */
     public PhysicalMovement(String newName, String newDescription, int newPP, int newPower, int newPrecision, PokemonType newType, int newPriority){
         super(newName, newDescription, newPP, newPower, newPrecision, newType, newPriority);
+        typeOfMovement = "physical";
     }
 
     /**

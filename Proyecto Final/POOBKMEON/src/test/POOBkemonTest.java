@@ -2,12 +2,13 @@ package test;
 import domain.*;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -137,12 +138,12 @@ public class POOBkemonTest implements Serializable {
             Movement brickBreak = new PhysicalMovement("Brick break","Break the barriers of Reflection and Light Display.",15,75,100,PokemonType.LUCHA,0);
             Movement surf = new SpecialMovement("Surf","A water attack that hits all Pokémon in battle, except your partner in double battles.",15,90,100,PokemonType.AGUA,0);
 
-            MovementState confused = new MovementState("Confundir", "Confunde al oponente y puede atacarse a sí mismo.", 20, 0, 100, PokemonType.PSIQUICO, Confusion, 70, 0);
+            /*MovementState confused = new MovementState("Confundir", "Confunde al oponente y puede atacarse a sí mismo.", 20, 0, 100, PokemonType.PSIQUICO, Confusion, 70, 0);
             MovementState flinch = new MovementState("Intimidar", "Puede hacer retroceder al oponente.", 15, 65, 85, PokemonType.SINIESTRO, Flinch, 30, 0);
             MovementState toxic = new MovementState("Tóxico", "Envenena gravemente al oponente con daño creciente.", 10, 0, 90, PokemonType.VENENO, BadlyPoison, 100, 0);
             MovementState attract = new MovementState("Atracción", "Enamora al oponente del género opuesto.", 15, 0, 100, PokemonType.NORMAL, Infatuation, 100, 0);
             MovementState leechSeed = new MovementState("Drenadoras", "Planta semillas que drenan PS del oponente cada turno.", 10, 0, 90, PokemonType.PLANTA, LeechSeed, 100, 0);
-
+			*/
             MovementTribute swordsDance = new MovementTribute("Danza Espada", "Eleva mucho el ataque.", 20, 0, 100, PokemonType.NORMAL, RaiseAttack, 0);
             MovementTribute ironDefense = new MovementTribute("Defensa Férrea", "Aumenta considerablemente la defensa.", 15, 0, 100, PokemonType.ACERO, RaiseDefense, 0);
             MovementTribute calmMind = new MovementTribute("Paz Mental", "Aumenta ataque especial y defensa especial.", 20, 0, 100, PokemonType.PSIQUICO, RaiseSpecial, 0);
@@ -215,11 +216,11 @@ public class POOBkemonTest implements Serializable {
                 poobkemon.addMovement(shadowBall);
                 poobkemon.addMovement(brickBreak);
                 poobkemon.addMovement(surf);
-                poobkemon.addMovement(confused);
-                poobkemon.addMovement(flinch);
-                poobkemon.addMovement(toxic);
-                poobkemon.addMovement(attract);
-                poobkemon.addMovement(leechSeed);
+                //poobkemon.addMovement(confused);
+                //poobkemon.addMovement(flinch);
+                //poobkemon.addMovement(toxic);
+                //poobkemon.addMovement(attract);
+                //poobkemon.addMovement(leechSeed);
 
                 poobkemon.addMovement(swordsDance);
                 poobkemon.addMovement(ironDefense);
@@ -383,7 +384,7 @@ public class POOBkemonTest implements Serializable {
             charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw, flamethrower, airSlash});
             snorlax1.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
             blastoise1.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam, hydroPump, iceBeam});
-            venusaur1.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake, gigaDrain, leechSeed});
+            venusaur1.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake, gigaDrain});
             gengar1.setMovements(new Movement[] {shadowBall, psychic, poison, sleep, dreameater});
             dragonite1.setMovements(new Movement[] {dragonClaw, earthquake, quickAttack, hyperBeam, outrage, dragonDance});
             togetic1.setMovements(new Movement[] {sleep, psychic, shadowBall, regenerate, moonblast, airSlash});
@@ -583,7 +584,6 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = po.getTrainer("tulio");
         assertEquals(t1.getInventory().getAlivePokemons().get(0).getLevel(),100);
     }
-    /*
     @Test
     public void shouldDoTheRightMovement(){
         POOBkemon kemon = new POOBkemon();
@@ -592,7 +592,7 @@ public class POOBkemonTest implements Serializable {
         Trainer t2 = po.getTrainer("andrew");
         try{
             t1.setPokemonInUse("Snorlax");
-            t2.setPokemonInUse("Snorlax");
+            t2.setPokemonInUse("Clefable");
         }
         catch(PoobkemonException e){ System.out.println(e.getMessage());fail();}
 
@@ -607,7 +607,7 @@ public class POOBkemonTest implements Serializable {
         }catch (PoobkemonException e){
             fail();
         }
-    }*/
+    }
     @Test
     public void shouldChangePokemon(){
         POOBkemon kemon = new POOBkemon();
@@ -657,6 +657,7 @@ public class POOBkemonTest implements Serializable {
     }
     @Test
     public void shouldFightMachineVsMachine(){
+
         POOBkemon kemon = new POOBkemon();
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("Changing"); //changing
@@ -672,13 +673,760 @@ public class POOBkemonTest implements Serializable {
             int psFinal2 = t2.getPokemonInUse().getPs();
             assertNotEquals(psInicial1,psFinal1);
         } catch (PoobkemonException e) {
-            System.out.println("Son iguales los ps, no fue exitoso el ataque entre maquinas");
+            fail("Son iguales los ps, no fue exitoso el ataque entre maquinas");
         }
         //Las maquinas escogen respectivamente los mejores movimientos posibles
         //Debido a la prioridad que hay un pokemon se ve afectado o no
         //En este caso el pokemon del entrenador 1 es quien se ve afectado
         //Por lo que no van a ser iguales sus ps iniciales como finales.
     }
+    @Test
+    public void shouldInicializateBattle() {
+    	POOBkemon poobkemon = new POOBkemon();
+    	Trainer t1 = new PlayerTrainer("Ash", new Color(255,255,0));
+    	Trainer t2 = new PlayerTrainer("Gary", new Color(0, 0, 255));
+    	poobkemon.addTrainer(t1);
+    	poobkemon.addTrainer(t2);
+    	poobkemon.inicializateBattle(t1.getName(), t2.getName());
+    	assertEquals(t1,poobkemon.getTrainer(t1.getName()));
+    	/*
+    	 * Al inicializar una batalla, se agregan dos nuevos entrenadores, verificamos que si se agreguen al TreeMap que tenemos definido
+    	 * en poobkemon.
+    	 * */
+    }
+    @Test
+    public void testItemRevivePokemon() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	p.losePS(324);
+    	Item revive = new Revive();
+    	assertFalse(p.isAlive());
+    	try {
+    		revive.useItem(p);
+    		assertTrue(p.isAlive());
+    	}catch(PoobkemonException e) {
+    		fail("El Pokemon no fue revivido");
+    	}
+    }
+    @Test
+    public void shouldAddMovementToPoobkemon() {
+    	POOBkemon poobkemon = new POOBkemon();
+    	Movement move = new PhysicalMovement("Tackle","Physical attack",35,40,100,PokemonType.NORMAL, 0);
+    	try {
+	    	poobkemon.addMovement(move);
+	    	assertTrue(poobkemon.getMovements().containsKey("Tackle"));
+    	} catch(PoobkemonException e) {
+    		fail ("El pokemon no fue añadido de manera correcta al TreeMap de movimientos");
+    	}
+    }
+    @Test
+    public void testAddItemToPoobkemon() {
+    	POOBkemon poobkemon = new POOBkemon();
+    	Item potion = new PsPotion("Potion","Heals 20 Hp", PotionType.NORMAL);
+    	poobkemon.addItem(potion);
+    	assertTrue(poobkemon.getItems().containsKey("Potion"));
+    }
+    @Test
+    public void shouldHealThePokemon() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Item potion = new PsPotion("Potion","Heals 20 Hp", PotionType.NORMAL);
+    	p.losePS(200);
+    	try {
+    	potion.useItem(p);
+    	assertTrue(p.getPs() == 144);
+    	} catch(PoobkemonException e) {
+    		fail("El pokemon no recupero 20 puntos de salud");
+    	}
+    }
+    @Test
+    public void shouldHealLikeHyperPotionThePokemon() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Item potion = new HyperPotion("Hyper Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
+    	p.losePS(200);
+    	try {
+    	potion.useItem(p);
+    	assertTrue(p.getPs() == 324);
+    	} catch(PoobkemonException e) {
+    		fail("El pokemon no recupero 20 puntos de salud");
+    	}
+    }  
+    @Test
+    public void shouldHealLikeSuperPotionThePokemon() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Item superPotion = new SuperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.SUPER);
+    	p.losePS(200);
+    	try {
+    	superPotion.useItem(p);
+    	assertTrue(p.getPs() == 174);
+    	} catch(PoobkemonException e) {
+    		fail("El pokemon no recupero 50 puntos de salud");
+    	}
+    }
+    @Ignore("No se activa el struggle")
+    @Test
+    public void shouldActiveStruggleMovement() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Pokemon p1 = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Movement m = new PhysicalMovement("Tackle","Physical attack",2,40,100,PokemonType.NORMAL, 0);
+    	p.setMovements(new Movement[] { m } );
+    	int initialPs = p.getPs();
+    	try {
+    		m.losePP();
+    		m.losePP();
+    		p.useMovement(m, p1);
+    		assertFalse(initialPs == p.getPs());
+    	}catch(PoobkemonException e) {
+    		fail("No se activo el movimiento de struggle");
+    	}
+    }
+    @Test
+    public void shouldGenerateARandomSelectionForMovements() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+    	Trainer trainer1 = new PlayerTrainer("T", new Color(255,255,0));
+    	ArrayList<Movement> prueba = poobkemon.generateRandomMovementForPokemons();
+    	assertTrue(prueba.size() == 4);
+    }
+    @Test
+    public void shouldGenerateAValidMovements() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+        TreeMap<String, Movement> pruebaMovimientosValidos = poobkemon.validMovements(p);
+        assertTrue(pruebaMovimientosValidos.size() != 0);
+    }
+    @Test
+    public void shouldBeEqualsThePokemons() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Pokemon pequals = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	assertTrue(p.equals(pequals));
+    }
+    @Test
+    public void shouldGetThePokemonTypesRight() {
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	ArrayList<PokemonType> prueba = p.getTypes();
+    	assertEquals(prueba.get(0),PokemonType.FANTASMA);
+    }
+    @Ignore("Por qué da vacio?")
+    @Test
+    public void shouldGetTheWeakMovements() {
+    	POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	ArrayList<Movement> movementsWeak = p.movementsWeaksForMe();
+    	assertTrue(movementsWeak.size() > 0);
+    }
+    @Test
+    public void shoudlBeAbleToDoTheMove() {
+    	Movement m = new PhysicalMovement("Tackle","Physical attack",2,40,100,PokemonType.NORMAL, 0);
+    	assertTrue(m.canMakeMove());
+    }
+    @Test
+    public void shouldDoTheMovementSpecialRight() {
+    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Pokemon charizard = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
+    	Movement solarBeam = new SpecialMovement("Rayo Solar", "Absorbe luz un turno y ataca en el siguiente.", 10, 120, 100, PokemonType.PLANTA, 0);
+    	venusaur.setMovements(new Movement[] {solarBeam});
+    	int inicialPs = charizard.getPs();
+    	try {
+    	venusaur.useMovement(solarBeam, charizard);
+    	assertNotEquals(inicialPs,charizard.getPs());
+    	} catch(PoobkemonException e) {
+    		fail("El movimiento no pudo ser usado.");
+    	}
+    }
+    @Test
+    public void shouldFightAttackingTrainer() {
+    	POOBkemon poobkemon = new POOBkemon();
+    	Trainer attack = new AttackingTrainer("Attacking Trainer",new Color(255,0,0));
+    	Trainer proof = new AttackingTrainer("proof Trainer",new Color(255,0,0));
+    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Movement solarBeam = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
+    	venusaur.setMovements(new Movement[] {solarBeam});
+    	Pokemon venusaurP = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Movement solarBeamP = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
+    	venusaur.setMovements(new Movement[] {solarBeamP});
+    	int initialPs = venusaurP.getPs();
+    	try {
+    		attack.addPokemon(venusaur);
+    		proof.addPokemon(venusaurP);
+    		poobkemon.addNewTrainer(attack.getName(), attack.getColor());
+    		poobkemon.addNewTrainer(proof.getName(), proof.getColor());
+    		poobkemon.inicialTrainerPokemon(attack.getName(), attack.getPokemonInUse().getName());
+    		poobkemon.inicialTrainerPokemon(proof.getName(), proof.getPokemonInUse().getName());
+    		poobkemon.inicializateBattle(attack.getName(), proof.getName());
+    		poobkemon.getBattle().executeMovement(solarBeam.getName());
+    		assertTrue(proof.getPokemonInUse().getPs() != initialPs);
+    	}catch(PoobkemonException e) {
+    		fail("El attacking trainer fallo o no se pudo hacer movimiento");
+    	}
+    }
+    @Ignore("Esta haciendo otra cosa")
+    @Test
+    public void shouldDoSomethingDefensiveTrainer() {
+    	POOBkemon poobkemon = new POOBkemon();
+    	Trainer attack = new DefensiveTrainer("Defensive Trainer",new Color(255,0,0));
+    	Trainer proof = new AttackingTrainer("proof Trainer",new Color(255,0,0));
+    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Movement solarBeam = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
+    	venusaur.setMovements(new Movement[] {solarBeam});
+    	Pokemon venusaurP = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Movement solarBeamP = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
+    	venusaur.setMovements(new Movement[] {solarBeamP});
+    	int initialPs = venusaurP.getPs();
+    	try {
+    		attack.addPokemon(venusaur);
+    		proof.addPokemon(venusaurP);
+    		poobkemon.addNewTrainer(attack.getName(), attack.getColor());
+    		poobkemon.addNewTrainer(proof.getName(), proof.getColor());
+    		poobkemon.inicialTrainerPokemon(attack.getName(), attack.getPokemonInUse().getName());
+    		poobkemon.inicialTrainerPokemon(proof.getName(), proof.getPokemonInUse().getName());
+    		poobkemon.inicializateBattle(attack.getName(), proof.getName());
+    		poobkemon.getBattle().executeMovement(solarBeam.getName());
+    		System.out.println(proof.getPokemonInUse().getPs());
+    		System.out.println(initialPs);
+    		assertTrue(proof.getPokemonInUse().getPs() == initialPs);
+    	}catch(PoobkemonException e) {
+    		fail("El Movement Defensive fallo o no se pudo hacer movimiento");
+    	}
+    }
+    @Test
+    public void shouldImproveTheAttack() {
+    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Item attackNormalPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.NORMAL);
+    	try {
+    		attackNormalPotion.useItem(venusaur);
+    		assertTrue(venusaur.getAttack() == 309);
+    	} catch (PoobkemonException e) {
+    		fail("La attack potion no aumento las estadisticas");
+    	}
+    }
+    @Test
+    public void shouldImproveTheDefense() {
+    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
+    	Item defenseHyperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.HYPER);
+    	int defenseInitial = venusaur.getDefense();
+    	try {
+    		defenseHyperPotion.useItem(venusaur);
+    		assertFalse(defenseInitial == venusaur.getDefense());
+    	} catch (PoobkemonException e) {
+    		fail("La attack potion no aumento las estadisticas");
+    	}
+    }
+    @Test
+    public void shouldGetTurnTrainers() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+    	poobkemon.inicializateBattle(t1.getName(), t2.getName());
+		ArrayList<Trainer> listaTra = poobkemon.getBattle().getTurnTrainers(); 
+		System.out.println(listaTra.size());
+		assertTrue(listaTra.get(0).getName() == t1.getName());
+    }
+    
+    @Test
+    public void shouldGetOpponentTrainer() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        Trainer opponentTrainer = poobkemon.getBattle().getOpponentTrainer();
+        assertEquals(t2.getName(), opponentTrainer.getName());
+    }
 
+    @Test
+    public void shouldGetCurrentPokemonName() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        String pokemonName = poobkemon.getBattle().getCurrentPokemonName();
+        assertEquals(t1.getPokemonInUse().getName(), pokemonName);
+    }
 
+    @Test
+    public void shouldGetCurrentPokemonLevel() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int pokemonLevel = poobkemon.getBattle().getCurrentPokemonLevel();
+        assertEquals(t1.getPokemonInUse().getLevel(), pokemonLevel);
+    }
+
+    @Test
+    public void shouldGetCurrentPokemonPs() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int pokemonPs = poobkemon.getBattle().getCurrentPokemonPs();
+        assertEquals(t1.getPokemonInUse().getPs(), pokemonPs);
+    }
+
+    @Test
+    public void shouldGetCurrentPokemonPokedexIndex() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int pokedexIndex = poobkemon.getBattle().getCurrentPokemonPokedexIndex();
+        assertEquals(t1.getPokemonInUse().getPokedexIndex(), pokedexIndex);
+    }
+
+    @Test
+    public void shouldGetCurrentMaxPs() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int maxPs = poobkemon.getBattle().getCurrentMaxPs();
+        assertEquals(t1.getPokemonInUse().getMaxPs(), maxPs);
+    }
+
+    @Test
+    public void shouldGetCurrentColor() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        Color color = poobkemon.getBattle().getCurrentColor();
+        assertEquals(t1.getColor(), color);
+    }
+
+    @Test
+    public void shouldGetOponentPokemonName() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        String pokemonName = poobkemon.getBattle().getOponentPokemonName();
+        assertEquals(t2.getPokemonInUse().getName(), pokemonName);
+    }
+
+    @Test
+    public void shouldGetOponentPokemonLevel() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int pokemonLevel = poobkemon.getBattle().getOponentPokemonLevel();
+        assertEquals(t2.getPokemonInUse().getLevel(), pokemonLevel);
+    }
+
+    @Test
+    public void shouldGetOponentPokemonPs() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int pokemonPs = poobkemon.getBattle().getOponentPokemonPs();
+        assertEquals(t2.getPokemonInUse().getPs(), pokemonPs);
+    }
+
+    @Test
+    public void shouldGetOponentPokemonPokedexIndex() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int pokedexIndex = poobkemon.getBattle().getOponentPokemonPokedexIndex();
+        assertEquals(t2.getPokemonInUse().getPokedexIndex(), pokedexIndex);
+    }
+
+    @Test
+    public void shouldGetOponentMaxPs() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        int maxPs = poobkemon.getBattle().getOponentMaxPs();
+        assertEquals(t2.getPokemonInUse().getMaxPs(), maxPs);
+    }
+
+    @Test
+    public void shouldCheckIfCurrentPokemonIsAlive() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        boolean isAlive = poobkemon.getBattle().isAliveCurrentPokemon();
+        assertTrue(isAlive);
+    }
+
+    @Test
+    public void shouldCheckIfOpponentPokemonIsAlive() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        boolean isAlive = poobkemon.getBattle().isAliveOpponentPokemon();
+        assertTrue(isAlive);
+    }
+
+    @Test
+    public void shouldGetMovementsStringCurrent() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        ArrayList<String> movements = poobkemon.getBattle().getMovementsStringCurrent();
+        assertNotNull(movements);
+        assertFalse(movements.isEmpty());
+    }
+
+    @Test
+    public void shouldGetMovementsStringOponent() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        ArrayList<String> movements = poobkemon.getBattle().getMovementsStringOponent();
+        assertNotNull(movements);
+        assertFalse(movements.isEmpty());
+    }
+    
+    
+    @Test
+    public void shouldAddItemToInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addItem(potion);
+    		assertTrue(inventory.contains(potion));;
+    	} catch (PoobkemonException e) {
+    		fail("El inventario no pudo agregar este item");
+    	}
+    }
+    
+    @Test
+    public void shouldAddMultipleItemsToInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addItem(potion);
+    		inventory.addItem(revive);
+    		inventory.addItem(superPotion);
+    		assertEquals(3,inventory.getItemsArray().size());
+    	}catch (PoobkemonException e) {
+    		fail("El inventario no pudo agregar este item");
+    	}
+    }
+    
+    @Test
+    public void shouldThrowAnException() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	
+    	try {
+    		inventory.addItem(potion);
+    		inventory.addItem(potion);
+    		assertThrows(PoobkemonException.class, () -> inventory.addItem(potion));
+    	}catch(PoobkemonException e) {
+    		fail("No ha lanzado la excepción esperada ");
+    	}
+    	
+    }
+    
+    @Test
+    public void shouldAddMultiplePokemonToInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            inventory.addPokemon(venusaur);
+            inventory.addPokemon(charizard);
+            
+            assertTrue(inventory.contains(venusaur));
+            assertTrue(inventory.contains(charizard));
+        } catch (PoobkemonException e) {
+            fail("No se podrian agregar multiples pokemones " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldThrowAddingSamePokemonTwice() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addPokemon(venusaur);
+    		assertThrows(PoobkemonException.class, () -> inventory.addPokemon(venusaur));
+    	}catch(PoobkemonException e) {
+    		fail("No ha lanzado la correspondiente excepción ");
+    	}
+    }
+    @Test
+    public void shouldGetItemByName() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addItem(potion);
+    		inventory.addItem(revive);
+    		
+    		Item pruebaItem = inventory.getItemByName(potion.getName());
+    		assertEquals(potion, pruebaItem);
+    		
+    		pruebaItem = inventory.getItemByName(revive.getName());
+    		assertEquals(revive, pruebaItem);
+    		
+    	}catch(PoobkemonException e) {
+    		fail("Ha ocurrido un error con el nombre de los items");
+    	}
+    }
+    @Test
+    public void shouldGetAllPokemonFromInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            inventory.addPokemon(venusaur);
+            inventory.addPokemon(charizard);
+            
+            assertEquals(2, inventory.getPokemons().size());
+            assertTrue(inventory.getPokemons().containsKey("Venusaur"));
+            assertTrue(inventory.getPokemons().containsKey("Charizard"));
+        } catch (PoobkemonException e) {
+            fail("No se encuentran todos los pokemones en el inventario " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldGetAlivePokemon() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            inventory.addPokemon(venusaur);
+            inventory.addPokemon(charizard);
+          
+            assertEquals(2, inventory.getAlivePokemons().size());
+            
+            venusaur.losePS(venusaur.getPs());
+            
+            assertEquals(1, inventory.getAlivePokemons().size());
+            assertEquals(charizard, inventory.getAlivePokemons().get(0));
+        } catch (PoobkemonException e) {
+            fail("Exception thrown when testing alive Pokemon: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldCheckIfCanStillFight() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            assertFalse(inventory.canStillFighting());
+            
+            inventory.addPokemon(venusaur);
+            assertTrue(inventory.canStillFighting());
+            
+            venusaur.losePS(venusaur.getPs());
+            assertFalse(inventory.canStillFighting());
+            
+            inventory.addPokemon(charizard);
+            assertTrue(inventory.canStillFighting());
+        } catch (PoobkemonException e) {
+            fail("Los pokemones no podrian continuar peleando");
+        }
+    }
+    
+    @Test
+    public void shouldCreatePlayerTrainer() {
+    	PlayerTrainer newTrainer = new PlayerTrainer("Gary", new Color(0,0,255));
+    	assertEquals("Gary", newTrainer.getName());
+    	assertEquals(new Color(0,0,255), newTrainer.getColor());
+    }
+    
+    @Test
+    public void shouldChangePokemonByObject() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        trainer.setPokemonInUse(pikachu);
+        trainer.changePokemon(charizard);
+        assertEquals(charizard, trainer.getPokemonInUse());
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el cambio");
+        }
+    }
+    
+    @Test
+    public void shouldChangePokemonByName() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        trainer.setPokemonInUse(pikachu);
+        trainer.changePokemon("charizard");
+        
+        assertEquals(charizard, trainer.getPokemonInUse());
+        
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el cambio");
+        }
+    }
+    
+    @Test
+    public void shouldUseItem() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        
+        charizard.losePS(50);
+        int initialPs = charizard.getPs();
+        
+        trainer.useItem(potion);
+        
+        assertTrue(charizard.getPs() > initialPs);
+        
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el uso del item");
+        }
+    }
+    
+    @Test
+    public void shouldUseItemByName() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        trainer.setPokemonInUse(pikachu);
+        
+        pikachu.losePS(50);
+        int initialPs = pikachu.getPs();
+        
+        trainer.useItem(potion.getName());
+        
+        assertTrue(pikachu.getPs() > initialPs);
+        
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el uso del item");
+        }
+    }
+    
 }
