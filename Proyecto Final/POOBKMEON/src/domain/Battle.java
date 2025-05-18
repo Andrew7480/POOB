@@ -95,6 +95,7 @@ public class Battle implements Serializable {
         verifyTurnMachine();
         checkBattleState();
     }
+
     /**
      * Verifies if an AI trainer's turn should be advanced
      * If the last action indicates the AI isn't deciding, advances to the next turn

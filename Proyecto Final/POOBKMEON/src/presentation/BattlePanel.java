@@ -197,6 +197,12 @@ public class BattlePanel extends JPanel {
                     gameEnd();
                     int oldIndex = po.domain.getOponentPokemonPokedexIndex();
                     po.domain.movementPerformed(move);
+                    if (!po.domain.isAliveCurrentPokemon()){
+                        JOptionPane.showMessageDialog(this, "Tu pokemon ha muerto: "+ ":o"
+                        ,"Debes cambiarlo, antes de intentar hacer otro movimiento",JOptionPane.INFORMATION_MESSAGE);
+                        //changePanel("inventory");
+                    }
+
 
                     JButton button = (JButton) e.getSource();
                     //e -> objeto que se pasa en el action listener
@@ -204,7 +210,6 @@ public class BattlePanel extends JPanel {
                     //devuelve el objeto componente especifico que generó el evento.
                     int currentPP = po.domain.getPPInBattle(move);
                     button.setToolTipText("PP: "+ currentPP);
-
                     if (!po.domain.isAliveOpponentPokemon() || oldIndex != po.domain.getOponentPokemonPokedexIndex()){
                         int newIndex = po.domain.getOponentPokemonPokedexIndex();
                         setSecondPokemon(Integer.toString(newIndex));

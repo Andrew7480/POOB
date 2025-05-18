@@ -425,6 +425,37 @@ public class POOBkemon implements Serializable{
         }
         return listRandom;
     }
+    
+    
+    public HashMap<String, ArrayList<String>> infoTrainer(String nameTrainer){
+    	HashMap<String,ArrayList<String>> informacion = new HashMap<>();
+    	Trainer trainer = getTrainer(nameTrainer);
+    	Inventory invent = trainer.getInventory();
+    	ArrayList<Pokemon> lista = invent.getAlivePokemons();
+    	for (int i = 0; i < lista.size(); i++) {
+    		informacion.put(lista.get(i).getName(), prueba(lista.get(i).getMovements()));
+    	}
+    	return informacion;
+    }
+    
+    public ArrayList<String> prueba(ArrayList<Movement> movimientos){
+    	ArrayList<String> p = new ArrayList<>();
+    	for (int i = 0; i < movimientos.size(); i++) {
+    		p.add(movimientos.get(i).getName());
+    	}
+    	return p;
+    }
+    
+    public ArrayList<String> getPokemonAlives(String nameTrainer){
+    	Trainer trainer = getTrainer(nameTrainer);
+    	Inventory invent = trainer.getInventory();
+    	ArrayList<Pokemon> lista = invent.getAlivePokemons();
+    	ArrayList<String> listaVivos = new ArrayList<>();
+    	for (int i = 0; i < lista.size(); i++) {
+    		listaVivos.add(lista.get(i).getName());
+    	}
+    	return listaVivos;
+    }
 
 
     /**
