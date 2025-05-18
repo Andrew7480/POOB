@@ -59,9 +59,14 @@ public class ModeMachineVsMachine extends JPanel {
             batalla.inicializate(po.domain.inicialTrainerMovements(datos.machineTrainerFirst));
             changePanel("Batalla");
             
+            
         } catch (Exception e){
             JOptionPane.showMessageDialog(ModeMachineVsMachine.this, e.getMessage());
         }
+    }
+
+    public void actualizar(){
+        batalla.actualizar();
     }
 
     

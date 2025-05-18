@@ -9,18 +9,21 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
@@ -76,13 +79,20 @@ public class BattlePanel extends JPanel {
 
     private ArrayList<String> trainerActualMovements;
 
+    private JButton cargarPartida;
+    private JButton guardarPartida;
 
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
         actualColor = new Color(100,100,100,100);
 
         backToOptionsBattle = new JButton("Back");
+        cargarPartida = new JButton("Cargar Partida");
+        guardarPartida = new JButton("Guardar");
+
         po.styleButton(backToOptionsBattle);
+        po.styleButton(cargarPartida);
+        po.styleButton(guardarPartida);
         setPreferredSize(new Dimension(800, 600));
         setLayout(new BorderLayout());
         try {
@@ -155,11 +165,14 @@ public class BattlePanel extends JPanel {
         
         cardLayoutButtons = new CardLayout();
         opciones.setLayout(cardLayoutButtons);
+        JPanel upPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        upPanel.setOpaque(false);
+        upPanel.add(cargarPartida);
+        upPanel.add(guardarPartida);
 
-        panelIz.add(panelInfo);
+        add(upPanel, BorderLayout.NORTH);
         panelIz.add(opciones);
-
-       
+        
 
         battleOptionsPanel = new JPanel(new GridLayout(2,2,1,1));
         battleOptionsPanel.setOpaque(false);
@@ -290,6 +303,14 @@ public class BattlePanel extends JPanel {
             actualizar();
             showBattleOptionsPanel();
         });
+        cargarPartida.addActionListener(e -> {
+            po.OpenBattle();
+            actualizar();
+        });
+        guardarPartida.addActionListener(e -> {
+            po.saveBattle();
+            actualizar();
+        });
     }
 
     public void gameEnd(){
@@ -341,7 +362,6 @@ public class BattlePanel extends JPanel {
     
     public void actualizarListaMovements(){
         trainerActualMovements = po.domain.getMovementsStringCurrent();
-        System.out.println("Actualizada lista presentacion: " + trainerActualMovements.toString());
         int index =0;
         for (String move : trainerActualMovements) {
             JButton btn = buttonsMovs.get(index);
@@ -355,15 +375,6 @@ public class BattlePanel extends JPanel {
             }
             index ++;
         }
-        System.out.println("--".repeat(10));
-        System.out.println("En presentacion al cambiar buttons:");
-        System.out.println(trainerActualMovements.toString());
-        
-        for (JButton b : buttonsMovs){
-            System.out.println(b.getText());
-            System.out.println(b.getToolTipText());
-        }
-        System.out.println("--".repeat(10));
     }
     
     public void actualizaInfo(){
@@ -438,12 +449,10 @@ public class BattlePanel extends JPanel {
         statsPanel.add(innerPanel);
         
         if (isPlayer) {
-            System.out.println("Jugador 1: ");
             playerHealthBar = healthBar;
             playerHealthLabel = healthLabel;
             playerNameLabel = nameLabel;
         } else {
-            System.out.println("Jugador 2: ");
             opponentHealthBar = healthBar;
             opponentHealthLabel = healthLabel;
             opponentNameLabel = nameLabel;

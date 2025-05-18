@@ -61,11 +61,8 @@ public class ModePlayerVsMachine extends JPanel {
         pooBkemonGUI.createTrainer(nameTrainer,firstColor);
         try{
             pooBkemonGUI.addPokemonsToTrainer(nameTrainer,pokemonsWithMovs);
-
             pooBkemonGUI.addItemsToTrainer(nameTrainer,itemsEscogidos);
-
             pooBkemonGUI.domain.inicialTrainerPokemon(nameTrainer,firstPok);
-
             pooBkemonGUI.domain.inicialTrainerPokemon(trainerEscogidoMachine,"Tulio");
             }
         catch(PoobkemonException i){

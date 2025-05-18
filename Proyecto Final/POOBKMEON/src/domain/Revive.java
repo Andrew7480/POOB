@@ -1,6 +1,5 @@
 package domain;
 
-import java.io.Serializable;
 public class Revive extends Item{
     private final double recover;
     

@@ -118,6 +118,11 @@ public class DatosTwoPlayersSurvival extends JPanel {
             if (choice1 != null) {
                 colorChosedPlayer1 = choice1;
                 chooserColorPlayer1.setBackground(colorChosedPlayer1);
+                Color borderColor = colorChosedPlayer1.darker();
+                chooserColorPlayer1.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borderColor, 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
             }
         });
         
@@ -126,6 +131,11 @@ public class DatosTwoPlayersSurvival extends JPanel {
             if (choice2 != null) {
                 colorChosedPlayer2 = choice2;
                 chooserColorPlayer2.setBackground(colorChosedPlayer2);
+                Color borderColor = colorChosedPlayer2.darker();
+                chooserColorPlayer2.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borderColor, 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
             }
         });
     }

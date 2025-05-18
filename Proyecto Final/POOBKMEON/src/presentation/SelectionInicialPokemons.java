@@ -200,17 +200,14 @@ public class SelectionInicialPokemons extends JPanel{
     }
 
     private void selectionPokemons(JButton button){
-        
-        if (pokemonInicialChosen.contains(button.getToolTipText()) ) {
-            button.setBackground(null);
-            button.setOpaque(false);
-            pokemonInicialChosen.remove(button.getToolTipText());
+        for (JButton b : buttons){
+            b.setBackground(null);
+            b.setOpaque(false);
         }
-        else{
-            button.setBackground(Color.GREEN);
-            button.setOpaque(true);
-            pokemonInicialChosen.add(button.getToolTipText());
-        }
+        pokemonInicialChosen.clear();
+        button.setBackground(Color.GREEN);
+        button.setOpaque(true);
+        pokemonInicialChosen.add(button.getToolTipText());
         System.out.println("Inicial: "+pokemonInicialChosen.toString());
     }
 

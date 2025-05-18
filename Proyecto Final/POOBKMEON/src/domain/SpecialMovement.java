@@ -71,7 +71,7 @@ public class SpecialMovement extends Movement {
         }
     }
 
-        /**
+    /**
      * Creates an HTML-formatted tooltip description of the Movement
      * 
      * @return HTML string with Movement details for tooltip display
@@ -88,4 +88,6 @@ public class SpecialMovement extends Movement {
                 "Type of Movement: " +typeOfMovement+"<br>"+
                 "</html>";
     }
+
+
 }

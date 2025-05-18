@@ -1,17 +1,13 @@
 package presentation;
 import java.awt.*;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import domain.PoobkemonException;
 public class ModePlayerVSPlayerSurvival extends JPanel {
-    protected BattlePanel survivalBatalla;
-
+    protected BattleContainer survivalBatalla;
     protected DatosTwoPlayersSurvival datos;
-
-    private JButton continuar;
-    private JButton btnRegresarNormal;
     private CardLayout cardLayout;
-
     protected String firstName;
     protected String secondName;
 
@@ -24,11 +20,11 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
 
     private void prepareElements(){
         cardLayout = new CardLayout();
-        btnRegresarNormal = new JButton("Back");
-        continuar = new JButton("Continue");
         setLayout(cardLayout);
         datos = new DatosTwoPlayersSurvival(po,this);
         add(datos, "Datos");
+        survivalBatalla = new BattleContainer(po);
+        add(survivalBatalla, "Battle");
 
     }
 
@@ -38,19 +34,12 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         try {
             po.domain.generateRandomSelectionPokemon(player1Name);
             po.domain.generateRandomSelectionPokemon(player2Name);
-            } catch (Exception i) {
+            }catch (Exception i) {
                 JOptionPane.showMessageDialog(null, i.getMessage());
                 return;
             }
             po.domain.inicializateBattle(player1Name, player2Name);
-    }
-
-    public JButton getBtnRegresarNormal(){
-        return btnRegresarNormal;
-    }
-    
-    public JButton getButtonContinuar(){
-        return continuar;
+            survivalBatalla.inicializate();
     }
 
     public void changePanel(String namePanel){

@@ -1,7 +1,5 @@
 package presentation;
 import javax.swing.*;
-
-import domain.PoobkemonException;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,10 +28,6 @@ public class DatosMachine extends JPanel{
     private SelectionMovementsPanel chosenOne;
     private SelectionMovementsPanel chosenTwo;
 
-    private SelectionFinalMachines machines;
-
-
-    
 
     public DatosMachine(POOBkemonGUI newPo, ModeMachineVsMachine father){
         gameMode = father;

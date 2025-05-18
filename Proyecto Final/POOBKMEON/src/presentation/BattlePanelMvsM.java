@@ -9,6 +9,7 @@ import domain.PoobkemonException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 
 public class BattlePanelMvsM extends JPanel {
@@ -38,6 +39,8 @@ public class BattlePanelMvsM extends JPanel {
     private Color actualColor;
     private int actualIndex;
 
+    private JFileChooser fileChooser;
+
 
     private ArrayList<String> movMachine;
 
@@ -45,15 +48,20 @@ public class BattlePanelMvsM extends JPanel {
     protected CardLayout cardLayout;
 
     private JButton ticTac;
+    private JButton save;
+    private JButton open;
 
 
 
     public BattlePanelMvsM(POOBkemonGUI newPo) {
         po = newPo;
         actualColor = new Color(100,100,100,100);
-
         backToOptionsBattle = new JButton("Back");
+        save = new JButton("SAVE GAME");
+        open = new JButton("OPEN A GAME");
         po.styleButton(backToOptionsBattle);
+        po.styleButton(save);
+        po.styleButton(open);
         setPreferredSize(new Dimension(800, 600));
         setLayout(new BorderLayout());
         try {
@@ -92,11 +100,17 @@ public class BattlePanelMvsM extends JPanel {
     private void prepareElements() {
         calculatePokemonPositions();
         movMachine = new ArrayList<>();
-        ticTac = new JButton("Tic Tac");
+        ticTac = new JButton("TIC TAC");
         po.styleButton(ticTac);
         
         JPanel panelIz = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelIz.setOpaque(false);
+
+        JPanel panelUp = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelUp.setOpaque(false);
+        panelUp.add(open);
+        panelUp.add(save);
+        add(panelUp, BorderLayout.NORTH);
 
         panelInfo = new JPanel();
         panelInfo.setOpaque(false);
@@ -141,8 +155,15 @@ public class BattlePanelMvsM extends JPanel {
                 System.out.println(h.getMessage());
             }
             });
+        save.addActionListener(e -> {
+            po.saveBattle();
+            actualizar();
+        });
+        open.addActionListener(e -> {
+            po.OpenBattle();
+            actualizar();
+        });
     }
-
     public void removeMovement(){
         opciones.remove(movesPanel);
         movesPanel = null;
@@ -236,12 +257,10 @@ public class BattlePanelMvsM extends JPanel {
         statsPanel.add(innerPanel);
         
         if (isPlayer) {
-            System.out.println("Jugador: " + isPlayer);
             playerHealthBar = healthBar;
             playerHealthLabel = healthLabel;
             playerNameLabel = nameLabel;
         } else {
-            System.out.println("EMaquina: " + health);
             opponentHealthBar = healthBar;
             opponentHealthLabel = healthLabel;
             opponentNameLabel = nameLabel;
@@ -254,15 +273,7 @@ public class BattlePanelMvsM extends JPanel {
         return backToOptionsBattle;
     }
 
-    public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
-        playerHealthBar.setValue(health1);
-        opponentHealthBar.setValue(health2);
-        playerHealthLabel.setText(health1 + "/" + health1Max);
-        opponentHealthLabel.setText(health2 + "/" + health2Max);
-        
-        repaint();
-    }
-    
+
     public void setPokemonNames(String playerPokemonName, String opponentPokemonName, int playerLevel, int opponentLevel) {
         playerNameLabel.setText(playerPokemonName + " Nv." + playerLevel);
         opponentNameLabel.setText(opponentPokemonName + " Nv." + opponentLevel);
@@ -373,4 +384,44 @@ public class BattlePanelMvsM extends JPanel {
             }
         }
     }
+
+    public void actualizar(){
+        actualizarColor();
+        actualizarBar();
+        actualizarListaMovements();
+        setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
+        setFirstPokemon(Integer.toString(po.domain.getCurrentPokemonPokedexIndex()));
+        gameEnd();
+    }
+
+    public void actualizarBar(){
+        String pokemonName = po.domain.getOponentPokemonName();
+        int health = po.domain.getOponentPokemonPs();
+        int level = po.domain.getOponentPokemonLevel();
+        int maxPs = po.domain.getOponentMaxPs();
+        
+        String pokemonNameCurrent = po.domain.getCurrentPokemonName();
+        int healthCurrent = po.domain.getCurrentPokemonPs();
+        int levelCurrent = po.domain.getCurrentPokemonLevel();
+        int maxPsCurrent = po.domain.getcurrentMaxPs();
+    
+        actualizarHealt(healthCurrent, maxPsCurrent, health, maxPs);
+
+        playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
+        opponentNameLabel.setText(pokemonName + " Nv. "+ level);
+    }
+
+    public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
+        playerHealthBar.setMaximum(health1Max);
+        opponentHealthBar.setMaximum(health2Max);
+        playerHealthBar.setValue(health1);
+        opponentHealthBar.setValue(health2);
+        playerHealthLabel.setText(health1 + "/" + health1Max);
+        opponentHealthLabel.setText(health2 + "/" + health2Max);
+        playerStatsPanel.repaint();
+        opponentStatsPanel.repaint();
+        repaint();
+    }
+
+
 }

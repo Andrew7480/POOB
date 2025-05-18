@@ -74,6 +74,10 @@ public class Pokemon implements Serializable {
     public int getPs(){
         return ps;
     }
+
+    public void setPs(int newPs){
+        ps = newPs;
+    }
     
     /**
      * Gets the maximum health points of the Pokemon
@@ -514,7 +518,7 @@ public class Pokemon implements Serializable {
         if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
         statusEffectVerify();
 
-        if (dontHavePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
+        if (havePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
 
 
         System.out.println(name +" ha usado: "+ movimiento.getName());
@@ -601,7 +605,7 @@ public class Pokemon implements Serializable {
      * 
      * @return true if all movements have 0 PP, false otherwise
      */
-    public boolean dontHavePPForAllMovement(){
+    public boolean havePPForAllMovement(){
         for (Movement m : movements){
             if (m.getPP() > 0){return false;}
         }

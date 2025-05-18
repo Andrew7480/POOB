@@ -1,6 +1,5 @@
 package domain;
-import java.io.*;
-public class PsPotion extends Potion implements Serializable{ 
+public class PsPotion extends Potion{ 
     /**
      * Constructor for creating a new PsPotion
      * 
@@ -25,5 +24,8 @@ public class PsPotion extends Potion implements Serializable{
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
         pokemon.gainPS(statics.getValue());
+        if (pokemon.getPs() > pokemon.getMaxPs()){
+            pokemon.setPs(pokemon.getMaxPs());
+        }
     }
 }

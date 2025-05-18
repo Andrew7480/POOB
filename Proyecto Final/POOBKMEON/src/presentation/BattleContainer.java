@@ -1,7 +1,6 @@
 package presentation;
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import domain.PoobkemonException;
 
 public class BattleContainer extends JPanel {
@@ -89,8 +88,7 @@ public class BattleContainer extends JPanel {
         changePokemonDomain();
         actualizar();
         changePanel("Battle");
-        System.out.println(pooBkemonGUI.domain.getCurrentPokemonName());
-        System.out.println(pooBkemonGUI.domain.getMovementsStringCurrent().toString());
+
         
     }
 

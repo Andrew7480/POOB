@@ -53,6 +53,7 @@ public class SelectionFinalMachines extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameMode.inicializate();
+                gameMode.actualizar();
             }
         });
         come.addActionListener(new ActionListener(){

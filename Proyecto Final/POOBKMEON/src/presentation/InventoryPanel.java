@@ -1,10 +1,7 @@
 package presentation;
 import java.awt.*;
 import javax.swing.*;
-
 import domain.Item;
-import domain.PoobkemonException;
-
 import java.awt.event.*;
 import java.util.*;
 
@@ -179,7 +176,7 @@ public class InventoryPanel extends JPanel {
         return doneButton;
     }
     public void createButtons() {
-        System.out.println(items.toString());
+        //System.out.println(items.toString());
         for (String itemSelected : items) {
             Item po1 = pooBkemonGUI.domain.getItems().get(itemSelected);
             String nombre = po1.getName();

@@ -295,7 +295,6 @@ public class Selection extends JPanel{
             }
             //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
-            System.out.println(imagePath + "QUE ESTA PASANDO ACA?");
             e.printStackTrace();
             button.setText("No imagen");
         }

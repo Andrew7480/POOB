@@ -1,5 +1,4 @@
 package domain;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -13,7 +12,7 @@ public class POOBkemon implements Serializable{
     private TreeMap<String, Item> items = new TreeMap<>(); //los items necsrios
     private TreeMap<String, Movement> movements = new TreeMap<>(); //movimientos predefinidos qu epuede escoger el usuario
 
-    private Battle battle;
+    protected Battle battle;
     
 
     /**
@@ -42,6 +41,7 @@ public class POOBkemon implements Serializable{
     public TreeMap<String, Movement> getMovements(){
         return movements;
     }
+    
 
     //-------------------------------------------------------------------------------------
 
@@ -489,6 +489,7 @@ public class POOBkemon implements Serializable{
         }
     }
     
+    
     /**
      * Saves the current game state to the default file
      */
@@ -497,6 +498,44 @@ public class POOBkemon implements Serializable{
         serializateGame(fileName);
     }
 
+    public void serializateBattle(String fileName) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameData"));
+            if (battle != null) out.writeObject(battle);
+            out.close();
+        } catch (NotSerializableException e) {
+            System.out.println("Error al serializar: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error al guardar el juego: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    public Battle deserializateBattle(String fileName) {
+        File file = new File(fileName);
+        if (!file.exists()) {
+            System.err.println("El archivo " + fileName + " no existe.");
+            return null;
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
+            Object deserializedObject = in.readObject();
+            if (deserializedObject instanceof Battle) {
+                battle = (Battle) deserializedObject;
+                System.out.println("Juego cargado exitosamente desde " + fileName);
+                return battle;
+            } else {
+                System.err.println("El archivo no contiene un objeto de tipo battle.");
+                return null;
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("Error: Clase no encontrada durante la deserialización: " + e.getMessage());
+        }
+        return null;
+    }
+    
     /**
      * Loads a game state from a file
      * @param fileName Name of the file to load from

@@ -1,7 +1,6 @@
 package domain;
-import java.io.*;
 
-public class AttackPotion extends Potion implements Serializable{
+public class AttackPotion extends Potion{
     
     /**
      * Constructor for creating a new AttackPotion

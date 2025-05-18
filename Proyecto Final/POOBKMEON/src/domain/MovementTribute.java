@@ -75,7 +75,7 @@ public class MovementTribute extends SpecialMovement{
     public Movement copy(){
         return new MovementTribute(name, description, PP, power, precision, type, state, priority);
     }
-        /**
+    /**
      * Creates an HTML-formatted tooltip description of the Movement
      * 
      * @return HTML string with Movement details for tooltip display

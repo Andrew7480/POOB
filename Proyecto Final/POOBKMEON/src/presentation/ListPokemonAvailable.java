@@ -151,7 +151,7 @@ public class ListPokemonAvailable extends JPanel{
     }
 
     private void createButtons(){
-        System.out.println(pokemonsChosen.toString());
+        //System.out.println(pokemonsChosen.toString());
         for (String pokemonSelected : pokemonsChosen){
             Pokemon po1 = po.pokemones.get(pokemonSelected);
             String nombre = po1.getName();

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.*;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 public class Battle implements Serializable {
@@ -52,18 +51,6 @@ public class Battle implements Serializable {
     public void executeMovement(String move) throws PoobkemonException{ 
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
-
-        System.out.println("--".repeat(10));
-        System.out.println(current.toString());
-        System.out.println("--".repeat(10));
-        System.out.println(opponent.toString());
-
-        System.out.println("--".repeat(10));
-        System.out.println("Movimiento: "+ move +" Quien?: " + current.getName()+" pokemon: "+current.getPokemonInUse().getName() +" a: "+ opponent.getPokemonInUse().getName());
-        System.out.println("Movimientos: "+current.getPokemonInUse().getMovementsString().toString());
-        System.out.println("--".repeat(10));
-
-
         current.getPokemonInUse().affectPokemonStatus();
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();
@@ -78,7 +65,7 @@ public class Battle implements Serializable {
      */
     public void changePokemon(String pokemon) throws PoobkemonException{
         Trainer current = getCurrentTrainer();
-        Trainer opponent = getOpponentTrainer();
+        //Trainer opponent = getOpponentTrainer();
         current.getPokemonInUse().affectPokemonStatus();
         current.changePokemon(pokemon);
         afterAction();
@@ -108,6 +95,7 @@ public class Battle implements Serializable {
         verifyTurnMachine();
         checkBattleState();
     }
+
     /**
      * Verifies if an AI trainer's turn should be advanced
      * If the last action indicates the AI isn't deciding, advances to the next turn

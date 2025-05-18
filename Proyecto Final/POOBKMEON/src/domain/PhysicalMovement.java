@@ -56,7 +56,6 @@ public class PhysicalMovement extends Movement {
     public Movement copy(){
         return new PhysicalMovement(name, description, PP, power, precision, type, priority);
     }
-    
     /**
      * Creates an HTML-formatted tooltip description of the Movement
      * 
@@ -74,4 +73,6 @@ public class PhysicalMovement extends Movement {
                 "Type of Movement: " +typeOfMovement+"<br>"+
                 "</html>";
     }
+
+
 }

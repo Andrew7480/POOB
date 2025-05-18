@@ -7,9 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class DatosOnePlayer extends JPanel{
     private String backgroundImage = "fondoAnimado2";
@@ -23,19 +21,15 @@ public class DatosOnePlayer extends JPanel{
 
     private Color colorChosed;
 
-    private JPanel chooseDifficulty;
     private JPanel centerPanel;
 
-    private JButton player;
     private String[] paths;
-    private int indexPlayer = 0;
 
     private JPanel nameInputPanel;
     private JPanel panelButtons;
     private JTextField playerNameField;
     private JLabel nameLabel;
     
-    private JTextField player1NameField;
     private String playerName = "";
 
     private Color choice1;
@@ -135,6 +129,11 @@ public class DatosOnePlayer extends JPanel{
             if (choice1 != null) {
                 colorChosed = choice1;
                 chooserColor.setBackground(colorChosed);
+                Color borderColor = colorChosed.darker();
+                chooserColor.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borderColor, 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
             }
         });
 
@@ -269,7 +268,7 @@ public class DatosOnePlayer extends JPanel{
             gameMode.inventory.inicializate(choice1);
             gameMode.changePanel("Inventory");
             //reset();
-            System.out.println("Se ha resetiado la toma de datos, se ha enviado a la seleccion de pokemon los colores, el panel del inventario y se cambia a potions");
+            //System.out.println("Se ha resetiado la toma de datos, se ha enviado a la seleccion de pokemon los colores, el panel del inventario y se cambia a potions");
         }
 
         catch(PoobkemonException e){ 
@@ -292,9 +291,8 @@ public class DatosOnePlayer extends JPanel{
         playerNameField.setText(""); 
         playerNameField.setEnabled(true); 
         nameLabel.setText("¿Whats your name?");
-        //colorChooser = new JColorChooser();
-        //playerNameField = new JTextField();
         chooserColor.setBackground(new Color(70, 130, 180));
+        pooBkemonGUI.styleButtonchooser(chooserColor);
         revalidate();
         repaint();
     }

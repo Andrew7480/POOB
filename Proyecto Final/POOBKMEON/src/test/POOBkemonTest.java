@@ -1100,4 +1100,332 @@ public class POOBkemonTest implements Serializable {
         assertNotNull(movements);
         assertFalse(movements.isEmpty());
     }
+    
+    
+    @Test
+    public void shouldAddItemToInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addItem(potion);
+    		assertTrue(inventory.contains(potion));;
+    	} catch (PoobkemonException e) {
+    		fail("El inventario no pudo agregar este item");
+    	}
+    }
+    
+    @Test
+    public void shouldAddMultipleItemsToInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addItem(potion);
+    		inventory.addItem(revive);
+    		inventory.addItem(superPotion);
+    		assertEquals(3,inventory.getItemsName().size());
+    	}catch (PoobkemonException e) {
+    		fail("El inventario no pudo agregar este item");
+    	}
+    }
+    
+    @Test
+    public void shouldThrowAnException() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	
+    	try {
+    		inventory.addItem(potion);
+    		inventory.addItem(potion);
+    		assertThrows(PoobkemonException.class, () -> inventory.addItem(potion));
+    	}catch(PoobkemonException e) {
+    		fail("No ha lanzado la excepción esperada ");
+    	}
+    	
+    }
+    
+    @Test
+    public void shouldAddMultiplePokemonToInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            inventory.addPokemon(venusaur);
+            inventory.addPokemon(charizard);
+            
+            assertTrue(inventory.contains(venusaur));
+            assertTrue(inventory.contains(charizard));
+        } catch (PoobkemonException e) {
+            fail("No se podrian agregar multiples pokemones " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldThrowAddingSamePokemonTwice() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addPokemon(venusaur);
+    		assertThrows(PoobkemonException.class, () -> inventory.addPokemon(venusaur));
+    	}catch(PoobkemonException e) {
+    		fail("No ha lanzado la correspondiente excepción ");
+    	}
+    }
+    @Test
+    public void shouldGetItemByName() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+    	try {
+    		inventory.addItem(potion);
+    		inventory.addItem(revive);
+    		
+    		Item pruebaItem = inventory.getItemByName(potion.getName());
+    		assertEquals(potion, pruebaItem);
+    		
+    		pruebaItem = inventory.getItemByName(revive.getName());
+    		assertEquals(revive, pruebaItem);
+    		
+    	}catch(PoobkemonException e) {
+    		fail("Ha ocurrido un error con el nombre de los items");
+    	}
+    }
+    @Test
+    public void shouldGetAllPokemonFromInventory() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            inventory.addPokemon(venusaur);
+            inventory.addPokemon(charizard);
+            
+            assertEquals(2, inventory.getPokemons().size());
+            assertTrue(inventory.getPokemons().containsKey("Venusaur"));
+            assertTrue(inventory.getPokemons().containsKey("Charizard"));
+        } catch (PoobkemonException e) {
+            fail("No se encuentran todos los pokemones en el inventario " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldGetAlivePokemon() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            inventory.addPokemon(venusaur);
+            inventory.addPokemon(charizard);
+          
+            assertEquals(2, inventory.getAlivePokemons().size());
+            
+            venusaur.losePS(venusaur.getPs());
+            
+            assertEquals(1, inventory.getAlivePokemons().size());
+            assertEquals(charizard, inventory.getAlivePokemons().get(0));
+        } catch (PoobkemonException e) {
+            fail("Exception thrown when testing alive Pokemon: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldCheckIfCanStillFight() {
+    	Inventory inventory = new Inventory();
+    	Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+    	Pokemon charizard = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, 
+                PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+    	Item potion =  new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
+    	Item revive = new Revive();
+    	Item superPotion = new SuperPotion("superPotion", "Restores more HP", PotionType.SUPER);
+        try {
+            assertFalse(inventory.canStillFighting());
+            
+            inventory.addPokemon(venusaur);
+            assertTrue(inventory.canStillFighting());
+            
+            venusaur.losePS(venusaur.getPs());
+            assertFalse(inventory.canStillFighting());
+            
+            inventory.addPokemon(charizard);
+            assertTrue(inventory.canStillFighting());
+        } catch (PoobkemonException e) {
+            fail("Los pokemones no podrian continuar peleando");
+        }
+    }
+    
+    @Test
+    public void shouldCreatePlayerTrainer() {
+    	PlayerTrainer newTrainer = new PlayerTrainer("Gary", new Color(0,0,255));
+    	assertEquals("Gary", newTrainer.getName());
+    	assertEquals(new Color(0,0,255), newTrainer.getColor());
+    }
+    
+    @Test
+    public void shouldChangePokemonByObject() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        trainer.setPokemonInUse(pikachu);
+        trainer.changePokemon(charizard);
+        assertEquals(charizard, trainer.getPokemonInUse());
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el cambio");
+        }
+    }
+    
+    @Test
+    public void shouldChangePokemonByName() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        trainer.setPokemonInUse(pikachu);
+        trainer.changePokemon("charizard");
+        
+        assertEquals(charizard, trainer.getPokemonInUse());
+        
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el cambio");
+        }
+    }
+    
+    @Test
+    public void shouldUseItem() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        
+        charizard.losePS(50);
+        int initialPs = charizard.getPs();
+        
+        trainer.useItem(potion);
+        
+        assertTrue(charizard.getPs() > initialPs);
+        
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el uso del item");
+        }
+    }
+    
+    @Test
+    public void shouldUseItemByName() {
+        PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        Pokemon pikachu = new Pokemon("Pikachu", 50, 200, 150, 120, 110, 130, 160, 
+                              PokemonType.ELECTRICO, null, 25);
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon faintedPokemon = new Pokemon("Magikarp", 20, 100, 50, 40, 60, 40, 80, 
+                                   PokemonType.AGUA, null, 129);
+        faintedPokemon.losePS(faintedPokemon.getPs());
+        Item potion = new PsPotion("Potion", "Restores 20 HP", PotionType.NORMAL);
+        Item revive = new Revive();
+        Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        try {
+        inventory.addPokemon(pikachu);
+        inventory.addPokemon(charizard);
+        inventory.addPokemon(faintedPokemon);
+        inventory.addItem(potion);
+        inventory.addItem(revive);
+        trainer.setPokemonInUse(pikachu);
+        
+        pikachu.losePS(50);
+        int initialPs = pikachu.getPs();
+        
+        trainer.useItem(potion.getName());
+        
+        assertTrue(pikachu.getPs() > initialPs);
+        
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el uso del item");
+        }
+    }
+    
 }

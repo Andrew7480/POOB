@@ -11,6 +11,7 @@ import java.awt.event.*;
 public class POOBkemonGUI extends JFrame {
     private JMenuItem leave;
     private JMenuItem save;
+    private JMenuItem openBattle;
     private JFileChooser fileChooser;
     protected CardLayout cardLayout;
     protected JPanel panelContenedor;
@@ -82,7 +83,10 @@ public class POOBkemonGUI extends JFrame {
                 saveOpen();
             }
         });
+        openBattle.addActionListener(e -> {
+            //OpenBattle();
 
+        });
         prepareMovementActions();
     }
 
@@ -95,9 +99,12 @@ public class POOBkemonGUI extends JFrame {
         JMenu menuDesplegable = new JMenu("Menu");
         leave = new JMenuItem("Exit");
         save = new JMenuItem("Save");
+        openBattle = new JMenuItem("Open Batle");
         menuDesplegable.add(leave);
         menuDesplegable.addSeparator();
         menuDesplegable.add(save);
+        menuDesplegable.addSeparator();
+        menuDesplegable.add(openBattle);
         menu.add(menuDesplegable);
         setJMenuBar(menu);
     }
@@ -507,7 +514,26 @@ public class POOBkemonGUI extends JFrame {
             return domain.getTrainer(trainerEscogido).getInventory().getItemsName();
         }
 /////////////////////////////////////////////////////////////////////////////////////////
-
+    public void saveBattle(){
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try{
+                domain.getBattle().save(selectedFile);
+            }catch(PoobkemonException h){
+                System.out.println(h.getMessage());
+        }
+     }
+    }
+    public void OpenBattle(){
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this); 
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            domain.deserializateBattle(selectedFile.getAbsolutePath());
+        }
+    }
 
     
     public static void main(String args []){

@@ -55,10 +55,6 @@ public abstract class Movement implements Attackable, Serializable{
     public String getDescription(){
         return description;
     }
-
-    public String getTypeOfMove(){
-        return typeOfMovement;
-    }
     
     /**
      * Gets the accuracy (precision) of this movement
@@ -128,8 +124,8 @@ public abstract class Movement implements Attackable, Serializable{
      * 
      * @throws PoobkemonException INVALID_VALUES if PP would become zero or negative
      */
-    public void losePP()throws PoobkemonException{
-        if (PP - 1 <= 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
+    public void losePP() throws PoobkemonException{
+        if (PP - 1 < 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
         PP --;
     }
 
@@ -164,11 +160,15 @@ public abstract class Movement implements Attackable, Serializable{
         try{
             int newValueAttacker = (doAttackTo(attacker, target)); //mirar desespspps
             attacker.losePS(newValueAttacker);
-            losePP();
+
         }
         catch (PoobkemonException e){
             e.getMessage();
         }
+    }
+
+    public String getTypeOfMove(){
+        return typeOfMovement;
     }
     
     /**
@@ -180,5 +180,4 @@ public abstract class Movement implements Attackable, Serializable{
     public abstract Movement copy();
 
     public abstract String createMovementForToolTip();
-
 }

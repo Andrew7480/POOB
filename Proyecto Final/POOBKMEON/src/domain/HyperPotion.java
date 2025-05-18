@@ -1,6 +1,5 @@
 package domain;
-import java.io.*;
-public class HyperPotion extends Potion implements Serializable{
+public class HyperPotion extends Potion {
     
     /**
      * Constructor for creating a new HyperPotion
@@ -24,8 +23,10 @@ public class HyperPotion extends Potion implements Serializable{
      */
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
-        System.out.println("LLEGA A HYPER POTION?");
-        pokemon.gainPS(200);
+        pokemon.gainPS(statics.getValue());
+        if (pokemon.getPs() > pokemon.getMaxPs()){
+            pokemon.setPs(pokemon.getMaxPs());
+        }
         //pokemon.gainSpecialAttack(statics.getValue()); // PORQUE ESTO ESTÁ ACA?
         //pokemon.gainSpecialDefense(statics.getValue()); // PORQUE ESTO ESTA ACA? 
         /*

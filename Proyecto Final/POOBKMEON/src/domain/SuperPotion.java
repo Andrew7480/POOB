@@ -1,6 +1,5 @@
 package domain;
-import java.io.*;
-public class SuperPotion extends Potion implements Serializable{
+public class SuperPotion extends Potion{
     
     /**
      * Constructor for creating a new SuperPotion
@@ -26,5 +25,8 @@ public class SuperPotion extends Potion implements Serializable{
         pokemon.gainAttack(statics.getValue());
         pokemon.gainPS(statics.getValue());
         pokemon.gainDefense(statics.getValue());
+        if (pokemon.getPs() > pokemon.getMaxPs()){
+            pokemon.setPs(pokemon.getMaxPs());
+        }
     }
 }

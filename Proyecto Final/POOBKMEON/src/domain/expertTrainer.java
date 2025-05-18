@@ -1,10 +1,9 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.awt.Color;
 
-public class ExpertTrainer extends MachineTrainer implements Serializable{
+public class ExpertTrainer extends MachineTrainer{
     
     /**
      * Constructor for creating a new ExpertTrainer
@@ -38,7 +37,7 @@ public class ExpertTrainer extends MachineTrainer implements Serializable{
         }
         if (bestAttackMovement != null){
             try{
-                actualPokemon.affectPokemonStatus();
+                
                 bestAttackMovement.doAttackTo(actualPokemon, target);}
             catch(PoobkemonException i){
                 System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());
@@ -48,7 +47,7 @@ public class ExpertTrainer extends MachineTrainer implements Serializable{
         }
         bestAttackMovement = actualPokemon.aleatoryMovement(target);
         try{
-            actualPokemon.affectPokemonStatus();
+
             bestAttackMovement.doAttackTo(actualPokemon, target);}
         catch(PoobkemonException i){
             System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());            
