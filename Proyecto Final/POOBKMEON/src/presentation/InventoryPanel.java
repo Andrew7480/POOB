@@ -1,20 +1,13 @@
 package presentation;
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import domain.Item;
-import domain.Pokemon;
 import domain.PoobkemonException;
 
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import java.util.Map.Entry;
+
 public class InventoryPanel extends JPanel {
     private  String backgroundImage = "emerald";
     private JLabel texto;
@@ -23,9 +16,10 @@ public class InventoryPanel extends JPanel {
     private JButton come;
     private JButton doneButton; 
     private JPanel panelScroll;
-    private ArrayList<String> itemsSelected;
+    private ArrayList<String> itemSelected;
+    private ArrayList<String> items;
     private ArrayList<JButton> buttons;
-    private final int MAX_ITEM_SELECT = 1;
+    public final int MAX_ITEM_SELECT = 1;
 
     public InventoryPanel(POOBkemonGUI po){
         pooBkemonGUI = po;
@@ -35,9 +29,10 @@ public class InventoryPanel extends JPanel {
         texto = new JLabel("Player");
     }
 
-    public void inicializate(ArrayList<String> items){
-        itemsSelected = items;
-        System.out.println(itemsSelected + "PANEL INVENTORY?");
+    public void inicializate(){
+        items = pooBkemonGUI.domain.getCurrentItems();
+        itemSelected = new ArrayList<>();
+        setColor(pooBkemonGUI.domain.getCurrentColor());
         prepareElements();
         prepareActions();
     }
@@ -168,6 +163,15 @@ public class InventoryPanel extends JPanel {
         color = newColor;
         texto.setBackground(color);
     }
+    public void actualizar(){
+           
+        reset();
+        color = pooBkemonGUI.domain.getCurrentColor();
+        items = pooBkemonGUI.domain.getCurrentItems();
+        itemSelected.clear(); 
+        inicializate();
+    }
+
     public JButton getButtonBack(){
         return come;
     }
@@ -175,8 +179,8 @@ public class InventoryPanel extends JPanel {
         return doneButton;
     }
     public void createButtons() {
-        System.err.println(itemsSelected.toString());
-        for (String itemSelected : itemsSelected) {
+        System.out.println(items.toString());
+        for (String itemSelected : items) {
             Item po1 = pooBkemonGUI.domain.getItems().get(itemSelected);
             String nombre = po1.getName();
             String ruta = po1.getName() +".png";
@@ -186,30 +190,24 @@ public class InventoryPanel extends JPanel {
             selectionItems(button)
             );
             panelScroll.add(button);
-            //button.setBackground(Color.GREEN);  //??? :(
-            //button.setBackground(Color.RED);
             }
     }
     
     private void selectionItems(JButton button){
-        if (itemsSelected.contains(button.getToolTipText())) {
+        String itemName = button.getToolTipText();
+        if (itemSelected.contains(itemName)) {
             button.setBackground(null);
             button.setOpaque(false);
-            itemsSelected.remove(button.getToolTipText());
+            itemSelected.remove(itemName);
         }
         else{
             button.setBackground(Color.GREEN);
             button.setOpaque(true);
-            itemsSelected.add(button.getToolTipText());
+            itemSelected.add(itemName);
         }
-        //System.out.println(pokemonesChoosen);
+        System.out.println(itemSelected);
     }
-    public ArrayList<String> getItemsChoosen(){
-        return itemsSelected;
-    }
-    public int sizeChoosen(){
-        return itemsSelected.size();
-    }
+
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;
         int width=50, height =50;
@@ -246,55 +244,23 @@ public class InventoryPanel extends JPanel {
 
         return button;
     }
-    /*
-    private void prepareActions(){
-        doneButton.addActionListener(e -> {
-        if (sizeChoosen() < 2) {
-            JOptionPane.showMessageDialog(this, 
-                "Selecciona al menos 2 Items para la batalla!", 
-                "Incompleta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (sizeChoosen() > MAX_POKEMONS) {
-            JOptionPane.showMessageDialog(this,
-                "Solo puedes seleccionar máximo " + MAX_POKEMONS + " pokemones",
-                "Límite excedido", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        //INICIALIZAR POTIONS.
-        //pooBkemonGUI.listMovements.infoSelectedPokemons(pokemonesChoosen);
-        //pooBkemonGUI.listPokemonsPanel.inicializate(pokemonesChoosen);
-        pooBkemonGUI.cardLayout.show(pooBkemonGUI.panelContenedor,"chooser");
-        reset();
-        
-        });
+    public boolean isOneOption(){
+        return itemSelected.size() == 1;
     }
-    */
-    private void prepareActions(){
-        doneButton.addActionListener(e ->{
-            if (itemsSelected.size() == 1){
-                try{
-                    System.out.println(pooBkemonGUI.domain.getCurrentPokemonPs());
-                    System.out.println(itemsSelected.get(0));
-                    pooBkemonGUI.domain.actionuseItem(itemsSelected.get(0));
-                    System.out.println(pooBkemonGUI.domain.getCurrentPokemonPs());
-                    pooBkemonGUI.panelBattle.actualizarCreateStatsPanelAfterMove();
-                }catch(PoobkemonException h){
-                    System.out.println(h.getMessage());
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Solo puedes utilizar una poción por pókemon", "Límite excedido", JOptionPane.WARNING_MESSAGE);
-            }
-        });
+    public String itemSelected(){
+        return itemSelected.get(0);
     }
 
+    private void prepareActions(){}
+
     public void reset(){
-        itemsSelected.clear();
+        itemSelected.clear();
+        items.clear();
         for (JButton button : buttons){
             button.setBackground(null);
             button.setOpaque(false);
         }
+        removeAll();
         revalidate();
         repaint();
     }

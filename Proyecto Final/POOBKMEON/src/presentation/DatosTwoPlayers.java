@@ -59,8 +59,8 @@ public class DatosTwoPlayers extends JPanel {
         continuar = new JButton("CONTINUE");
         po.styleButton(continuar);
         po.styleButton(btnRegresarNormal);
-        po.styleButton(chooserColorPlayer1);
-        po.styleButton(chooserColorPlayer2);
+        po.styleButtonchooser(chooserColorPlayer1);
+        po.styleButtonchooser(chooserColorPlayer2);
         
         
         JPanel buttonPanel = po.invisiblePanelWithOpacity();
@@ -72,10 +72,32 @@ public class DatosTwoPlayers extends JPanel {
     }
 
     private void prepareActions(){
-        continuar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
+        continuar.addActionListener(e ->
+            confirmPlayerInfo());
+
+        btnRegresarNormal.addActionListener(e -> {
+            po.changePanel("normal");
+        });
+
+        chooserColorPlayer1.addActionListener(e -> {
+            choice1 = colorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
+            if (choice1 != null) {
+                colorChosedPlayer1 = choice1;
+                chooserColorPlayer1.setBackground(colorChosedPlayer1);
+            }
+        });
+        
+        chooserColorPlayer2.addActionListener(e -> {
+            choice2 = colorChooser.showDialog(this, "Selecciona tu color", Color.RED);
+            if (choice2 != null) {
+                colorChosedPlayer2 = choice2;
+                chooserColorPlayer2.setBackground(colorChosedPlayer2);
+            }
+        });
+    }
+    
+    private void confirmPlayerInfo(){
+        try {
                     player1Name = player1NameField.getText().trim();
                     player2Name = player2NameField.getText().trim();
                     try{
@@ -106,31 +128,8 @@ public class DatosTwoPlayers extends JPanel {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(DatosTwoPlayers.this, ex.getMessage());
                 }
-            }
-        });
 
-        btnRegresarNormal.addActionListener(e -> {
-            po.changePanel("normal");
-        });
-
-        chooserColorPlayer1.addActionListener(e -> {
-            choice1 = colorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
-            if (choice1 != null) {
-                colorChosedPlayer1 = choice1;
-                chooserColorPlayer1.setBackground(colorChosedPlayer1);
-            }
-        });
-        
-        chooserColorPlayer2.addActionListener(e -> {
-            choice2 = colorChooser.showDialog(this, "Selecciona tu color", Color.RED);
-            if (choice2 != null) {
-                colorChosedPlayer2 = choice2;
-                chooserColorPlayer2.setBackground(colorChosedPlayer2);
-            }
-        });
     }
-    
-
     private void playerPanel() {
         chooseDifficulty = new JPanel();
         chooseDifficulty.setLayout(new GridLayout(1, 2));
@@ -304,16 +303,6 @@ public class DatosTwoPlayers extends JPanel {
 
         return button;
     }
-
-    public JButton getBtnRegresarNormal(){
-        return btnRegresarNormal;
-    }
-    
-    public JButton getButtonContinuar(){
-        return continuar;
-    }
-    
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

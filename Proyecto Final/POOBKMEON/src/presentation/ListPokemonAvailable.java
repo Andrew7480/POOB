@@ -1,22 +1,15 @@
 package presentation;
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import domain.Pokemon;
 import domain.PoobkemonException;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class ListPokemonAvailable extends JPanel{
     private String backgroundImage = "emerald";
-    private ArrayList<String> pokemonsChosenFight;
+    private ArrayList<String> pokemonsChosen;
+    private ArrayList<String> pokemonChange;
     private ArrayList<JButton> buttons;
     private JPanel panelScroll;
     private JButton doneButton;
@@ -24,7 +17,7 @@ public class ListPokemonAvailable extends JPanel{
     private POOBkemonGUI po;
     private JLabel texto;
     private JButton come;
-    private int MAX_CHANGED = 1;
+    public int MAX_CHANGED = 1;
 
     public ListPokemonAvailable(POOBkemonGUI newPo){
         po = newPo;
@@ -33,12 +26,13 @@ public class ListPokemonAvailable extends JPanel{
         doneButton = new JButton ("Change");
         prepareActions();
     }
-    public void inicializate(ArrayList<String> pokemons, Color color){
-        pokemonsChosenFight = pokemons;
-        setColor(color);
+    public void inicializate(){
+        pokemonsChosen = po.domain.getCurrentPokemons();
+        pokemonChange = new ArrayList<>();
+        setColor(po.domain.getCurrentColor());
         prepareElements();
-       
     }
+
     private void prepareElements(){
         
         po.styleButton(come);
@@ -144,49 +138,21 @@ public class ListPokemonAvailable extends JPanel{
         createButtons();
     }
 
-    private void prepareActions(){
-        doneButton.addActionListener(e -> {
-            if (sizeChoosen() < 1){
-                return;
-            }
-            if (sizeChoosen() > MAX_CHANGED){
-                JOptionPane.showMessageDialog(this, "Solo puedes escoger uno para cambiar " + MAX_CHANGED + "pokemon", 
-                "Límite excedido", JOptionPane.WARNING_MESSAGE);
-
-                return;
-            }
-            if (sizeChoosen() == 1){
-                changeImage();
-                //pokemons
-            }
-        System.out.println("se ha comfirmado un pokemon a cambiar ");
-        reset();
-        po.cardLayout.show(po.panelContenedor,"battle");
-        });
-    }
+    private void prepareActions(){}
 
     public int sizeChoosen(){
-        return pokemonsChosenFight.size();
+        return pokemonChange.size();
     }
-
-    private void changeImage() {
-        System.out.println(pokemonsChosenFight.size());
-        String pokemonName = pokemonsChosenFight.get(0);
-        System.out.println(pokemonsChosenFight);
-        try{po.domain.actionCambiar(pokemonName);}
-        catch(PoobkemonException e){System.out.println(e.getMessage());}
-        System.out.println(pokemonName);
-
-        po.panelBattle.setFirstPokemon(String.valueOf(po.domain.getCurrentPokemonPokedexIndex()));
-        po.panelBattle.actualizarCreateStatsPanelAfterMove();
-        po.panelBattle.actualizarListaMovements();
-        po.panelBattle.removeMovement();
-        po.panelBattle.prepareMovementButtons();
+    public boolean isOneOption(){
+        return pokemonChange.size()==1;
+    }
+    public String getSelectedPokemon(){
+        return pokemonChange.get(0);
     }
 
     private void createButtons(){
-        System.err.println(pokemonsChosenFight.toString());
-        for (String pokemonSelected : pokemonsChosenFight){
+        System.out.println(pokemonsChosen.toString());
+        for (String pokemonSelected : pokemonsChosen){
             Pokemon po1 = po.pokemones.get(pokemonSelected);
             String nombre = po1.getName();
             String ruta = po1.getPokedexIndex().toString() + ".png";
@@ -234,17 +200,17 @@ public class ListPokemonAvailable extends JPanel{
     }
 
     private void selectionPokemons(JButton button){
-        if (pokemonsChosenFight.contains(button.getToolTipText()) ) {//&& pokemonsChosenFight.size()==1
+        if (pokemonChange.contains(button.getToolTipText()) ) {//&& pokemonsChosenFight.size()==1
             button.setBackground(null);
             button.setOpaque(false);
-            pokemonsChosenFight.remove(button.getToolTipText());
+            pokemonChange.remove(button.getToolTipText());
         }
         else{
             button.setBackground(Color.GREEN);
             button.setOpaque(true);
-            pokemonsChosenFight.add(button.getToolTipText());
+            pokemonChange.add(button.getToolTipText());
         }
-        System.out.println(pokemonsChosenFight.toString());
+        System.out.println(pokemonChange.toString());
     }
 
     public JButton getBackButton(){
@@ -254,15 +220,26 @@ public class ListPokemonAvailable extends JPanel{
     public JButton getDoneButton(){
         return doneButton;
     }
+
+    public void actualizar(){
+        reset();
+        color = po.domain.getCurrentColor();
+        pokemonsChosen = po.domain.getCurrentPokemons();
+        pokemonChange.clear();    
+        inicializate();
+    }
+
     public void reset(){
         System.out.println("resetea todo del cambio de pokemon");
-        pokemonsChosenFight.clear();
+        pokemonsChosen.clear();
+        pokemonChange.clear();
         for (JButton button : buttons){
             button.setBackground(null);
             button.setOpaque(false);
             button.revalidate();
             button.repaint();
         }
+        removeAll();
     }
 
     @Override

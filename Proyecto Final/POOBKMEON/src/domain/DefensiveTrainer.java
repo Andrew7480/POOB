@@ -49,7 +49,6 @@ public class DefensiveTrainer extends MachineTrainer implements Serializable {
             return bestMovementDefensive.getName();
         }
         else{
-            //hace otro movimiento que seria hacer un ataque o cambiar o gg 
             doOtherThen(target);
             return "Ha hecho otra accion.";
         }

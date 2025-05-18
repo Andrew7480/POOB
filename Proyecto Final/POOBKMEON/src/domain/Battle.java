@@ -1,6 +1,8 @@
 package domain;
 
 import java.awt.Color;
+import java.io.*;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -50,7 +52,18 @@ public class Battle implements Serializable {
     public void executeMovement(String move) throws PoobkemonException{ 
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
-        System.out.println(current.getName());
+
+        System.out.println("--".repeat(10));
+        System.out.println(current.toString());
+        System.out.println("--".repeat(10));
+        System.out.println(opponent.toString());
+
+        System.out.println("--".repeat(10));
+        System.out.println("Movimiento: "+ move +" Quien?: " + current.getName()+" pokemon: "+current.getPokemonInUse().getName() +" a: "+ opponent.getPokemonInUse().getName());
+        System.out.println("Movimientos: "+current.getPokemonInUse().getMovementsString().toString());
+        System.out.println("--".repeat(10));
+
+
         current.getPokemonInUse().affectPokemonStatus();
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();
@@ -79,8 +92,7 @@ public class Battle implements Serializable {
      * @throws PoobkemonException If there is an issue using the item
      */
     public void useItem(String item) throws PoobkemonException{
-        System.out.println("LLEGAS A BATALLA?" + item);
-        System.out.println(getCurrentTrainer().getName());
+        System.out.println("Item a usar:"+getCurrentTrainer().getName() + " " + item);
         getCurrentTrainer().useItem(item);
         afterAction();
     }
@@ -105,7 +117,7 @@ public class Battle implements Serializable {
         Trainer opponent = getOpponentTrainer();
         if (lastAction.equals("Ya decidi")) {
             lastAction = opponent.decide(current.getPokemonInUse());
-            System.out.println("Ya jugue maquina?: " + lastAction);
+            //System.out.println("Ya jugue maquina?: " + lastAction);
             if (lastAction.equals("Ya decidi")){
                 advanceTurn();
             }
@@ -121,7 +133,6 @@ public class Battle implements Serializable {
      * @return ArrayList of movement names
      */
     public ArrayList<String> getMovementsStringCurrent(){
-        System.out.println(lastAction);
         return getCurrentTrainer().getPokemonInUse().getMovementsString();
     }
     
@@ -371,8 +382,44 @@ public class Battle implements Serializable {
      * @return true if the Pokemon is alive, false otherwise
      */
     public boolean isAliveOpponentPokemon(){
-        System.out.println(getOpponentTrainer().getPokemonInUse().isAlive());
+        System.out.println("Pokemon vivo?: "+ getOpponentTrainer().getPokemonInUse().isAlive());
         return getOpponentTrainer().getPokemonInUse().isAlive();
+    }
+
+    public void save(File fileName) throws PoobkemonException{
+        try{
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+            out.writeObject(this);
+            out.close();
+        } catch(FileNotFoundException e){
+            throw new PoobkemonException(PoobkemonException.GAME_CANT_BE_SAVE);
+        } catch(NotSerializableException f){
+            throw new PoobkemonException(PoobkemonException.PROBLEM_WITH_SERIALIZATION);
+        } catch(IOException g){
+            throw new PoobkemonException(PoobkemonException.PROBLEM_TO_SERIALIZATE);
+        }
+    }
+
+
+    public Battle open(File file) throws PoobkemonException{
+        if (!file.exists()) {
+            throw new PoobkemonException(PoobkemonException.FILE_DONT_EXIST);
+        }
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+            Battle battle = (Battle) in.readObject();
+            return battle;
+        } catch (FileNotFoundException e) {
+            throw new PoobkemonException("Error al leer el archivo: " + e.getMessage());
+        } catch (InvalidClassException e) {
+            throw new PoobkemonException("Clase Invalida: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new PoobkemonException("Clase no encontrada " + e.getMessage());
+        } catch (ClassCastException e) {
+            throw new PoobkemonException("Casteo de clase error: " + e.getMessage());
+        } catch (IOException e) {
+            throw new PoobkemonException("Posible error al serializar? " + e.getMessage());
+        }
     }
 
     /**
@@ -392,5 +439,13 @@ public class Battle implements Serializable {
         }
 
         return result; // Organizar arreglo dependiendo el resultado
+    }
+
+    public ArrayList<String>  getCurrentItems(){
+        return getCurrentTrainer().getItemsName();
+    }
+
+    public ArrayList<String>  getCurrentPokemons(){
+        return getCurrentTrainer().getPokemonsName();
     }
 }

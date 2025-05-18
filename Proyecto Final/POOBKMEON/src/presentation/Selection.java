@@ -1,19 +1,11 @@
 package presentation;
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import domain.Item;
-import domain.Pokemon;
-import domain.PoobkemonException;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
+
+import domain.*;  //luego mirar
 
 public class Selection extends JPanel{
     private JLabel texto;
@@ -36,6 +28,7 @@ public class Selection extends JPanel{
         prepareElementsPokemons();
         prepareElementsItems();
     }
+
     
     private void prepareElementsItems(){
         itemsChoosen = new ArrayList<>();
@@ -186,7 +179,7 @@ public class Selection extends JPanel{
         title.add(pokemonsTitle);
         title.setBackground(Color.GRAY);
         centro.setOpaque(false);
-        panelScroll = new JPanel(new GridLayout(8,2,10,10)) {
+        panelScroll = new JPanel(new GridLayout(0,2,10,10)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -291,7 +284,6 @@ public class Selection extends JPanel{
         
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
-            System.out.println("LAS QUE ESTAN BIEN: " + imagePath);
             
             if (imagePath.toLowerCase().endsWith(".gif")){
                 button.setIcon(icon);

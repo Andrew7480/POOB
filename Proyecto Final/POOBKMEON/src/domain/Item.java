@@ -45,7 +45,7 @@ public abstract class Item implements Serializable{
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         if(pokemon == null) throw new PoobkemonException(PoobkemonException.INVALID_POKEMON);
         if(!pokemon.isAlive()) throw new PoobkemonException(PoobkemonException.ITEM_NOT_USABLE);
-        System.out.println("LLEGA A LA CLASE ITEM: " + pokemon.getName());
+        //falta mirar si ya esta curado o algo?
     }
     
     /**

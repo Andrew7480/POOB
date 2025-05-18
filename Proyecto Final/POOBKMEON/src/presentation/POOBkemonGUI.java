@@ -3,11 +3,8 @@ import domain.*;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.Flow;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -19,16 +16,9 @@ public class POOBkemonGUI extends JFrame {
     protected JPanel panelContenedor;
     private PokedexPanel pokedexPanelPrueba;
     protected ModePlayerVSPlayer playerVSplayerPanel;
-    protected ModePlayerVSPlayer playerVSplayerPanelSurvival;
     protected ModePlayerVsMachine playerVsMachinePanel;
-    protected BattlePanel panelBattle;
-    private ModeMachineVsMachine machineVsMachinePanel;
-    protected ListPokemonAvailable listPokemonsPanel;
-    protected InventoryPanel panelInvetory;
-    protected SelectionPokemon chooser;
-    protected ListOfMovementsPanel listMovements;
-    protected PanelSelectedPokemon selectedPokemon;
-    protected BattlePanelMvsM panelMvsM;
+    protected ModePlayerVSPlayer playerVSplayerPanelSurvival;
+    protected ModeMachineVsMachine machineVsMachinePanel;
     protected ModePlayerVSPlayerSurvival panelPvsPSurvival;
     private JColorChooser colorChooser;
     
@@ -41,6 +31,13 @@ public class POOBkemonGUI extends JFrame {
     protected POOBkemon domain = new POOBkemon();
     protected TreeMap<String,Pokemon> pokemones;
     protected TreeMap<String, Movement> movimientos;
+
+    private static final Color STANDARD_COLOR = new Color(70, 130, 180);
+    private static final Color EXTERNAL_COLOR = new Color(30, 30, 180);
+    private static final Color HOVER_COLOR = new Color(100, 160, 210);
+    private static final Color EXTERNAL_HOVER_COLOR = new Color(60, 60, 210);
+    private static final Color PRESSED_COLOR = new Color(50, 110, 160);
+    private static final Color EXTERNAL_PRESSED_COLOR = new Color(20, 20, 160);
 
 
     /**
@@ -85,42 +82,6 @@ public class POOBkemonGUI extends JFrame {
         save.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 saveOpen();
-            }
-        });
-
-        panelBattle.getFighButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-            
-                //panelBattle.actualizar(90,20);
-            }
-        });
-
-
-        panelBattle.getFighButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                //Mostrar lista de movimientos ->
-            }
-        });
-        panelBattle.getInventoryButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                //Mostrar Inventario
-            }
-        });
-
-        panelBattle.getFighButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                panelBattle.showMovesPanel();               
-            }
-        });
-
-        panelBattle.getBackOptions().addActionListener(new ActionListener(){ //aqui
-            @Override
-            public void actionPerformed(ActionEvent e){
-                panelBattle.showBattleOptionsPanel();
             }
         });
 
@@ -176,27 +137,6 @@ public class POOBkemonGUI extends JFrame {
 
         panelPvsPSurvival = new ModePlayerVSPlayerSurvival(this);
         panelContenedor.add(panelPvsPSurvival,"player vs player survival");
-
-        panelInvetory = new InventoryPanel(this);
-        panelContenedor.add(panelInvetory,"inventory");
-
-        listMovements = new ListOfMovementsPanel(this);
-        panelContenedor.add(listMovements,"movimientos");
-
-        listPokemonsPanel = new ListPokemonAvailable(this);
-        panelContenedor.add(listPokemonsPanel,"pokemon list");
-
-        selectedPokemon = new PanelSelectedPokemon(this);
-        panelContenedor.add(selectedPokemon,"select pokemon");
-
-        chooser = new SelectionPokemon(this);
-        panelContenedor.add(chooser, "chooser");
-
-        panelBattle = new BattlePanel(this);
-        panelContenedor.add(panelBattle,"battle");
-
-        panelMvsM = new BattlePanelMvsM(this);
-        panelContenedor.add(panelMvsM,"battle m");
 
     }
 
@@ -438,7 +378,24 @@ public class POOBkemonGUI extends JFrame {
         button.setBackground(new Color(30, 30, 180));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createRaisedBevelBorder());
+        button.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        button.setPreferredSize(new Dimension(180, 35));
+
+        addBasicEffects(button, STANDARD_COLOR, HOVER_COLOR, PRESSED_COLOR);
+    }
+
+    public void styleButtonchooser(JButton button){
+        button.setFont(new Font("Times new Roman", Font.BOLD, 14));
+        button.setBackground(new Color(70, 130, 180));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
         button.setPreferredSize(new Dimension(180, 35));
     }
 
@@ -447,9 +404,45 @@ public class POOBkemonGUI extends JFrame {
         button.setBackground(new Color(70, 130, 180));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createRaisedBevelBorder());
+        button.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
         button.setPreferredSize(new Dimension(180, 35));
+
+        addBasicEffects(button, STANDARD_COLOR, HOVER_COLOR, PRESSED_COLOR);
     }
+
+    private void addBasicEffects(JButton button, Color normalColor, Color hoverColor, Color pressedColor) {
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(hoverColor);
+                button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(normalColor);
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent e) {
+                button.setBackground(pressedColor);
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (button.contains(e.getPoint())) {
+                    button.setBackground(hoverColor);
+                } else {
+                    button.setBackground(normalColor);
+                }
+            }
+        });
+    }   
+
+
     /*
      * Do the action of close the window
      */
@@ -475,21 +468,17 @@ public class POOBkemonGUI extends JFrame {
     public POOBkemon getDomain(){
         return domain;
     }
+
+
     private void prepareMovementActions(){
-    
+/* 
         machineVsMachinePanel.getBtnRegresar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 cardLayout.show(panelContenedor,"normal");
             }
         });
-
-        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
+*/
 
         pokedexPanelPrueba.getButton().addActionListener(new ActionListener(){
             @Override
@@ -497,133 +486,8 @@ public class POOBkemonGUI extends JFrame {
                 cardLayout.show(panelContenedor,"principal");
             }
         });
+    }
 
-
-        chooser.getButtonBack().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                chooser.reset();
-                cardLayout.show(panelContenedor,"player vs machine");
-                
-            }
-        });
-
-
-        playerVSplayerPanel.getButtonContinuar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                //cardLayout.show(panelContenedor,"battle");
-            }
-        });
-
-
-        playerVSplayerPanel.getBtnRegresarNormal().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-        panelBattle.getRunButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                //chooser.reset();
-                listMovements.resetPokemonChosen();
-                //selectedPokemon.reset();
-                //playerVsMachinePanel.reset();
-                panelBattle.reset();
-                cardLayout.show(panelContenedor,"principal");
-            }
-        });
-        playerVsMachinePanel.getButtonRegresar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                playerVsMachinePanel.reset();
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-
-        playerVsMachinePanel.getChoserColorNext().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                playerVsMachinePanel.changeColor();
-                chooser.setColor();
-                listMovements.setColor();
-                System.out.println("Se ha seleccionado el boton de color, se ha puesto en la seleccion de poquemones y movimientos");
-            }
-        });
-
-
-        panelBattle.getPokemonButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"pokemon list");
-            }
-        });
-
-        panelBattle.getInventoryButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"inventory");
-            }
-        });
-
-        panelInvetory.getButtonBack().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"battle");
-            }
-        });
-        
-        listPokemonsPanel.getBackButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                listPokemonsPanel.reset();
-                cardLayout.show(panelContenedor,"battle");
-            }
-        });
-        
-
-        listMovements.getNextButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                
-                if (!listMovements.isSelectedMovements()) {
-                    return;
-                }
-                System.out.println(listMovements.getPokemonChoosen().toString());
-                System.out.println(listMovements.getPokemonChoosen().toString());
-                
-                selectedPokemon.inicializate(listMovements.getPokemonChoosen(), listMovements.getColor());
-
-                playerVsMachinePanel.pokemonsWithMovs= listMovements.getMovementsMap();
-                listMovements.resetPokemonChosen();
-                //selectedPokemon.reset();
-                cardLayout.show(panelContenedor,"select pokemon");
-                System.out.println("Se ha seleccionado seguir y se ha resetiado las listas de movimientos");
-
-            }
-        });
-        listMovements.getComeButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                listMovements.resetPokemonChosen();
-                selectedPokemon.reset();
-                cardLayout.show(panelContenedor,"chooser");
-            }
-        });
-        
-        selectedPokemon.getBackButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                listMovements.resetPokemonChosen();
-                selectedPokemon.reset();
-                cardLayout.show(panelContenedor,"player vs machine");
-                
-                System.out.println("se ha oprimido volver de seleccionar el pokemon inicial y se resetea ese panel y el de lista de movimientos");
-            }
-        });
-        }
 
 /////////////////////////////////////////////////////////////////////////////////////////
         public void createTrainer(String trainerEscogido ,Color color){
@@ -641,7 +505,7 @@ public class POOBkemonGUI extends JFrame {
         public void addPokemonsToTrainer(String trainerEscogido,HashMap<String, ArrayList<String>> pokemonsWithAll) throws PoobkemonException{
             HashMap<String, ArrayList<String>> lista = pokemonsWithAll;
             for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
-                domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)), movimientos.get(entry.getValue().get(1)), movimientos.get(entry.getValue().get(2)), movimientos.get(entry.getValue().get(3)));   
+                domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)).copy(), movimientos.get(entry.getValue().get(1)).copy(), movimientos.get(entry.getValue().get(2)).copy(), movimientos.get(entry.getValue().get(3)).copy());   
             }
         }
 
@@ -650,7 +514,7 @@ public class POOBkemonGUI extends JFrame {
             for (String i:items){
                 domain.getTrainer(trainerEscogido).getInventory().addItem(domain.getItems().get(i));
             }
-            return domain.getTrainer(trainerEscogido).getInventory().getItemsArray();
+            return domain.getTrainer(trainerEscogido).getInventory().getItemsName();
         }
 /////////////////////////////////////////////////////////////////////////////////////////
 

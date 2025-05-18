@@ -41,7 +41,7 @@ public abstract class Effect implements Serializable{
      * @throws PoobkemonException EFFECT_DURATION_OVER if the effect has already expired
      */
     public void decrementDuration() throws PoobkemonException{
-        if (times== 0) throw new PoobkemonException(PoobkemonException.EFFECT_DURATION_OVER);
+        if (times== 0) return;//throw new PoobkemonException(PoobkemonException.EFFECT_DURATION_OVER);
         times--;
     }
 

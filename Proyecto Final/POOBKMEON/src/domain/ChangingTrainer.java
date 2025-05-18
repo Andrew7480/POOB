@@ -39,7 +39,6 @@ public class ChangingTrainer extends MachineTrainer implements Serializable{
         if (pokemonActual.equals(actualPokemon)){
             doOtherThen(target);
         }
-        //return null; doOtherThen si es una buena opcion?
         return actualPokemon.aleatoryMovement(target).getName();
     }
 }

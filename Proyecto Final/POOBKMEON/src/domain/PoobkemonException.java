@@ -91,6 +91,16 @@ public class PoobkemonException extends Exception {
     /** Error message when a move cannot be executed */
     public static final String CANT_DO_THE_MOVE = "El movimiento no puede hacerse";
 
+
+    public static final String GAME_CANT_BE_SAVE = "El juego no ha podido leerse para guardar";
+
+    public static final String PROBLEM_WITH_SERIALIZATION = "Problema relacionado con la serialización";
+
+    public static final String PROBLEM_TO_SERIALIZATE = "Problema posible al serializar";
+
+    public static final String FILE_DONT_EXIST = "El archivo con ese nombre no existe";
+
+
     /**
      * Constructor for creating a new PoobkemonException with a specific error message.
      * 

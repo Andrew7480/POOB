@@ -260,7 +260,7 @@ public class Pokemon implements Serializable {
     public ArrayList<MovementState> getStateMovements() {
         ArrayList<MovementState> stateMovements = new ArrayList<>();
         for (Movement movement : movements) {
-            if (movement instanceof MovementState) {
+            if (movement.getTypeOfMove().equals("State")) {
                 stateMovements.add((MovementState) movement);
             }
         }
@@ -275,7 +275,7 @@ public class Pokemon implements Serializable {
     public ArrayList<MovementTribute> gettTributeMovements() {
         ArrayList<MovementTribute> tributeMovements = new ArrayList<>();
         for (Movement movement : movements) {
-            if (movement instanceof MovementTribute) {
+            if (movement.getTypeOfMove().equals("Tribute")) {
                 tributeMovements.add((MovementTribute) movement);
             }
         }
@@ -529,12 +529,15 @@ public class Pokemon implements Serializable {
      * @throws PoobkemonException If the movement is not found or cannot be performed
      */
     public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{
+        System.out.println(movimiento);
+        System.out.println(movements.toString());
         for (Movement m : movements){
             if(m.getName().equals(movimiento)) {
                 useMovement(m, target);
                 return;
             }
         }
+        System.out.println(name +" No lo encontro con string: " + target.getName());
         throw new PoobkemonException(PoobkemonException.MOVEMENT_NOT_FOUND);
     }
 
@@ -696,5 +699,52 @@ public class Pokemon implements Serializable {
                 "Special Attack: " +specialAttack+"<br>"+
                 "Special Defense: " +specialDefense+"<br>"+
                 "</html>";
+    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(" [Nivel: ").append(level)
+        .append(", PS: ").append(ps).append("/").append(maxPs)
+        .append(", Atk: ").append(attack)
+        .append(", Def: ").append(defense)
+        .append(", AtkEsp: ").append(specialAttack)
+        .append(", DefEsp: ").append(specialDefense)
+        .append(", Vel: ").append(velocity)
+        .append("]\n");
+
+        sb.append("Movimientos: ");
+        if (movements != null && !movements.isEmpty()) {
+            for (int i = 0; i < movements.size(); i++) {
+                sb.append(movements.get(i).getName());
+                if (i < movements.size() - 1) {
+                    sb.append(", ");
+                }
+            }
+        } else {
+            sb.append("Ninguno");
+        }
+        sb.append("\n");
+
+        sb.append("Estado de efecto: ");
+        if (statusEffect != null) {
+            sb.append(statusEffect.getName());
+        } else {
+            sb.append("Ninguno");
+        }
+        sb.append("\n");
+
+        sb.append("Estados de tributo: ");
+        if (tributeEffects != null && !tributeEffects.isEmpty()) {
+            for (int i = 0; i < tributeEffects.size(); i++) {
+                sb.append(tributeEffects.get(i).getClass());
+                if (i < tributeEffects.size() - 1) {
+                    sb.append(", ");
+                }
+            }
+        } else {
+            sb.append("Ninguno");
+        }
+
+        return sb.toString();
     }
 }

@@ -1,20 +1,8 @@
 package presentation;
-
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import domain.Item;
-import domain.Pokemon;
-import domain.PoobkemonException;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class SelectionMovementsTwoPlayers extends JPanel {
     private  String backgroundImage = "emerald";
@@ -52,7 +40,6 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
-        //doneButton.setVisible(false);
         po.styleButton(doneButton);
         po.styleButton(come);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));

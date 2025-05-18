@@ -1,20 +1,9 @@
 package presentation;
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import domain.Pokemon;
-import domain.PoobkemonException;
-import domain.Trainer;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class SelectionInicialPokemons extends JPanel{
     private ArrayList<String> pokemonsChosenFight;
@@ -155,12 +144,6 @@ public class SelectionInicialPokemons extends JPanel{
         return pokemonInicialChosen.size();
     }
 
-    private void changeImage(){
-        int primero = po.domain.getCurrentPokemonPokedexIndex();
-        int segundo = po.domain.getOponentPokemonPokedexIndex();
-        po.panelBattle.setFirstPokemon(Integer.toString(primero));
-        po.panelBattle.setSecondPokemon(Integer.toString(segundo));
-    }
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){

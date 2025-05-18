@@ -88,7 +88,7 @@ public class ListOfMovementsPanel extends JPanel{
         add(southPanel, BorderLayout.SOUTH);
     }
     public void setColor(){
-        color = po.playerVsMachinePanel.getColor();
+//        color = po.playerVsMachinePanel.getColor();
         texto.setBackground(color);
     }
     public Color  getColor(){
@@ -128,6 +128,7 @@ public class ListOfMovementsPanel extends JPanel{
                 
                 for (String move : movements) {
                     JMenuItem menuItem = new JMenuItem(move);
+                    menuItem.setToolTipText(po.domain.getMovements().get(move).createMovementForToolTip());
                     menuItem.addActionListener(ev -> {
                         moveButton.setText(move);
                         movimientosSeleccionados.get(namePokemon).set(buttonIndex, move);
@@ -163,9 +164,12 @@ public class ListOfMovementsPanel extends JPanel{
         }
         return deepCopy;
     }
+/*
     public ArrayList<String> getPokemonsChoose(){
         return po.chooser.getPokemonChoosen();
     }
+
+*/    
     //Enviar la lista de movimientos unicamente validos por pokemon
 
     public boolean isSelectedMovements(){

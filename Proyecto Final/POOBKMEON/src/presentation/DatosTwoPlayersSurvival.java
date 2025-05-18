@@ -20,7 +20,7 @@ public class DatosTwoPlayersSurvival extends JPanel {
     private Color colorChosedPlayer1;
     private Color colorChosedPlayer2;
 
-    private JPanel chooseDifficulty;
+    private JPanel panelSelection;
 
     private JButton player1;
     private JButton player2;
@@ -132,9 +132,9 @@ public class DatosTwoPlayersSurvival extends JPanel {
     
 
     private void playerPanel() {
-        chooseDifficulty = new JPanel();
-        chooseDifficulty.setLayout(new GridLayout(1, 2));
-        chooseDifficulty.setOpaque(false);
+        panelSelection = new JPanel();
+        panelSelection.setLayout(new GridLayout(1, 2));
+        panelSelection.setOpaque(false);
         
         JPanel player1Panel = new JPanel();
         player1Panel.setLayout(new BoxLayout(player1Panel, BoxLayout.Y_AXIS));
@@ -228,10 +228,10 @@ public class DatosTwoPlayersSurvival extends JPanel {
         colorPanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
         player2Panel.add(colorPanel2);
         
-        chooseDifficulty.add(player1Panel);
-        chooseDifficulty.add(player2Panel);
+        panelSelection.add(player1Panel);
+        panelSelection.add(player2Panel);
         
-        add(chooseDifficulty, BorderLayout.CENTER);
+        add(panelSelection, BorderLayout.CENTER);
     }
 
     private JPanel createPlayerTrainer(int trainerNum) {

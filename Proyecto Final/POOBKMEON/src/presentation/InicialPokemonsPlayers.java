@@ -1,20 +1,9 @@
 package presentation;
 
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import domain.Item;
-import domain.Pokemon;
-import domain.PoobkemonException;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class InicialPokemonsPlayers extends JPanel {
     private  String backgroundImage = "emerald";
@@ -81,8 +70,8 @@ public class InicialPokemonsPlayers extends JPanel {
                     }
                     
                     gameMode.inicializateBattle(selection1.getColor(),selection2.getColor(), selection1.getPokemonChoosed(), selection2.getPokemonChoosed());
-                    
-                   gameMode.changePanel("Battle");
+                    gameMode.actualizar();
+                    gameMode.changePanel("Battle");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(InicialPokemonsPlayers.this, ex.getMessage());
                 }

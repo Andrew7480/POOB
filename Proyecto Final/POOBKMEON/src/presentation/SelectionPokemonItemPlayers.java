@@ -1,19 +1,8 @@
 package presentation;
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import domain.Item;
-import domain.Pokemon;
-import domain.PoobkemonException;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.Map.Entry;
+
 
 public class SelectionPokemonItemPlayers extends JPanel{
     private  String backgroundImage = "emerald";
@@ -39,8 +28,10 @@ public class SelectionPokemonItemPlayers extends JPanel{
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
+
         selection1 = new Selection(po, new Color(1,2,4,100));
         selection2 = new Selection(po, new Color(30,100,30,100));
+        
         temp.add(selection1);
         temp.add(selection2);
 

@@ -46,7 +46,6 @@ public class PlayerTrainer extends Trainer{
      * @throws PoobkemonException Various exceptions depending on the item and Pokemon state
      */
     public void useItem(Item item) throws PoobkemonException{
-        System.out.println("LLEGA AL INVENTARIO: " + item.getName());
         inventory.useItem(actualPokemon, item);
     }
     
@@ -57,7 +56,6 @@ public class PlayerTrainer extends Trainer{
      * @throws PoobkemonException Various exceptions depending on the item and Pokemon state
      */
     public void useItem(String item) throws PoobkemonException{
-        System.out.println("HOLA LLEGAS ACÁ ? STRING " + item);
         inventory.useItem(actualPokemon, item);
     }
 

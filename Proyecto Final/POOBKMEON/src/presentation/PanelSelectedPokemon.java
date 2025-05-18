@@ -173,7 +173,7 @@ public class PanelSelectedPokemon extends JPanel{
                 return;
             }
             
-        
+/*        
         po.createTrainer(po.playerVsMachinePanel.trainerEscogido,color);
         try{
             po.addPokemonsToTrainer(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.pokemonsWithMovs);
@@ -189,7 +189,9 @@ public class PanelSelectedPokemon extends JPanel{
             return;
         }
         po.domain.inicializateBattle(po.playerVsMachinePanel.trainerEscogido,po.playerVsMachinePanel.trainerEscogidoMachine );
-        po.panelBattle.inicializate(po.domain.inicialTrainerMovements(po.playerVsMachinePanel.trainerEscogido));
+*/
+        
+        //po.panelBattle.inicializate(po.domain.inicialTrainerMovements(po.playerVsMachinePanel.trainerEscogido));
         changeImage();
         po.cardLayout.show(po.panelContenedor,"battle");
         reset();
@@ -206,24 +208,24 @@ public class PanelSelectedPokemon extends JPanel{
     public void changeImage(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
-        po.panelBattle.setFirstPokemon(Integer.toString(primero));
-        po.panelBattle.setSecondPokemon(Integer.toString(segundo));
+        //po.panelBattle.setFirstPokemon(Integer.toString(primero));
+        //po.panelBattle.setSecondPokemon(Integer.toString(segundo));
         System.out.println(primero + " " + segundo);
     }
 
     public void changeImageMvsM(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
-        po.panelMvsM.setFirstPokemon(Integer.toString(primero));
-        po.panelMvsM.setSecondPokemon(Integer.toString(segundo));
+        //po.panelMvsM.setFirstPokemon(Integer.toString(primero));
+        //po.panelMvsM.setSecondPokemon(Integer.toString(segundo));
         System.out.println(primero + " " + segundo);
     }
 
     public void changeImagePvsP(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
-        po.panelBattle.setFirstPokemon(Integer.toString(primero));
-        po.panelBattle.setSecondPokemon(Integer.toString(segundo));
+        //po.panelBattle.setFirstPokemon(Integer.toString(primero));
+        //po.panelBattle.setSecondPokemon(Integer.toString(segundo));
         System.out.println(primero + " " + segundo);
     }
 

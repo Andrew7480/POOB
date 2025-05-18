@@ -117,11 +117,11 @@ public class Inventory implements Serializable{
      * @throws PoobkemonException ITEM_NOT_FOUND if no item with that name exists in the inventory
      */
     public Item getItemByName(String name) throws PoobkemonException{
+        System.out.println(items.toString());
         for (Item i : items.keySet()){
-            System.out.println(i.getName() + "quien eres?");
-        }
-        for (Item i : items.keySet()){
-            if (name.equals(i.getName())) return i;
+            if (name.equals(i.getName())) {
+                if (items.get(i)>0) return i;
+            }
         }
         throw new PoobkemonException(PoobkemonException.ITEM_NOT_FOUND);
     }
@@ -193,20 +193,17 @@ public class Inventory implements Serializable{
      *                            POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST if the Pokemon is not in the inventory
      */
     public void useItem(Pokemon pokemon,Item item) throws PoobkemonException{
-        System.out.println("items: " + item.getName());
-        for (Item i : items.keySet()){
-            System.out.println(i.getName());
-        }
-        System.out.println("hola? Inventory");
-        if (!items.containsKey(item.getName())) {
-            System.out.println(item.getName());
+        if (!items.containsKey(item)) {
+            System.out.println("No se encontro: "+ item.getName());
             throw new PoobkemonException(PoobkemonException.ITEM_NOT_FOUND);
         }
         if (!pokemons.containsKey(pokemon.getName())) throw new PoobkemonException(PoobkemonException.POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST);
-        System.out.println("Item: " + item);
-        System.out.println("POKEMON: " + pokemon.getName());
+        
+        
         item.useItem(pokemon);
-        items.remove(item.getName());
+        items.remove(item);
+        System.out.println("Item: " + item+ "a POKEMON: " + pokemon.getName());
+        System.out.println(items.toString());
     }
     
     /**
@@ -218,7 +215,6 @@ public class Inventory implements Serializable{
      * @throws PoobkemonException Various exceptions depending on item and Pokemon status
      */
     public void useItem(Pokemon pokemon,String item) throws PoobkemonException{
-        System.out.println("LLEGAS AL INVENTARIO DEL TRAINER?");
         System.out.println(pokemon.getName() + " " + item);
         useItem(pokemon, getItemByName(item));
     }
@@ -228,11 +224,32 @@ public class Inventory implements Serializable{
      * 
      * @return An ArrayList containing the names of all items in the inventory
      */
-    public ArrayList<String> getItemsArray(){
+    public ArrayList<String> getItemsName(){
         ArrayList<String> temp = new ArrayList<>();
         for(Item i: items.keySet()){
             temp.add(i.getName());
         }
         return temp;
+    }
+
+    public ArrayList<String> getPokemonsName(){
+        ArrayList<String> temp = new ArrayList<>();
+        for(String i: pokemons.keySet()){
+            temp.add(i);
+        }
+        return temp;
+    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pokemons:\n");
+        for (String name : pokemons.keySet()) {
+            sb.append("  ").append(name).append(": ").append(pokemons.get(name)).append("\n");
+        }
+        sb.append("Items:\n");
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            sb.append("  ").append(entry.getKey().getName()).append(" x").append(entry.getValue()).append("\n");
+        }
+        return sb.toString();
     }
 }

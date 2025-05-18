@@ -36,8 +36,6 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         datos = new DatosTwoPlayersSurvival(po,this);
         add(datos, "Datos");
 
-        survivalBatalla = new BattlePanel(po);
-        add(survivalBatalla, "Battle");
     }
 
     public void inicializate(String player1Name, Color color1, String player2Name, Color color2){
@@ -51,8 +49,6 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
                 return;
             }
             po.domain.inicializateBattle(player1Name, player2Name);
-            survivalBatalla.inicializate(po.domain.inicialTrainerMovements(player1Name));
-            po.selectedPokemon.changeImagePvsP();
     }
 
     public JButton getBtnRegresarNormal(){

@@ -1,20 +1,7 @@
 package presentation;
-
-import domain.Pokemon;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PokedexPanel extends JPanel {

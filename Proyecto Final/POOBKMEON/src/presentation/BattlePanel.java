@@ -1,26 +1,46 @@
 package presentation;
-import domain.Movement;
-import domain.Pokemon;
-import domain.PoobkemonException;
-import domain.Trainer;
 
-import javax.swing.*;
-import javax.swing.border.Border;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.TreeMap;
+
+import domain.PoobkemonException;
+
 
 public class BattlePanel extends JPanel {
+    private POOBkemonGUI po;
+
     private String backgroundImage = "battle";
     private String firstPokemon = "6";
     private String secondPokemon = "6";
+
     private JButton fightButton;
     private JButton inventoryButton;
     private JButton pokemonButton;
     private JButton runButton;
-    private POOBkemonGUI po;
+
+    private ArrayList<JButton> buttonsMovs;
+
     private JPanel movesPanel;
     private JPanel opciones;
     private JPanel battleOptionsPanel;
@@ -31,6 +51,7 @@ public class BattlePanel extends JPanel {
 
     private CustomHealthBar playerHealthBar;
     private CustomHealthBar opponentHealthBar;
+
     private JLabel info;
     private JPanel panelInfo; 
 
@@ -45,11 +66,13 @@ public class BattlePanel extends JPanel {
 
     private Timer battleTimer;
     private JLabel timerLabel;
+
     private int timeRemaining = 20;
     private boolean timerRunning = false;
 
     private Font pokemonFont;
-    protected CardLayout cardLayout;
+    protected CardLayout cardLayoutButtons;
+    
 
     private ArrayList<String> trainerActualMovements;
 
@@ -70,11 +93,12 @@ public class BattlePanel extends JPanel {
         }
         
         prepareElements();
+        prepareActions();
         initializeTimer();
     }
 
-    public void inicializate(ArrayList<String> movs){
-        trainerActualMovements = movs;
+    public void inicializate(){
+        trainerActualMovements = po.domain.getMovementsStringCurrent();
         actualColor = po.domain.getCurrentColor();
 
         String nameCurrent = po.domain.getCurrentPokemonName();
@@ -93,14 +117,14 @@ public class BattlePanel extends JPanel {
         
         add(playerStatsPanel);
         add(opponentStatsPanel);
-        prepareMovementButtons();
+        movementButtons();
         actualizarColor();
         
     }
 
     private void prepareElements() {
         calculatePokemonPositions();
-
+        buttonsMovs = new ArrayList<>();
         trainerActualMovements = new ArrayList<>();
 
         info = new JLabel("Elige tu acción");
@@ -129,11 +153,13 @@ public class BattlePanel extends JPanel {
         opciones.setOpaque(false);
         opciones.setPreferredSize(new Dimension(350, 150));
         
-        cardLayout = new CardLayout();
-        opciones.setLayout(cardLayout);
+        cardLayoutButtons = new CardLayout();
+        opciones.setLayout(cardLayoutButtons);
 
         panelIz.add(panelInfo);
         panelIz.add(opciones);
+
+       
 
         battleOptionsPanel = new JPanel(new GridLayout(2,2,1,1));
         battleOptionsPanel.setOpaque(false);
@@ -158,12 +184,17 @@ public class BattlePanel extends JPanel {
         battleOptionsPanel.add(pokemonButton);
         battleOptionsPanel.add(runButton);
 
-        opciones.add(battleOptionsPanel, "Opciones");
+        JPanel temp = new JPanel(new BorderLayout());
+        temp.setOpaque(false);
+        temp.add(panelInfo, BorderLayout.NORTH);
+        temp.add(battleOptionsPanel, BorderLayout.CENTER);
+        
+        opciones.add(temp, "Opciones");
         
         showBattleOptionsPanel();
     }
 
-    public void prepareMovementButtons() {
+    public void movementButtons() {
         movesPanel = new JPanel(new BorderLayout());
         movesPanel.setOpaque(false);
 
@@ -178,7 +209,7 @@ public class BattlePanel extends JPanel {
         ));
         messagePanel.setLayout(new BorderLayout());
 
-        JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + po.domain.getCurrentPokemonName() + "?");
+        JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + po.domain.getCurrentPokemonName() + "?"); //falta
         moveLabel.setFont(pokemonFont);
         messagePanel.add(moveLabel, BorderLayout.CENTER);
 
@@ -191,34 +222,8 @@ public class BattlePanel extends JPanel {
             try{moveBtn.setToolTipText("PP: "+String.valueOf(po.domain.getPPInBattle(move)));}
             catch(PoobkemonException e){System.out.println(e.getMessage());}
 
-            moveBtn.addActionListener(e -> {
-                System.out.println("Selected move: " + move);
-                try{
-                    gameEnd();
-                    int oldIndex = po.domain.getOponentPokemonPokedexIndex();
-                    po.domain.movementPerformed(move);
-
-                    JButton button = (JButton) e.getSource();
-                    //e -> objeto que se pasa en el action listener
-                    //getSource() -> devuelve el componente que genero el evento
-                    //devuelve el objeto componente especifico que generó el evento.
-                    int currentPP = po.domain.getPPInBattle(move);
-                    button.setToolTipText("PP: "+ currentPP);
-
-                    if (!po.domain.isAliveOpponentPokemon() || oldIndex != po.domain.getOponentPokemonPokedexIndex()){
-                        int newIndex = po.domain.getOponentPokemonPokedexIndex();
-                        setSecondPokemon(Integer.toString(newIndex));
-                    }
-                    actualizarCreateStatsPanelAfterMove();
-                    actualizarColor();
-                }
-                catch(PoobkemonException h){
-                    System.out.println("No se hace el ataque: "+ h.getMessage());
-                }
-                showBattleOptionsPanel();
-            });
-
             movesButtonsPanel.add(moveBtn);
+            buttonsMovs.add(moveBtn);
         }
 
         JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -243,51 +248,48 @@ public class BattlePanel extends JPanel {
         movesPanel.add(paddingPanel, BorderLayout.CENTER);
 
         opciones.add(movesPanel, "MovimientosP");
-
-        fightButton.addActionListener(e -> {
-            showMovesPanel();
-        });
-
-        backToOptionsBattle.addActionListener(e -> {
-            showBattleOptionsPanel();
-        });
-
+        movementsButtons();
         movesPanel.revalidate();
         movesPanel.repaint();
+
+    }
+
+    public void movementsButtons(){
+        for(JButton moveBtn: buttonsMovs){
+            moveBtn.addActionListener(e -> {
+                actualizar();
+                System.out.println("Selected move: " + moveBtn.getText());
+                gameEnd();
+                int oldIndex = po.domain.getOponentPokemonPokedexIndex();
+
+                try{po.domain.movementPerformed(moveBtn.getText());}
+                catch(PoobkemonException o){System.out.println("No se hace el ataque: "+ o.getMessage());}
+                if (!po.domain.isAliveOpponentPokemon() || oldIndex != po.domain.getOponentPokemonPokedexIndex()){
+                        int newIndex = po.domain.getOponentPokemonPokedexIndex();
+                        setSecondPokemon(Integer.toString(newIndex));
+                    }
+
+                actualizar();
+                showBattleOptionsPanel();
+            });
+        }
     }
 
     public void removeMovement(){
         opciones.remove(movesPanel);
         movesPanel = null;
     }
-    public void actualizarCreateStatsPanelAfterMove(){
-        actualizarColor();
 
-        String pokemonName = po.domain.getOponentPokemonName();
-        int health = po.domain.getOponentPokemonPs();
-        int level = po.domain.getOponentPokemonLevel();
-        int maxPs = po.domain.getOponentMaxPs();
-        setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
+    private void prepareActions(){
+        fightButton.addActionListener(e -> {
+            actualizar();
+            showMovesPanel();
+        });
 
-        String pokemonNameCurrent = po.domain.getCurrentPokemonName();
-        int healthCurrent = po.domain.getCurrentPokemonPs();
-        int levelCurrent = po.domain.getCurrentPokemonLevel();
-        int maxPsCurrent = po.domain.getcurrentMaxPs();
-        System.out.println("vida afectada a mi pokemon : "+healthCurrent);
-        setFirstPokemon(Integer.toString(po.domain.getCurrentPokemonPokedexIndex()));
-        
-        playerHealthBar.setValue(healthCurrent);
-        opponentHealthBar.setValue(health);
-
-        playerHealthLabel.setText(healthCurrent + "/" + maxPsCurrent);
-        opponentHealthLabel.setText(health + "/" + maxPs);
-
-        playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
-        opponentNameLabel.setText(pokemonName + " Nv. "+ level);
-
-        playerStatsPanel.repaint();
-        opponentStatsPanel.repaint();
-        gameEnd();
+        backToOptionsBattle.addActionListener(e -> {
+            actualizar();
+            showBattleOptionsPanel();
+        });
     }
 
     public void gameEnd(){
@@ -299,15 +301,74 @@ public class BattlePanel extends JPanel {
         
     }
 
-
-    public void showMovesPanel() {
-        cardLayout.show(opciones, "MovimientosP");
-        startTimer();
-        opciones.revalidate();
-        opciones.repaint();
+    public void actualizar(){
+        actualizaInfo();
+        actualizarColor();
+        actualizarBar();
+        actualizarListaMovements();
+        setSecondPokemon(Integer.toString(po.domain.getOponentPokemonPokedexIndex()));
+        setFirstPokemon(Integer.toString(po.domain.getCurrentPokemonPokedexIndex()));
+        gameEnd();
     }
 
+    public void actualizarBar(){
+        String pokemonName = po.domain.getOponentPokemonName();
+        int health = po.domain.getOponentPokemonPs();
+        int level = po.domain.getOponentPokemonLevel();
+        int maxPs = po.domain.getOponentMaxPs();
+        
+        String pokemonNameCurrent = po.domain.getCurrentPokemonName();
+        int healthCurrent = po.domain.getCurrentPokemonPs();
+        int levelCurrent = po.domain.getCurrentPokemonLevel();
+        int maxPsCurrent = po.domain.getcurrentMaxPs();
+    
+        actualizarHealt(healthCurrent, maxPsCurrent, health, maxPs);
 
+        playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
+        opponentNameLabel.setText(pokemonName + " Nv. "+ level);
+    }
+    public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
+        playerHealthBar.setMaximum(health1Max);
+        opponentHealthBar.setMaximum(health2Max);
+        playerHealthBar.setValue(health1);
+        opponentHealthBar.setValue(health2);
+        playerHealthLabel.setText(health1 + "/" + health1Max);
+        opponentHealthLabel.setText(health2 + "/" + health2Max);
+        playerStatsPanel.repaint();
+        opponentStatsPanel.repaint();
+        repaint();
+    }
+    
+    public void actualizarListaMovements(){
+        trainerActualMovements = po.domain.getMovementsStringCurrent();
+        System.out.println("Actualizada lista presentacion: " + trainerActualMovements.toString());
+        int index =0;
+        for (String move : trainerActualMovements) {
+            JButton btn = buttonsMovs.get(index);
+            if (btn != null) {
+                try {
+                    btn.setToolTipText("PP: " + po.domain.getPPInBattle(move));
+                } catch (PoobkemonException e) {
+                    System.out.println("Error al actualizar  PP: "+ e.getMessage());
+                }
+                btn.setText(move);
+            }
+            index ++;
+        }
+        System.out.println("--".repeat(10));
+        System.out.println("En presentacion al cambiar buttons:");
+        System.out.println(trainerActualMovements.toString());
+        
+        for (JButton b : buttonsMovs){
+            System.out.println(b.getText());
+            System.out.println(b.getToolTipText());
+        }
+        System.out.println("--".repeat(10));
+    }
+    
+    public void actualizaInfo(){
+        info.setText("");
+    }
     public void actualizarColor(){
         actualColor = po.domain.getCurrentColor();
         info.setBorder(BorderFactory.createCompoundBorder(
@@ -318,15 +379,22 @@ public class BattlePanel extends JPanel {
         panelInfo.setBackground(actualColor);
         panelInfo.setBorder(BorderFactory.createLineBorder(actualColor, 2));
     }
+    
+    
 
+
+    public void showMovesPanel() {
+        cardLayoutButtons.show(opciones, "MovimientosP");
+        startTimer();
+        opciones.revalidate();
+        opciones.repaint();
+    }
 
     public void showBattleOptionsPanel() {
         stopTimer();
-        cardLayout.show(opciones,"Opciones"); 
+        cardLayoutButtons.show(opciones,"Opciones"); 
     }
-    public void actualizaInfo(){
-        info.setText("");
-    }
+
 
 
     public JPanel createStatsPanel(String pokemonName, int level, int health,int maxHealth, boolean isPlayer) {
@@ -351,7 +419,7 @@ public class BattlePanel extends JPanel {
         nameLabel.setBounds(20, 10, 200, 20);
         innerPanel.add(nameLabel);
         
-        CustomHealthBar healthBar = new CustomHealthBar(0, health, isPlayer);
+        CustomHealthBar healthBar = new CustomHealthBar(0, health);
         healthBar.setValue(health);
         healthBar.setBounds(60, 40, 180, 15);
         innerPanel.add(healthBar);
@@ -370,12 +438,12 @@ public class BattlePanel extends JPanel {
         statsPanel.add(innerPanel);
         
         if (isPlayer) {
-            System.out.println("Jugador: " + isPlayer);
+            System.out.println("Jugador 1: ");
             playerHealthBar = healthBar;
             playerHealthLabel = healthLabel;
             playerNameLabel = nameLabel;
         } else {
-            System.out.println("EMaquina: " + health);
+            System.out.println("Jugador 2: ");
             opponentHealthBar = healthBar;
             opponentHealthLabel = healthLabel;
             opponentNameLabel = nameLabel;
@@ -383,11 +451,6 @@ public class BattlePanel extends JPanel {
         
         return statsPanel;
     }
-
-
-
-
-
 
     public JButton getFighButton() {
         return fightButton;
@@ -409,14 +472,6 @@ public class BattlePanel extends JPanel {
         return backToOptionsBattle;
     }
 
-    public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
-        playerHealthBar.setValue(health1);
-        opponentHealthBar.setValue(health2);
-        playerHealthLabel.setText(health1 + "/" + health1Max);
-        opponentHealthLabel.setText(health2 + "/" + health2Max);
-        
-        repaint();
-    }
     
     public void setPokemonNames(String playerPokemonName, String opponentPokemonName, int playerLevel, int opponentLevel) {
         playerNameLabel.setText(playerPokemonName + " Nv." + playerLevel);
@@ -505,12 +560,8 @@ public class BattlePanel extends JPanel {
     }
     public void reset(){
         trainerActualMovements.clear();
-        po.panelInvetory.reset();
+        //po.panelInvetory.reset();
 
-    }
-
-    public void actualizarListaMovements(){
-        trainerActualMovements = po.domain.getMovementsStringCurrent();
     }
 
 
@@ -546,11 +597,9 @@ public class BattlePanel extends JPanel {
     }
 
     private class CustomHealthBar extends JProgressBar {
-        private boolean isPlayer;
 
-        public CustomHealthBar(int min, int max, boolean isPlayer) {
+        public CustomHealthBar(int min, int max) {
             super(min, max);
-            this.isPlayer = isPlayer;
             setUI(new PokemonHealthBarUI());
             setBorderPainted(false);
             setStringPainted(false);

@@ -9,6 +9,7 @@ public abstract class Movement implements Attackable, Serializable{
 
     protected PokemonType type;
     protected int priority; 
+    protected String typeOfMovement;
     
     /**
      * Constructor for creating a new Movement
@@ -31,6 +32,7 @@ public abstract class Movement implements Attackable, Serializable{
         precision = newPrecision;
         type = newType;
         priority = newpPriority;
+        typeOfMovement = "";
 
         //los pp se ponen de acuerdo al power, si es debil se pueden usar mas segudo
         PP = Math.min(newPP, (newPower > 50 ? 20 : 40));
@@ -52,6 +54,10 @@ public abstract class Movement implements Attackable, Serializable{
      */
     public String getDescription(){
         return description;
+    }
+
+    public String getTypeOfMove(){
+        return typeOfMovement;
     }
     
     /**
@@ -172,4 +178,7 @@ public abstract class Movement implements Attackable, Serializable{
      * @return A new Movement object with identical properties
      */
     public abstract Movement copy();
+
+    public abstract String createMovementForToolTip();
+
 }

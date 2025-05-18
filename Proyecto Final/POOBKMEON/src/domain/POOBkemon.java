@@ -22,6 +22,11 @@ public class POOBkemon implements Serializable{
      */
     public POOBkemon() {}
 
+    public Battle getBattle(){
+        return battle;
+    }
+
+
     /**
      * Gets all the pokemons available in the game
      * @return TreeMap containing all pokemons, with names as keys
@@ -39,6 +44,20 @@ public class POOBkemon implements Serializable{
     }
 
     //-------------------------------------------------------------------------------------
+
+    public ArrayList<String>  getCurrentItems(){
+        return battle.getCurrentItems();
+    }
+    public ArrayList<String>  getCurrentPokemons(){
+        return battle.getCurrentPokemons();
+    }
+    public ArrayList<String> getItemsName(){
+        return new ArrayList<>(items.keySet());
+    }
+    public ArrayList<String> getPokemonsName(){
+        return new ArrayList<>(pokedex.keySet());
+    }
+
     /**
      * Gets the PP (Power Points) of a specific movement in the current battle
      * @param name Name of the movement
@@ -88,8 +107,7 @@ public class POOBkemon implements Serializable{
      * @param item Name of the item to use
      * @throws PoobkemonException If the item cannot be used or doesn't exist
      */
-    public void actionuseItem(String item) throws PoobkemonException{
-        System.out.println("LLEGAS A POOBKEMON?");
+    public void actionUseItem(String item) throws PoobkemonException{
         battle.useItem(item);
     }
 
@@ -110,8 +128,9 @@ public class POOBkemon implements Serializable{
     public void inicializateBattle(String player1, String player2){ //mirar pues
         Trainer trainer1 = entrenadores.get(player1);
         Trainer trainer2 = entrenadores.get(player2);
+        //System.out.println(trainer1.toString());
+        //System.out.println(trainer2.toString());
         battle = new Battle(trainer1, trainer2);
-        
     }
 
     /**
@@ -278,7 +297,7 @@ public class POOBkemon implements Serializable{
      * @param item Item to add
      */
     public void addItem(Item item){
-        System.out.println(item.getName() + "HOLA");
+        System.out.println(item.getName() + "Añadir item.");
         items.put(item.getName(),item);
     }
 
@@ -422,6 +441,35 @@ public class POOBkemon implements Serializable{
         return listRandom;
     }
 
+    public HashMap<String, ArrayList<String>> infoTrainer(String nameTrainer){
+    	HashMap<String,ArrayList<String>> informacion = new HashMap<>();
+    	Trainer trainer = getTrainer(nameTrainer);
+    	Inventory invent = trainer.getInventory();
+    	ArrayList<Pokemon> lista = invent.getAlivePokemons();
+    	for (int i = 0; i < lista.size(); i++) {
+    		informacion.put(lista.get(i).getName(), prueba(lista.get(i).getMovements()));
+    	}
+    	return informacion;
+    }
+    
+    public ArrayList<String> prueba(ArrayList<Movement> movimientos){
+    	ArrayList<String> p = new ArrayList<>();
+    	for (int i = 0; i < movimientos.size(); i++) {
+    		p.add(movimientos.get(i).getName());
+    	}
+    	return p;
+    }
+
+    public ArrayList<String> getPokemonAlives(String nameTrainer){
+    	Trainer trainer = getTrainer(nameTrainer);
+    	Inventory invent = trainer.getInventory();
+    	ArrayList<Pokemon> lista = invent.getAlivePokemons();
+    	ArrayList<String> listaVivos = new ArrayList<>();
+    	for (int i = 0; i < lista.size(); i++) {
+    		listaVivos.add(lista.get(i).getName());
+    	}
+    	return listaVivos;
+    }
 
     /**
      * Saves the current game state to a file

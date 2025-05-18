@@ -1,16 +1,13 @@
 package presentation;
 import javax.swing.*;
-import javax.swing.border.Border;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 import domain.Movement;
 import domain.Pokemon;
-import domain.Trainer;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
-import java.util.List;
 
 public class SelectionMovementsPanel extends JPanel{
     private POOBkemonGUI po;
@@ -23,13 +20,12 @@ public class SelectionMovementsPanel extends JPanel{
 
     public SelectionMovementsPanel(POOBkemonGUI newPo){
         po = newPo;
-        color = new Color(85, 85, 85, 100);;
+        color = new Color(85, 85, 85, 100);
         chosenPok = new ArrayList<>();
         prepareElements();
     }
 
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
-        
         for (String s :chosenPokemons){
             chosenPok.add(s);
         }
@@ -89,7 +85,7 @@ public class SelectionMovementsPanel extends JPanel{
         return color;
     }
     
-    private JPanel createMovementPanel(String namePokemon, ArrayList<String> movements, String imagePath){ 
+    protected JPanel createMovementPanel(String namePokemon, ArrayList<String> movements, String imagePath){ 
         if (namePokemon.equals("") || movements ==null || imagePath.equals("")) return new JPanel();
         JPanel panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
@@ -110,6 +106,7 @@ public class SelectionMovementsPanel extends JPanel{
         JPanel Abajo = new JPanel(new FlowLayout());
         Arriba.setOpaque(false);
         Abajo.setOpaque(false);
+
         for(int i = 0; i<4;i++){
             final int buttonIndex = i;
             JButton moveButton = new JButton("Selecciona");
@@ -118,19 +115,28 @@ public class SelectionMovementsPanel extends JPanel{
             moveButton.setContentAreaFilled(true);
             moveButton.setOpaque(false);
             moveButton.addActionListener(e -> {
-                JPopupMenu popupMenu = new JPopupMenu();
-                
-                for (String move : movements) {
-                    JMenuItem menuItem = new JMenuItem(move);
-                    menuItem.addActionListener(ev -> {
-                        moveButton.setText(move);
-                        movimientosSeleccionados.get(namePokemon).set(buttonIndex, move);
-                        //System.out.println(movimientosSeleccionados.toString());
-                    });
-                    popupMenu.add(menuItem);
-                    menuItem.setPreferredSize(new Dimension(50, 30) );
+            JPopupMenu popupMenu = new JPopupMenu();
+
+            JList<String> movesList = new JList<>(movements.toArray(new String[0]));
+            movesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            movesList.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    if (evt.getClickCount() == 1) {
+                        int index = movesList.locationToIndex(evt.getPoint());
+                        String selectedMove = movesList.getModel().getElementAt(index);
+                        moveButton.setText(selectedMove);
+                        moveButton.setToolTipText(po.domain.getMovements().get(selectedMove).createMovementForToolTip());
+                        movimientosSeleccionados.get(namePokemon).set(buttonIndex, selectedMove);
+                        popupMenu.setVisible(false);
+                    }
                 }
-                popupMenu.show(moveButton, moveButton.getWidth() / 2, moveButton.getHeight() / 2);
+            });
+            JScrollPane scrollPane = new JScrollPane(movesList);
+            int visibleRows = Math.min(6, movements.size());
+            scrollPane.setPreferredSize(new Dimension(120, visibleRows * 30));
+            popupMenu.add(scrollPane);
+            popupMenu.show(moveButton, moveButton.getWidth() / 2, moveButton.getHeight() / 2);
             });
             if (i % 2 ==0)Arriba.add(moveButton);
             else{Abajo.add(moveButton);}

@@ -21,6 +21,7 @@ public class MovementTribute extends SpecialMovement{
     public MovementTribute(String newName, String newDescription, int newPP, int newPower, int newPrecision, PokemonType newPT, TributeEffect estado, int newpPriority){
         super(newName,newDescription,newPP,newPower,newPrecision,newPT, newpPriority);
         state = estado;
+        typeOfMovement = "Tribute";
     }
 
     /**
@@ -73,5 +74,23 @@ public class MovementTribute extends SpecialMovement{
     @Override
     public Movement copy(){
         return new MovementTribute(name, description, PP, power, precision, type, state, priority);
+    }
+        /**
+     * Creates an HTML-formatted tooltip description of the Movement
+     * 
+     * @return HTML string with Movement details for tooltip display
+     */
+    public String createMovementForToolTip() {
+        return "<html>" +
+                "<b style='font-size:12px; color:blue;'>" + name + "</b><br>" +
+                "Description: " + description + "<br>" +
+                "PP: " + PP + "<br>" +
+                "Power: " + power + "<br>" +
+                "Precision: " + precision + "<br>" +
+                "Elemental Type: " + type + "<br>" +
+                "State: " +state.getName()+ "<br>"+
+                "Priority: " +priority+"<br>"+
+                "Type of Movement: " +typeOfMovement+"<br>"+
+                "</html>";
     }
 }

@@ -2,6 +2,7 @@ package domain;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.ArrayList;
 public abstract class Trainer implements Serializable{
     protected String name;
     protected Inventory inventory;
@@ -219,5 +220,25 @@ public abstract class Trainer implements Serializable{
      */
     public Pokemon getPokemonByName(String name) throws PoobkemonException{
         return inventory.getPokemonByName(name);
+    }
+
+    public ArrayList<String> getItemsName(){
+        return inventory.getItemsName();
+    }
+
+    public ArrayList<String> getPokemonsName(){
+        return inventory.getPokemonsName();
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Entrenador: ").append(name).append("\n");
+        sb.append("Color: ").append(color != null ? color.toString() : "N/A").append("\n");
+        sb.append("Pokémon actual: ")
+        .append(actualPokemon != null ? actualPokemon.toString() : "Ninguno").append("\n");
+        sb.append("Inventario:\n");
+        sb.append(inventory != null ? inventory.toString() : "Sin inventario");
+        return sb.toString();
     }
 }
