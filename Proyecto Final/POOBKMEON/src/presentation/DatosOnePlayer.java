@@ -348,16 +348,14 @@ public class DatosOnePlayer extends JPanel{
     }
     
     private void selectionGameMode(JButton button){
-        if (gamemodeChoosen.contains(button.getToolTipText())) {
-            button.setBackground(null);
-            button.setOpaque(false);
-            gamemodeChoosen.remove(button.getToolTipText());
+        for (JButton b : buttons){
+            b.setBackground(null);
+            b.setOpaque(false);
         }
-        else{
-            button.setBackground(Color.GREEN);
-            button.setOpaque(true);
-            gamemodeChoosen.add(button.getToolTipText());
-        }
+        gamemodeChoosen.clear();
+        button.setBackground(Color.GREEN);
+        button.setOpaque(true);
+        gamemodeChoosen.add(button.getToolTipText());
         System.out.println(gamemodeChoosen.toString());
     }
 

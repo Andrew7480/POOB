@@ -59,8 +59,8 @@ public class DatosTwoPlayersSurvival extends JPanel {
         continuar = new JButton("CONTINUE");
         po.styleButton(continuar);
         po.styleButton(btnRegresarNormal);
-        po.styleButton(chooserColorPlayer1);
-        po.styleButton(chooserColorPlayer2);
+        po.styleButtonchooser(chooserColorPlayer1);
+        po.styleButtonchooser(chooserColorPlayer2);
         
         
         JPanel buttonPanel = po.invisiblePanelWithOpacity();

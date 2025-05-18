@@ -1,13 +1,8 @@
 package presentation;
-import domain.POOBkemon;
-import domain.PoobkemonException;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.util.*;
 public class ModePlayerVSPlayerSurvival extends JPanel {
     protected BattlePanel survivalBatalla;
 
@@ -32,7 +27,6 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         btnRegresarNormal = new JButton("Back");
         continuar = new JButton("Continue");
         setLayout(cardLayout);
-
         datos = new DatosTwoPlayersSurvival(po,this);
         add(datos, "Datos");
 

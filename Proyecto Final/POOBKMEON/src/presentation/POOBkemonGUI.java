@@ -20,7 +20,6 @@ public class POOBkemonGUI extends JFrame {
     protected ModePlayerVSPlayer playerVSplayerPanelSurvival;
     protected ModeMachineVsMachine machineVsMachinePanel;
     protected ModePlayerVSPlayerSurvival panelPvsPSurvival;
-    private JColorChooser colorChooser;
     
     private JPanel inicio;
     private JPanel panelPrincipal;
@@ -59,7 +58,6 @@ public class POOBkemonGUI extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int)(screenSize.getWidth() / 1.5), (int)(screenSize.getHeight() / 1.5));
         fileChooser = new JFileChooser();
-        colorChooser = new JColorChooser();
         prepareElementsMenu();
         prepareElementsModesOfGame();
         add(panelContenedor);
@@ -471,14 +469,6 @@ public class POOBkemonGUI extends JFrame {
 
 
     private void prepareMovementActions(){
-/* 
-        machineVsMachinePanel.getBtnRegresar().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                cardLayout.show(panelContenedor,"normal");
-            }
-        });
-*/
 
         pokedexPanelPrueba.getButton().addActionListener(new ActionListener(){
             @Override
