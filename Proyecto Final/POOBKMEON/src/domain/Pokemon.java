@@ -399,6 +399,9 @@ public class Pokemon implements Serializable {
         if (attack - newAttack <= 0) throw new PoobkemonException(PoobkemonException.INVALID_VALUES);
         attack -= newAttack;
     }
+    public boolean isAffected(){
+        return (tributeEffects.size()>0 || statusEffect != null);
+    }
     
     /**
      * Increases the Pokemon's special attack stat by the specified amount

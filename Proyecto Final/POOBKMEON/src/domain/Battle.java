@@ -219,6 +219,9 @@ public class Battle implements Serializable {
     public String getWinner(){
         return winner.getName();
     }
+    public boolean isAffected(){
+        return getOpponentTrainer().getPokemonInUse().isAffected();
+    }
 
     /**
      * Gets the trainer whose turn it currently is

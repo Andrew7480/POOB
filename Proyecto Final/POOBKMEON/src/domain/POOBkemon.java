@@ -25,6 +25,9 @@ public class POOBkemon implements Serializable{
         return battle;
     }
 
+    public boolean isAffected(){
+        return battle.isAffected();
+    }
 
     /**
      * Gets all the pokemons available in the game

@@ -34,6 +34,7 @@ public class BattlePanel extends JPanel {
     private POOBkemonGUI po;
 
     private String backgroundImage = "battle";
+    private String affectVisual;
     private String firstPokemon = "6";
     private String secondPokemon = "6";
 
@@ -494,6 +495,8 @@ public class BattlePanel extends JPanel {
 
     public void setSecondPokemon(String pokemonImageName) {
         secondPokemon = pokemonImageName;
+        if(po.domain.isAffected()){affectVisual = "efecto1";}
+        else{affectVisual = null;}
         repaint();
     }
 
@@ -601,6 +604,11 @@ public class BattlePanel extends JPanel {
 
         if (secondPokemon != null) {
             ImageIcon pokemonTwo = new ImageIcon(getClass().getResource("/resources/battle/frente/" + secondPokemon + ".PNG"));
+            g.drawImage(pokemonTwo.getImage(), xSecond - 15, ySecond + 50, scaledWidth, scaledHeight, this);
+        }
+
+        if (affectVisual != null) {
+            ImageIcon pokemonTwo = new ImageIcon(getClass().getResource("/resources/" + affectVisual + ".GIF"));
             g.drawImage(pokemonTwo.getImage(), xSecond - 15, ySecond + 50, scaledWidth, scaledHeight, this);
         }
     }
