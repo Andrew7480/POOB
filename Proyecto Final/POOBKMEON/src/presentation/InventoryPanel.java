@@ -161,7 +161,6 @@ public class InventoryPanel extends JPanel {
         texto.setBackground(color);
     }
     public void actualizar(){
-           
         reset();
         color = pooBkemonGUI.domain.getCurrentColor();
         items = pooBkemonGUI.domain.getCurrentItems();
@@ -176,7 +175,6 @@ public class InventoryPanel extends JPanel {
         return doneButton;
     }
     public void createButtons() {
-        //System.out.println(items.toString());
         for (String itemSelected : items) {
             Item po1 = pooBkemonGUI.domain.getItems().get(itemSelected);
             String nombre = po1.getName();

@@ -83,6 +83,8 @@ public class BattlePanel extends JPanel {
     private JButton cargarPartida;
     private JButton guardarPartida;
 
+    private BattleContainer container;
+
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
         actualColor = new Color(100,100,100,100);
@@ -275,16 +277,22 @@ public class BattlePanel extends JPanel {
                 System.out.println("Selected move: " + moveBtn.getText());
                 gameEnd();
                 int oldIndex = po.domain.getOponentPokemonPokedexIndex();
-
-                try{po.domain.movementPerformed(moveBtn.getText());}
-                catch(PoobkemonException o){System.out.println("No se hace el ataque: "+ o.getMessage());}
-                if (!po.domain.isAliveOpponentPokemon() || oldIndex != po.domain.getOponentPokemonPokedexIndex()){
+                try{
+                    po.domain.movementPerformed(moveBtn.getText());
+                    if (!po.domain.isAliveOpponentPokemon() || oldIndex != po.domain.getOponentPokemonPokedexIndex()){
                         int newIndex = po.domain.getOponentPokemonPokedexIndex();
                         setSecondPokemon(Integer.toString(newIndex));
                     }
-
-                actualizar();
-                showBattleOptionsPanel();
+                    actualizar();
+                    showBattleOptionsPanel();
+                }
+                catch(PoobkemonException o){
+                    System.out.println("No se hace el ataque: "+ o.getMessage());
+                    if (o.getMessage().equals("El pokemon esta muerto")) JOptionPane.showMessageDialog(null, "Tu Pokemon Ha muerto","Alerta Pokemon Muerto",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                    gameEnd();
+                    showBattleOptionsPanel();
+                }
             });
         }
     }
@@ -573,7 +581,6 @@ public class BattlePanel extends JPanel {
     public void reset(){
         trainerActualMovements.clear();
         //po.panelInvetory.reset();
-
     }
 
 

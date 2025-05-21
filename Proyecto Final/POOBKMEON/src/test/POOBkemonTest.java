@@ -411,17 +411,17 @@ public class POOBkemonTest implements Serializable {
             Item revive = new Revive();
             Item potion = new PsPotion("potion","",PotionType.NORMAL);
             Item superPotion = new SuperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.SUPER);
-            Item hyperPotion = new SuperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
+            Item hyperPotion = new HyperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
             
             Item defenseNormalPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.NORMAL);
             Item attackNormalPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.NORMAL);
             Item psNormalPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
             Item defenseSuperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.SUPER);
             Item attackSuperPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.SUPER);
-            Item psSuperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.SUPER);
+            Item psSuperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
             Item defenseHyperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.HYPER);
             Item attackSHyperPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.HYPER);
-            Item psHyperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.HYPER);
+            Item psHyperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
             
             poobkemon.addItem(revive);
             poobkemon.addItem(potion);

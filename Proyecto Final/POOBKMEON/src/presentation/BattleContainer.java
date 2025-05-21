@@ -35,8 +35,6 @@ public class BattleContainer extends JPanel {
         inventoryPokemons.inicializate();
         inventoryItems.inicializate();
         battle.inicializate();
-
-
     }
 
     public void changePanel(String namePanel){
@@ -58,6 +56,10 @@ public class BattleContainer extends JPanel {
         {changePanel("Battle");actualizar();});
         inventoryPokemons.getDoneButton().addActionListener(e -> 
         changePokemon());
+        battle.getRunButton().addActionListener(e ->{
+            pooBkemonGUI.changePanel("inicio");
+            battle.reset();
+        });
     }
 
     private void useItem(){
@@ -85,11 +87,16 @@ public class BattleContainer extends JPanel {
             "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        changePokemonDomain();
-        actualizar();
-        changePanel("Battle");
-
-        
+        if (pooBkemonGUI.domain.getBattle().getCurrentTrainer().getInventory().getAlivePokemons().contains(pooBkemonGUI.domain.getPokedex().get(inventoryPokemons.getSelectedPokemon()))){
+            changePokemonDomain();
+            actualizar();
+            changePanel("Battle");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El pokemon por el que tratas de cambiar esta muerto ", 
+            "No se puede realizar esta acción", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
     }
 
     private void changePokemonDomain() {

@@ -25,6 +25,8 @@ public class Battle implements Serializable {
     /** Stores the last action taken in the battle */
     private String lastAction = "¿Decide?";
 
+    private boolean timer;
+
     /**
      * Constructor for creating a new battle between two trainers
      * 
@@ -38,6 +40,7 @@ public class Battle implements Serializable {
         turnIndex = 0;
         winner = null;
         isOver = false;
+        timer = true;
     }
     
     
@@ -105,7 +108,6 @@ public class Battle implements Serializable {
         Trainer opponent = getOpponentTrainer();
         if (lastAction.equals("Ya decidi")) {
             lastAction = opponent.decide(current.getPokemonInUse());
-            //System.out.println("Ya jugue maquina?: " + lastAction);
             if (lastAction.equals("Ya decidi")){
                 advanceTurn();
             }
@@ -114,6 +116,7 @@ public class Battle implements Serializable {
             advanceTurn();
         }
     }
+
 
     /**
      * Gets a list of movement names available to the current trainer's Pokemon
@@ -439,4 +442,13 @@ public class Battle implements Serializable {
     public ArrayList<String>  getCurrentPokemons(){
         return getCurrentTrainer().getPokemonsName();
     }
+
+    public boolean getTimer(){
+        return timer;
+    }
+
+    public void setTimer(boolean newTimer){
+        timer = newTimer;
+    }
+
 }
