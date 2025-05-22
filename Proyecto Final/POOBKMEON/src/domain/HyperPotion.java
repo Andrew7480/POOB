@@ -23,16 +23,7 @@ public class HyperPotion extends Potion {
      */
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
-        pokemon.gainPS(statics.getValue());
-        if (pokemon.getPs() > pokemon.getMaxPs()){
-            pokemon.setPs(pokemon.getMaxPs());
-        }
-        //pokemon.gainSpecialAttack(statics.getValue()); // PORQUE ESTO ESTÁ ACA?
-        //pokemon.gainSpecialDefense(statics.getValue()); // PORQUE ESTO ESTA ACA? 
-        /*
-         * Las hiperpociones recupera 200 puntos de salud (PS) de un pokemon. 
-         * Solo son aplicables en combate.
-         * Cuando un pokemon queda debilitado (sus PS llegan a cero), no se pueden utilizar.
-         */
+        pokemon.gainSpecialAttack(statics.getValue()); 
+        pokemon.gainSpecialDefense(statics.getValue()); 
     }
 }

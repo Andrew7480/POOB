@@ -189,18 +189,15 @@ public class InventoryPanel extends JPanel {
     }
     
     private void selectionItems(JButton button){
-        String itemName = button.getToolTipText();
-        if (itemSelected.contains(itemName)) {
-            button.setBackground(null);
-            button.setOpaque(false);
-            itemSelected.remove(itemName);
+        for (JButton b : buttons){
+            b.setBackground(null);
+            b.setOpaque(false);
         }
-        else{
-            button.setBackground(Color.GREEN);
-            button.setOpaque(true);
-            itemSelected.add(itemName);
-        }
-        System.out.println(itemSelected);
+        itemSelected.clear();
+        button.setBackground(Color.GREEN);
+        button.setOpaque(true);
+        itemSelected.add(button.getToolTipText());
+        System.out.println("Inicial: "+itemSelected.toString());
     }
 
     private JButton createImageButton(String name,String imagePath) {

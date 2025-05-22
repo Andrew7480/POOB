@@ -1,8 +1,7 @@
 package domain;
-import java.io.Serializable;
 import java.util.*;
 import java.awt.Color;
-public class AttackingTrainer extends MachineTrainer implements Serializable {
+public class AttackingTrainer extends MachineTrainer {
 
     /**
      * Constructor for creating a new AttackingTrainer

@@ -10,11 +10,10 @@ public class StatusEffect extends Effect{
      * @param newTimes The duration of the effect in turns
      * @param prob The probability (percentage) that the effect will restrict actions each turn
      * 
-     * Note: There appears to be an issue in the assignment. It should be 'probabilidad = prob' instead of 'prob = probabilidad'
      */
     public StatusEffect(String newName, String newDescription, int newTimes, double prob){
         super(newName,newDescription,newTimes);
-        prob = probabilidad; // Note: This appears to be backwards, should be 'probabilidad = prob'
+        probabilidad = prob; 
     }
 
     /**
@@ -26,7 +25,7 @@ public class StatusEffect extends Effect{
      * @param affectPokemon The Pokemon to apply the status effect to
      * @throws PoobkemonException POKEMON_CANT_INTERACT if the effect restricts movement
      */
-    public void affectPokemon(Pokemon affectPokemon) throws PoobkemonException{
+    public void affectPokemon(Pokemon affectPokemon) throws PoobkemonException{  //tiene prob de quitarse o no
         decrementDuration();
         if (Math.random() * 100 <= probabilidad) {
             throw new PoobkemonException(PoobkemonException.POKEMON_CANT_INTERACT);

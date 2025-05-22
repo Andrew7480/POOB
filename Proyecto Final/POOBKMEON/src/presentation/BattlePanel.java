@@ -9,21 +9,18 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
@@ -34,7 +31,8 @@ public class BattlePanel extends JPanel {
     private POOBkemonGUI po;
 
     private String backgroundImage = "battle";
-    private String affectVisual;
+    private String affectVisualOpponnet;
+    private String affectVisualActual;
     private String firstPokemon = "6";
     private String secondPokemon = "6";
 
@@ -57,6 +55,7 @@ public class BattlePanel extends JPanel {
     private CustomHealthBar opponentHealthBar;
 
     private JLabel info;
+    private JLabel moveLabel;
     private JPanel panelInfo; 
 
     private JLabel playerHealthLabel;
@@ -83,7 +82,6 @@ public class BattlePanel extends JPanel {
     private JButton cargarPartida;
     private JButton guardarPartida;
 
-    private BattleContainer container;
 
     public BattlePanel(POOBkemonGUI newPo) {
         po = newPo;
@@ -225,7 +223,7 @@ public class BattlePanel extends JPanel {
         ));
         messagePanel.setLayout(new BorderLayout());
 
-        JLabel moveLabel = new JLabel("¿Qué movimiento debería usar " + po.domain.getCurrentPokemonName() + "?"); //falta
+        moveLabel = new JLabel("¿Qué movimiento debería usar " + po.domain.getCurrentPokemonName() + "?"); //falta
         moveLabel.setFont(pokemonFont);
         messagePanel.add(moveLabel, BorderLayout.CENTER);
 
@@ -326,12 +324,13 @@ public class BattlePanel extends JPanel {
         if (po.domain.GameIsOVer()){
             JOptionPane.showMessageDialog(this, "Ha ganado: "+ po.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
             po.changePanel("inicio");
+            po.resetBattles();
             reset();
-        }
-        
+        }   
     }
 
     public void actualizar(){
+        po.domain.startTurnTimer(); //por ahora aunque no esta boen??
         actualizaInfo();
         actualizarColor();
         actualizarBar();
@@ -357,6 +356,7 @@ public class BattlePanel extends JPanel {
         playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
         opponentNameLabel.setText(pokemonName + " Nv. "+ level);
     }
+
     public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
         playerHealthBar.setMaximum(health1Max);
         opponentHealthBar.setMaximum(health2Max);
@@ -387,7 +387,8 @@ public class BattlePanel extends JPanel {
     }
     
     public void actualizaInfo(){
-        info.setText("");
+        info.setText("Mensajes descriptivos?");
+        moveLabel.setText("¿Qué movimiento debería usar " + po.domain.getCurrentPokemonName() + "?");
     }
     public void actualizarColor(){
         actualColor = po.domain.getCurrentColor();
@@ -489,7 +490,6 @@ public class BattlePanel extends JPanel {
     public JButton getBackOptions() {
         return backToOptionsBattle;
     }
-
     
     public void setPokemonNames(String playerPokemonName, String opponentPokemonName, int playerLevel, int opponentLevel) {
         playerNameLabel.setText(playerPokemonName + " Nv." + playerLevel);
@@ -503,8 +503,10 @@ public class BattlePanel extends JPanel {
 
     public void setSecondPokemon(String pokemonImageName) {
         secondPokemon = pokemonImageName;
-        if(po.domain.isAffected()){affectVisual = "efecto1";}
-        else{affectVisual = null;}
+        if(po.domain.opponentIsAffected()){affectVisualOpponnet = "efecto1";}
+        else{affectVisualOpponnet = null;}
+        if(po.domain.currentIsAffected()){affectVisualOpponnet = "efecto1";}
+        else{affectVisualOpponnet = null;}
         repaint();
     }
 
@@ -614,9 +616,13 @@ public class BattlePanel extends JPanel {
             g.drawImage(pokemonTwo.getImage(), xSecond - 15, ySecond + 50, scaledWidth, scaledHeight, this);
         }
 
-        if (affectVisual != null) {
-            ImageIcon pokemonTwo = new ImageIcon(getClass().getResource("/resources/" + affectVisual + ".GIF"));
-            g.drawImage(pokemonTwo.getImage(), xSecond - 15, ySecond + 50, scaledWidth, scaledHeight, this);
+        if (affectVisualOpponnet != null) {
+            ImageIcon effect = new ImageIcon(getClass().getResource("/resources/" + affectVisualOpponnet + ".GIF"));
+            g.drawImage(effect.getImage(), xSecond - 15, ySecond + 50, scaledWidth, scaledHeight, this);
+        }
+        if (affectVisualActual != null){
+            ImageIcon effect = new ImageIcon(getClass().getResource("/resources/" + affectVisualActual + ".GIF"));
+            g.drawImage(effect.getImage(), xFirst, yFirst + 50, scaledWidth, scaledHeight, this);
         }
     }
 

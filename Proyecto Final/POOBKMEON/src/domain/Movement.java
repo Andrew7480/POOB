@@ -117,7 +117,10 @@ public abstract class Movement implements Attackable, Serializable{
      * Method for handling time-based limitations
      * Empty implementation, to be overridden by subclasses if needed
      */
-    public void limitOfTime(){}
+    public void limitOfTime(){
+        try{losePP();}
+        catch(PoobkemonException e){System.out.println(e.getMessage());}
+    }
 
     /**
      * Decreases the PP by one after using the movement

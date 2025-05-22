@@ -200,17 +200,15 @@ public class ListPokemonAvailable extends JPanel{
     }
 
     private void selectionPokemons(JButton button){
-        if (pokemonChange.contains(button.getToolTipText()) ) {//&& pokemonsChosenFight.size()==1
-            button.setBackground(null);
-            button.setOpaque(false);
-            pokemonChange.remove(button.getToolTipText());
+        for (JButton b : buttons){
+            b.setBackground(null);
+            b.setOpaque(false);
         }
-        else{
-            button.setBackground(Color.GREEN);
-            button.setOpaque(true);
-            pokemonChange.add(button.getToolTipText());
-        }
-        System.out.println(pokemonChange.toString());
+        pokemonChange.clear();
+        button.setBackground(Color.GREEN);
+        button.setOpaque(true);
+        pokemonChange.add(button.getToolTipText());
+        System.out.println("Inicial: "+pokemonChange.toString());
     }
 
     public JButton getBackButton(){

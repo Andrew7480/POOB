@@ -11,17 +11,6 @@ public class TributeEffect extends Effect{
     protected HashMap<String,Integer> stateTo = new HashMap<>();
 
     /**
-     * Constructor for creating a new TributeEffect without initial stat modifications
-     * 
-     * @param newName The name of the effect
-     * @param newDescription A description of what the effect does
-     * @param newTimes The duration of the effect in turns
-     */
-    public TributeEffect(String newName, String newDescription, int newTimes){
-        super(newName,newDescription,newTimes);
-    }
-
-    /**
      * Constructor for creating a new TributeEffect with initial stat modifications
      * 
      * @param newName The name of the effect
@@ -58,5 +47,13 @@ public class TributeEffect extends Effect{
             affectPokemon.increaseStat(stat, amount);
         }
         decrementDuration();
+    }
+    
+    public void restoreAffectPokemon(Pokemon affectPokemon){
+        for (Map.Entry<String, Integer> entry : stateTo.entrySet()) {
+            String stat = entry.getKey();
+            int amount = -(entry.getValue());
+            affectPokemon.increaseStat(stat, amount);
+        }
     }
 }

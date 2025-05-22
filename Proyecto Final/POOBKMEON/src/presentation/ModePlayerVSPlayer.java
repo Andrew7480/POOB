@@ -20,11 +20,11 @@ public class ModePlayerVSPlayer extends JPanel {
     protected HashMap<String, ArrayList<String>> firstPokemonMovs;
     protected HashMap<String, ArrayList<String>> secondPokemonMovs;
 
-    private POOBkemonGUI po;
+    private POOBkemonGUI pooBkemonGUI;
 
 
     public ModePlayerVSPlayer(POOBkemonGUI newPo){
-        po = newPo;
+        pooBkemonGUI = newPo;
         prepareElements();
         prepareActions();
     }
@@ -34,23 +34,29 @@ public class ModePlayerVSPlayer extends JPanel {
         
         setLayout(cardLayout);
 
-        datos = new DatosTwoPlayers(po,this);
+        datos = new DatosTwoPlayers(pooBkemonGUI,this);
         add(datos, "Datos");
 
-        inventory = new SelectionPokemonItemPlayers(po,this);
+        inventory = new SelectionPokemonItemPlayers(pooBkemonGUI,this);
         add(inventory, "Inventory");
 
-        movements = new SelectionMovementsTwoPlayers(po, this);
+        movements = new SelectionMovementsTwoPlayers(pooBkemonGUI, this);
         add(movements,"Movimientos");
         
-        inicialPoks = new InicialPokemonsPlayers(po, this);
+        inicialPoks = new InicialPokemonsPlayers(pooBkemonGUI, this);
         add(inicialPoks, "Iniciales");
 
-        batalla = new BattleContainer(po);
+        batalla = new BattleContainer(pooBkemonGUI);
         add(batalla, "Battle");
     }
 
-    private void prepareActions(){}
+    private void prepareActions(){
+        batalla.getRunButton().addActionListener(e ->{
+            pooBkemonGUI.changePanel("inicio");
+            changePanel("Datos");
+            pooBkemonGUI.domain.endBattle();
+        });
+    }
 
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);
@@ -58,21 +64,21 @@ public class ModePlayerVSPlayer extends JPanel {
 
     public void inicializateBattle(Color firstColor, Color secondColor, String firstPok, String secondPok){
         
-        po.createTrainer(firstName,firstColor);
-        po.createTrainer(secondName,secondColor);
+        pooBkemonGUI.createTrainer(firstName,firstColor);
+        pooBkemonGUI.createTrainer(secondName,secondColor);
         try{
-            po.addPokemonsToTrainer(firstName,firstPokemonMovs);
-            po.addPokemonsToTrainer(secondName,secondPokemonMovs);
-            po.addItemsToTrainer(firstName,firstItems);
-            po.addItemsToTrainer(secondName,secondItems);
-            po.domain.inicialTrainerPokemon(firstName,firstPok);
-            po.domain.inicialTrainerPokemon(secondName,secondPok);
+            pooBkemonGUI.addPokemonsToTrainer(firstName,firstPokemonMovs);
+            pooBkemonGUI.addPokemonsToTrainer(secondName,secondPokemonMovs);
+            pooBkemonGUI.addItemsToTrainer(firstName,firstItems);
+            pooBkemonGUI.addItemsToTrainer(secondName,secondItems);
+            pooBkemonGUI.domain.inicialTrainerPokemon(firstName,firstPok);
+            pooBkemonGUI.domain.inicialTrainerPokemon(secondName,secondPok);
             }
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
             return;
         }
-        po.domain.inicializateBattle(firstName,secondName);
+        pooBkemonGUI.domain.inicializateBattle(firstName,secondName);
         batalla.inicializate();
     }
     

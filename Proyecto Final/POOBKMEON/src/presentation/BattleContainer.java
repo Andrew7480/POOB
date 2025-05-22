@@ -46,20 +46,23 @@ public class BattleContainer extends JPanel {
             changePanel("Items");
             actualizar();
         });
+
         battle.getPokemonButton().addActionListener(e -> 
         {changePanel("Change");actualizar();});
         inventoryItems.getNextBJButton().addActionListener(e -> 
         useItem());
+
         inventoryItems.getButtonBack().addActionListener(e -> 
         {changePanel("Battle");actualizar();});
+
         inventoryPokemons.getBackButton().addActionListener(e -> 
         {changePanel("Battle");actualizar();});
+
         inventoryPokemons.getDoneButton().addActionListener(e -> 
         changePokemon());
-        battle.getRunButton().addActionListener(e ->{
-            pooBkemonGUI.changePanel("inicio");
-            battle.reset();
-        });
+    }
+    public JButton getRunButton(){
+        return battle.getRunButton();
     }
 
     private void useItem(){

@@ -377,6 +377,12 @@ public class POOBkemonGUI extends JFrame {
             }
         };
     }
+    public void resetBattles(){
+        playerVSplayerPanel.changePanel("Datos");
+        playerVsMachinePanel.changePanel("Datos");
+        machineVsMachinePanel.changePanel("Datos");
+        panelPvsPSurvival.changePanel("Datos");    
+    }
     
     public void styleButtonExternal(JButton button) {
         button.setFont(new Font("Times new Roman", Font.BOLD, 14));

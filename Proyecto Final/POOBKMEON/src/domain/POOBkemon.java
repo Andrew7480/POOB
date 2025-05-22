@@ -25,8 +25,11 @@ public class POOBkemon implements Serializable{
         return battle;
     }
 
-    public boolean isAffected(){
-        return battle.isAffected();
+    public boolean opponentIsAffected(){
+        return battle.opponentIsAffected();
+    }
+    public boolean currentIsAffected(){
+        return battle.currentIsAffected();
     }
 
     /**
@@ -472,6 +475,13 @@ public class POOBkemon implements Serializable{
     		listaVivos.add(lista.get(i).getName());
     	}
     	return listaVivos;
+    }
+
+    public void startTurnTimer(){
+        battle.startTurnTimer();
+    }
+    public void endBattle(){
+        battle = null;
     }
 
     /**

@@ -2,10 +2,11 @@ package domain;
 
 import java.awt.Color;
 import java.io.*;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Battle implements Serializable {
     /** List of trainers participating in the battle */
     ArrayList<Trainer> turnTrainers;
@@ -24,8 +25,10 @@ public class Battle implements Serializable {
 
     /** Stores the last action taken in the battle */
     private String lastAction = "¿Decide?";
-
-    private boolean timer;
+    
+    private Timer timer;
+    private final int maxTime = 20;
+    private int turnTimer = 20;
 
     /**
      * Constructor for creating a new battle between two trainers
@@ -35,12 +38,12 @@ public class Battle implements Serializable {
      */
     public Battle(Trainer trainer1, Trainer trainer2){
         turnTrainers = new ArrayList<>();
+        coinToss();
         turnTrainers.add(trainer1);
         turnTrainers.add(trainer2);
         turnIndex = 0;
         winner = null;
         isOver = false;
-        timer = true;
     }
     
     
@@ -55,6 +58,7 @@ public class Battle implements Serializable {
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
         current.getPokemonInUse().affectPokemonStatus();
+        System.out.println("Esta afectado de no hacer nada?" + current.getPokemonInUse().isAffectedByStattus());
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();
     }
@@ -222,8 +226,12 @@ public class Battle implements Serializable {
     public String getWinner(){
         return winner.getName();
     }
-    public boolean isAffected(){
+
+    public boolean opponentIsAffected(){
         return getOpponentTrainer().getPokemonInUse().isAffected();
+    }
+    public boolean currentIsAffected(){
+        return getCurrentTrainer().getPokemonInUse().isAffected();
     }
 
     /**
@@ -376,7 +384,7 @@ public class Battle implements Serializable {
      * @return true if the Pokemon is alive, false otherwise
      */
     public boolean isAliveOpponentPokemon(){
-        System.out.println("Pokemon vivo?: "+ getOpponentTrainer().getPokemonInUse().isAlive());
+        System.out.println("Pokemon oponente vivo?: "+ getOpponentTrainer().getPokemonInUse().isAlive());
         return getOpponentTrainer().getPokemonInUse().isAlive();
     }
 
@@ -402,6 +410,7 @@ public class Battle implements Serializable {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
             Battle battle = (Battle) in.readObject();
+            //in.close();
             return battle;
         } catch (FileNotFoundException e) {
             throw new PoobkemonException("Error al leer el archivo: " + e.getMessage());
@@ -422,7 +431,8 @@ public class Battle implements Serializable {
      * 
      * @return The result of the coin toss (true for heads, false for tails)
      */
-    public boolean coinToss(){ //extensiblr??
+    public boolean coinToss(){ 
+        Random random = new Random();
         boolean result = random.nextBoolean();
         String coinside = result ? "Cara" : "Cruz";
 
@@ -443,12 +453,31 @@ public class Battle implements Serializable {
         return getCurrentTrainer().getPokemonsName();
     }
 
-    public boolean getTimer(){
-        return timer;
+    public void startTurnTimer(){
+        stopTurnTimer();
+        turnTimer = maxTime;
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                turnTimer--;
+                System.out.println(turnTimer);
+                if (turnTimer <= 0) {
+                    onTimerFinish();
+                    stopTurnTimer();
+                }
+            }
+        }, 1000, 1000);
     }
 
-    public void setTimer(boolean newTimer){
-        timer = newTimer;
+    public void stopTurnTimer(){
+        if (timer != null) {
+            timer.cancel();
+        }
     }
+
+    public void onTimerFinish(){
+        getCurrentTrainer().getPokemonInUse().limitOfTime();
+    }
+
 
 }

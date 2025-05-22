@@ -50,7 +50,13 @@ public class ModePlayerVsMachine extends JPanel {
         add(batalla, "Battle");
     }
 
-    private void prepareActions(){}
+    private void prepareActions(){
+        batalla.getRunButton().addActionListener(e ->{
+            pooBkemonGUI.changePanel("inicio");
+            changePanel("Datos");
+            pooBkemonGUI.domain.endBattle();
+        });
+    }
 
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);

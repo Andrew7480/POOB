@@ -74,7 +74,7 @@ public class PoobkemonException extends Exception {
     public static final String INVALID_EFFECT_TRIBUTE_EFFECT = "effecto invalido Tribute EFFECT";
 
     /** Error message when a status effect is invalid */
-    public static final String INVALID_EFFECT_STATUS_EFFECT = "effecto invalido status effect";
+    public static final String INVALID_EFFECT_STATUS_EFFECT = "effecto invalido, ya tiene un efecto.";
     
     /** Error message when a Pokemon has fainted */
     public static final String POKEMON_DIE = "El pokemon esta muerto";

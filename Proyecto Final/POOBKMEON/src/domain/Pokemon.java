@@ -402,6 +402,10 @@ public class Pokemon implements Serializable {
     public boolean isAffected(){
         return (tributeEffects.size()>0 || statusEffect != null);
     }
+
+    public boolean isAffectedByStattus(){
+        return (statusEffect != null);
+    }
     
     /**
      * Increases the Pokemon's special attack stat by the specified amount
@@ -493,7 +497,7 @@ public class Pokemon implements Serializable {
      * @throws PoobkemonException If another status effect is already active
      */
     public void addEffect(StatusEffect effect) throws PoobkemonException{
-        if(statusEffect !=null && !statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_STATUS_EFFECT);
+        if(statusEffect != null && !statusEffect.isOver()) throw new PoobkemonException(PoobkemonException.INVALID_EFFECT_STATUS_EFFECT);
         statusEffect = effect;
     }
 
@@ -502,10 +506,17 @@ public class Pokemon implements Serializable {
      * 
      * @throws PoobkemonException If an effect cannot be applied
      */
-    public void affectPokemonStatus() throws PoobkemonException{
+    public void affectPokemonStatus() throws PoobkemonException{  //si falla mirar bien aqui
         for(TributeEffect st: tributeEffects){
-            st.affectPokemon(this);
-        }
+            try{st.affectPokemon(this);}
+
+            catch(PoobkemonException e){
+                if (e.getMessage().equals(PoobkemonException.EFFECT_DURATION_OVER)) {
+                System.out.println(e.getMessage());
+                st.restoreAffectPokemon(this);
+                }
+            }
+        }   
     }
     
     /**
@@ -518,12 +529,20 @@ public class Pokemon implements Serializable {
     public void useMovement(Movement movimiento, Pokemon target) throws PoobkemonException{
         if (!isAlive) throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         if (!movements.contains(movimiento)) throw new PoobkemonException(PoobkemonException.POKEMON_DONT_HAVE_THESE_MOVEMENT);
-        if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
-        statusEffectVerify();
-
+        try{statusEffectVerify();}
+        catch(PoobkemonException e){
+            if (e.getMessage().equals(PoobkemonException.EFFECT_DURATION_OVER)) {
+            System.out.println(e.getMessage());
+            } else if (e.getMessage().equals(PoobkemonException.POKEMON_CANT_INTERACT)) {
+                System.out.println(e.getMessage());
+                return;
+            } else {
+                System.out.println("Error desconocido: " + e.getMessage());
+                return;
+            }
+        }
+    
         if (havePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
-
-
         System.out.println(name +" ha usado: "+ movimiento.getName());
         movimiento.doAttackTo(this, target);
     }
@@ -554,8 +573,8 @@ public class Pokemon implements Serializable {
      * @throws PoobkemonException If a status effect prevents movement
      */
     public void statusEffectVerify() throws PoobkemonException{
-        if (statusEffect != null) throw new PoobkemonException(PoobkemonException.CANT_DO_MOVEMENT);
-        //statusEffect.affectPokemon(this);
+        if (statusEffect == null) return;
+        statusEffect.affectPokemon(this);
     }
 
     /**
@@ -564,6 +583,7 @@ public class Pokemon implements Serializable {
     public void removeStatusEffect(){
         statusEffect = null;
     }
+
 
     /**
      * Gets all movements that can currently be used (have PP)

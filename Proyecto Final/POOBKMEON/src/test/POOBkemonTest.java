@@ -409,24 +409,25 @@ public class POOBkemonTest implements Serializable {
 
             //items
             Item revive = new Revive();
-            Item potion = new PsPotion("potion","",PotionType.NORMAL);
-            Item superPotion = new SuperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.SUPER);
-            Item hyperPotion = new HyperPotion("superPotion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
+            Item potion = new PsPotion("potion","A medicinal spray that restores a Pokémon's HP.",PotionType.NORMAL);
+            Item psSuperPotion = new PsPotion("superPotion", "A medicinal spray that restores a Pokémon's HP.", PotionType.SUPER);
+            Item psNormalPotion = new PsPotion("hyperPotion", "A medicinal spray that restores a Pokémon's HP.", PotionType.HYPER);
+
+            Item defenseNormalPotion = new DefensePotion("Defense hyperPotion", "Aumenta la defensa.", PotionType.NORMAL);
+            Item defenseSuperPotion = new DefensePotion("Defense hyperPotion", "Aumenta la defensa.", PotionType.SUPER);
+            Item defenseHyperPotion = new DefensePotion("Defense hyperPotion", "Aumenta la defensa.", PotionType.HYPER);
+
+            Item attackNormalPotion = new AttackPotion("Attack potion", "Aumenta el ataque.", PotionType.NORMAL);
+            Item attackSuperPotion = new AttackPotion("Attack superPotion", "Aumenta el ataque.", PotionType.SUPER);
+            Item attackSHyperPotion = new AttackPotion("Attack hyperPotion", "Aumenta el ataque.", PotionType.HYPER);
+
+            Item superPotion = new SuperPotion("All superPotion","Aumenta los atributos basicos de un pokemon.",PotionType.SUPER);
+            Item hyperPotion = new HyperPotion("All hyperPotion","Aumenta los atributos especiales de un pokemon.",PotionType.HYPER);
             
-            Item defenseNormalPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.NORMAL);
-            Item attackNormalPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.NORMAL);
-            Item psNormalPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
-            Item defenseSuperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.SUPER);
-            Item attackSuperPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.SUPER);
-            Item psSuperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
-            Item defenseHyperPotion = new DefensePotion("hyperPotion", "Aumenta la defensa.", PotionType.HYPER);
-            Item attackSHyperPotion = new AttackPotion("hyperPotion", "Aumenta el ataque.", PotionType.HYPER);
-            Item psHyperPotion = new PsPotion("potion", "Aumenta la vida.", PotionType.NORMAL);
             
-            poobkemon.addItem(revive);
-            poobkemon.addItem(potion);
-            poobkemon.addItem(superPotion);
-            poobkemon.addItem(hyperPotion);
+            
+            
+            
 
             poobkemon.addItem(defenseNormalPotion);
             poobkemon.addItem(attackNormalPotion);
@@ -438,8 +439,11 @@ public class POOBkemonTest implements Serializable {
 
             poobkemon.addItem(defenseHyperPotion);
             poobkemon.addItem(attackSHyperPotion);
-            poobkemon.addItem(psHyperPotion);
-
+            
+            poobkemon.addItem(revive);
+            poobkemon.addItem(potion);
+            poobkemon.addItem(superPotion);
+            poobkemon.addItem(hyperPotion);
             //creacion trainers
             Trainer defensive1 = new DefensiveTrainer("Defensive",new Color(0,1,255));
             Trainer expert = new ExpertTrainer("Expert",new Color(3,0,255));

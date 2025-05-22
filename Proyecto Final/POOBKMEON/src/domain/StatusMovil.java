@@ -27,14 +27,14 @@ public class StatusMovil extends StatusEffect{
      *                           POKEMON_NOT_AFFECTED_BY_STATUS if the effect doesn't restrict movement
      */
     @Override
-    public void affectPokemon(Pokemon pokemon) throws PoobkemonException{
-        if (Math.random() * 100 <= probabilidad) {
-            decrementDuration();
-            tribute.affectPokemon(pokemon);
-            throw new PoobkemonException(PoobkemonException.POKEMON_CANT_INTERACT);
-        }
+    public void affectPokemon(Pokemon affectPokemon) throws PoobkemonException{
         decrementDuration();
         tribute.decrementDuration();
-        throw new PoobkemonException(PoobkemonException.POKEMON_NOT_AFFECTED_BY_STATUS);
+        if (Math.random() * 100 <= probabilidad) {
+            tribute.affectPokemon(affectPokemon);
+            throw new PoobkemonException(PoobkemonException.POKEMON_CANT_INTERACT);
+        }
+        tribute.restoreAffectPokemon(affectPokemon);
+        affectPokemon.removeStatusEffect();
     }
 }
