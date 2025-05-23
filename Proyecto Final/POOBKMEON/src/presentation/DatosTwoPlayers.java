@@ -137,6 +137,7 @@ public class DatosTwoPlayers extends JPanel {
                 }
 
     }
+    
     private void playerPanel() {
         chooseDifficulty = new JPanel();
         chooseDifficulty.setLayout(new GridLayout(1, 2));

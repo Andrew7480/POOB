@@ -1431,5 +1431,164 @@ public class POOBkemonTest implements Serializable {
         	fail("Ha fallado el uso del item");
         }
     }
-    
+    @Test
+    public void shouldLoseSpecialAttack() {
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        int initialSpecialAttack = charizard.getSpecialAttack();
+        try{
+        	charizard.loseSpecialAttack(150);
+        	assertTrue(initialSpecialAttack > charizard.getSpecialAttack());
+        }catch(PoobkemonException e) {
+        	fail("fallo");
+        }
+        
+    }
+    @Test
+    public void shouldLoseAndGainVelocity() {
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        int initialVelocity = charizard.getVelocity();
+        try {
+        	charizard.loseVelocity(100);
+        	charizard.gainVelocity(100);
+        	assertTrue(initialVelocity == charizard.getVelocity());
+        }catch(PoobkemonException e) {
+        	System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldGetInformationAboutSituations() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        po.inicializateBattle(t1.getName(), t2.getName());
+        po.getcurrentMaxPs();
+        po.getOponentMaxPs();
+        po.isAliveOpponentPokemon();
+        po.getCurrentColor();
+        assertTrue(po.isAliveCurrentPokemon());
+    }
+    @Test
+    public void shouldGiveTheCurrentElements() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        po.inicializateBattle(t1.getName(), t2.getName());
+        po.getCurrentItems();
+        po.getCurrentPokemons();
+        po.getItemsName();
+        po.getPokemonsName();
+        po.GameIsOVer();
+        assertTrue(po.getCurrentPokemons().size() > 0);
+    }
+    @Test
+    public void shouldGiveMoreInformation() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        po.inicializateBattle(t1.getName(), t2.getName());
+        po.getMovementsStringCurrent();
+        po.getMovementsStringOponent();
+        try {
+        	int pp = po.getPPInBattle(t1.getPokemonInUse().getMovements().get(0).getName());
+        	assertTrue(pp > 0);
+        }catch(PoobkemonException e) {
+        	System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldLoseStats() {
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        int initialAttack = charizard.getAttack();
+        try {
+        	charizard.loseAttack(100);
+        	charizard.loseDefense(20);
+        	charizard.gainAttack(100);
+        	assertTrue(initialAttack == charizard.getAttack());
+        }catch(PoobkemonException e) {
+        	System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldGiveInformationInGeneral() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        po.inicializateBattle(t1.getName(), t2.getName());
+        po.opponentIsAffected();
+        po.currentIsAffected();
+        po.getPokemons();
+        po.inicialTrainerMovements(t1.getName());
+        po.getCurrentPokemonName();
+        po.getCurrentPokemonLevel();
+        po.getCurrentPokemonPs();
+        po.getCurrentPokemonPokedexIndex();
+        po.getOponentPokemonName();
+        po.getOponentPokemonLevel();
+        po.getOponentPokemonPs();
+        po.getOponentPokemonPokedexIndex();
+        try {
+        po.actionCambiar(t1.getInventory().getAlivePokemons().get(2).getName());
+        po.actuinHuir();
+        }catch(PoobkemonException e) {
+        	System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldGetPokemonByName() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Pokemon charizard = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+        		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        po.addPokemon(charizard);
+        assertTrue(po.getPokemon(charizard.getName()).getName() == "Charizard");
+    }
+    @Test
+    public void shouldReturnThePokedex() {
+    	POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        assertTrue(po.getPokedex().size() > 0);
+    }
+    @Test
+    public void shouldReturnTheTrainers() {
+    	POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        assertTrue(po.getTrainers().size() > 0);
+    }
+    @Test
+    public void shouldAddNewPokemon() {
+    	POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        try {
+        	po.addNewTrainer("Jose", new Color(255,0,0));
+            Pokemon charizardLvL60 = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,       
+            		PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+            Movement solarBeam = new SpecialMovement("Rayo Solar", "Absorbe luz un turno y ataca en el siguiente.", 10, 120, 100, PokemonType.PLANTA, 0);
+            Movement fakeOut = new PhysicalMovement("Intimidación", "Siempre ataca primero y hace retroceder, sólo funciona el primer turno.", 10, 40, 100, PokemonType.NORMAL, 100);
+            Movement megaDrain = new SpecialMovement("Mega Drenado", "Absorbe la mitad del daño causado.", 15, 40, 100, PokemonType.PLANTA, 0);
+            Movement hyperVoice = new SpecialMovement("Vozarrón", "Ataca con un potente grito.", 10, 90, 100, PokemonType.NORMAL, 0);
+            po.addNewPokemon("Jose", charizardLvL60.getName(), solarBeam, fakeOut, megaDrain, hyperVoice);
+        }catch(PoobkemonException e) {
+        	System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldGenerateRandomSelectionPokemon() {
+    	POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        try {
+        	po.addNewTrainer("Joaquín", new Color(255,0,0));
+        	po.generateRandomSelectionPokemon("Joaquín");
+        	po.infoTrainer("Joaquín");
+        	po.getPokemonAlives("Joaquín");
+        }catch(PoobkemonException e) {
+        	System.out.println(e.getMessage());
+        }
+    }
 }

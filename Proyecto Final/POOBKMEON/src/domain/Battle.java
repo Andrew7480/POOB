@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.Color;
+import java.beans.Transient;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,12 +27,12 @@ public class Battle implements Serializable {
     /** Stores the last action taken in the battle */
     private String lastAction = "¿Decide?";
     
-    private Timer timer;
+    private transient Timer timer;
     private final int maxTime = 20;
     private int turnTimer = 20;
 
     /**
-     * Constructor for creating a new battle between two trainers
+     * Constructor for creating as new battle between two trainers
      * 
      * @param trainer1 The first trainer in the battle
      * @param trainer2 The second trainer in the battle
@@ -45,7 +46,6 @@ public class Battle implements Serializable {
         winner = null;
         isOver = false;
     }
-    
     
     /**
      * Executes a movement/attack for the current trainer
@@ -402,6 +402,9 @@ public class Battle implements Serializable {
         }
     }
 
+    public void endBattle(){
+        stopTurnTimer();
+    }
 
     public Battle open(File file) throws PoobkemonException{
         if (!file.exists()) {

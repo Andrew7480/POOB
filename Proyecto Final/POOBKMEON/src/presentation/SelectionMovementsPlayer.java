@@ -20,7 +20,6 @@ public class SelectionMovementsPlayer extends JPanel {
         prepareActions();
     }
     
-
     private void prepareElements(){
         setLayout(new BorderLayout());
         setOpaque(false);

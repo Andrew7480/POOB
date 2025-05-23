@@ -481,6 +481,7 @@ public class POOBkemon implements Serializable{
         battle.startTurnTimer();
     }
     public void endBattle(){
+        battle.endBattle();
         battle = null;
     }
 

@@ -20,16 +20,13 @@ public class SelectionPokemonItemPlayer extends JPanel{
         prepareElements();
         prepareActions();
     }
-    
 
     private void prepareElements(){
         setLayout(new BorderLayout());
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-
         selection = new Selection(po, new Color(1,2,4,100));
-        
         temp.add(selection);
 
         add(temp, BorderLayout.CENTER);
@@ -78,6 +75,7 @@ public class SelectionPokemonItemPlayer extends JPanel{
         });
 
         come.addActionListener(e -> {
+            reset();
             gameMode.changePanel("Datos");
         });
     }
@@ -97,6 +95,7 @@ public class SelectionPokemonItemPlayer extends JPanel{
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion players");
+        selection.reset();
     }
 
     @Override

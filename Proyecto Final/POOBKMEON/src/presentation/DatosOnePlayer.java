@@ -191,14 +191,6 @@ public class DatosOnePlayer extends JPanel{
         centerPanel.add(Box.createVerticalStrut(20));
 
         nameInputPanel.add(centerPanel, BorderLayout.CENTER);
-
-        
-        //Border border = BorderFactory.createLineBorder(Color.BLACK, 4); 
-        //centerPanel.setBorder(border);
-        //aux.setBorder(border);
-
-        //aux.add(panelButtons);
-        //centerPanel.add(chooserColor);
         
     }
 
@@ -266,9 +258,8 @@ public class DatosOnePlayer extends JPanel{
             gameMode.nameTrainer = pooBkemonGUI.domain.isTrainerIsed(playerName);
             gameMode.trainerEscogidoMachine = gamemodeChoosen.get(0);
             gameMode.inventory.inicializate(choice1);
+            
             gameMode.changePanel("Inventory");
-            //reset();
-            //System.out.println("Se ha resetiado la toma de datos, se ha enviado a la seleccion de pokemon los colores, el panel del inventario y se cambia a potions");
         }
 
         catch(PoobkemonException e){ 

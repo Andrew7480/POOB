@@ -1,16 +1,10 @@
 package presentation;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeMap;
-import java.util.Map;
+import java.util.*;
 
 public class ModeMachineVsMachine extends JPanel {
-    private POOBkemonGUI po;
+    private POOBkemonGUI pooBkemonGUI;
     private CardLayout cardLayout;
 
     protected DatosMachine datos;
@@ -26,7 +20,7 @@ public class ModeMachineVsMachine extends JPanel {
     protected Color colorPlayerTwo = Color.GREEN;
 
     public ModeMachineVsMachine(POOBkemonGUI newPo){
-        po = newPo;
+        pooBkemonGUI = newPo;
         prepareElements();
         prepareActions();
     }
@@ -34,32 +28,36 @@ public class ModeMachineVsMachine extends JPanel {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 
-        datos = new DatosMachine(po,this);
+        datos = new DatosMachine(pooBkemonGUI,this);
         add(datos, "Datos");
 
-        selecionFinal = new SelectionFinalMachines(po,this);
+        selecionFinal = new SelectionFinalMachines(pooBkemonGUI,this);
         add(selecionFinal, "seleccion machines");
 
-        batalla = new BattlePanelMvsM(po);
+        batalla = new BattlePanelMvsM(pooBkemonGUI);
         add(batalla, "Batalla");
    }
-    private void prepareActions(){}
+    private void prepareActions(){
+        batalla.getRunButton().addActionListener(e ->{
+            pooBkemonGUI.changePanel("inicio");
+            changePanel("Datos");
+            pooBkemonGUI.domain.endBattle();
+        });
+    }
 
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);
     }
 
     public void inicializate(){
-        firstPokemonMovs = po.domain.infoTrainer(datos.machineTrainerFirst);
-        secondPokemonMovs = po.domain.infoTrainer(datos.machineTrainerSecond);
+        firstPokemonMovs = pooBkemonGUI.domain.infoTrainer(datos.machineTrainerFirst);
+        secondPokemonMovs = pooBkemonGUI.domain.infoTrainer(datos.machineTrainerSecond);
         try{
-            po.domain.inicialTrainerPokemon(datos.machineTrainerFirst, "machine one");
-            po.domain.inicialTrainerPokemon(datos.machineTrainerSecond, "machine two");
-            po.domain.inicializateBattle(datos.machineTrainerFirst, datos.machineTrainerSecond);
-            batalla.inicializate(po.domain.inicialTrainerMovements(datos.machineTrainerFirst));
+            pooBkemonGUI.domain.inicialTrainerPokemon(datos.machineTrainerFirst, "machine one");
+            pooBkemonGUI.domain.inicialTrainerPokemon(datos.machineTrainerSecond, "machine two");
+            pooBkemonGUI.domain.inicializateBattle(datos.machineTrainerFirst, datos.machineTrainerSecond);
+            batalla.inicializate(pooBkemonGUI.domain.inicialTrainerMovements(datos.machineTrainerFirst));
             changePanel("Batalla");
-            
-            
         } catch (Exception e){
             JOptionPane.showMessageDialog(ModeMachineVsMachine.this, e.getMessage());
         }
@@ -68,8 +66,4 @@ public class ModeMachineVsMachine extends JPanel {
     public void actualizar(){
         batalla.actualizar();
     }
-
-    
-
-
 }

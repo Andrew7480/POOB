@@ -10,22 +10,18 @@ public class BattleContainer extends JPanel {
     protected POOBkemonGUI pooBkemonGUI;
     private CardLayout cardLayout;
 
-
     public BattleContainer(POOBkemonGUI newpPooBkemonGUI){
         pooBkemonGUI = newpPooBkemonGUI;
         prepareElements();
         prepareActions();
-    
     }
 
     private void prepareElements(){
         battle = new BattlePanel(pooBkemonGUI);
         inventoryItems = new InventoryPanel(pooBkemonGUI);
         inventoryPokemons = new ListPokemonAvailable(pooBkemonGUI);
-
         cardLayout = new CardLayout();
         setLayout(cardLayout);
-
         add(battle, "Battle");
         add(inventoryItems, "Items");
         add(inventoryPokemons, "Change");
@@ -61,9 +57,6 @@ public class BattleContainer extends JPanel {
         inventoryPokemons.getDoneButton().addActionListener(e -> 
         changePokemon());
     }
-    public JButton getRunButton(){
-        return battle.getRunButton();
-    }
 
     private void useItem(){
         if (inventoryItems.isOneOption()){
@@ -79,6 +72,7 @@ public class BattleContainer extends JPanel {
             JOptionPane.showMessageDialog(this, "Solo puedes utilizar una poción por pókemon", "Límite excedido", JOptionPane.WARNING_MESSAGE);
             }
     }
+    
     private void changePokemon(){
         if (inventoryPokemons.sizeChoosen() < 1){
             JOptionPane.showMessageDialog(this, "Debes escoger un pokemon", 
@@ -114,5 +108,9 @@ public class BattleContainer extends JPanel {
         battle.actualizar();
         inventoryItems.actualizar();
         inventoryPokemons.actualizar();
+    }
+    
+    public JButton getRunButton(){
+        return battle.getRunButton();
     }
 }

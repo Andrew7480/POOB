@@ -83,6 +83,7 @@ public class SelectionPokemonItemPlayers extends JPanel{
         });
 
         come.addActionListener(e -> {
+            reset();
             gameMode.changePanel("Datos");
         });
     }
@@ -99,10 +100,11 @@ public class SelectionPokemonItemPlayers extends JPanel{
         selection1.setColor(color1);
         selection2.setColor(color2);
     }
-    
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion players");
+        selection1.reset();
+        selection2.reset();
     }
 
     @Override

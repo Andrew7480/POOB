@@ -63,7 +63,6 @@ public class ModePlayerVsMachine extends JPanel {
     }
 
     public void inicializateBattle(Color firstColor, String firstPok){
-        
         pooBkemonGUI.createTrainer(nameTrainer,firstColor);
         try{
             pooBkemonGUI.addPokemonsToTrainer(nameTrainer,pokemonsWithMovs);
