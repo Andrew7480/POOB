@@ -2,6 +2,8 @@ package presentation.Battle;
 import java.awt.*;
 import javax.swing.*;
 import domain.Item;
+import domain.PoobkemonException;
+
 import java.awt.event.*;
 import java.util.*;
 import presentation.POOBkemonGUI;
@@ -198,8 +200,34 @@ public class InventoryPanel extends JPanel {
         button.setBackground(Color.GREEN);
         button.setOpaque(true);
         itemSelected.add(button.getToolTipText());
-        System.out.println("Inicial: "+itemSelected.toString());
+        System.out.println("Inicial: "+ itemSelected.toString());
     }
+    public void opcionRevive(ArrayList<String> muertos) {        
+        String[] opciones = muertos.toArray(new String[0]);
+
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                "Selecciona un pokemon muerto:",
+                "Revive",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        if (seleccion != -1) {
+            JOptionPane.showMessageDialog(null, "Elegiste: " + opciones[seleccion]);
+            try{
+                pooBkemonGUI.domain.actionUseItem(opciones[seleccion],"revive");}
+            catch(PoobkemonException e){
+                System.out.println(e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No elegiste ninguna opción.");
+        }
+    }
+
 
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;

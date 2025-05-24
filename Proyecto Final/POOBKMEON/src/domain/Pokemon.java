@@ -729,6 +729,7 @@ public class Pokemon implements Serializable {
                 "Special Defense: " +specialDefense+"<br>"+
                 "</html>";
     }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

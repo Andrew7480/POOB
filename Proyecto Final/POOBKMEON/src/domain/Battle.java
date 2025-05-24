@@ -91,6 +91,12 @@ public class Battle implements Serializable {
         afterAction();
     }
 
+    public void useItem(String namePok,String item) throws PoobkemonException{
+        System.out.println("Item a usar:"+getCurrentTrainer().getName() + " " + item + "sobre: " + namePok);
+        getCurrentTrainer().useItem(namePok,item);
+        afterAction();
+    }
+
     /**
      * Performs post-action checks
      * Checks if the battle state has changed after an action
@@ -120,6 +126,9 @@ public class Battle implements Serializable {
             advanceTurn();
         }
     }
+    public ArrayList<String> getDeadCurrentPokemons(){
+        return getCurrentTrainer().getDeadCurrentPokemons();
+    }
 
 
     /**
@@ -129,6 +138,9 @@ public class Battle implements Serializable {
      */
     public ArrayList<String> getMovementsStringCurrent(){
         return getCurrentTrainer().getPokemonInUse().getMovementsString();
+    }
+    public ArrayList<String> getCurrentAlivePokemons(){
+        return getCurrentTrainer().getCurrentAlivePokemons();
     }
     
     /**

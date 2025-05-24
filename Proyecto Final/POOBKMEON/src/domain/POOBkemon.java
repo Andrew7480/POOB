@@ -51,6 +51,10 @@ public class POOBkemon implements Serializable{
 
     //-------------------------------------------------------------------------------------
 
+    public ArrayList<String> getDeadCurrentPokemons(){
+        return battle.getDeadCurrentPokemons();
+    }
+
     public ArrayList<String>  getCurrentItems(){
         return battle.getCurrentItems();
     }
@@ -115,6 +119,13 @@ public class POOBkemon implements Serializable{
      */
     public void actionUseItem(String item) throws PoobkemonException{
         battle.useItem(item);
+    }
+
+    public void actionUseItem(String pokemon,String item) throws PoobkemonException{
+        battle.useItem(pokemon,item);
+    }
+    public ArrayList<String> getCurrentAlivePokemons(){
+        return battle.getCurrentAlivePokemons();
     }
 
     /**

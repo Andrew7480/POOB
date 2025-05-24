@@ -58,6 +58,9 @@ public class PlayerTrainer extends Trainer{
     public void useItem(String item) throws PoobkemonException{
         inventory.useItem(actualPokemon, item);
     }
+    public void useItem(String namePok, String item) throws PoobkemonException{
+        inventory.useItem(namePok, item);
+    }
 
     /**
      * Decision method for the player trainer.

@@ -44,6 +44,13 @@ public class Inventory implements Serializable{
         if (!items.containsKey(item)) throw new PoobkemonException(PoobkemonException.ITEM_DONT_EXIST);
         return items.get(item);
     }
+    public ArrayList<String> getDeadCurrentPokemons(){
+        ArrayList <String> deads = new ArrayList<>();
+        for (Pokemon pok : pokemons.values()){
+            if(!pok.isAlive()) deads.add(pok.getName());
+        }
+        return deads;
+    }
 
     /**
      * Removes one of the specified item from the inventory
@@ -154,7 +161,18 @@ public class Inventory implements Serializable{
         for(Pokemon p: pokemons.values()){
             if(p.isAlive()) poke.add(p);
         }
+        System.out.println(pokemons.toString());
+        System.out.println("---".repeat(10));
+        System.out.println(poke.toString());
         return poke;
+    }
+    public ArrayList<String> getCurrentAlivePokemons(){
+        ArrayList<Pokemon> poke = getAlivePokemons();
+        ArrayList<String> vivos = new ArrayList<>();
+        for (Pokemon poken : poke){
+            if (poken.isAlive()) vivos.add(poken.getName());
+        }
+        return vivos;
     }
 
     /**
@@ -216,6 +234,12 @@ public class Inventory implements Serializable{
      */
     public void useItem(Pokemon pokemon,String item) throws PoobkemonException{
         System.out.println(pokemon.getName() + " " + item);
+        useItem(pokemon, getItemByName(item));
+    }
+    public void useItem(String pokemonName,String item) throws PoobkemonException{
+        if (!pokemons.containsKey(pokemonName)) throw new PoobkemonException(PoobkemonException.POKEMON_DOESNT_EXIST_IN_THE_INVENTORY_OR_NOT_EXIST);
+        System.out.println(pokemonName + " " + item);
+        Pokemon pokemon = pokemons.get(pokemonName);
         useItem(pokemon, getItemByName(item));
     }
 

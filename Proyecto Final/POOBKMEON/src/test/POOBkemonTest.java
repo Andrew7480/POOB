@@ -1568,12 +1568,12 @@ public class POOBkemonTest implements Serializable {
         }
     }
     @Test
-    public void shouldDoNothing() { 
+    public void shouldDoNothing() { //aveces falla por prob de aplicar el estado
         POOBkemon kemon = new POOBkemon();
         POOBkemon po = kemon.deserializateGame();
         try {
             po.addNewTrainer("Ash", new Color(255,0,0));
-            Pokemon charizardLvL60 = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,
+            Pokemon charizardLvL60 = new Pokemon("Charizard", 60, 280, 180, 2000, 150, 170, 190,
                     PokemonType.FUEGO, PokemonType.VOLADOR, 6);
             StatusEffect Sleep = new StatusEffect("Dormido","Un Pokémon dormido no puede realizar ningún movimiento durante su turno",5,1);
             MovementState sleep = new MovementState("Dormir","",10, 15,50, PokemonType.NORMAL,Sleep, 100, 0);

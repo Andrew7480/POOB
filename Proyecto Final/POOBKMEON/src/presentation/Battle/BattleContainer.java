@@ -1,6 +1,8 @@
 package presentation.Battle;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 import domain.PoobkemonException;
 import presentation.POOBkemonGUI;
 import presentation.Battle.BattlePanel;
@@ -65,7 +67,11 @@ public class BattleContainer extends JPanel {
     private void useItem(){
         if (inventoryItems.isOneOption()){
                 try{
-                    pooBkemonGUI.domain.actionUseItem(inventoryItems.itemSelected());
+                    ArrayList<String> deadPokemons = pooBkemonGUI.domain.getDeadCurrentPokemons();
+                    if (inventoryItems.itemSelected().equals("revive") && deadPokemons.size()>0) {
+                        inventoryItems.opcionRevive(deadPokemons);
+                    }
+                    else{pooBkemonGUI.domain.actionUseItem(inventoryItems.itemSelected());}
                     actualizar();
                     changePanel("Battle");
                 }catch(PoobkemonException h){
@@ -83,12 +89,17 @@ public class BattleContainer extends JPanel {
             "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (inventoryPokemons.sizeChoosen() > inventoryPokemons.MAX_CHANGED){
+        else if (inventoryPokemons.sizeChoosen() > inventoryPokemons.MAX_CHANGED){
             JOptionPane.showMessageDialog(this, "Solo puedes escoger uno para cambiar " + inventoryPokemons.MAX_CHANGED + "pokemon", 
             "Límite excedido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (pooBkemonGUI.domain.getBattle().getCurrentTrainer().getInventory().getAlivePokemons().contains(pooBkemonGUI.domain.getPokedex().get(inventoryPokemons.getSelectedPokemon()))){
+        else if(pooBkemonGUI.domain.getCurrentAlivePokemons().contains(inventoryPokemons.getSelectedPokemon())){
+            changePokemonDomain();
+            actualizar();
+            changePanel("Battle");
+        }
+        else if (pooBkemonGUI.domain.getBattle().getCurrentTrainer().getInventory().getAlivePokemons().contains(pooBkemonGUI.domain.getPokedex().get(inventoryPokemons.getSelectedPokemon()))){
             changePokemonDomain();
             actualizar();
             changePanel("Battle");

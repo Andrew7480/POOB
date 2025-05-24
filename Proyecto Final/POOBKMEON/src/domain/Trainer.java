@@ -2,6 +2,7 @@ package domain;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 public abstract class Trainer implements Serializable{
     protected String name;
@@ -29,6 +30,9 @@ public abstract class Trainer implements Serializable{
      */
     public Inventory getInventory(){
         return inventory;
+    }
+    public ArrayList<String> getDeadCurrentPokemons(){
+        return inventory.getDeadCurrentPokemons();
     }
     
     /**
@@ -67,6 +71,9 @@ public abstract class Trainer implements Serializable{
         }
 
         return null; //CAMBIADO
+    }
+    public ArrayList<String> getCurrentAlivePokemons(){
+        return inventory.getCurrentAlivePokemons();
     }
     
     /**
@@ -132,7 +139,8 @@ public abstract class Trainer implements Serializable{
      * @throws PoobkemonException If the item is not found or cannot be used
      */
     public abstract void useItem(String item) throws PoobkemonException;
-    
+
+    public abstract void useItem(String namePok, String item) throws PoobkemonException;
     /**
      * Makes a decision for the trainer based on the opponent's Pokemon
      * 

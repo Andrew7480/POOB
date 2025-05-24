@@ -99,6 +99,9 @@ public abstract class MachineTrainer extends Trainer {
     public void useItem(String item) {
         useItem();
     }
+    public void useItem(String namePok,String item) {
+        useItem();
+    }
 
     /**
      * Uses a specified item (stub implementation)
