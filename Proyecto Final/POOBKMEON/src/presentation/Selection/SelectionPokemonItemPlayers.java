@@ -13,8 +13,8 @@ public class SelectionPokemonItemPlayers extends JPanel{
     private JButton doneButton; 
     private ModePlayerVSPlayer gameMode;
 
-    private Selection selection1;
-    private Selection selection2;
+    private Selection selectionOne;
+    private Selection selectionTwo;
 
 
     public SelectionPokemonItemPlayers(POOBkemonGUI pooBkemonGUI, ModePlayerVSPlayer father){
@@ -31,11 +31,11 @@ public class SelectionPokemonItemPlayers extends JPanel{
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
 
-        selection1 = new Selection(po, new Color(1,2,4,100));
-        selection2 = new Selection(po, new Color(30,100,30,100));
+        selectionOne = new Selection(po, new Color(1,2,4,100));
+        selectionTwo = new Selection(po, new Color(30,100,30,100));
         
-        temp.add(selection1);
-        temp.add(selection2);
+        temp.add(selectionOne);
+        temp.add(selectionTwo);
 
         add(temp, BorderLayout.CENTER);
 
@@ -59,23 +59,23 @@ public class SelectionPokemonItemPlayers extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (selection1.getPokemonChoosen().size()<1|| selection1.getItemsChoosen().size()<1 ||selection2.getPokemonChoosen().size()<1|| selection2.getItemsChoosen().size()<1 ){
+                    if (selectionOne.getPokemonChoosen().size()<1|| selectionOne.getItemsChoosen().size()<1 ||selectionTwo.getPokemonChoosen().size()<1|| selectionTwo.getItemsChoosen().size()<1 ){
                         JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this, 
                             "Selecciona al menos 1 Pokémon para la batalla y dos pociones! ",
                             "Incompleta", JOptionPane.WARNING_MESSAGE);
                     return;
                     }
 
-                   if(selection1.getPokemonChoosen().size()> selection1.MAX_POKEMONS|| selection1.getItemsChoosen().size()> selection1.MAX_POTIONS 
-                   ||selection2.getPokemonChoosen().size()> selection1.MAX_POKEMONS|| selection2.getItemsChoosen().size()> selection1.MAX_POTIONS ){
+                   if(selectionOne.getPokemonChoosen().size()> selectionOne.MAX_POKEMONS|| selectionOne.getItemsChoosen().size()> selectionOne.MAX_POTIONS 
+                   ||selectionTwo.getPokemonChoosen().size()> selectionOne.MAX_POKEMONS|| selectionTwo.getItemsChoosen().size()> selectionOne.MAX_POTIONS ){
                         JOptionPane.showMessageDialog(SelectionPokemonItemPlayers.this,
-                            "Solo puedes seleccionar máximo " + selection1.MAX_POKEMONS + " pokemones y " + selection1.MAX_POTIONS + " pociones",
+                            "Solo puedes seleccionar máximo " + selectionOne.MAX_POKEMONS + " pokemones y " + selectionOne.MAX_POTIONS + " pociones",
                             "Límite excedido", JOptionPane.WARNING_MESSAGE);
                         return;
                    }
-                   gameMode.firstItems = selection1.getItemsChoosen();
-                   gameMode.secondItems = selection2.getItemsChoosen();
-                   gameMode.movements.inicializate(selection1.getColor(), selection1.getPokemonChoosen(), selection2.getColor(), selection2.getPokemonChoosen());
+                   gameMode.firstItems = selectionOne.getItemsChoosen();
+                   gameMode.secondItems = selectionTwo.getItemsChoosen();
+                   gameMode.movements.inicializate(selectionOne.getColor(), selectionOne.getPokemonChoosen(), selectionTwo.getColor(), selectionTwo.getPokemonChoosen());
                    
                    gameMode.changePanel("Movimientos");
                 } catch (Exception ex) {
@@ -99,14 +99,14 @@ public class SelectionPokemonItemPlayers extends JPanel{
     }
 
     public void inicializate(Color color1, Color color2){
-        selection1.setColor(color1);
-        selection2.setColor(color2);
+        selectionOne.setColor(color1);
+        selectionTwo.setColor(color2);
     }
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion players");
-        selection1.reset();
-        selection2.reset();
+        selectionOne.reset();
+        selectionTwo.reset();
     }
 
     @Override

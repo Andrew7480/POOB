@@ -36,7 +36,7 @@ public class DatosOnePlayer extends JPanel{
     
     private String playerName = "";
 
-    private Color choice1;
+    private Color choiceOne;
 
     private ArrayList<String> gamemodeChoosen;
     private TreeMap<String,String> gameModes; 
@@ -129,9 +129,9 @@ public class DatosOnePlayer extends JPanel{
         });
 
         chooserColor.addActionListener(e -> {
-            choice1 = JColorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
-            if (choice1 != null) {
-                colorChosed = choice1;
+            choiceOne = JColorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
+            if (choiceOne != null) {
+                colorChosed = choiceOne;
                 chooserColor.setBackground(colorChosed);
                 Color borderColor = colorChosed.darker();
                 chooserColor.setBorder(BorderFactory.createCompoundBorder(
@@ -261,7 +261,7 @@ public class DatosOnePlayer extends JPanel{
         try{
             gameMode.nameTrainer = pooBkemonGUI.domain.isTrainerIsed(playerName);
             gameMode.trainerEscogidoMachine = gamemodeChoosen.get(0);
-            gameMode.inventory.inicializate(choice1);
+            gameMode.inventory.inicializate(choiceOne);
             
             gameMode.changePanel("Inventory");
         }

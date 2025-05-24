@@ -161,9 +161,7 @@ public class Inventory implements Serializable{
         for(Pokemon p: pokemons.values()){
             if(p.isAlive()) poke.add(p);
         }
-        System.out.println(pokemons.toString());
-        System.out.println("---".repeat(10));
-        System.out.println(poke.toString());
+
         return poke;
     }
     public ArrayList<String> getCurrentAlivePokemons(){

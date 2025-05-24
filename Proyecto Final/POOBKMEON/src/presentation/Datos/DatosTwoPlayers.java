@@ -9,36 +9,36 @@ public class DatosTwoPlayers extends JPanel {
     private String backgroundImage = "fondoAnimado2";
     private JButton btnRegresarNormal;
     private JButton continuar;
-    private JButton chooserColorPlayer1;
-    private JButton chooserColorPlayer2;
+    private JButton chooserColorPlayerOne;
+    private JButton chooserColorPlayerTwo;
     private POOBkemonGUI po;
     private ModePlayerVSPlayer gameMode;
 
     private JColorChooser colorChooser;
-    private Color colorChosedPlayer1;
-    private Color colorChosedPlayer2;
+    private Color colorChosedPlayerOne;
+    private Color colorChosedPlayerTwo;
 
     private JPanel chooseDifficulty;
 
-    private JButton player1;
-    private JButton player2;
+    private JButton playerOne;
+    private JButton playerTwo;
     private String[] paths;
     private int indexPlayerOne = 0;
     private int indexPlayerTwo = 0;
 
-    private JTextField player1NameField;
-    private JTextField player2NameField;
-    private String player1Name = "";
-    private String player2Name = "";
+    private JTextField playerOneNameField;
+    private JTextField playerTwoNameField;
+    private String playerOneName = "";
+    private String playerTwoName = "";
 
-    private Color choice1;
-    private Color choice2;
+    private Color choiceOne;
+    private Color choiceTwo;
 
     public DatosTwoPlayers(POOBkemonGUI newPo, ModePlayerVSPlayer father){
         gameMode = father;
         po = newPo;
-        chooserColorPlayer1 = new JButton("Choose Color");
-        chooserColorPlayer2 = new JButton("Choose Color");
+        chooserColorPlayerOne = new JButton("Choose Color");
+        chooserColorPlayerTwo = new JButton("Choose Color");
         prepareElements();
         prepareActions();
     }
@@ -57,8 +57,8 @@ public class DatosTwoPlayers extends JPanel {
         continuar = new JButton("CONTINUE");
         po.styleButton(continuar);
         po.styleButton(btnRegresarNormal);
-        po.styleButtonchooser(chooserColorPlayer1);
-        po.styleButtonchooser(chooserColorPlayer2);
+        po.styleButtonchooser(chooserColorPlayerOne);
+        po.styleButtonchooser(chooserColorPlayerTwo);
         
         
         JPanel buttonPanel = po.invisiblePanelWithOpacity();
@@ -77,26 +77,26 @@ public class DatosTwoPlayers extends JPanel {
             po.changePanel("normal");
         });
 
-        chooserColorPlayer1.addActionListener(e -> {
-            choice1 = colorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
-            if (choice1 != null) {
-                colorChosedPlayer1 = choice1;
-                chooserColorPlayer1.setBackground(colorChosedPlayer1);
-                Color borderColor = colorChosedPlayer1.darker();
-                chooserColorPlayer1.setBorder(BorderFactory.createCompoundBorder(
+        chooserColorPlayerOne.addActionListener(e -> {
+            choiceOne = colorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
+            if (choiceOne != null) {
+                colorChosedPlayerOne = choiceOne;
+                chooserColorPlayerOne.setBackground(colorChosedPlayerOne);
+                Color borderColor = colorChosedPlayerOne.darker();
+                chooserColorPlayerOne.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(borderColor, 2),
             BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
             }
         });
         
-        chooserColorPlayer2.addActionListener(e -> {
-            choice2 = colorChooser.showDialog(this, "Selecciona tu color", Color.RED);
-            if (choice2 != null) {
-                colorChosedPlayer2 = choice2;
-                chooserColorPlayer2.setBackground(colorChosedPlayer2);
-                Color borderColor = colorChosedPlayer2.darker();
-                chooserColorPlayer2.setBorder(BorderFactory.createCompoundBorder(
+        chooserColorPlayerTwo.addActionListener(e -> {
+            choiceTwo = colorChooser.showDialog(this, "Selecciona tu color", Color.RED);
+            if (choiceTwo != null) {
+                colorChosedPlayerTwo = choiceTwo;
+                chooserColorPlayerTwo.setBackground(colorChosedPlayerTwo);
+                Color borderColor = colorChosedPlayerTwo.darker();
+                chooserColorPlayerTwo.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(borderColor, 2),
             BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
@@ -106,32 +106,32 @@ public class DatosTwoPlayers extends JPanel {
     
     private void confirmPlayerInfo(){
         try {
-                    player1Name = player1NameField.getText().trim();
-                    player2Name = player2NameField.getText().trim();
+                    playerOneName = playerOneNameField.getText().trim();
+                    playerTwoName = playerTwoNameField.getText().trim();
                     try{
-                        po.domain.isTrainerIsed(player1Name);
-                        po.domain.isTrainerIsed(player2Name);
+                        po.domain.isTrainerIsed(playerOneName);
+                        po.domain.isTrainerIsed(playerTwoName);
                     }
                     catch(PoobkemonException i){
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this, "Nombre no disponible", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    if (player1Name.equals(player2Name)){
+                    if (playerOneName.equals(playerTwoName)){
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this, "No pueden tener el mismo nombre.","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    if(player1Name.isEmpty() || player2Name.isEmpty()){
+                    if(playerOneName.isEmpty() || playerTwoName.isEmpty()){
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this, "Ambos nombres deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    if(colorChosedPlayer1 == null || colorChosedPlayer2 == null){
+                    if(colorChosedPlayerOne == null || colorChosedPlayerTwo == null){
                         JOptionPane.showMessageDialog(DatosTwoPlayers.this,"Ambos colores deben llenarse","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    gameMode.firstName = player1Name;
-                    gameMode.secondName = player2Name;
+                    gameMode.firstName = playerOneName;
+                    gameMode.secondName = playerTwoName;
 
-                    gameMode.inventory.inicializate(choice1,choice2);
+                    gameMode.inventory.inicializate(choiceOne,choiceTwo);
                     gameMode.changePanel("Inventory");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(DatosTwoPlayers.this, ex.getMessage());
@@ -170,23 +170,23 @@ public class DatosTwoPlayers extends JPanel {
         nameLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
         namePanel1.add(nameLabel1);
         
-        player1NameField = new JTextField(10);
-        player1NameField.setFont(new Font("Arial", Font.BOLD, 20));
-        player1NameField.setHorizontalAlignment(JTextField.CENTER);
-        player1NameField.setMaximumSize(new Dimension(180, 40));
-        player1NameField.setBorder(BorderFactory.createCompoundBorder(
+        playerOneNameField = new JTextField(10);
+        playerOneNameField.setFont(new Font("Arial", Font.BOLD, 20));
+        playerOneNameField.setHorizontalAlignment(JTextField.CENTER);
+        playerOneNameField.setMaximumSize(new Dimension(180, 40));
+        playerOneNameField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(56,56,56), 2),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        player1NameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerOneNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         namePanel1.add(Box.createVerticalStrut(5));
-        namePanel1.add(player1NameField);
+        namePanel1.add(playerOneNameField);
         player1Panel.add(namePanel1);
         player1Panel.add(Box.createVerticalStrut(15));
         
         JPanel colorPanel1 = new JPanel();
         colorPanel1.setOpaque(false);
-        colorPanel1.add(chooserColorPlayer1);
+        colorPanel1.add(chooserColorPlayerOne);
         colorPanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
         player1Panel.add(colorPanel1);
         
@@ -216,23 +216,23 @@ public class DatosTwoPlayers extends JPanel {
         nameLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
         namePanel2.add(nameLabel2);
         
-        player2NameField = new JTextField(10);
-        player2NameField.setFont(new Font("Arial", Font.BOLD, 20));
-        player2NameField.setHorizontalAlignment(JTextField.CENTER);
-        player2NameField.setMaximumSize(new Dimension(180, 40));
-        player2NameField.setBorder(BorderFactory.createCompoundBorder(
+        playerTwoNameField = new JTextField(10);
+        playerTwoNameField.setFont(new Font("Arial", Font.BOLD, 20));
+        playerTwoNameField.setHorizontalAlignment(JTextField.CENTER);
+        playerTwoNameField.setMaximumSize(new Dimension(180, 40));
+        playerTwoNameField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(56,56,56), 2),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        player2NameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTwoNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         namePanel2.add(Box.createVerticalStrut(5));
-        namePanel2.add(player2NameField);
+        namePanel2.add(playerTwoNameField);
         player2Panel.add(namePanel2);
         player2Panel.add(Box.createVerticalStrut(15));
         
         JPanel colorPanel2 = new JPanel();
         colorPanel2.setOpaque(false);
-        colorPanel2.add(chooserColorPlayer2);
+        colorPanel2.add(chooserColorPlayerTwo);
         colorPanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
         player2Panel.add(colorPanel2);
         
@@ -248,12 +248,12 @@ public class DatosTwoPlayers extends JPanel {
 
         JButton trainerButton;
         if (trainerNum == 1) {
-            player1 = createImageButton("Trainer1", paths[0]);
-            trainerButton = player1;
+            playerOne = createImageButton("Trainer1", paths[0]);
+            trainerButton = playerOne;
             trainerButton.addActionListener(e -> cambiarTrainer(1));
         } else {
-            player2 = createImageButton("Trainer2", paths[0]);
-            trainerButton = player2;
+            playerTwo = createImageButton("Trainer2", paths[0]);
+            trainerButton = playerTwo;
             trainerButton.addActionListener(e -> cambiarTrainer(2));
         }
         panel.add(trainerButton, BorderLayout.CENTER);
@@ -266,22 +266,22 @@ public class DatosTwoPlayers extends JPanel {
             try {
                 ImageIcon icon = new ImageIcon(getClass().getResource(paths[indexPlayerOne]));
                 Image scaledImage = icon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-                player1.setIcon(new ImageIcon(scaledImage));
-                player1.setToolTipText("Trainer: " + paths[indexPlayerOne]);
+                playerOne.setIcon(new ImageIcon(scaledImage));
+                playerOne.setToolTipText("Trainer: " + paths[indexPlayerOne]);
             } catch (Exception e) {
-                player1.setText("No imagen??");
-                player1.setIcon(null);
+                playerOne.setText("No imagen??");
+                playerOne.setIcon(null);
             }
         } else {
             indexPlayerTwo = (indexPlayerTwo + 1) % paths.length;
             try {
                 ImageIcon icon = new ImageIcon(getClass().getResource(paths[indexPlayerTwo]));
                 Image scaledImage = icon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-                player2.setIcon(new ImageIcon(scaledImage));
-                player2.setToolTipText("Trainer: " + paths[indexPlayerTwo]);
+                playerTwo.setIcon(new ImageIcon(scaledImage));
+                playerTwo.setToolTipText("Trainer: " + paths[indexPlayerTwo]);
             } catch (Exception e) {
-                player2.setText("No imagen??");
-                player2.setIcon(null);
+                playerTwo.setText("No imagen??");
+                playerTwo.setIcon(null);
             }
         }
     }

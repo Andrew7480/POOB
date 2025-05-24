@@ -15,8 +15,8 @@ public class SelectionMovementsTwoPlayers extends JPanel {
     private JButton doneButton; 
     private ModePlayerVSPlayer gameMode;
 
-    private SelectionMovementsPanel selection1;
-    private SelectionMovementsPanel selection2;
+    private SelectionMovementsPanel selectionOne;
+    private SelectionMovementsPanel selectionTwo;
 
 
     public SelectionMovementsTwoPlayers(POOBkemonGUI pooBkemonGUI, ModePlayerVSPlayer father){
@@ -32,11 +32,11 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-        selection1 = new SelectionMovementsPanel(po);
-        selection2 = new SelectionMovementsPanel(po);
+        selectionOne = new SelectionMovementsPanel(po);
+        selectionTwo = new SelectionMovementsPanel(po);
 
-        temp.add(selection1);
-        temp.add(selection2);
+        temp.add(selectionOne);
+        temp.add(selectionTwo);
 
         add(temp, BorderLayout.CENTER);
 
@@ -59,17 +59,17 @@ public class SelectionMovementsTwoPlayers extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (!selection1.isSelectedMovements() || ! selection1.isSelectedMovements()) {
+                    if (!selectionOne.isSelectedMovements() || ! selectionOne.isSelectedMovements()) {
                         JOptionPane.showMessageDialog(SelectionMovementsTwoPlayers.this,
                     "Tienes que escoger todos los movimientos.",
                     "Movimientos no seleccionados.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                    gameMode.firstPokemonMovs = selection1.getPokemonMovs();
-                    gameMode.secondPokemonMovs = selection2.getPokemonMovs();
+                    gameMode.firstPokemonMovs = selectionOne.getPokemonMovs();
+                    gameMode.secondPokemonMovs = selectionTwo.getPokemonMovs();
                     
                    
-                   gameMode.inicialPoks.inicializate(selection1.getColor(), selection1.getPokemonChoosen(), selection2.getColor(), selection2.getPokemonChoosen());
+                   gameMode.inicialPoks.inicializate(selectionOne.getColor(), selectionOne.getPokemonChoosen(), selectionTwo.getColor(), selectionTwo.getPokemonChoosen());
                    gameMode.changePanel("Iniciales");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(SelectionMovementsTwoPlayers.this, ex.getMessage());
@@ -92,17 +92,17 @@ public class SelectionMovementsTwoPlayers extends JPanel {
     }
 
     public void inicializate(Color color1, ArrayList<String> pok1, Color color2, ArrayList<String> pok2){
-        selection1.setColor(color1);
-        selection2.setColor(color2);
-        selection1.infoSelectedPokemons(pok1);
-        selection2.infoSelectedPokemons(pok2);
+        selectionOne.setColor(color1);
+        selectionTwo.setColor(color2);
+        selectionOne.infoSelectedPokemons(pok1);
+        selectionTwo.infoSelectedPokemons(pok2);
     }
     
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion movimientos dos players");
-        selection1.resetPokemonChosen();
-        selection2.resetPokemonChosen();
+        selectionOne.resetPokemonChosen();
+        selectionTwo.resetPokemonChosen();
         repaint();
         revalidate();
     }
