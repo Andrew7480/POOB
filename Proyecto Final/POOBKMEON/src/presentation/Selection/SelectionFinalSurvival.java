@@ -1,0 +1,126 @@
+package presentation.Selection;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+
+import presentation.POOBkemonGUI;
+import presentation.Battle.BattleContainer;
+import presentation.Datos.DatosTwoPlayersSurvival;
+import presentation.ModesOfGame.ModePlayerVSPlayerSurvival;
+
+public class SelectionFinalSurvival extends JPanel {
+    private  String backgroundImage = "emerald";
+    private POOBkemonGUI pooBkemonGUI;
+    protected BattleContainer survivalBatalla;
+    protected DatosTwoPlayersSurvival datos;
+    private CardLayout cardLayout;
+    protected String firstName;
+    protected String secondName;
+    private ModePlayerVSPlayerSurvival gameMode;
+
+    private SelectionMovementsPanel selection1;
+    private SelectionMovementsPanel selection2;
+
+    private JButton doneButton;
+    private JButton come;
+
+    public SelectionFinalSurvival(POOBkemonGUI newPo, ModePlayerVSPlayerSurvival father){
+        gameMode = father;
+        pooBkemonGUI = newPo;
+        prepareElements();
+        prepareActions();
+    }
+    private void prepareElements(){
+        setLayout(new BorderLayout());
+        setOpaque(false);
+        JPanel temp = new JPanel(new GridLayout(1,2));
+        temp.setOpaque(false);
+        selection1 = personalizateMovements();
+        selection2 = personalizateMovements();
+        temp.add(selection1);
+        temp.add(selection2);
+        add(temp, BorderLayout.CENTER);
+        JPanel down = new JPanel(new BorderLayout());
+        down.setOpaque(false);
+        doneButton = new JButton ("Done!");
+        come = new JButton("Back..");
+        pooBkemonGUI.styleButton(doneButton);
+        pooBkemonGUI.styleButton(come);
+        JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        booton.setOpaque(false);
+        booton.add(come);
+        booton.add(doneButton);
+        down.add(booton,BorderLayout.SOUTH);
+        add(down, BorderLayout.SOUTH);
+    }
+
+    private void prepareActions(){
+        doneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameMode.changePanel("Battle");
+            }
+        });
+        come.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                gameMode.changePanel("Datos");
+            }
+        });
+    }
+
+    public void inicializar(){
+        selection1.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.firstName).getInventory().getPokemonsName());
+        selection1.setColor(new Color(0,0,255));
+        selection2.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.secondName).getInventory().getPokemonsName());
+        selection2.setColor(new Color(255,0,0));
+    }
+
+
+    private SelectionMovementsPanel personalizateMovements(){
+        return new SelectionMovementsPanel(pooBkemonGUI) {
+                @Override
+                public JPanel createMovementPanel(String namePokemon, ArrayList<String> movements, String imagePath) {
+                    if (namePokemon.equals("") || movements ==null || imagePath.equals("")) return new JPanel();
+                    JPanel panel = new JPanel(new BorderLayout());
+                    panel.setOpaque(false);
+                    JLabel imageLabel = new JLabel();
+                    ImageIcon icon = new ImageIcon(getClass().getResource("/resources/"+imagePath +".png"));
+                    Image scaledImage = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                    imageLabel.setIcon(new ImageIcon(scaledImage));
+                    imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    panel.add(imageLabel, BorderLayout.NORTH);
+                    JLabel nameLabel = new JLabel(namePokemon, SwingConstants.CENTER);
+                    panel.add(nameLabel, BorderLayout.CENTER);
+                    JPanel movesPanel = new JPanel(new GridLayout(2, 1));
+                    movesPanel.setOpaque(false);
+                    JPanel Arriba = new JPanel(new FlowLayout());
+                    JPanel Abajo = new JPanel(new FlowLayout());
+                    Arriba.setOpaque(false);
+                    Abajo.setOpaque(false);
+                    for (int h = 0; h < 4; h++){
+                        JButton moveButton = new JButton();
+                        moveButton.setEnabled(false);
+                        if (h % 2 == 0) Arriba.add(moveButton);
+                        else{Abajo.add(moveButton);}
+                    }
+                    movesPanel.add(Arriba);
+                    movesPanel.add(Abajo);
+
+                    panel.add(movesPanel, BorderLayout.SOUTH);
+
+                    return panel;
+            }
+        };
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
+        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
+    }
+
+}

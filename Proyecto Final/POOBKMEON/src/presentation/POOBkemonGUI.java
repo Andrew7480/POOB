@@ -10,13 +10,16 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.event.*;
 
+import presentation.Pokedex.*;
+import presentation.ModesOfGame.*;
+
 public class POOBkemonGUI extends JFrame {
     private JMenuItem leave;
     private JMenuItem save;
     private JMenuItem openBattle;
     private JFileChooser fileChooser;
-    protected CardLayout cardLayout;
-    protected JPanel panelContenedor;
+    public CardLayout cardLayout;
+    public JPanel panelContenedor;
     private PokedexPanel pokedexPanelPrueba;
     protected ModePlayerVSPlayer playerVSplayerPanel;
     protected ModePlayerVsMachine playerVsMachinePanel;
@@ -30,9 +33,9 @@ public class POOBkemonGUI extends JFrame {
     private JPanel modesOfGameNormal;
     private JPanel modesOfGameSurvival;
 
-    protected POOBkemon domain = new POOBkemon();
-    protected TreeMap<String,Pokemon> pokemones;
-    protected TreeMap<String, Movement> movimientos;
+    public POOBkemon domain = new POOBkemon();
+    public TreeMap<String,Pokemon> pokemones;
+    public TreeMap<String, Movement> movimientos;
 
     private static final Color STANDARD_COLOR = new Color(70, 130, 180);
     private static final Color EXTERNAL_COLOR = new Color(30, 30, 180);

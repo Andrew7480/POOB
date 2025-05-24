@@ -335,7 +335,8 @@ public class POOBkemonTest implements Serializable {
             Pokemon gardevoir1 = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA,282);
             Pokemon slaking1 = new Pokemon("Slaking",100,504,460,273,328,284,273,PokemonType.NORMAL,null,289);
             Pokemon metagross1 = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO,376);
-                        
+        
+
             poobkemon.addPokemon(charizard);
             poobkemon.addPokemon(snorlax);
             poobkemon.addPokemon(blastoise);
@@ -362,6 +363,7 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(ursaring);
             poobkemon.addPokemon(blaziken);
             poobkemon.addPokemon(slaking);
+
 
             /* 
             poobkemon.addPokemon(charizard1);
