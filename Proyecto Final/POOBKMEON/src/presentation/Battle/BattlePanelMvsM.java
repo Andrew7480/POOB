@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import domain.PoobkemonException;
-import presentation.POOBkemonGUI.CustomHealthBar;
-import presentation.POOBkemonGUI;
+import presentation.*;
+import presentation.helpers.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -174,13 +174,13 @@ public class BattlePanelMvsM extends JPanel {
 
     public void gameEnd(){
         if (pooBkemonGUI.domain.GameIsOVer()){
-            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
-            pooBkemonGUI.changePanel("inicio");
             pooBkemonGUI.resetBattles();
             pooBkemonGUI.domain.endBattle();
+            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
+            pooBkemonGUI.changePanel("inicio");
         }  
-        
     }
+    
     public void actualizar(){
         actualizarColor(); 
         actualizarBar();
@@ -265,7 +265,7 @@ public class BattlePanelMvsM extends JPanel {
         nameLabel.setBounds(20, 10, 200, 20);
         innerPanel.add(nameLabel);
         
-        CustomHealthBar healthBar = pooBkemonGUI.createHealthBar(maxHealth);
+        CustomHealthBar healthBar = new CustomHealthBar(0, maxHealth);
         healthBar.setValue(health);
         healthBar.setBounds(60, 40, 180, 15);
         innerPanel.add(healthBar);
@@ -294,7 +294,6 @@ public class BattlePanelMvsM extends JPanel {
         }
         return statsPanel;
     }
-
 
     public void setPokemonNames(String playerPokemonName, String opponentPokemonName, int playerLevel, int opponentLevel) {
         playerNameLabel.setText(playerPokemonName + " Nv." + playerLevel);

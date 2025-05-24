@@ -2,10 +2,12 @@ package presentation.ModesOfGame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import presentation.POOBkemonGUI;
+
+import presentation.*;
 import presentation.Datos.DatosMachine;
 import presentation.Battle.BattlePanelMvsM;
 import presentation.Selection.SelectionFinalMachines;
+
 public class ModeMachineVsMachine extends JPanel {
     private POOBkemonGUI pooBkemonGUI;
     private CardLayout cardLayout;

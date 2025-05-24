@@ -161,9 +161,9 @@ public abstract class Movement implements Attackable, Serializable{
      */
     public void AttackToStruggle(Pokemon attacker, Pokemon target){
         try{
-            int newValueAttacker = (doAttackTo(attacker, target)); //mirar desespspps
+            int newValueAttacker = (doAttackTo(attacker, target))/2; //hace la mitad
             attacker.losePS(newValueAttacker);
-
+            PP ++;
         }
         catch (PoobkemonException e){
             e.getMessage();

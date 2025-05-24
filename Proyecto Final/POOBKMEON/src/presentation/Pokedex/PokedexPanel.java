@@ -1,9 +1,11 @@
 package presentation.Pokedex;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import presentation.POOBkemonGUI;
+import presentation.*;
+
 public class PokedexPanel extends JPanel {
     private static final String POKEMONES = "src/resources/";
     private static final String TYPES = "resources/types/";

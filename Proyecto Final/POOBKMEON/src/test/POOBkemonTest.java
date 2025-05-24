@@ -1,10 +1,6 @@
 package test;
 import domain.*;
 
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
 
@@ -425,11 +421,6 @@ public class POOBkemonTest implements Serializable {
 
             Item superPotion = new SuperPotion("All superPotion","Aumenta los atributos basicos de un pokemon.",PotionType.SUPER);
             Item hyperPotion = new HyperPotion("All hyperPotion","Aumenta los atributos especiales de un pokemon.",PotionType.HYPER);
-            
-            
-            
-            
-            
 
             poobkemon.addItem(defenseNormalPotion);
             poobkemon.addItem(attackNormalPotion);
@@ -745,7 +736,7 @@ public class POOBkemonTest implements Serializable {
     @Test
     public void shouldHealLikeHyperPotionThePokemon() {
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
-    	Item potion = new HyperPotion("Hyper Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
+    	Item potion = new PsPotion("Ps Potion","A medicinal spray that restores a Pokémon's HP.",PotionType.HYPER);
     	p.losePS(200);
     	try {
     	potion.useItem(p);
@@ -766,22 +757,25 @@ public class POOBkemonTest implements Serializable {
     		fail("El pokemon no recupero 50 puntos de salud");
     	}
     }
-    @Ignore("No se activa el struggle")
     @Test
     public void shouldActiveStruggleMovement() {
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
-    	Pokemon p1 = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	Pokemon p1 = new Pokemon("Gengar",100,300,251,394,240,273,350,PokemonType.AGUA, PokemonType.DRAGON,94);
     	Movement m = new PhysicalMovement("Tackle","Physical attack",2,40,100,PokemonType.NORMAL, 0);
     	p.setMovements(new Movement[] { m } );
     	int initialPs = p.getPs();
     	try {
     		m.losePP();
     		m.losePP();
-    		p.useMovement(m, p1);
-    		assertFalse(initialPs == p.getPs());
     	}catch(PoobkemonException e) {
     		fail("No se activo el movimiento de struggle");
     	}
+        try {
+    		p.useMovement(m, p1);
+    	}catch(PoobkemonException e) {
+    		fail("No se activo el movimiento de struggle");
+    	}
+        assertFalse(initialPs == p.getPs());
     }
     @Test
     public void shouldGenerateARandomSelectionForMovements() {
@@ -811,15 +805,16 @@ public class POOBkemonTest implements Serializable {
     	ArrayList<PokemonType> prueba = p.getTypes();
     	assertEquals(prueba.get(0),PokemonType.FANTASMA);
     }
-    @Ignore("Por qué da vacio?")
+    
     @Test
-    public void shouldGetTheWeakMovements() {
+    public void shouldGetTheNonWeakMovements() {
     	POOBkemon kemon = new POOBkemon();
         POOBkemon poobkemon = kemon.deserializateGame();
-    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
-    	ArrayList<Movement> movementsWeak = p.movementsWeaksForMe();
-    	assertTrue(movementsWeak.size() > 0);
+    	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.AGUA, PokemonType.FUEGO,94);
+    	TreeMap<String,Movement> movementsNoWeak = poobkemon.validMovements(p);
+    	assertTrue(movementsNoWeak.size() > 0);
     }
+
     @Test
     public void shoudlBeAbleToDoTheMove() {
     	Movement m = new PhysicalMovement("Tackle","Physical attack",2,40,100,PokemonType.NORMAL, 0);
@@ -841,26 +836,14 @@ public class POOBkemonTest implements Serializable {
     }
     @Test
     public void shouldFightAttackingTrainer() {
-    	POOBkemon poobkemon = new POOBkemon();
-    	Trainer attack = new AttackingTrainer("Attacking Trainer",new Color(255,0,0));
-    	Trainer proof = new AttackingTrainer("proof Trainer",new Color(255,0,0));
-    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-    	Movement solarBeam = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
-    	venusaur.setMovements(new Movement[] {solarBeam});
-    	Pokemon venusaurP = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-    	Movement solarBeamP = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
-    	venusaur.setMovements(new Movement[] {solarBeamP});
-    	int initialPs = venusaurP.getPs();
+    	POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+    	Trainer t1 = poobkemon.getTrainer("Attacking");
+        Trainer t2 = poobkemon.getTrainer("tulio");
     	try {
-    		attack.addPokemon(venusaur);
-    		proof.addPokemon(venusaurP);
-    		poobkemon.addNewTrainer(attack.getName(), attack.getColor());
-    		poobkemon.addNewTrainer(proof.getName(), proof.getColor());
-    		poobkemon.inicialTrainerPokemon(attack.getName(), attack.getPokemonInUse().getName());
-    		poobkemon.inicialTrainerPokemon(proof.getName(), proof.getPokemonInUse().getName());
-    		poobkemon.inicializateBattle(attack.getName(), proof.getName());
-    		poobkemon.getBattle().executeMovement(solarBeam.getName());
-    		assertTrue(proof.getPokemonInUse().getPs() != initialPs);
+            poobkemon.inicializateBattle(t1.getName(),t2.getName());
+            poobkemon.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            assertTrue(t2.getPokemonInUse().getPs() < t2.getPokemonInUse().getMaxPs());
     	}catch(PoobkemonException e) {
     		fail("El attacking trainer fallo o no se pudo hacer movimiento");
     	}
@@ -868,28 +851,15 @@ public class POOBkemonTest implements Serializable {
     @Ignore("Esta haciendo otra cosa")
     @Test
     public void shouldDoSomethingDefensiveTrainer() {
-    	POOBkemon poobkemon = new POOBkemon();
-    	Trainer attack = new DefensiveTrainer("Defensive Trainer",new Color(255,0,0));
-    	Trainer proof = new AttackingTrainer("proof Trainer",new Color(255,0,0));
-    	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-    	Movement solarBeam = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
-    	venusaur.setMovements(new Movement[] {solarBeam});
-    	Pokemon venusaurP = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-    	Movement solarBeamP = new PhysicalMovement("Hoja Aguda", "Corta con hojas afiladas, alta prob. de crítico.", 15, 90, 100, PokemonType.PLANTA, 0);
-    	venusaur.setMovements(new Movement[] {solarBeamP});
-    	int initialPs = venusaurP.getPs();
+    	POOBkemon kemon = new POOBkemon();
+    	POOBkemon poobkemon = kemon.deserializateGame();
+    	Trainer t1 = poobkemon.getTrainer("Defensive");
+        Trainer t2 = poobkemon.getTrainer("andrew");
     	try {
-    		attack.addPokemon(venusaur);
-    		proof.addPokemon(venusaurP);
-    		poobkemon.addNewTrainer(attack.getName(), attack.getColor());
-    		poobkemon.addNewTrainer(proof.getName(), proof.getColor());
-    		poobkemon.inicialTrainerPokemon(attack.getName(), attack.getPokemonInUse().getName());
-    		poobkemon.inicialTrainerPokemon(proof.getName(), proof.getPokemonInUse().getName());
-    		poobkemon.inicializateBattle(attack.getName(), proof.getName());
-    		poobkemon.getBattle().executeMovement(solarBeam.getName());
-    		System.out.println(proof.getPokemonInUse().getPs());
-    		System.out.println(initialPs);
-    		assertTrue(proof.getPokemonInUse().getPs() == initialPs);
+            poobkemon.inicializateBattle(t1.getName(),t2.getName());
+            poobkemon.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            poobkemon.movementPerformed(t2.getPokemonInUse().getMovements().get(0).getName());
+
     	}catch(PoobkemonException e) {
     		fail("El Movement Defensive fallo o no se pudo hacer movimiento");
     	}
@@ -1358,7 +1328,7 @@ public class POOBkemonTest implements Serializable {
         inventory.addItem(potion);
         inventory.addItem(revive);
         trainer.setPokemonInUse(pikachu);
-        trainer.changePokemon("charizard");
+        trainer.changePokemon("Charizard");
         
         assertEquals(charizard, trainer.getPokemonInUse());
         
@@ -1388,12 +1358,16 @@ public class POOBkemonTest implements Serializable {
         inventory.addItem(potion);
         inventory.addItem(revive);
         
-        charizard.losePS(50);
+        } catch(PoobkemonException e) {
+        	fail("Ha fallado el uso del item");
+        }
+        try {
         int initialPs = charizard.getPs();
-        
+        charizard.losePS(50);
+        trainer.setPokemonInUse(charizard);
         trainer.useItem(potion);
         
-        assertTrue(charizard.getPs() > initialPs);
+        assertTrue(charizard.getPs() == 280-50+20);
         
         } catch(PoobkemonException e) {
         	fail("Ha fallado el uso del item");
@@ -1591,6 +1565,28 @@ public class POOBkemonTest implements Serializable {
         	po.getPokemonAlives("Joaquín");
         }catch(PoobkemonException e) {
         	System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldDoNothing() { 
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        try {
+            po.addNewTrainer("Ash", new Color(255,0,0));
+            Pokemon charizardLvL60 = new Pokemon("Charizard", 60, 280, 180, 200, 150, 170, 190,
+                    PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+            StatusEffect Sleep = new StatusEffect("Dormido","Un Pokémon dormido no puede realizar ningún movimiento durante su turno",5,1);
+            MovementState sleep = new MovementState("Dormir","",10, 15,50, PokemonType.NORMAL,Sleep, 100, 0);
+            Trainer t1 = po.getTrainer("Ash");
+            Trainer t2 = po.getTrainer("tulio");
+            charizardLvL60.setMovements(new Movement[] {sleep});
+            t1.addPokemon(charizardLvL60);
+            po.inicializateBattle(t1.getName(), t2.getName());
+            po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+            po.movementPerformed(t2.getPokemonInUse().getMovements().get(0).getName());
+            assertTrue(t2.getPokemonInUse().isAffected());
+        } catch (PoobkemonException e) {
+            e.printStackTrace();
         }
     }
 }

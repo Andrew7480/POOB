@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import presentation.POOBkemonGUI;
+import presentation.*;
 import presentation.ModesOfGame.ModeMachineVsMachine;
 import presentation.Selection.SelectionMovementsPanel;
 

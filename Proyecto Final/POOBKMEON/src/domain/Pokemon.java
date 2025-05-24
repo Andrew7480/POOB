@@ -2,6 +2,8 @@ package domain;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class Pokemon implements Serializable {
     private String name;
     private int level;
@@ -23,7 +25,7 @@ public class Pokemon implements Serializable {
     private ArrayList<TributeEffect> tributeEffects;
     private StatusEffect statusEffect;
     //Por defecto todos los pokemones tienen este movimiento
-    private Movement struggle = new PhysicalMovement("Struggle","A desperate attack that also hurts the user",0,50,100,getPrincipalType(),0);
+    private Movement struggle = new PhysicalMovement("Struggle","A desperate attack that also hurts the user",1,50,100,PokemonType.NORMAL,0);
 
     /**
      * Constructor for creating a new Pokemon
@@ -249,8 +251,7 @@ public class Pokemon implements Serializable {
      * @throws PoobkemonException If the movement already exists or is invalid for this Pokemon
      */
     public void addMovement(Movement mov) throws PoobkemonException{
-        HashSet<Movement> movementsDontValid = new HashSet<>(movementsWeaksForMe());
-        if (movements.contains(mov) || movementsDontValid.contains(mov)) {
+        if (movements.contains(mov) || mov.getMultiplicator(principalType)>1.0) {
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         }
         movements.add(mov);
@@ -542,7 +543,7 @@ public class Pokemon implements Serializable {
             }
         }
     
-        if (havePPForAllMovement()){actionF(target);} //seria mostrar ese movimiento, no que ejecute de una
+        if (havePPForAllMovement()){actionF(target);return;}
         System.out.println(name +" ha usado: "+ movimiento.getName());
         movimiento.doAttackTo(this, target);
     }
@@ -672,12 +673,13 @@ public class Pokemon implements Serializable {
            principalType.equals(pokemon.getPrincipalType()) &&
            (secondaryType == null ? pokemon.getSecondaryType() == null : secondaryType.equals(pokemon.getSecondaryType()));
     }
-
+ 
     /**
      * Gets movements that are weak against this Pokemon's type
      * 
      * @return ArrayList of Movement objects that are weak against this Pokemon
      */
+/*    
     public ArrayList<Movement> movementsWeaksForMe(){
         ArrayList<Movement> movementsWeak = new ArrayList<>();
         for (int i = 0; i < movements.size(); i++){
@@ -687,7 +689,7 @@ public class Pokemon implements Serializable {
         }
         return movementsWeak;
     }
-
+*/
     /**
      * Creates a copy of this Pokemon
      * 
