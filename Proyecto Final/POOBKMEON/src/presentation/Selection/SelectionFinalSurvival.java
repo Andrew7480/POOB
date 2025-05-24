@@ -20,8 +20,8 @@ public class SelectionFinalSurvival extends JPanel {
     protected String secondName;
     private ModePlayerVSPlayerSurvival gameMode;
 
-    private SelectionMovementsPanel selection1;
-    private SelectionMovementsPanel selection2;
+    private SelectionMovementsPanel selectionOne;
+    private SelectionMovementsPanel selectionTwo;
 
     private JButton doneButton;
     private JButton come;
@@ -37,10 +37,10 @@ public class SelectionFinalSurvival extends JPanel {
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-        selection1 = personalizateMovements();
-        selection2 = personalizateMovements();
-        temp.add(selection1);
-        temp.add(selection2);
+        selectionOne = personalizateMovements();
+        selectionTwo = personalizateMovements();
+        temp.add(selectionOne);
+        temp.add(selectionTwo);
         add(temp, BorderLayout.CENTER);
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
@@ -72,10 +72,10 @@ public class SelectionFinalSurvival extends JPanel {
     }
 
     public void inicializar(){
-        selection1.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.firstName).getInventory().getPokemonsName());
-        selection1.setColor(new Color(0,0,255));
-        selection2.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.secondName).getInventory().getPokemonsName());
-        selection2.setColor(new Color(255,0,0));
+        selectionOne.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.firstName).getInventory().getPokemonsName());
+        selectionOne.setColor(new Color(0,0,255));
+        selectionTwo.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.secondName).getInventory().getPokemonsName());
+        selectionTwo.setColor(new Color(255,0,0));
     }
 
 

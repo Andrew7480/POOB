@@ -12,8 +12,8 @@ public class SelectionFinalMachines extends JPanel {
     private JButton doneButton; 
     private ModeMachineVsMachine gameMode;
 
-    private SelectionMovementsPanel selection1;
-    private SelectionMovementsPanel selection2;
+    private SelectionMovementsPanel selectionOne;
+    private SelectionMovementsPanel selectionTwo;
 
     private ArrayList<String> pokemonesChosen;
     private ArrayList<String> pokemonesChosenTwo;
@@ -30,10 +30,10 @@ public class SelectionFinalMachines extends JPanel {
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-        selection1 = personalizateMovements();
-        selection2 = personalizateMovements();
-        temp.add(selection1);
-        temp.add(selection2);
+        selectionOne = personalizateMovements();
+        selectionTwo = personalizateMovements();
+        temp.add(selectionOne);
+        temp.add(selectionTwo);
         add(temp, BorderLayout.CENTER);
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
@@ -66,10 +66,10 @@ public class SelectionFinalMachines extends JPanel {
     }
 
     public void inicializar(){
-        selection1.infoSelectedPokemons(po.domain.getPokemonAlives(gameMode.datos.machineTrainerFirst));
-        selection1.setColor(gameMode.colorPlayerOne);
-        selection2.infoSelectedPokemons(po.domain.getPokemonAlives(gameMode.datos.machineTrainerSecond));
-        selection2.setColor(gameMode.colorPlayerTwo);
+        selectionOne.infoSelectedPokemons(po.domain.getPokemonAlives(gameMode.datos.machineTrainerFirst));
+        selectionOne.setColor(gameMode.colorPlayerOne);
+        selectionTwo.infoSelectedPokemons(po.domain.getPokemonAlives(gameMode.datos.machineTrainerSecond));
+        selectionTwo.setColor(gameMode.colorPlayerTwo);
     }
     private SelectionMovementsPanel personalizateMovements(){
         return new SelectionMovementsPanel(po) {

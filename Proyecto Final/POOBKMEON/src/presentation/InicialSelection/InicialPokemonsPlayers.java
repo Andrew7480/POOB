@@ -16,8 +16,8 @@ public class InicialPokemonsPlayers extends JPanel {
     private JButton doneButton; 
     private ModePlayerVSPlayer gameMode;
 
-    private SelectionInicialPokemons selection1;
-    private SelectionInicialPokemons selection2;
+    private SelectionInicialPokemons selectionOne;
+    private SelectionInicialPokemons selectionTwo;
 
 
     public InicialPokemonsPlayers(POOBkemonGUI pooBkemonGUI, ModePlayerVSPlayer father){
@@ -33,11 +33,11 @@ public class InicialPokemonsPlayers extends JPanel {
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-        selection1 = new SelectionInicialPokemons(po);
-        selection2 = new SelectionInicialPokemons(po);
+        selectionOne = new SelectionInicialPokemons(po);
+        selectionTwo = new SelectionInicialPokemons(po);
 
-        temp.add(selection1);
-        temp.add(selection2);
+        temp.add(selectionOne);
+        temp.add(selectionTwo);
 
         add(temp, BorderLayout.CENTER);
 
@@ -61,19 +61,19 @@ public class InicialPokemonsPlayers extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (selection1.sizeChosenPokemon() < 1 || selection2.sizeChosenPokemon() < 1){
-                        JOptionPane.showMessageDialog(InicialPokemonsPlayers.this, "Debes escoger " + selection1.MAX_CHANGED + "pokemon para iniciar la batalla", 
+                    if (selectionOne.sizeChosenPokemon() < 1 || selectionTwo.sizeChosenPokemon() < 1){
+                        JOptionPane.showMessageDialog(InicialPokemonsPlayers.this, "Debes escoger " + selectionOne.MAX_CHANGED + "pokemon para iniciar la batalla", 
                         "Límite excedido", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
-                    if (selection1.sizeChosenPokemon() > selection1.MAX_CHANGED || selection2.sizeChosenPokemon() > selection2.MAX_CHANGED){
-                        JOptionPane.showMessageDialog(InicialPokemonsPlayers.this, "Solo puedes escoger uno para cambiar " + selection1.MAX_CHANGED + "pokemon", 
+                    if (selectionOne.sizeChosenPokemon() > selectionOne.MAX_CHANGED || selectionTwo.sizeChosenPokemon() > selectionTwo.MAX_CHANGED){
+                        JOptionPane.showMessageDialog(InicialPokemonsPlayers.this, "Solo puedes escoger uno para cambiar " + selectionOne.MAX_CHANGED + "pokemon", 
                         "Límite excedido", JOptionPane.WARNING_MESSAGE);
 
                         return;
                     }
                     
-                    gameMode.inicializateBattle(selection1.getColor(),selection2.getColor(), selection1.getPokemonChoosed(), selection2.getPokemonChoosed());
+                    gameMode.inicializateBattle(selectionOne.getColor(),selectionTwo.getColor(), selectionOne.getPokemonChoosed(), selectionTwo.getPokemonChoosed());
                     gameMode.actualizar();
                     gameMode.changePanel("Battle");
                 } catch (Exception ex) {
@@ -97,16 +97,16 @@ public class InicialPokemonsPlayers extends JPanel {
     }
 
     public void inicializate(Color color1, ArrayList<String> pok1, Color color2, ArrayList<String> pok2){
-        selection1.inicializate(pok1, color1);
-        selection2.inicializate(pok2, color2);
+        selectionOne.inicializate(pok1, color1);
+        selectionTwo.inicializate(pok2, color2);
 
     }
     
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion movimientos dos players");
-        selection1.reset();
-        selection2.reset();
+        selectionOne.reset();
+        selectionTwo.reset();
         repaint();
         revalidate();
     }

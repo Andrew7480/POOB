@@ -15,17 +15,17 @@ public class DatosMachine extends JPanel{
     private JButton btnRegresar;
     private JButton continueButton;
     private TreeMap<String,String> gameModes;
-    private ArrayList<String> gameModeChoosen1;
-    private ArrayList<String> gameModeChoosen2;
-    private ArrayList<JButton> buttons1;
-    private ArrayList<JButton> buttons2;
-    private JButton buttonTrainer1;
-    private JButton buttonTrainer2;
+    private ArrayList<String> gameModeChoosenOne;
+    private ArrayList<String> gameModeChoosenTwo;
+    private ArrayList<JButton> buttonsOne;
+    private ArrayList<JButton> buttonsTwo;
+    private JButton buttonTrainerOne;
+    private JButton buttonTrainerTwo;
     public String machineTrainerFirst;
     public String machineTrainerSecond;
     private String[] paths;
-    private int indexPath1 = 0;
-    private int indexPath2 = 0;
+    private int indexPathOne = 0;
+    private int indexPathTwo = 0;
     private JPanel chooseDifficulty;
     private ModeMachineVsMachine gameMode;
 
@@ -49,10 +49,10 @@ public class DatosMachine extends JPanel{
             put("Attacking", "/resources/Attacking.jpeg");
         }};
         paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png"};
-        gameModeChoosen1 = new ArrayList<>();
-        gameModeChoosen2 = new ArrayList<>();
-        buttons1 = new ArrayList<>();
-        buttons2 = new ArrayList<>();
+        gameModeChoosenOne = new ArrayList<>();
+        gameModeChoosenTwo = new ArrayList<>();
+        buttonsOne = new ArrayList<>();
+        buttonsTwo = new ArrayList<>();
 
         continueButton = new JButton("Continue");
         po.styleButton(continueButton);
@@ -88,15 +88,15 @@ public class DatosMachine extends JPanel{
     }
 
     private void confirmMachinesInfo(){
-        if (gameModeChoosen1.size() != 1 || gameModeChoosen2.size() != 1) {
+        if (gameModeChoosenOne.size() != 1 || gameModeChoosenTwo.size() != 1) {
             JOptionPane.showMessageDialog(DatosMachine.this,
                             "Error",
                             "Selection Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
-            machineTrainerFirst = gameModeChoosen1.get(0);
-            machineTrainerSecond = gameModeChoosen2.get(0);
+            machineTrainerFirst = gameModeChoosenOne.get(0);
+            machineTrainerSecond = gameModeChoosenTwo.get(0);
             chosenOne.infoSelectedPokemons(po.domain.getPokemonAlives(machineTrainerFirst));
             chosenTwo.infoSelectedPokemons(po.domain.getPokemonAlives(machineTrainerSecond));
         } catch (Exception ex) {
@@ -146,12 +146,12 @@ public class DatosMachine extends JPanel{
 
         JButton trainerButton;
         if (trainerNum == 1) {
-            buttonTrainer1 = createImageButton("Trainer1", paths[0]);
-            trainerButton = buttonTrainer1;
+            buttonTrainerOne = createImageButton("Trainer1", paths[0]);
+            trainerButton = buttonTrainerOne;
             trainerButton.addActionListener(e -> cambiarTrainer(1));
         } else {
-            buttonTrainer2 = createImageButton("Trainer2", paths[0]);
-            trainerButton = buttonTrainer2;
+            buttonTrainerTwo = createImageButton("Trainer2", paths[0]);
+            trainerButton = buttonTrainerTwo;
             trainerButton.addActionListener(e -> cambiarTrainer(2));
         }
 
@@ -170,10 +170,10 @@ public class DatosMachine extends JPanel{
             po.styleButton(button);
 
             if (trainerNum == 1) {
-                buttons1.add(button);
+                buttonsOne.add(button);
                 button.addActionListener(e -> selectionGameMode(button, 1));
             } else {
-                buttons2.add(button);
+                buttonsTwo.add(button);
                 button.addActionListener(e -> selectionGameMode(button, 2));
             }
 
@@ -185,26 +185,26 @@ public class DatosMachine extends JPanel{
 
     private void cambiarTrainer(int trainerNum) {
         if (trainerNum == 1) {
-            indexPath1 = (indexPath1 + 1) % paths.length;
+            indexPathOne = (indexPathOne + 1) % paths.length;
             try {
-                ImageIcon icon = new ImageIcon(getClass().getResource(paths[indexPath1]));
+                ImageIcon icon = new ImageIcon(getClass().getResource(paths[indexPathOne]));
                 Image scaledImage = icon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-                buttonTrainer1.setIcon(new ImageIcon(scaledImage));
-                buttonTrainer1.setToolTipText("Trainer: " + paths[indexPath1]);
+                buttonTrainerOne.setIcon(new ImageIcon(scaledImage));
+                buttonTrainerOne.setToolTipText("Trainer: " + paths[indexPathOne]);
             } catch (Exception e) {
-                buttonTrainer1.setText("No imagen??");
-                buttonTrainer1.setIcon(null);
+                buttonTrainerOne.setText("No imagen??");
+                buttonTrainerOne.setIcon(null);
             }
         } else {
-            indexPath2 = (indexPath2 + 1) % paths.length;
+            indexPathTwo = (indexPathTwo + 1) % paths.length;
             try {
-                ImageIcon icon = new ImageIcon(getClass().getResource(paths[indexPath2]));
+                ImageIcon icon = new ImageIcon(getClass().getResource(paths[indexPathTwo]));
                 Image scaledImage = icon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-                buttonTrainer2.setIcon(new ImageIcon(scaledImage));
-                buttonTrainer2.setToolTipText("Trainer: " + paths[indexPath2]);
+                buttonTrainerTwo.setIcon(new ImageIcon(scaledImage));
+                buttonTrainerTwo.setToolTipText("Trainer: " + paths[indexPathTwo]);
             } catch (Exception e) {
-                buttonTrainer2.setText("No imagen??");
-                buttonTrainer2.setIcon(null);
+                buttonTrainerTwo.setText("No imagen??");
+                buttonTrainerTwo.setIcon(null);
             }
         }
     }
@@ -242,8 +242,8 @@ public class DatosMachine extends JPanel{
     }
 
     private void selectionGameMode(JButton button, int trainerNum) {
-        ArrayList<String> gameModeChoosen = (trainerNum == 1) ? gameModeChoosen1 : gameModeChoosen2;
-        ArrayList<JButton> buttons = (trainerNum == 1) ? buttons1 : buttons2;
+        ArrayList<String> gameModeChoosen = (trainerNum == 1) ? gameModeChoosenOne : gameModeChoosenTwo;
+        ArrayList<JButton> buttons = (trainerNum == 1) ? buttonsOne : buttonsTwo;
         for (JButton b : buttons) {
             b.setBackground(null);
             b.setOpaque(false);
