@@ -1588,4 +1588,56 @@ public class POOBkemonTest implements Serializable {
             e.printStackTrace();
         }
     }
+    @Test
+    public void shouldGetTheStatusEffect() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        TributeEffect paraly  = new TributeEffect("Efecto de paralizar ", "Reduce la velocidad", 2,new HashMap<String,Integer>(){{
+            put("Velocity",-50);}});
+        StatusEffect Paralyze = new StatusMovil("Paralisis", "Paralisa al pokemon reduciendo su velocidad.", 2,paraly,0.75);
+        try {
+        	Paralyze.affectPokemon(po.getPokemon("Charizard"));
+        	paraly.affectPokemon(po.getPokemon("Raichu"));
+        }catch(PoobkemonException e) {
+        	fail(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldGetInformationAboutInventoryOfATrainer() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        ArrayList<String> prue = t1.getInventory().getDeadCurrentPokemons();
+        assertFalse(prue.size() > 0);
+    }
+    @Test
+    public void shouldGetCurrentAlivePokemonsAndGetThePokemon() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        ArrayList<Pokemon> prue = t1.getInventory().getAlivePokemons();
+        ArrayList<String> pro = t1.getInventory().getCurrentAlivePokemons();
+        ArrayList<Pokemon> actualPokemon = t1.getInventory().getAlivePokemons(t1.getInventory().getAlivePokemons().get(0));
+        ArrayList<String> a = t1.getInventory().getCurrentAlivePokemonsWithoutCurrent(t1.getInventory().getAlivePokemons().get(0));
+        assertTrue(prue.size() > 0);
+        assertTrue(pro.size() > 0);
+    }
+
+    @Test
+    public void shouldFightExpertTrainer() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("Expert");
+        Trainer t2 = po.getTrainer("tulio");
+        Trainer t3 = po.getTrainer("Defensive");
+        po.inicializateBattle(t1.getName(), t2.getName());
+        try {
+        	t1.decide(t1.getPokemonInUse());
+        	t3.decide(t3.getPokemonInUse());
+        	po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+        }catch(PoobkemonException e) {
+        	fail(e.getMessage());
+        }
+    }
+
 }

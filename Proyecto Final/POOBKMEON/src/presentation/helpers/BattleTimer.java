@@ -4,23 +4,15 @@ import javax.swing.Timer;
 import javax.swing.JLabel;
 import presentation.POOBkemonGUI;
 
-public class BattleTimer {
-    private Timer battleTimer;
+public abstract class BattleTimer {
+    protected Timer battleTimer;
     private POOBkemonGUI pooBkemonGUI;
-    private JLabel tiempoLabel;
 
-    public BattleTimer(POOBkemonGUI poobkemonjGUi, JLabel label) {
-        this.pooBkemonGUI = poobkemonjGUi;
-        this.tiempoLabel = label;
+    public BattleTimer(POOBkemonGUI poobkemonjGUi) {
+        pooBkemonGUI = poobkemonjGUi;
     }
 
-    public void iniciarTemporizadorDeBatalla() {
-        battleTimer = new Timer(1000, e -> {
-            pooBkemonGUI.domain.reduceTimeBattle(); 
-            tiempoLabel.setText("" + pooBkemonGUI.domain.getTurnTimer());
-        });
-        battleTimer.start();
-    }
+    public abstract void iniciarTemporizadorDeBatalla();
 
     public void detenerTemporizadorDeBatalla() {
         if (battleTimer != null) battleTimer.stop();

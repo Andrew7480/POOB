@@ -138,15 +138,21 @@ public class Battle implements Serializable {
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
         if (lastAction.equals("Ya decidi")) {
-            lastAction = opponent.decide(current.getPokemonInUse());
-            if (lastAction.equals("Ya decidi")){
+
+            new javax.swing.Timer(4000, e -> {
+                lastAction = opponent.decide(current.getPokemonInUse());
+                if (lastAction.equals("Ya decidi")){
                 advanceTurn();
             }
+            ((javax.swing.Timer) e.getSource()).stop();
+            }).start();    
+
         }
         else{
             advanceTurn();
         }
     }
+
     public ArrayList<String> getDeadCurrentPokemons(){
         return getCurrentTrainer().getDeadCurrentPokemons();
     }

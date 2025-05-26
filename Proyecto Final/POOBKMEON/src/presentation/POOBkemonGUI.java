@@ -384,14 +384,21 @@ public class POOBkemonGUI extends JFrame {
         };
     }
     public void resetBattles(){
-        playerVSplayerPanel.changePanel("Datos");
-        playerVSplayerPanel.reset();
-        playerVsMachinePanel.changePanel("Datos");
-        playerVsMachinePanel.reset();
-        machineVsMachinePanel.changePanel("Datos");
-        machineVsMachinePanel.reset();
-        panelPvsPSurvival.changePanel("Datos");
-        panelPvsPSurvival.reset();    
+        panelContenedor.remove(playerVSplayerPanel);
+        playerVSplayerPanel = new ModePlayerVSPlayer(this);
+        panelContenedor.add(playerVSplayerPanel,"player vs player");
+            
+        panelContenedor.remove(playerVsMachinePanel);
+        playerVsMachinePanel = new ModePlayerVsMachine(this);
+        panelContenedor.add(playerVsMachinePanel,"player vs machine");
+
+        panelContenedor.remove(machineVsMachinePanel);
+        machineVsMachinePanel = new ModeMachineVsMachine(this);
+        panelContenedor.add(machineVsMachinePanel,"machine vs machine");
+
+        panelContenedor.remove(panelPvsPSurvival);
+        panelPvsPSurvival = new ModePlayerVSPlayerSurvival(this);
+        panelContenedor.add(panelPvsPSurvival,"player vs player survival");
     }
     
     public void styleButtonExternal(JButton button) {

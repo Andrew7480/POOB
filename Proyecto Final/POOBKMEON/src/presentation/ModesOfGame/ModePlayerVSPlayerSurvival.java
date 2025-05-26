@@ -62,8 +62,9 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
             survivalBatalla.inicializate();
     }
     public void reset(){
-        //datos.reset();
-        teamsSurvival.reset();
+        datos = new DatosTwoPlayersSurvival(pooBkemonGUI,this);
+        teamsSurvival = new SelectionFinalSurvival(pooBkemonGUI, this);        
+        survivalBatalla = new BattleContainer(pooBkemonGUI);
     }
 
     public void changePanel(String namePanel){
