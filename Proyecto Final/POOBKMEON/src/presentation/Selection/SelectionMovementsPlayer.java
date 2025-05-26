@@ -91,7 +91,7 @@ public class SelectionMovementsPlayer extends JPanel {
 
     public void reset(){ 
         System.out.println("resetea todo de la seleccion movimientos dos players");
-        selection.resetPokemonChosen();
+        selection.reset();
         repaint();
         revalidate();
     }

@@ -43,7 +43,7 @@ public class AttackingTrainer extends MachineTrainer {
                 
                 bestAttackMovement.doAttackTo(actualPokemon, target);}
             catch(PoobkemonException i){
-                System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());
+                BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());
                 
             }
             return bestAttackMovement.getName();
@@ -52,7 +52,7 @@ public class AttackingTrainer extends MachineTrainer {
         try{
             bestAttackMovement.doAttackTo(actualPokemon, target);}
         catch(PoobkemonException i){
-            System.out.println("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());            
+            BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());    
         }
         return bestAttackMovement.getName();
     }

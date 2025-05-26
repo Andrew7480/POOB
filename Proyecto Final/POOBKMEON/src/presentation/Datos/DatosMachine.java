@@ -261,6 +261,10 @@ public class DatosMachine extends JPanel{
     public JButton getContinueButton() {
         return continueButton;
     }
+    public void reset(){
+        chosenOne.reset();
+        chosenTwo.reset();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

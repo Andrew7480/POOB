@@ -848,7 +848,6 @@ public class POOBkemonTest implements Serializable {
     		fail("El attacking trainer fallo o no se pudo hacer movimiento");
     	}
     }
-    @Ignore("Esta haciendo otra cosa")
     @Test
     public void shouldDoSomethingDefensiveTrainer() {
     	POOBkemon kemon = new POOBkemon();

@@ -43,7 +43,7 @@ public class DefensiveTrainer extends MachineTrainer{
         if (bestMovementDefensive != null){
             try{bestMovementDefensive.doAttackTo(target, target);}
             catch(PoobkemonException i){
-            System.out.println("Fallo movimiento machine: "+ bestMovementDefensive.getName()+" "+i.getMessage());            
+            BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ bestMovementDefensive.getName()+" "+i.getMessage());            
         }
             return bestMovementDefensive.getName();
         }

@@ -94,9 +94,7 @@ public class Selection extends JPanel{
             ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
             Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
             button.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception e) {
-           
-        }
+        } catch (Exception e) {LogPOOBKEMON.record(e);}
         
         button.setToolTipText(name);
         button.setOpaque(false);

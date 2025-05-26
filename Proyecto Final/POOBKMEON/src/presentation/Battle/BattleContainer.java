@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 import presentation.POOBkemonGUI;
 import presentation.Battle.BattlePanel;
@@ -48,7 +49,11 @@ public class BattleContainer extends JPanel {
             changePanel("Items");
             actualizar();
         });
-
+        battle.getSacrificableButton().addActionListener(e ->{
+            actualizar();
+            sacrificar();
+            changePanel("Battle");actualizar();
+        });
         battle.getPokemonButton().addActionListener(e -> 
         {changePanel("Change");actualizar();});
         inventoryItems.getNextBJButton().addActionListener(e -> 
@@ -77,6 +82,9 @@ public class BattleContainer extends JPanel {
                 }catch(PoobkemonException h){
                     System.out.println(h.getMessage());
                 }
+                catch (Exception e) {
+                        LogPOOBKEMON.record(e);
+                    }
             }
         else{
             JOptionPane.showMessageDialog(this, "Solo puedes utilizar una poción por pókemon", "Límite excedido", JOptionPane.WARNING_MESSAGE);
@@ -115,8 +123,41 @@ public class BattleContainer extends JPanel {
         String pokemonName = inventoryPokemons.getSelectedPokemon();
         try{pooBkemonGUI.domain.actionCambiar(pokemonName);}
         catch(PoobkemonException e){System.out.println(e.getMessage());}
+        catch (Exception e) {LogPOOBKEMON.record(e);}
         System.out.println("Cambio" + pokemonName);
         
+    }
+
+        public void sacrificar(){
+        opcionSacrificarTo(pooBkemonGUI.domain.getCurrentAlivePokemonsWithoutCurrent());
+        System.out.println("Se ha sacrificado un pokemon.");
+    }
+
+    public void opcionSacrificarTo(ArrayList<String> vivos) {        
+        String[] opciones = vivos.toArray(new String[0]);
+        if (opciones.length <=0) return;
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                "Selecciona un pokemon para dar el sacrificio:",
+                "Sacrificio",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        if (seleccion != -1) {
+            JOptionPane.showMessageDialog(null, "Elegiste: " + opciones[seleccion]);
+            try{
+                pooBkemonGUI.domain.sacrificateCurentPokemon(opciones[seleccion]);
+            }
+            catch(PoobkemonException e){
+                System.out.println(e.getMessage());
+            }catch (Exception e) {LogPOOBKEMON.record(e);}
+        } else {
+            JOptionPane.showMessageDialog(null, "No elegiste ninguna opción.");
+        }
     }
 
     public void actualizar(){

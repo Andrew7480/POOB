@@ -24,7 +24,7 @@ public class PsPotion extends Potion{
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
         pokemon.gainPS(statics.getValue());
-        System.out.println("Uso de una ps potion" + statics.getValue());
+        BattleLog.getInstance().addMessage("Uso de una ps potion" + statics.getValue()+ " a " + pokemon.getName());
         if (pokemon.getPs() > pokemon.getMaxPs()){
             System.out.println("Entro al condicional de PsPotion?");
             pokemon.setPs(pokemon.getMaxPs());

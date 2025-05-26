@@ -2,6 +2,7 @@ package presentation.Battle;
 import java.awt.*;
 import javax.swing.*;
 import domain.Item;
+import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 
 import java.awt.event.*;
@@ -222,7 +223,7 @@ public class InventoryPanel extends JPanel {
                 pooBkemonGUI.domain.actionUseItem(opciones[seleccion],"revive");}
             catch(PoobkemonException e){
                 System.out.println(e.getMessage());
-            }
+            }catch (Exception e) {LogPOOBKEMON.record(e);}
         } else {
             JOptionPane.showMessageDialog(null, "No elegiste ninguna opción.");
         }
@@ -248,6 +249,7 @@ public class InventoryPanel extends JPanel {
             //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
             button.setText("No imagen");
+            LogPOOBKEMON.record(e);
         }
         editButton(button, smallSize, name);
         return button;

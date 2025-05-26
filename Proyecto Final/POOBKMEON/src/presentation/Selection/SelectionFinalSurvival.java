@@ -115,6 +115,10 @@ public class SelectionFinalSurvival extends JPanel {
             }
         };
     }
+    public void reset(){
+        selectionOne.reset();
+        selectionTwo.reset();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

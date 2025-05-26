@@ -2,6 +2,8 @@ package presentation.Battle;
 import java.util.ArrayList;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
+
+import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 import presentation.*;
 import presentation.helpers.*;
@@ -90,7 +92,7 @@ public class BattlePanelMvsM extends JPanel {
             pokemonFont = new Font("Monospaced", Font.BOLD, 14);
         } catch (Exception e) {
             pokemonFont = new Font("SansSerif", Font.BOLD, 14);
-            e.printStackTrace();
+            LogPOOBKEMON.record(e);
         }
         
         save = new JButton("SAVE GAME");
@@ -157,6 +159,9 @@ public class BattlePanelMvsM extends JPanel {
             catch(PoobkemonException h){
                 System.out.println(h.getMessage());
             }
+            catch (Exception i) {
+                LogPOOBKEMON.record(i);
+            }
             });
         save.addActionListener(e -> {
             pooBkemonGUI.saveBattle();
@@ -174,10 +179,10 @@ public class BattlePanelMvsM extends JPanel {
 
     public void gameEnd(){
         if (pooBkemonGUI.domain.GameIsOVer()){
+            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
+            pooBkemonGUI.changePanel("inicio"); 
             pooBkemonGUI.resetBattles();
             pooBkemonGUI.domain.endBattle();
-            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
-            pooBkemonGUI.changePanel("inicio");
         }  
     }
     

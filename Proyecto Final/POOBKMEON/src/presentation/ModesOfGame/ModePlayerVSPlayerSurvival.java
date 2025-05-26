@@ -61,6 +61,10 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
             pooBkemonGUI.domain.inicializateBattle(player1Name, player2Name);
             survivalBatalla.inicializate();
     }
+    public void reset(){
+        //datos.reset();
+        teamsSurvival.reset();
+    }
 
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);

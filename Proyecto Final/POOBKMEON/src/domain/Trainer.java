@@ -75,6 +75,9 @@ public abstract class Trainer implements Serializable{
     public ArrayList<String> getCurrentAlivePokemons(){
         return inventory.getCurrentAlivePokemons();
     }
+    public ArrayList<String> getCurrentAlivePokemonsWithoutCurrent(){
+        return inventory.getCurrentAlivePokemonsWithoutCurrent(actualPokemon);
+    }
     
     /**
      * Checks if the trainer can still participate in battle
@@ -96,7 +99,16 @@ public abstract class Trainer implements Serializable{
     public void pokemonMovement(Movement mov, Pokemon target) throws PoobkemonException{ //ya no se necesita?
         actualPokemon.useMovement(mov, target);
     }
+    public boolean isSacrificable() throws PoobkemonException{
+        if (actualPokemon == null) throw new  PoobkemonException(PoobkemonException.POKEMON_NOT_FOUND);
+        return actualPokemon.isSacrificable();
+    }
     
+    public void sacrificateCurentPokemon(String namePok) throws PoobkemonException{
+        isSacrificable();
+        Pokemon gain = inventory.getPokemonByName(namePok);
+        actualPokemon.sacrificatePokemon(gain);
+    }
     /**
      * Commands the current Pokemon to use a movement by name on a target
      * 

@@ -38,7 +38,7 @@ public abstract class MachineTrainer extends Trainer {
                 actual.doAttackTo(actualPokemon, target);
             }
             catch(PoobkemonException i){
-                System.out.println("Fallo movimiento machine: "+ actual.getName()+" "+i.getMessage());            
+                BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ actual.getName()+" "+i.getMessage());       
             }
             
         }

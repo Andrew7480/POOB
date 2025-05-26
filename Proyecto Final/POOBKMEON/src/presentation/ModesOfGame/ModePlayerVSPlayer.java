@@ -1,5 +1,7 @@
 package presentation.ModesOfGame;
 import javax.swing.*;
+
+import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 import java.awt.*;
 import java.util.*;
@@ -83,9 +85,15 @@ public class ModePlayerVSPlayer extends JPanel {
         catch(PoobkemonException i){
             JOptionPane.showMessageDialog(null, i.getMessage());
             return;
-        }
+        }catch (Exception e) {LogPOOBKEMON.record(e);}
         pooBkemonGUI.domain.inicializateBattle(firstName,secondName);
         batalla.inicializate();
+    }
+    public void reset(){
+        //datos.reset();
+        inventory.reset();
+        movements.reset();
+        inicialPoks.reset();
     }
     
     public void actualizar(){

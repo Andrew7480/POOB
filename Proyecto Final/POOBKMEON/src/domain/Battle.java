@@ -1,12 +1,9 @@
 package domain;
 
 import java.awt.Color;
-import java.beans.Transient;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Battle implements Serializable {
     /** List of trainers participating in the battle */
@@ -27,7 +24,6 @@ public class Battle implements Serializable {
     /** Stores the last action taken in the battle */
     private String lastAction = "¿Decide?";
     
-    private transient Timer timer;
     private final int maxTime = 20;
     private int turnTimer = 20;
 
@@ -55,9 +51,9 @@ public class Battle implements Serializable {
      * @throws PoobkemonException If there is an issue executing the movement
      */
     public void executeMovement(String move) throws PoobkemonException{ 
+        beforAction();
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
-        current.getPokemonInUse().affectPokemonStatus();
         System.out.println("Esta afectado de no hacer nada?" + current.getPokemonInUse().isAffectedByStattus());
         current.pokemonMovement(move, opponent.getPokemonInUse());
         afterAction();
@@ -71,9 +67,8 @@ public class Battle implements Serializable {
      * @throws PoobkemonException If there is an issue changing the Pokemon
      */
     public void changePokemon(String pokemon) throws PoobkemonException{
+        beforAction();
         Trainer current = getCurrentTrainer();
-        //Trainer opponent = getOpponentTrainer();
-        current.getPokemonInUse().affectPokemonStatus();
         current.changePokemon(pokemon);
         afterAction();
     }
@@ -86,15 +81,41 @@ public class Battle implements Serializable {
      * @throws PoobkemonException If there is an issue using the item
      */
     public void useItem(String item) throws PoobkemonException{
-        System.out.println("Item a usar:"+getCurrentTrainer().getName() + " " + item);
+        beforAction();
+        BattleLog.getInstance().addMessage("Item a usar:"+getCurrentTrainer().getName() + " " + item);
         getCurrentTrainer().useItem(item);
         afterAction();
     }
 
     public void useItem(String namePok,String item) throws PoobkemonException{
-        System.out.println("Item a usar:"+getCurrentTrainer().getName() + " " + item + "sobre: " + namePok);
+        beforAction();
+        BattleLog.getInstance().addMessage("Item a usar:"+getCurrentTrainer().getName() + " " + item + "sobre: " + namePok);
         getCurrentTrainer().useItem(namePok,item);
         afterAction();
+    }
+
+    /**
+     * Performs pre-action checks
+     * Checks if the battle state has changed before an action
+     *  @throws PoobkemonException If there is an issue changing the Pokemon
+     */
+    public void beforAction() throws PoobkemonException{
+        Trainer current = getCurrentTrainer();
+        inicializateTime();
+        //Trainer opponent = getOpponentTrainer();
+        current.getPokemonInUse().affectPokemonStatus();
+        checkBattleState();
+    }
+
+    /**
+     * Verify if a pokemon is sacrificable
+     *  @throws PoobkemonException If there is an issue finding a pokemon
+     */
+    public boolean isSacrificable() throws PoobkemonException{
+        return getCurrentTrainer().isSacrificable();
+    }
+    public void sacrificateCurentPokemon(String namePok) throws PoobkemonException{
+        getCurrentTrainer().sacrificateCurentPokemon(namePok);
     }
 
     /**
@@ -141,6 +162,9 @@ public class Battle implements Serializable {
     }
     public ArrayList<String> getCurrentAlivePokemons(){
         return getCurrentTrainer().getCurrentAlivePokemons();
+    }
+    public ArrayList<String> getCurrentAlivePokemonsWithoutCurrent(){
+        return getCurrentTrainer().getCurrentAlivePokemonsWithoutCurrent();
     }
     
     /**
@@ -202,8 +226,8 @@ public class Battle implements Serializable {
      * A trainer loses if they cannot continue fighting
      */
     private void checkBattleState() throws PoobkemonException{  //no extensible??
-        Trainer trainer1 = turnTrainers.get(0);
-        Trainer trainer2 = turnTrainers.get(1);
+        Trainer trainer1 = getCurrentTrainer();
+        Trainer trainer2 = getOpponentTrainer();
         if(!trainer1.canStillFighting()){
             isOver = true;
             winner = trainer2;
@@ -212,10 +236,10 @@ public class Battle implements Serializable {
             isOver = true;
             winner = trainer1;
         }
-        if(trainer1.getPokemonInUse() == null){//!trainer1.getPokemonInUse().isAlive() || 
+        if(trainer1.getPokemonInUse() == null){
             throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         }
-        if( trainer2.getPokemonInUse() == null){//!trainer2.getPokemonInUse().isAlive()||
+        if( trainer2.getPokemonInUse() == null){
             throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         }
         
@@ -415,7 +439,7 @@ public class Battle implements Serializable {
     }
 
     public void endBattle(){
-        stopTurnTimer();
+        inicializateTime();
     }
 
     public Battle open(File file) throws PoobkemonException{
@@ -453,7 +477,7 @@ public class Battle implements Serializable {
 
         if (turnTrainers.size() == 2){
             turnIndex = result ? 0 : 1;
-            System.out.println("Lanzamiento de moneda: " + coinside +
+            BattleLog.getInstance().addMessage("Lanzamiento de moneda: " + coinside +
                     " - Comienza " + turnTrainers.get(turnIndex).getName());
         }
 
@@ -468,31 +492,23 @@ public class Battle implements Serializable {
         return getCurrentTrainer().getPokemonsName();
     }
 
-    public void startTurnTimer(){
-        stopTurnTimer();
+
+    public void inicializateTime(){
         turnTimer = maxTime;
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                turnTimer--;
-                System.out.println(turnTimer);
-                if (turnTimer <= 0) {
-                    onTimerFinish();
-                    stopTurnTimer();
-                }
-            }
-        }, 1000, 1000);
     }
 
-    public void stopTurnTimer(){
-        if (timer != null) {
-            timer.cancel();
-        }
+    public void reduceTimeBattle(){
+        turnTimer --;
+        if (turnTimer == 0 ) {onTimerFinish();inicializateTime();}
+
     }
 
     public void onTimerFinish(){
         getCurrentTrainer().getPokemonInUse().limitOfTime();
+        System.out.println("Se han quitado PP por tiempo.");
+        BattleLog.getInstance().addMessage("Se han quitado PP por tiempo.");
     }
-
-
+    public int getTurnTimer() {
+        return turnTimer;
+    }
 }

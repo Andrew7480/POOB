@@ -1,5 +1,7 @@
 package presentation.ModesOfGame;
 import javax.swing.*;
+
+import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 
 import java.awt.*;
@@ -74,15 +76,28 @@ public class ModePlayerVsMachine extends JPanel {
         try{
             pooBkemonGUI.addPokemonsToTrainer(nameTrainer,pokemonsWithMovs);
             pooBkemonGUI.addItemsToTrainer(nameTrainer,itemsEscogidos);
+
+            }
+        catch(PoobkemonException i){
+            JOptionPane.showMessageDialog(null, "message0: "+i.getMessage());
+            return;
+        }
+        try{
             pooBkemonGUI.domain.inicialTrainerPokemon(nameTrainer,firstPok);
             pooBkemonGUI.domain.inicialTrainerPokemon(trainerEscogidoMachine,"Tulio");
             }
         catch(PoobkemonException i){
-            JOptionPane.showMessageDialog(null, i.getMessage());
+            JOptionPane.showMessageDialog(null, "message1: "+i.getMessage());
             return;
         }
         pooBkemonGUI.domain.inicializateBattle(nameTrainer,trainerEscogidoMachine);
         batalla.inicializate();
+    }
+    public void reset(){
+        datos.reset();
+        inventory.reset();
+        movements.reset();
+        inicialPoks.reset();
     }
 
     public void actualizar(){

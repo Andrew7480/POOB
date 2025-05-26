@@ -377,6 +377,7 @@ public class POOBkemonGUI extends JFrame {
                     back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage+".GIF"));
                 } catch (Exception e) {
                     back = new ImageIcon(getClass().getResource("/resources/download.GIF"));
+                    LogPOOBKEMON.record(e);
                 }
                 g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
@@ -384,9 +385,13 @@ public class POOBkemonGUI extends JFrame {
     }
     public void resetBattles(){
         playerVSplayerPanel.changePanel("Datos");
+        playerVSplayerPanel.reset();
         playerVsMachinePanel.changePanel("Datos");
+        playerVsMachinePanel.reset();
         machineVsMachinePanel.changePanel("Datos");
-        panelPvsPSurvival.changePanel("Datos");    
+        machineVsMachinePanel.reset();
+        panelPvsPSurvival.changePanel("Datos");
+        panelPvsPSurvival.reset();    
     }
     
     public void styleButtonExternal(JButton button) {
@@ -507,7 +512,7 @@ public class POOBkemonGUI extends JFrame {
                 domain.addNewTrainer(trainerEscogido,color);
             }catch(PoobkemonException e){
                 JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+            }catch (Exception e) {LogPOOBKEMON.record(e);}
         }
 
         public void addPokemonsToTrainer(String trainerEscogido,HashMap<String, ArrayList<String>> pokemonsWithAll) throws PoobkemonException{
@@ -534,7 +539,7 @@ public class POOBkemonGUI extends JFrame {
                 domain.getBattle().save(selectedFile);
             }catch(PoobkemonException h){
                 System.out.println(h.getMessage());
-        }
+        }catch (Exception e) {LogPOOBKEMON.record(e);}
      }
     }
     public void OpenBattle(){

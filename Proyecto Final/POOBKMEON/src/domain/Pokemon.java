@@ -8,7 +8,7 @@ public class Pokemon implements Serializable {
     private String name;
     private int level;
     private int pokedexIndex;
-    private final int maxPs;
+    private int maxPs;
     private int ps;
     private int attack;
     private int specialAttack;
@@ -58,6 +58,25 @@ public class Pokemon implements Serializable {
         movements = new ArrayList<>();
         tributeEffects = new ArrayList<>();
     }
+    /**
+     * Verify is a pokemon is sacrificable
+     * 
+     * @return is sacrificable
+     */
+    public boolean isSacrificable(){
+        return (ps != maxPs && ps <= maxPs*0.5);
+    }
+
+    /**
+     * Sacrificates a pokemon and gives the ps to otherone
+     */
+    public void sacrificatePokemon(Pokemon pok) throws PoobkemonException{
+        if (pok.equals(this)) throw new  PoobkemonException(PoobkemonException.POKEMON_NOT_FOUND);
+        int  actualPsTranfer = ps;
+        pok.sumMaxPs(actualPsTranfer);
+        pok.gainPS(actualPsTranfer);
+        pokemonKO();
+    }
     
     /**
      * Gets the Pokedex index of the Pokemon
@@ -88,6 +107,12 @@ public class Pokemon implements Serializable {
      */
     public int getMaxPs(){
         return maxPs;
+    }
+    public void setMaxPs(int newPs){
+        maxPs = newPs;
+    }
+    public void sumMaxPs(int newPs){
+        maxPs += newPs;
     }
 
     /**
@@ -534,8 +559,10 @@ public class Pokemon implements Serializable {
         catch(PoobkemonException e){
             if (e.getMessage().equals(PoobkemonException.EFFECT_DURATION_OVER)) {
             System.out.println(e.getMessage());
+            BattleLog.getInstance().addMessage("Se acabo el efecto del estado para: " +name);
             } else if (e.getMessage().equals(PoobkemonException.POKEMON_CANT_INTERACT)) {
                 System.out.println(e.getMessage());
+                BattleLog.getInstance().addMessage("No puede actuar por estado: " +name);
                 return;
             } else {
                 System.out.println("Error desconocido: " + e.getMessage());
@@ -544,7 +571,7 @@ public class Pokemon implements Serializable {
         }
     
         if (havePPForAllMovement()){actionF(target);return;}
-        System.out.println(name +" ha usado: "+ movimiento.getName());
+        BattleLog.getInstance().addMessage(name +" ha usado: "+ movimiento.getName());
         movimiento.doAttackTo(this, target);
     }
     

@@ -102,6 +102,16 @@ public class POOBkemon implements Serializable{
     public void movementPerformed(String mov) throws PoobkemonException{
         battle.executeMovement(mov);
     }
+    /**
+     * Verify if the current pokemon is sacrificable
+     *  @throws PoobkemonException If there is an issue finding a pokemon
+     */
+    public boolean isSacrificableCurrent() throws PoobkemonException{
+        return battle.isSacrificable();
+    }
+    public void sacrificateCurentPokemon(String namePok) throws PoobkemonException{
+        battle.sacrificateCurentPokemon(namePok);
+    }
 
     /**
      * Changes the current pokemon during battle
@@ -126,6 +136,9 @@ public class POOBkemon implements Serializable{
     }
     public ArrayList<String> getCurrentAlivePokemons(){
         return battle.getCurrentAlivePokemons();
+    }
+    public ArrayList<String> getCurrentAlivePokemonsWithoutCurrent(){
+        return battle.getCurrentAlivePokemonsWithoutCurrent();
     }
 
     /**
@@ -489,11 +502,22 @@ public class POOBkemon implements Serializable{
     }
 
     public void startTurnTimer(){
-        battle.startTurnTimer();
+        battle.inicializateTime();
     }
+    public void reduceTimeBattle(){
+        battle.reduceTimeBattle();
+    }
+    public int getTurnTimer() {
+        return battle.getTurnTimer();
+    }
+
     public void endBattle(){
         battle.endBattle();
+        BattleLog.getInstance().clear();
         battle = null;
+    }
+    public String getLastMessage() {
+        return BattleLog.getInstance().getLastMessage();
     }
 
     /**

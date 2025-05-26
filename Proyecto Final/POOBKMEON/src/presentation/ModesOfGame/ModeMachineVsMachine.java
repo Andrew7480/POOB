@@ -67,6 +67,9 @@ public class ModeMachineVsMachine extends JPanel {
             JOptionPane.showMessageDialog(ModeMachineVsMachine.this, e.getMessage());
         }
     }
+    public void reset(){
+        datos.reset();
+    }
 
     public void actualizar(){
         batalla.actualizar();

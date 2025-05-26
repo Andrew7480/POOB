@@ -46,12 +46,12 @@ public class MovementState extends SpecialMovement{
     @Override
     public int doAttackTo(Pokemon attacker, Pokemon target) throws PoobkemonException{
         if (Math.random() * 100 > precision) {  //tiene prob de ocurri o no 
-            System.out.println("No se ha aplicado el efecto por probabilidad.");
+            BattleLog.getInstance().addMessage("No se ha aplicado el efecto por probabilidad.");
             losePP();
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
         target.addEffect(state);
-        System.out.println( "Movimiento estado:" + damageBase);
+        BattleLog.getInstance().addMessage(attacker.getName()+" ha aplicado un estado a :" +target.getName()+ "Daño: "+ damageBase);
         losePP();
         return damageBase;
     }

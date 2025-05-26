@@ -1,6 +1,8 @@
 package presentation.Battle;
 import java.awt.*;
 import javax.swing.*;
+
+import domain.LogPOOBKEMON;
 import domain.Pokemon;
 import domain.PoobkemonException;
 import java.awt.event.*;
@@ -183,6 +185,7 @@ public class ListPokemonAvailable extends JPanel{
             }
         }catch (Exception e) {
             button.setText("No imagen");
+            LogPOOBKEMON.record(e);
         }
         button.setPreferredSize(smallSize);
         button.setMinimumSize(smallSize);

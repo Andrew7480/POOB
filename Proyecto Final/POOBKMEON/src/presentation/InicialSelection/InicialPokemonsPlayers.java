@@ -74,10 +74,10 @@ public class InicialPokemonsPlayers extends JPanel {
                     }
                     
                     gameMode.inicializateBattle(selectionOne.getColor(),selectionTwo.getColor(), selectionOne.getPokemonChoosed(), selectionTwo.getPokemonChoosed());
-                    gameMode.actualizar();
                     gameMode.changePanel("Battle");
+                    gameMode.actualizar();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(InicialPokemonsPlayers.this, ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });

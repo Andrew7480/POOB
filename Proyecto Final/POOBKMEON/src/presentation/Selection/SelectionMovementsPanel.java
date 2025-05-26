@@ -28,6 +28,7 @@ public class SelectionMovementsPanel extends JPanel{
     }
 
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
+        reset();
         for (String s :chosenPokemons){
             chosenPok.add(s);
         }
@@ -176,8 +177,8 @@ public class SelectionMovementsPanel extends JPanel{
     public HashMap<String, ArrayList<String>> getPokemonMovs(){
         return movimientosSeleccionados;
     }
-    public void resetPokemonChosen(){
-        System.out.println("resetea todo de los movimientos");
+    
+    public void reset(){
         centralPanel.removeAll();
         movimientosSeleccionados.clear();
         chosenPok.clear();

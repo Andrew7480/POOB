@@ -2,10 +2,10 @@ package presentation.Battle;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
+import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 import presentation.*;
 import presentation.helpers.*;
@@ -31,6 +31,8 @@ public class BattlePanel extends JPanel {
     private JPanel opciones;
     private JPanel battleOptionsPanel;
     private JButton backToOptionsBattle;
+    private JButton sacrificButton;
+
 
     private JPanel playerStatsPanel;
     private JPanel opponentStatsPanel;
@@ -47,15 +49,13 @@ public class BattlePanel extends JPanel {
     private JLabel playerNameLabel;
     private JLabel opponentNameLabel;
 
+
     private int xFirst, xSecond;
     private int yFirst, ySecond;
     private Color actualColor;
 
-    private Timer battleTimer;
     private JLabel timerLabel;
-
-    private int timeRemaining = 20;
-    private boolean timerRunning = false;
+    private BattleTimer timer;
 
     private Font pokemonFont;
     protected CardLayout cardLayoutButtons;
@@ -70,7 +70,6 @@ public class BattlePanel extends JPanel {
         pooBkemonGUI = newPo;
         prepareElements();
         prepareActions();
-        initializeTimer();
     }
 
     public void inicializate(){
@@ -98,6 +97,7 @@ public class BattlePanel extends JPanel {
         add(opponentStatsPanel);
         movementButtons();
         actualizarColor();
+        timer.iniciarTemporizadorDeBatalla();
     }
     
     private void prepareElements() {
@@ -108,13 +108,16 @@ public class BattlePanel extends JPanel {
             pokemonFont = new Font("Monospaced", Font.BOLD, 14);
         } catch (Exception e) {
             pokemonFont = new Font("SansSerif", Font.BOLD, 14);
-            e.printStackTrace();
+            LogPOOBKEMON.record(e);
         }
         calculatePokemonPositions();
-
+        timerLabel = new JLabel();
+        timer = new BattleTimer(pooBkemonGUI, timerLabel);
+        
         buttonsMovs = new ArrayList<>();
         trainerActualMovements = new ArrayList<>();
         backToOptionsBattle = new JButton("Back");
+        sacrificButton = new JButton("Sacrificar");
         cargarPartida = new JButton("Cargar Partida");
         guardarPartida = new JButton("Guardar");
 
@@ -149,8 +152,13 @@ public class BattlePanel extends JPanel {
 
         JPanel upPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         upPanel.setOpaque(false);
+        JPanel timerPanel = new JPanel(new FlowLayout());
+        timerPanel.add(timerLabel);
+        
+
         upPanel.add(cargarPartida);
         upPanel.add(guardarPartida);
+        upPanel.add(timerPanel);
 
         add(upPanel, BorderLayout.NORTH);
         panelIz.add(opciones);
@@ -181,6 +189,7 @@ public class BattlePanel extends JPanel {
 
     private void prepareElementsStyle(){
         pooBkemonGUI.styleButton(backToOptionsBattle);
+        pooBkemonGUI.styleButton(sacrificButton);
         pooBkemonGUI.styleButton(cargarPartida);
         pooBkemonGUI.styleButton(guardarPartida);
         pooBkemonGUI.styleButton(fightButton);
@@ -220,6 +229,7 @@ public class BattlePanel extends JPanel {
             moveBtn.setMinimumSize(new Dimension(150, 40));
             try{moveBtn.setToolTipText("PP: "+String.valueOf(pooBkemonGUI.domain.getPPInBattle(move)));}
             catch(PoobkemonException e){System.out.println(e.getMessage());}
+            catch (Exception e) {LogPOOBKEMON.record(e);}
 
             movesButtonsPanel.add(moveBtn);
             buttonsMovs.add(moveBtn);
@@ -228,7 +238,9 @@ public class BattlePanel extends JPanel {
         JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         backButtonPanel.setOpaque(false);
         backToOptionsBattle.setPreferredSize(new Dimension(100, 30));
+        sacrificButton.setPreferredSize(new Dimension(100, 30));
         backButtonPanel.add(backToOptionsBattle);
+        backButtonPanel.add(sacrificButton);
 
         JPanel topSection = new JPanel(new BorderLayout());
         topSection.setOpaque(false);
@@ -275,7 +287,7 @@ public class BattlePanel extends JPanel {
                                         JOptionPane.INFORMATION_MESSAGE);
                     gameEnd();
                     showBattleOptionsPanel();
-                }
+                }catch (Exception u) {LogPOOBKEMON.record(u);}
             });
         }
     }
@@ -285,9 +297,10 @@ public class BattlePanel extends JPanel {
             actualizar();
             showMovesPanel();
         });
-
+        sacrificButton.addActionListener(e -> actualizar());
         backToOptionsBattle.addActionListener(e -> {
             actualizar();
+            showBattleOptionsPanel();
             showBattleOptionsPanel();
         });
         cargarPartida.addActionListener(e -> {
@@ -302,17 +315,18 @@ public class BattlePanel extends JPanel {
 
     public void gameEnd(){
         if (pooBkemonGUI.domain.GameIsOVer()){
+            
+            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
+            pooBkemonGUI.changePanel("inicio");
             pooBkemonGUI.resetBattles();
             pooBkemonGUI.domain.endBattle();
             reset();
-            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
-            pooBkemonGUI.changePanel("inicio");
-            
         }   
     }
 
     public void actualizar(){
         pooBkemonGUI.domain.startTurnTimer(); //por ahora aunque no esta bien??
+        actualizarSacrificable();
         actualizaInfo();
         actualizarColor();
         actualizarBar();
@@ -321,6 +335,20 @@ public class BattlePanel extends JPanel {
         setFirstPokemon(Integer.toString(pooBkemonGUI.domain.getCurrentPokemonPokedexIndex()));
         gameEnd();
     }
+    public void actualizarSacrificable() {
+    try {
+        boolean hasAlivePokemons = pooBkemonGUI.domain.getCurrentAlivePokemons().size() > 1;
+        boolean isSacrificable = hasAlivePokemons && pooBkemonGUI.domain.isSacrificableCurrent();
+
+        sacrificButton.setEnabled(isSacrificable);
+        sacrificButton.setVisible(isSacrificable);
+
+    } catch (PoobkemonException e) {
+        System.out.println(e.getMessage());
+        sacrificButton.setEnabled(false);
+        sacrificButton.setVisible(false);
+    }catch (Exception e) {LogPOOBKEMON.record(e);}
+}
 
     public void actualizarBar(){
         String pokemonName = pooBkemonGUI.domain.getOponentPokemonName();
@@ -361,7 +389,7 @@ public class BattlePanel extends JPanel {
                     btn.setToolTipText("PP: " + pooBkemonGUI.domain.getPPInBattle(move));
                 } catch (PoobkemonException e) {
                     System.out.println("Error al actualizar  PP: "+ e.getMessage());
-                }
+                }catch (Exception e) {LogPOOBKEMON.record(e);}
                 btn.setText(move);
             }
             index ++;
@@ -369,7 +397,7 @@ public class BattlePanel extends JPanel {
     }
     
     public void actualizaInfo(){
-        info.setText("Mensajes descriptivos?");
+        info.setText(pooBkemonGUI.domain.getLastMessage());
         moveLabel.setText("¿Qué movimiento debería usar " + pooBkemonGUI.domain.getCurrentPokemonName() + "?");
     }
     public void actualizarColor(){
@@ -385,13 +413,11 @@ public class BattlePanel extends JPanel {
     
     public void showMovesPanel() {
         cardLayoutButtons.show(opciones, "MovimientosP");
-        startTimer();
         opciones.revalidate();
         opciones.repaint();
     }
 
     public void showBattleOptionsPanel() {
-        stopTimer();
         cardLayoutButtons.show(opciones,"Opciones"); 
     }
 
@@ -469,6 +495,9 @@ public class BattlePanel extends JPanel {
     public JButton getBackOptions() {
         return backToOptionsBattle;
     }
+    public JButton getSacrificableButton(){
+        return sacrificButton;
+    }
     
     public void setPokemonNames(String playerPokemonName, String opponentPokemonName, int playerLevel, int opponentLevel) {
         playerNameLabel.setText(playerPokemonName + " Nv." + playerLevel);
@@ -500,65 +529,12 @@ public class BattlePanel extends JPanel {
         ySecond = (getHeight() - scaledHeight) / 2 - scaledHeight / 3;
     }
 
-    private void initializeTimer(){
-        battleTimer = new javax.swing.Timer(1000, e -> {
-            timeRemaining--;
-            updateTimerDisplay();
-
-            if (timeRemaining <= 0){
-                timerExpired();
-            }
-        });
-
-        timerLabel = new JLabel("20");
-        timerLabel.setFont(pokemonFont);
-        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        timerLabel.setBorder(BorderFactory.createCompoundBorder(
-            new LineBorder(Color.BLACK, 2, true),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        timerLabel.setBackground(new Color(248, 248, 248, 220));
-        timerLabel.setOpaque(true);
-        timerLabel.setBounds(375, 20, 50, 30);
-        add(timerLabel);
-    }
-
-    private void updateTimerDisplay() {
-        timerLabel.setText(String.valueOf(timeRemaining));
-        if (timeRemaining <= 5) {
-            timerLabel.setForeground(Color.RED);
-        } else {
-            timerLabel.setForeground(Color.BLACK);
-        }
-    }
 
     private void timerExpired() {
-        stopTimer();
         info.setText("¡Se acabó el tiempo!");
         showBattleOptionsPanel();
     }
 
-    private void startTimer(){
-        if(!timerRunning){
-            timeRemaining = 20;
-            updateTimerDisplay();
-            battleTimer.start();
-            timerRunning = true;
-        }
-    }
-
-    public void stopTimer(){
-        if (timerRunning){
-            battleTimer.stop();
-            timerRunning = false;
-        }
-    }
-
-    public void resetTimer(){
-        stopTimer();
-        timeRemaining = 20;
-        updateTimerDisplay();
-    }
 
     public void reset(){
         trainerActualMovements.clear();
@@ -578,7 +554,7 @@ public class BattlePanel extends JPanel {
         opponentStatsPanel.revalidate();
         opponentStatsPanel.repaint();
 
-        timerLabel.setBounds(375,20,50,30);
+        //timerLabel.setBounds(375,20,50,30);
 
         ImageIcon back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage + ".JPG"));
         g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);

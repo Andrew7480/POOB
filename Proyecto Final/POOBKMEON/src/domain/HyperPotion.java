@@ -24,6 +24,7 @@ public class HyperPotion extends Potion {
     public void useItem(Pokemon pokemon) throws PoobkemonException{
         super.useItem(pokemon);
         pokemon.gainSpecialAttack(statics.getValue()); 
-        pokemon.gainSpecialDefense(statics.getValue()); 
+        pokemon.gainSpecialDefense(statics.getValue());
+        //BattleLog.getInstance().addMessage("Se ha usado "+name + "en " + pokemon.getName()); 
     }
 }
