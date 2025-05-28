@@ -4,7 +4,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
@@ -117,14 +116,9 @@ public class BattlePanel extends JPanel {
             public void iniciarTemporizadorDeBatalla(){  
             battleTimer = new Timer(1000, e -> {
                 pooBkemonGUI.domain.reduceTimeBattle(); 
-                timerLabel.setText("" + pooBkemonGUI.domain.getTurnTimer());
+                actualizar();
             });
             battleTimer.start();
-            }
-        };
-        BattleTimer tempo = new BattleTimer(pooBkemonGUI) {
-            public void iniciarTemporizadorDeBatalla(){
-                battleTimer = new Timer(1000, e -> {actualizar();});
             }
         };
         buttonsMovs = new ArrayList<>();
@@ -331,7 +325,7 @@ public class BattlePanel extends JPanel {
 
     public void gameEnd(){
         if (pooBkemonGUI.domain.GameIsOVer()){
-            
+            timer.detenerTemporizadorDeBatalla(); //verificar
             JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
             pooBkemonGUI.changePanel("inicio");
             pooBkemonGUI.resetBattles();
@@ -341,7 +335,6 @@ public class BattlePanel extends JPanel {
     }
 
     public void actualizar(){
-        pooBkemonGUI.domain.startTurnTimer(); //por ahora aunque no esta bien??
         actualizarSacrificable();
         actualizaInfo();
         actualizarColor();
@@ -351,6 +344,7 @@ public class BattlePanel extends JPanel {
         setFirstPokemon(Integer.toString(pooBkemonGUI.domain.getCurrentPokemonPokedexIndex()));
         gameEnd();
     }
+    
     public void actualizarSacrificable() {
     try {
         boolean hasAlivePokemons = pooBkemonGUI.domain.getCurrentAlivePokemons().size() > 1;
@@ -366,28 +360,44 @@ public class BattlePanel extends JPanel {
     }catch (Exception e) {LogPOOBKEMON.record(e);}
 }
 
-    public void actualizarBar(){
-        String pokemonName = pooBkemonGUI.domain.getOponentPokemonName();
-        int health = pooBkemonGUI.domain.getOponentPokemonPs();
-        int level = pooBkemonGUI.domain.getOponentPokemonLevel();
-        int maxPs = pooBkemonGUI.domain.getOponentMaxPs();
-        
+    public void actualizarBar() {
+        String pokemonNameOponent = pooBkemonGUI.domain.getOponentPokemonName();
+        int healthOponent = pooBkemonGUI.domain.getOponentPokemonPs();
+        int levelOponent = pooBkemonGUI.domain.getOponentPokemonLevel();
+        int maxPsOponent = pooBkemonGUI.domain.getOponentMaxPs();
+
         String pokemonNameCurrent = pooBkemonGUI.domain.getCurrentPokemonName();
         int healthCurrent = pooBkemonGUI.domain.getCurrentPokemonPs();
         int levelCurrent = pooBkemonGUI.domain.getCurrentPokemonLevel();
         int maxPsCurrent = pooBkemonGUI.domain.getcurrentMaxPs();
-    
-        actualizarHealt(healthCurrent, maxPsCurrent, health, maxPs);
+
+        String jugadorLabelText = playerNameLabel.getText();
+        String oponenteLabelText = opponentNameLabel.getText();
+
+        boolean cambioJugador = !jugadorLabelText.startsWith(pokemonNameOponent + " Nv.");
+        boolean cambioOponente = !oponenteLabelText.startsWith(pokemonNameCurrent + " Nv.");
+
+        actualizarHealt(healthCurrent, maxPsCurrent, healthOponent, maxPsOponent, cambioJugador, cambioOponente);
 
         playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
-        opponentNameLabel.setText(pokemonName + " Nv. "+ level);
+        opponentNameLabel.setText(pokemonNameOponent + " Nv. " + levelOponent);
     }
 
-    public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
+    public void actualizarHealt(int health1, int health1Max, int health2, int health2Max, boolean setDirecto1, boolean setDirecto2) {
         playerHealthBar.setMaximum(health1Max);
         opponentHealthBar.setMaximum(health2Max);
-        playerHealthBar.setValue(health1);
-        opponentHealthBar.setValue(health2);
+
+        if (setDirecto1 || playerHealthBar.getValue() == health1) {
+            playerHealthBar.setValue(health1);
+        } else {
+            playerHealthBar.setAnimatedValue(health1);
+        }
+        if (setDirecto2 || opponentHealthBar.getValue() == health2) {
+            opponentHealthBar.setValue(health2);
+        } else {
+            opponentHealthBar.setAnimatedValue(health2);
+        }
+
         playerHealthLabel.setText(health1 + "/" + health1Max);
         opponentHealthLabel.setText(health2 + "/" + health2Max);
         playerStatsPanel.repaint();
@@ -413,6 +423,7 @@ public class BattlePanel extends JPanel {
     }
     
     public void actualizaInfo(){
+        timerLabel.setText("" + pooBkemonGUI.domain.getTurnTimer());
         info.setText("<html><body style='width: 200px'>" + pooBkemonGUI.domain.getLastMessage() + "</body></html>");
         moveLabel.setText("¿Qué movimiento debería usar " + pooBkemonGUI.domain.getCurrentPokemonName() + "?");
     }

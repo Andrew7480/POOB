@@ -195,49 +195,49 @@ public class BattlePanelMvsM extends JPanel {
         gameEnd();
     }
 
-    public void actualizarHealt(int health1,int health1Max, int health2,int health2Max) {
-        playerHealthBar.setMaximum(health1Max);
-        opponentHealthBar.setMaximum(health2Max);
-        playerHealthBar.setValue(health1);
-        opponentHealthBar.setValue(health2);
-        playerHealthLabel.setText(health1 + "/" + health1Max);
-        opponentHealthLabel.setText(health2 + "/" + health2Max);
-        playerStatsPanel.repaint();
-        opponentStatsPanel.repaint();
-        repaint();
-    }
-
-    public void actualizarBar(){
-
-        String pokemonName = pooBkemonGUI.domain.getOponentPokemonName();
-        int health = pooBkemonGUI.domain.getOponentPokemonPs();
-        int level = pooBkemonGUI.domain.getOponentPokemonLevel();
-        int maxPs = pooBkemonGUI.domain.getOponentMaxPs();
-        
-        if (actualIndex != pooBkemonGUI.domain.getCurrentPokemonPokedexIndex()){
-            setFirstPokemon(Integer.toString(pooBkemonGUI.domain.getCurrentPokemonPokedexIndex()));
-        }
+    public void actualizarBar() {
+        String pokemonNameOponent = pooBkemonGUI.domain.getOponentPokemonName();
+        int healthOponent = pooBkemonGUI.domain.getOponentPokemonPs();
+        int levelOponent = pooBkemonGUI.domain.getOponentPokemonLevel();
+        int maxPsOponent = pooBkemonGUI.domain.getOponentMaxPs();
 
         String pokemonNameCurrent = pooBkemonGUI.domain.getCurrentPokemonName();
         int healthCurrent = pooBkemonGUI.domain.getCurrentPokemonPs();
         int levelCurrent = pooBkemonGUI.domain.getCurrentPokemonLevel();
         int maxPsCurrent = pooBkemonGUI.domain.getcurrentMaxPs();
-        System.out.println("vida afectada a mi pokemon : "+healthCurrent);
 
-        playerHealthBar.setValue(healthCurrent);
-        opponentHealthBar.setValue(health);
+        String jugadorLabelText = playerNameLabel.getText();
+        String oponenteLabelText = opponentNameLabel.getText();
 
-        playerHealthLabel.setText(healthCurrent + "/" + maxPsCurrent);
-        opponentHealthLabel.setText(health + "/" + maxPs);
+        boolean cambioJugador = !jugadorLabelText.startsWith(pokemonNameOponent + " Nv.");
+        boolean cambioOponente = !oponenteLabelText.startsWith(pokemonNameCurrent + " Nv.");
+
+        actualizarHealt(healthCurrent, maxPsCurrent, healthOponent, maxPsOponent, cambioJugador, cambioOponente);
 
         playerNameLabel.setText(pokemonNameCurrent + " Nv." + levelCurrent);
-        opponentNameLabel.setText(pokemonName + " Nv. "+ level);
+        opponentNameLabel.setText(pokemonNameOponent + " Nv. " + levelOponent);
+    }
 
-        actualizarHealt(healthCurrent, maxPsCurrent, health, maxPs);
+    public void actualizarHealt(int health1, int health1Max, int health2, int health2Max, boolean setDirecto1, boolean setDirecto2) {
+        playerHealthBar.setMaximum(health1Max);
+        opponentHealthBar.setMaximum(health2Max);
 
+        if (setDirecto1 || playerHealthBar.getValue() == health1) {
+            playerHealthBar.setValue(health1);
+        } else {
+            playerHealthBar.setAnimatedValue(health1);
+        }
+        if (setDirecto2 || opponentHealthBar.getValue() == health2) {
+            opponentHealthBar.setValue(health2);
+        } else {
+            opponentHealthBar.setAnimatedValue(health2);
+        }
+
+        playerHealthLabel.setText(health1 + "/" + health1Max);
+        opponentHealthLabel.setText(health2 + "/" + health2Max);
         playerStatsPanel.repaint();
         opponentStatsPanel.repaint();
-        gameEnd();
+        repaint();
     }
 
     public void actualizarListaMovements(){
