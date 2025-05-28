@@ -139,11 +139,11 @@ public class POOBkemonTest implements Serializable {
             MovementState attract = new MovementState("Atracción", "Enamora al oponente del género opuesto.", 15, 0, 100, PokemonType.NORMAL, Infatuation, 100, 0);
             MovementState leechSeed = new MovementState("Drenadoras", "Planta semillas que drenan PS del oponente cada turno.", 10, 0, 90, PokemonType.PLANTA, LeechSeed, 100, 0);
 			*/
-            //MovementTribute swordsDance = new MovementTribute("Danza Espada", "Eleva mucho el ataque.", 20, 0, 100, PokemonType.NORMAL, RaiseAttack, 0);
-            //MovementTribute ironDefense = new MovementTribute("Defensa Férrea", "Aumenta considerablemente la defensa.", 15, 0, 100, PokemonType.ACERO, RaiseDefense, 0);
+            MovementTribute swordsDance = new MovementTribute("Danza Espada", "Eleva mucho el ataque.", 20, 0, 100, PokemonType.NORMAL, RaiseAttack, 0);
+            MovementTribute ironDefense = new MovementTribute("Defensa Férrea", "Aumenta considerablemente la defensa.", 15, 0, 100, PokemonType.ACERO, RaiseDefense, 0);
             MovementTribute calmMind = new MovementTribute("Paz Mental", "Aumenta ataque especial y defensa especial.", 20, 0, 100, PokemonType.PSIQUICO, RaiseSpecial, 0);
             MovementTribute dragonDance = new MovementTribute("Danza Dragón", "Aumenta ataque y velocidad.", 20, 0, 100, PokemonType.DRAGON, RaiseAttackSpeed, 0);
-            //MovementTribute willOWisp = new MovementTribute("Fuego Fatuo", "Quema al oponente.", 15, 0, 85, PokemonType.FUEGO, Burn, 100);
+            MovementTribute willOWisp = new MovementTribute("Fuego Fatuo", "Quema al oponente.", 15, 0, 85, PokemonType.FUEGO, Burn, 100);
             
             PhysicalMovement closeCombat = new PhysicalMovement("A Bocajarro", "Poderoso ataque que reduce defensas propias.", 5, 120, 100, PokemonType.LUCHA, 0);
             PhysicalMovement outrage = new PhysicalMovement("Enfado", "Ataca durante 2-3 turnos pero confunde al usuario.", 10, 120, 100, PokemonType.DRAGON, 0);
@@ -195,6 +195,9 @@ public class POOBkemonTest implements Serializable {
 
             //movimientos que puede escoger el usuario para un pokemon
             try{
+                poobkemon.addMovement(swordsDance);
+                poobkemon.addMovement(ironDefense);
+                poobkemon.addMovement(willOWisp);
                 poobkemon.addMovement(paralyze);
                 poobkemon.addMovement(freeze);
                 poobkemon.addMovement(sleep);
@@ -418,52 +421,52 @@ public class POOBkemonTest implements Serializable {
             Pokemon milotic1     = milotic.copy();
             Pokemon metagross1   = metagross.copy();
         
-            charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw, flamethrower, airSlash});
-            snorlax1.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
-            blastoise1.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam, hydroPump, iceBeam});
-            venusaur1.setMovements(new Movement[] {paralyze, poison, regenerate, earthquake, gigaDrain});
-            gengar1.setMovements(new Movement[] {shadowBall, psychic, poison, sleep, dreameater});
-            dragonite1.setMovements(new Movement[] {dragonClaw, earthquake, quickAttack, hyperBeam, outrage, dragonDance});
-            togetic1.setMovements(new Movement[] {sleep, psychic, shadowBall, regenerate, moonblast, airSlash});
-            tyranitar1.setMovements(new Movement[] {earthquake, burn, brickBreak, hyperBeam, stoneedge, crunch});
-            gardevoir1.setMovements(new Movement[] {psychic, sleep, regenerate, shadowBall, moonblast, calmMind});
-            metagross1.setMovements(new Movement[] {brickBreak, psychic, earthquake, burn, zenHeadbutt, flashCannon});
-            donphan1.setMovements(new Movement[] {earthquake, quickAttack, defense, burn, stoneedge});
-            machamp1.setMovements(new Movement[] {brickBreak, quickAttack, hyperBeam, regenerate, closeCombat, rockSlide});
-            delibird1.setMovements(new Movement[] {freeze, quickAttack, surf, paralyze, iceBeam, drillPeck});
-            raichu1.setMovements(new Movement[] {electrocuted, quickAttack, paralyze, shadowBall, thunderbolt, thunderPunch});
-            nidoking1.setMovements(new Movement[] {earthquake, poison, brickBreak, shadowBall});
-            clefable1.setMovements(new Movement[] {moonblast, calmMind, psychic, flamethrower});
-            arcanine1.setMovements(new Movement[] {flamethrower, crunch, outrage, burn});
-            slowbro1.setMovements(new Movement[] {psychic, surf, calmMind, iceBeam});
-            rhydon1.setMovements(new Movement[] {earthquake, stoneedge, brickBreak, hyperBeam});
-            gyarados1.setMovements(new Movement[] {dragonDance, outrage, crunch, surf});
-            moltres1.setMovements(new Movement[] {flamethrower, airSlash, burn, solarBeam});
-            typhlosion1.setMovements(new Movement[] {flamethrower, brickBreak, earthquake, calmMind});
-            feraligatr1.setMovements(new Movement[] {surf, crunch, hydroPump, iceBeam});
-            ursaring1.setMovements(new Movement[] {hyperBeam, brickBreak, crunch, stoneedge});
-            blaziken1.setMovements(new Movement[] {flamethrower, brickBreak, closeCombat, thunderbolt});
-            slaking1.setMovements(new Movement[] {hyperBeam, earthquake, shadowBall, brickBreak});
-            victreebel1.setMovements(new Movement[] {gigaDrain, poison, leafBlade, moonblast});
-            magneton1.setMovements(new Movement[] {thunderbolt, flashCannon, thunderPunch, ironHead, crunch, shadowBall});
-            dodrio1.setMovements(new Movement[] {drillPeck, bravebird, quickAttack, hyperBeam, outrage, crunch});
-            hitmonlee1.setMovements(new Movement[] {brickBreak, closeCombat, fakeOut, earthquake, rockSlide, megaDrain});
-            hitmonchan1.setMovements(new Movement[] {brickBreak, thunderPunch, firePunch, icePunch, closeCombat, hyperBeam});
-            mrMime1.setMovements(new Movement[] {psychic, calmMind, moonblast, shadowBall, energyBall, thunderbolt});
-            magmar1.setMovements(new Movement[] {flamethrower, firePunch, thunderPunch, brickBreak, hyperBeam, crunch});
-            tauros1.setMovements(new Movement[] {hyperBeam, earthquake, rockSlide, crunch, ironHead, quickAttack});
-            lapras1.setMovements(new Movement[] {iceBeam, surf, hydroPump, hyperBeam, waterPulse, psychic});
-            rapidash1.setMovements(new Movement[] {flamethrower, firePunch, earthquake, outrage, quickAttack, solarBeam});
-            alakazam1.setMovements(new Movement[] {psychic, shadowBall, calmMind, energyBall, focusBlast, zenHeadbutt});
-            sceptile1.setMovements(new Movement[] {leafBlade, gigaDrain, earthquake, dragonClaw, energyBall, xScissor});
-            scizor1.setMovements(new Movement[] {xScissor, ironHead, bugBuzz, brickBreak});
-            hariyama1.setMovements(new Movement[] {brickBreak, closeCombat, earthquake, rockSlide, hyperBeam, firePunch});
-            aggron1.setMovements(new Movement[] {ironHead, rockSlide, earthquake, hyperBeam, crunch, brickBreak});
-            manectric1.setMovements(new Movement[] {thunderbolt, thunderPunch, crunch, hyperBeam, flamethrower, quickAttack});
-            crawdaunt1.setMovements(new Movement[] {crunch, surf, aquaJet, hyperBeam, brickBreak, iceBeam});
-            milotic1.setMovements(new Movement[] {hydroPump, surf, iceBeam, calmMind, hyperBeam, waterPulse});
-            mewtwo1.setMovements(new Movement[] {psychic, shadowBall, calmMind, flamethrower, focusBlast, hyperBeam});
-            swampert1.setMovements(new Movement[] {earthquake, surf, iceBeam, brickBreak, hydroPump, waterPulse});
+            charizard1.setMovements(new Movement[] {paralyze, burn, flamethrower, energyBall});
+            snorlax1.setMovements(new Movement[] {shadowBall,sleep});
+            blastoise1.setMovements(new Movement[] {surf, aquaJet, hydroPump, iceBeam});
+            venusaur1.setMovements(new Movement[] {paralyze, poison, gigaDrain});
+            gengar1.setMovements(new Movement[] {willOWisp, thunderbolt});
+            dragonite1.setMovements(new Movement[] {swordsDance, hyperBeam, flamethrower});
+            togetic1.setMovements(new Movement[] {psychic});
+            tyranitar1.setMovements(new Movement[] {burn});
+            gardevoir1.setMovements(new Movement[] {psychic});
+            metagross1.setMovements(new Movement[] {burn, firePunch, flamethrower});
+            donphan1.setMovements(new Movement[] {earthquake});
+            machamp1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+            delibird1.setMovements(new Movement[] {freeze, iceBeam});
+            raichu1.setMovements(new Movement[] {electrocuted, thunderbolt, thunderPunch});
+            nidoking1.setMovements(new Movement[] {earthquake, poison, poisonJab, earthPower});
+            clefable1.setMovements(new Movement[] {xScissor, bugBuzz, poisonJab, sludgeBomb});
+            arcanine1.setMovements(new Movement[] {flamethrower, burn, firePunch});
+            slowbro1.setMovements(new Movement[] {surf, iceBeam, hydroPump, aquaJet});
+            rhydon1.setMovements(new Movement[] {earthquake, earthPower});
+            gyarados1.setMovements(new Movement[] {surf, hydroPump, aquaJet, iceBeam});
+            moltres1.setMovements(new Movement[] {flamethrower, burn, firePunch});
+            typhlosion1.setMovements(new Movement[] {flamethrower, burn, firePunch});
+            feraligatr1.setMovements(new Movement[] {surf, hydroPump, iceBeam, aquaJet});
+            ursaring1.setMovements(new Movement[] {shadowBall, shadowClaw});
+            blaziken1.setMovements(new Movement[] {flamethrower, burn, firePunch});
+            slaking1.setMovements(new Movement[] {shadowBall});
+            victreebel1.setMovements(new Movement[] {gigaDrain, poison, energyBall, sludgeBomb});
+            magneton1.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted});
+            dodrio1.setMovements(new Movement[] {xScissor, shadowBall, shadowClaw, energyBall});
+            hitmonlee1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+            hitmonchan1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+            mrMime1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
+            magmar1.setMovements(new Movement[] {flamethrower, burn, firePunch});
+            tauros1.setMovements(new Movement[] {shadowBall, shadowClaw});
+            lapras1.setMovements(new Movement[] {iceBeam, surf, hydroPump, freeze});
+            rapidash1.setMovements(new Movement[] {flamethrower, burn, firePunch});
+            alakazam1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
+            sceptile1.setMovements(new Movement[] {gigaDrain, energyBall, leafBlade, megaDrain});
+            scizor1.setMovements(new Movement[] {burn, flamethrower, firePunch});
+            hariyama1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+            aggron1.setMovements(new Movement[] {burn, flamethrower, firePunch});
+            manectric1.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted});
+            crawdaunt1.setMovements(new Movement[] {surf, aquaJet, iceBeam, hydroPump});
+            milotic1.setMovements(new Movement[] {hydroPump, surf, aquaJet, waterPulse});
+            mewtwo1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
+            swampert1.setMovements(new Movement[] {surf, aquaJet, hydroPump, waterPulse});
 
 
             //items
