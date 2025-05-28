@@ -106,7 +106,6 @@ public class DatosTwoPlayersSurvival extends JPanel {
                     gameMode.secondName = playerTwoName;
                     gameMode.inicializate(playerOneName, colorChosedPlayerOne, playerTwoName, colorChosedPlayerTwo);
                     gameMode.teamsSurvival.inicializar();
-                    po.domain.inicializateBattle(playerOneName, playerTwoName);
                     gameMode.changePanel("teams");
                 }catch (Exception ex) {
                     JOptionPane.showMessageDialog(DatosTwoPlayersSurvival.this, ex.getMessage());

@@ -456,6 +456,13 @@ public class POOBkemon implements Serializable{
             h.getMessage();
         }
     }
+
+    public void deleteActualListOfPokemons(String trainerEscogido){
+        ArrayList<String> generalLista = getTrainer(trainerEscogido).getInventory().getCurrentAlivePokemons();
+        generalLista.clear();
+    }
+
+
     public String getFirstPokemonOfThelist(ArrayList<String> pokemonesEscogidos){
         return pokemonesEscogidos.get(0);
     }

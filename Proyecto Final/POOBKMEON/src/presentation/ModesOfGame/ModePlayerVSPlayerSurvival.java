@@ -47,8 +47,13 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
     }
 
     public void generateAleatory(){
+        teamsSurvival.selectionOne.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerOneName).getInventory().getPokemonsName());
+        teamsSurvival.selectionTwo.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerTwoName).getInventory().getPokemonsName());
+        pooBkemonGUI.domain.deleteActualListOfPokemons(datos.playerOneName);
+        pooBkemonGUI.domain.deleteActualListOfPokemons(datos.playerTwoName);
         pooBkemonGUI.domain.generateRandomSelectionPokemon(datos.playerOneName);
         pooBkemonGUI.domain.generateRandomSelectionPokemon(datos.playerTwoName);
+        teamsSurvival.inicializar();
     }
 
     public void inicializate(String player1Name, Color color1, String player2Name, Color color2){
@@ -61,8 +66,6 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
                 JOptionPane.showMessageDialog(null, i.getMessage());
                 return;
             }
-            pooBkemonGUI.domain.inicializateBattle(player1Name, player2Name);
-            survivalBatalla.inicializate();
     }
     public void reset(){
         datos = new DatosTwoPlayersSurvival(pooBkemonGUI,this);
@@ -72,5 +75,10 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
 
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);
+    }
+
+    public void inicializateGame(String playerOne, String playerTwo){
+        pooBkemonGUI.domain.inicializateBattle(playerOne, playerTwo);
+        changePanel("Battle");
     }
 }
