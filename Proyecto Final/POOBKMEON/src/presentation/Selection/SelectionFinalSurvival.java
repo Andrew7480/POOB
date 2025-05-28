@@ -25,6 +25,7 @@ public class SelectionFinalSurvival extends JPanel {
 
     private JButton doneButton;
     private JButton come;
+    private JButton aleatoryMovement;
 
     public SelectionFinalSurvival(POOBkemonGUI newPo, ModePlayerVSPlayerSurvival father){
         gameMode = father;
@@ -46,10 +47,13 @@ public class SelectionFinalSurvival extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
+        aleatoryMovement = new JButton("Generar Nuevos Equipos");
         pooBkemonGUI.styleButton(doneButton);
         pooBkemonGUI.styleButton(come);
+        pooBkemonGUI.styleButton(aleatoryMovement);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         booton.setOpaque(false);
+        booton.add(aleatoryMovement);
         booton.add(come);
         booton.add(doneButton);
         down.add(booton,BorderLayout.SOUTH);
@@ -67,6 +71,12 @@ public class SelectionFinalSurvival extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 gameMode.changePanel("Datos");
+            }
+        });
+        aleatoryMovement.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                gameMode.generateAleatory();
             }
         });
     }

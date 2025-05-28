@@ -46,7 +46,10 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         });
     }
 
-    
+    public void generateAleatory(){
+        pooBkemonGUI.domain.generateRandomSelectionPokemon(datos.playerOneName);
+        pooBkemonGUI.domain.generateRandomSelectionPokemon(datos.playerTwoName);
+    }
 
     public void inicializate(String player1Name, Color color1, String player2Name, Color color2){
         pooBkemonGUI.createTrainer(player1Name, color1);

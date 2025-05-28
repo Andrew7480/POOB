@@ -22,7 +22,7 @@ public class POOBkemonTest implements Serializable {
             put("Velocity",-50);}});
 
         //creacion estados de effecto
-            StatusEffect Paralyze = new StatusMovil("Paralisis", "Paralisa al pokemon reduciendo su velocidad.", 2,paraly,0.25);
+            StatusEffect Paralyze = new StatusMovil("Paralisis", "Paralisa al pokemon reduciendo su velocidad.", 2,paraly,1);
             StatusEffect Freeze = new StatusEffect("congelado","Un Pokémon congelado",10,0.90);
             StatusEffect Sleep = new StatusEffect("Dormido","Un Pokémon dormido no puede realizar ningún movimiento durante su turno",5,1);
             TributeEffect Burn  = new TributeEffect("Quemadura ", "Le inflinge daño al inicio de turno.",2, 
@@ -277,62 +277,101 @@ public class POOBkemonTest implements Serializable {
                 System.out.println(e.getMessage());
             }
 
-            //Pokemones con esos movs
-            Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-            Pokemon charizard = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
-            Pokemon blastoise = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null,9);
-            Pokemon raichu = new Pokemon("Raichu",100,324,306,306,229,284,350,PokemonType.ELECTRICO,null,26);
-            Pokemon nidoking = new Pokemon("Nidoking",100,364,328,295,284,273,295,PokemonType.VENENO,PokemonType.TIERRA,34);
-            Pokemon clefable = new Pokemon("Clefable",100,394,251,284,317,328,251,PokemonType.HADA,null,36);
-            Pokemon arcanine = new Pokemon("Arcanine",100,384,350,317,295,284,328,PokemonType.FUEGO,null,59);
-            Pokemon machamp = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null,68);
-            Pokemon slowbro = new Pokemon("Slowbro",100,394,306,328,339,273,174,PokemonType.AGUA,PokemonType.PSIQUICO,80);
-            Pokemon gengar = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA,PokemonType.VENENO,94);
-            Pokemon rhydon = new Pokemon("Rhydon",100,414,394,306,262,273,196,PokemonType.TIERRA,PokemonType.ROCA,112);
-            Pokemon gyarados = new Pokemon("Gyarados",100,394,383,284,317,328,287,PokemonType.AGUA,PokemonType.VOLADOR,130);
-            Pokemon snorlax = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null,143);
-            Pokemon moltres = new Pokemon("Moltres",100,384,328,317,361,284,328,PokemonType.FUEGO,PokemonType.VOLADOR,146);
-            Pokemon dragonite = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR,149);
+            Pokemon venusaur   = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, PokemonType.PLANTA, PokemonType.VENENO, 3);
+            Pokemon charizard  = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+            Pokemon blastoise  = new Pokemon("Blastoise", 100, 362, 291, 295, 328, 339, 280, PokemonType.AGUA, null, 9);
+            Pokemon raichu     = new Pokemon("Raichu", 100, 324, 306, 306, 229, 284, 350, PokemonType.ELECTRICO, null, 26);
+            Pokemon nidoking   = new Pokemon("Nidoking", 100, 364, 328, 295, 284, 273, 295, PokemonType.VENENO, PokemonType.TIERRA, 34);
+            Pokemon clefable   = new Pokemon("Clefable", 100, 394, 251, 284, 317, 328, 251, PokemonType.HADA, null, 36);
+            Pokemon rapidash   = new Pokemon("Rapidash", 100, 331, 289, 258, 269, 289, 339, PokemonType.FUEGO, null, 78);
+            Pokemon alakazam   = new Pokemon("Alakazam", 100, 314, 189, 339, 369, 249, 299, PokemonType.PSIQUICO, null, 65);
+            Pokemon machamp    = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null,68);
+            Pokemon victreebel = new Pokemon("Victreebel", 100, 344, 339, 258, 289, 259, 289, PokemonType.PLANTA, PokemonType.VENENO, 71);
+            Pokemon slowbro    = new Pokemon("Slowbro",100,394,306,328,339,273,174,PokemonType.AGUA,PokemonType.PSIQUICO,80);
+            Pokemon magneton   = new Pokemon("Magneton", 100, 261, 289, 328, 349, 239, 249, PokemonType.ELECTRICO, PokemonType.ACERO, 82);
+            Pokemon dodrio     = new Pokemon("Dodrio", 100, 321, 349, 239, 249, 289, 339, PokemonType.NORMAL, PokemonType.VOLADOR, 85);
+            Pokemon arcanine   = new Pokemon("Arcanine", 100, 384, 350, 317, 295, 284, 328, PokemonType.FUEGO, null, 59);
+            Pokemon hitmonlee  = new Pokemon("Hitmonlee", 100, 281, 339, 239, 249, 289, 299, PokemonType.LUCHA, null, 106);
+            Pokemon hitmonchan = new Pokemon("Hitmonchan", 100, 281, 289, 239, 249, 289, 299, PokemonType.LUCHA, null, 107);
+            Pokemon gengar     = new Pokemon("Gengar", 100, 324, 251, 394, 240, 273, 350, PokemonType.FANTASMA, PokemonType.VENENO, 94);
+            Pokemon mrMime     = new Pokemon("Mr. Mime", 100, 304, 239, 309, 329, 289, 319, PokemonType.PSIQUICO, PokemonType.HADA, 122);
+            Pokemon magmar     = new Pokemon("Magmar", 100, 323, 339, 239, 329, 289, 309, PokemonType.FUEGO, null, 126);
+            Pokemon tauros     = new Pokemon("Tauros", 100, 353, 329, 239, 249, 337, 309, PokemonType.NORMAL, null, 128);
+            Pokemon lapras     = new Pokemon("Lapras", 100, 464, 289, 259, 299, 289, 209, PokemonType.AGUA, PokemonType.HIELO, 131);
+            Pokemon rhydon     = new Pokemon("Rhydon", 100, 414, 394, 306, 262, 273, 196, PokemonType.TIERRA, PokemonType.ROCA, 112);
+            Pokemon gyarados   = new Pokemon("Gyarados", 100, 394, 383, 284, 317, 328, 287, PokemonType.AGUA, PokemonType.VOLADOR, 130);
+            Pokemon snorlax    = new Pokemon("Snorlax", 100, 524, 350, 251, 251, 350, 174, PokemonType.NORMAL, null, 143);
+            Pokemon moltres    = new Pokemon("Moltres", 100, 384, 328, 317, 361, 284, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 146);
+            Pokemon dragonite  = new Pokemon("Dragonite", 100, 386, 403, 328, 317, 328, 284, PokemonType.DRAGON, PokemonType.VOLADOR, 149);
+            Pokemon mewtwo     = new Pokemon("Mewtwo", 100, 416, 349, 309, 369, 309, 359, PokemonType.PSIQUICO, null, 150);
             Pokemon typhlosion = new Pokemon("Typhlosion",100,360,293,317,328,306,328,PokemonType.FUEGO,null,157);
             Pokemon feraligatr = new Pokemon("Feraligatr",100,384,339,306,295,284,306,PokemonType.AGUA,null,160);
-            Pokemon togetic = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR,176);
-            Pokemon ursaring = new Pokemon("Ursaring",100,424,394,273,251,273,229,PokemonType.NORMAL,null,217);
-            Pokemon donphan = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null,232);
-            Pokemon delibird = new Pokemon("Delibird",100,294,229,251,207,207,273,PokemonType.HIELO,PokemonType.VOLADOR,225);
-            Pokemon tyranitar = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO,248);
-            Pokemon blaziken = new Pokemon("Blaziken",100,364,372,284,339,273,328,PokemonType.FUEGO,PokemonType.LUCHA,257);
-            Pokemon gardevoir = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA,282);
-            Pokemon slaking = new Pokemon("Slaking",100,504,460,273,328,284,273,PokemonType.NORMAL,null,289);
-            Pokemon metagross = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO,376);
+            Pokemon scizor     = new Pokemon("Scizor", 100, 344, 389, 259, 249, 289, 259, PokemonType.BICHO, PokemonType.ACERO, 212);
+            Pokemon togetic    = new Pokemon("Togetic", 100, 314, 196, 284, 295, 339, 196, PokemonType.HADA, PokemonType.VOLADOR, 176);
+            Pokemon ursaring   = new Pokemon("Ursaring", 100, 424, 394, 273, 251, 273, 229, PokemonType.NORMAL, null, 217);
+            Pokemon delibird   = new Pokemon("Delibird", 100, 294, 229, 251, 207, 207, 273, PokemonType.HIELO, PokemonType.VOLADOR, 225);
+            Pokemon donphan    = new Pokemon("Donphan", 100, 384, 372, 240, 372, 240, 218, PokemonType.TIERRA, null, 232);
+            Pokemon tyranitar  = new Pokemon("Tyranitar", 100, 404, 403, 317, 350, 328, 243, PokemonType.ROCA, PokemonType.SINIESTRO, 248);
+            Pokemon sceptile   = new Pokemon("Sceptile", 100, 344, 289, 299, 349, 299, 339, PokemonType.PLANTA, null, 254);
+            Pokemon blaziken   = new Pokemon("Blaziken", 100, 364, 372, 284, 339, 273, 328, PokemonType.FUEGO, PokemonType.LUCHA, 257);
+            Pokemon swampert   = new Pokemon("Swampert", 100, 404, 349, 299, 259, 299, 219, PokemonType.AGUA, PokemonType.TIERRA, 260);
+            Pokemon gardevoir  = new Pokemon("Gardevoir", 100, 340, 251, 383, 251, 361, 284, PokemonType.PSIQUICO, PokemonType.HADA, 282);
+            Pokemon slaking    = new Pokemon("Slaking", 100, 504, 460, 273, 328, 284, 273, PokemonType.NORMAL, null, 289);
+            Pokemon hariyama   = new Pokemon("Hariyama", 100, 474, 359, 239, 249, 239, 199, PokemonType.LUCHA, null, 297);
+            Pokemon aggron     = new Pokemon("Aggron", 100, 344, 429, 259, 259, 259, 199, PokemonType.ACERO, PokemonType.ROCA, 306);
+            Pokemon manectric  = new Pokemon("Manectric", 100, 324, 249, 309, 339, 279, 319, PokemonType.ELECTRICO, null, 310);
+            Pokemon crawdaunt  = new Pokemon("Crawdaunt", 100, 314, 349, 239, 299, 269, 209, PokemonType.AGUA, PokemonType.SINIESTRO, 342);
+            Pokemon milotic    = new Pokemon("Milotic", 100, 394, 249, 289, 329, 349, 219, PokemonType.AGUA, null, 350);
+            Pokemon metagross  = new Pokemon("Metagross", 100, 364, 404, 317, 394, 306, 262, PokemonType.ACERO, PokemonType.PSIQUICO, 376);
             
-            Pokemon venusaur1 = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
-            Pokemon charizard1 = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
-            Pokemon blastoise1 = new Pokemon("Blastoise",100,362,291,295,328,339,280,PokemonType.AGUA,null,9);
-            Pokemon raichu1 = new Pokemon("Raichu",100,324,306,306,229,284,350,PokemonType.ELECTRICO,null,26);
-            Pokemon nidoking1 = new Pokemon("Nidoking",100,364,328,295,284,273,295,PokemonType.VENENO,PokemonType.TIERRA,34);
-            Pokemon clefable1 = new Pokemon("Clefable",100,394,251,284,317,328,251,PokemonType.HADA,null,36);
-            Pokemon arcanine1 = new Pokemon("Arcanine",100,384,350,317,295,284,328,PokemonType.FUEGO,null,59);
-            Pokemon machamp1 = new Pokemon("Machamp",100,384,394,251,284,295,229,PokemonType.LUCHA,null,68);
-            Pokemon slowbro1 = new Pokemon("Slowbro",100,394,306,328,339,273,174,PokemonType.AGUA,PokemonType.PSIQUICO,80);
-            Pokemon gengar1 = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA,PokemonType.VENENO,94);
-            Pokemon rhydon1 = new Pokemon("Rhydon",100,414,394,306,262,273,196,PokemonType.TIERRA,PokemonType.ROCA,112);
-            Pokemon gyarados1 = new Pokemon("Gyarados",100,394,383,284,317,328,287,PokemonType.AGUA,PokemonType.VOLADOR,130);
-            Pokemon snorlax1 = new Pokemon("Snorlax",100,524,350,251,251,350,174,PokemonType.NORMAL,null,143);
-            Pokemon moltres1 = new Pokemon("Moltres",100,384,328,317,361,284,328,PokemonType.FUEGO,PokemonType.VOLADOR,146);
-            Pokemon dragonite1 = new Pokemon("Dragonite",100,386,403,328,317,328,284,PokemonType.DRAGON,PokemonType.VOLADOR,149);
-            Pokemon typhlosion1 = new Pokemon("Typhlosion",100,360,293,317,328,306,328,PokemonType.FUEGO,null,157);
-            Pokemon feraligatr1 = new Pokemon("Feraligatr",100,384,339,306,295,284,306,PokemonType.AGUA,null,160);
-            Pokemon togetic1 = new Pokemon("Togetic",100,314,196,284,295,339,196,PokemonType.HADA,PokemonType.VOLADOR,176);
-            Pokemon ursaring1 = new Pokemon("Ursaring",100,424,394,273,251,273,229,PokemonType.NORMAL,null,217);
-            Pokemon donphan1 = new Pokemon("Donphan",100,384,372,240,372,240,218,PokemonType.TIERRA,null,232);
-            Pokemon delibird1 = new Pokemon("Delibird",100,294,229,251,207,207,273,PokemonType.HIELO,PokemonType.VOLADOR,225);
-            Pokemon tyranitar1 = new Pokemon("Tyranitar",100,404,403,317,350,328,243,PokemonType.ROCA,PokemonType.SINIESTRO,248);
-            Pokemon blaziken1 = new Pokemon("Blaziken",100,364,372,284,339,273,328,PokemonType.FUEGO,PokemonType.LUCHA,257);
-            Pokemon gardevoir1 = new Pokemon("Gardevoir",100,340,251,383,251,361,284,PokemonType.PSIQUICO,PokemonType.HADA,282);
-            Pokemon slaking1 = new Pokemon("Slaking",100,504,460,273,328,284,273,PokemonType.NORMAL,null,289);
-            Pokemon metagross1 = new Pokemon("Metagross",100,364,404,317,394,306,262,PokemonType.ACERO,PokemonType.PSIQUICO,376);
-        
 
+            Pokemon venusaur1   = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, PokemonType.PLANTA, PokemonType.VENENO, 3);
+            Pokemon charizard1  = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+            Pokemon blastoise1  = new Pokemon("Blastoise", 100, 362, 291, 295, 328, 339, 280, PokemonType.AGUA, null, 9);
+            Pokemon raichu1     = new Pokemon("Raichu", 100, 324, 306, 306, 229, 284, 350, PokemonType.ELECTRICO, null, 26);
+            Pokemon nidoking1   = new Pokemon("Nidoking", 100, 364, 328, 295, 284, 273, 295, PokemonType.VENENO, PokemonType.TIERRA, 34);
+            Pokemon clefable1   = new Pokemon("Clefable", 100, 394, 251, 284, 317, 328, 251, PokemonType.HADA, null, 36);
+            Pokemon rapidash1   = new Pokemon("Rapidash", 100, 331, 289, 258, 269, 289, 339, PokemonType.FUEGO, null, 78);
+            Pokemon alakazam1   = new Pokemon("Alakazam", 100, 314, 189, 339, 369, 249, 299, PokemonType.PSIQUICO, null, 65);
+            Pokemon victreebel1 = new Pokemon("Victreebel", 100, 344, 339, 258, 289, 259, 289, PokemonType.PLANTA, PokemonType.VENENO, 71);
+            Pokemon magneton1   = new Pokemon("Magneton", 100, 261, 289, 328, 349, 239, 249, PokemonType.ELECTRICO, PokemonType.ACERO, 82);
+            Pokemon dodrio1     = new Pokemon("Dodrio", 100, 321, 349, 239, 249, 289, 339, PokemonType.NORMAL, PokemonType.VOLADOR, 85);
+            Pokemon arcanine1   = new Pokemon("Arcanine", 100, 384, 350, 317, 295, 284, 328, PokemonType.FUEGO, null, 59);
+            Pokemon machamp1    = new Pokemon("Machamp", 100, 384, 394, 251, 284, 295, 229, PokemonType.LUCHA, null, 68);
+            Pokemon slowbro1    = new Pokemon("Slowbro", 100, 394, 306, 328, 339, 273, 174, PokemonType.AGUA, PokemonType.PSIQUICO, 80);
+            Pokemon gengar1     = new Pokemon("Gengar", 100, 324, 251, 394, 240, 273, 350, PokemonType.FANTASMA, PokemonType.VENENO, 94);
+            Pokemon hitmonlee1  = new Pokemon("Hitmonlee", 100, 281, 339, 239, 249, 289, 299, PokemonType.LUCHA, null, 106);
+            Pokemon hitmonchan1 = new Pokemon("Hitmonchan", 100, 281, 289, 239, 249, 289, 299, PokemonType.LUCHA, null, 107);
+            Pokemon rhydon1     = new Pokemon("Rhydon", 100, 414, 394, 306, 262, 273, 196, PokemonType.TIERRA, PokemonType.ROCA, 112);
+            Pokemon mrMime1     = new Pokemon("Mr. Mime", 100, 304, 239, 309, 329, 289, 319, PokemonType.PSIQUICO, PokemonType.HADA, 122);
+            Pokemon magmar1     = new Pokemon("Magmar", 100, 323, 339, 239, 329, 289, 309, PokemonType.FUEGO, null, 126);
+            Pokemon tauros1     = new Pokemon("Tauros", 100, 353, 329, 239, 249, 337, 309, PokemonType.NORMAL, null, 128);
+            Pokemon gyarados1   = new Pokemon("Gyarados", 100, 394, 383, 284, 317, 328, 287, PokemonType.AGUA, PokemonType.VOLADOR, 130);
+            Pokemon lapras1     = new Pokemon("Lapras", 100, 464, 289, 259, 299, 289, 209, PokemonType.AGUA, PokemonType.HIELO, 131);
+            Pokemon snorlax1    = new Pokemon("Snorlax", 100, 524, 350, 251, 251, 350, 174, PokemonType.NORMAL, null, 143);
+            Pokemon moltres1    = new Pokemon("Moltres", 100, 384, 328, 317, 361, 284, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 146);
+            Pokemon dragonite1  = new Pokemon("Dragonite", 100, 386, 403, 328, 317, 328, 284, PokemonType.DRAGON, PokemonType.VOLADOR, 149);
+            Pokemon mewtwo1     = new Pokemon("Mewtwo", 100, 416, 349, 309, 369, 309, 359, PokemonType.PSIQUICO, null, 150);
+            Pokemon typhlosion1 = new Pokemon("Typhlosion", 100, 360, 293, 317, 328, 306, 328, PokemonType.FUEGO, null, 157);
+            Pokemon feraligatr1 = new Pokemon("Feraligatr", 100, 384, 339, 306, 295, 284, 306, PokemonType.AGUA, null, 160);
+            Pokemon togetic1    = new Pokemon("Togetic", 100, 314, 196, 284, 295, 339, 196, PokemonType.HADA, PokemonType.VOLADOR, 176);
+            Pokemon ursaring1   = new Pokemon("Ursaring", 100, 424, 394, 273, 251, 273, 229, PokemonType.NORMAL, null, 217);
+            Pokemon scizor1     = new Pokemon("Scizor", 100, 344, 389, 259, 249, 289, 259, PokemonType.BICHO, PokemonType.ACERO, 212);
+            Pokemon delibird1   = new Pokemon("Delibird", 100, 294, 229, 251, 207, 207, 273, PokemonType.HIELO, PokemonType.VOLADOR, 225);
+            Pokemon donphan1    = new Pokemon("Donphan", 100, 384, 372, 240, 372, 240, 218, PokemonType.TIERRA, null, 232);
+            Pokemon tyranitar1  = new Pokemon("Tyranitar", 100, 404, 403, 317, 350, 328, 243, PokemonType.ROCA, PokemonType.SINIESTRO, 248);
+            Pokemon sceptile1   = new Pokemon("Sceptile", 100, 344, 289, 299, 349, 299, 339, PokemonType.PLANTA, null, 254);
+            Pokemon blaziken1   = new Pokemon("Blaziken", 100, 364, 372, 284, 339, 273, 328, PokemonType.FUEGO, PokemonType.LUCHA, 257);
+            Pokemon swampert1   = new Pokemon("Swampert", 100, 404, 349, 299, 259, 299, 219, PokemonType.AGUA, PokemonType.TIERRA, 260);
+            Pokemon gardevoir1  = new Pokemon("Gardevoir", 100, 340, 251, 383, 251, 361, 284, PokemonType.PSIQUICO, PokemonType.HADA, 282);
+            Pokemon slaking1    = new Pokemon("Slaking", 100, 504, 460, 273, 328, 284, 273, PokemonType.NORMAL, null, 289);
+            Pokemon hariyama1   = new Pokemon("Hariyama", 100, 474, 359, 239, 249, 239, 199, PokemonType.LUCHA, null, 297);
+            Pokemon aggron1     = new Pokemon("Aggron", 100, 344, 429, 259, 259, 259, 199, PokemonType.ACERO, PokemonType.ROCA, 306);
+            Pokemon manectric1  = new Pokemon("Manectric", 100, 324, 249, 309, 339, 279, 319, PokemonType.ELECTRICO, null, 310);
+            Pokemon crawdaunt1  = new Pokemon("Crawdaunt", 100, 314, 349, 239, 299, 269, 209, PokemonType.AGUA, PokemonType.SINIESTRO, 342);
+            Pokemon milotic1    = new Pokemon("Milotic", 100, 394, 249, 289, 329, 349, 219, PokemonType.AGUA, null, 350);
+            Pokemon metagross1  = new Pokemon("Metagross", 100, 364, 404, 317, 394, 306, 262, PokemonType.ACERO, PokemonType.PSIQUICO, 376);
+        
             poobkemon.addPokemon(charizard);
             poobkemon.addPokemon(snorlax);
             poobkemon.addPokemon(blastoise);
@@ -359,6 +398,26 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(ursaring);
             poobkemon.addPokemon(blaziken);
             poobkemon.addPokemon(slaking);
+            poobkemon.addPokemon(victreebel);
+            poobkemon.addPokemon(magneton);
+            poobkemon.addPokemon(dodrio);
+            poobkemon.addPokemon(hitmonlee);
+            poobkemon.addPokemon(hitmonchan);
+            poobkemon.addPokemon(mrMime);
+            poobkemon.addPokemon(magmar);
+            poobkemon.addPokemon(tauros);
+            poobkemon.addPokemon(lapras);
+            poobkemon.addPokemon(rapidash);
+            poobkemon.addPokemon(alakazam);
+            poobkemon.addPokemon(sceptile);
+            poobkemon.addPokemon(scizor);
+            poobkemon.addPokemon(hariyama);
+            poobkemon.addPokemon(aggron);
+            poobkemon.addPokemon(manectric);
+            poobkemon.addPokemon(crawdaunt);
+            poobkemon.addPokemon(milotic);
+            poobkemon.addPokemon(mewtwo);
+            poobkemon.addPokemon(swampert);
 
 
             /* 
@@ -404,6 +463,27 @@ public class POOBkemonTest implements Serializable {
             ursaring1.setMovements(new Movement[] {hyperBeam, brickBreak, crunch, stoneedge});
             blaziken1.setMovements(new Movement[] {flamethrower, brickBreak, closeCombat, thunderbolt});
             slaking1.setMovements(new Movement[] {hyperBeam, earthquake, shadowBall, brickBreak});
+            victreebel1.setMovements(new Movement[] {gigaDrain, poison, leafBlade, moonblast});
+            magneton1.setMovements(new Movement[] {thunderbolt, flashCannon, thunderPunch, ironHead, crunch, shadowBall});
+            dodrio1.setMovements(new Movement[] {drillPeck, bravebird, quickAttack, hyperBeam, outrage, crunch});
+            hitmonlee1.setMovements(new Movement[] {brickBreak, closeCombat, fakeOut, earthquake, rockSlide, megaDrain});
+            hitmonchan1.setMovements(new Movement[] {brickBreak, thunderPunch, firePunch, icePunch, closeCombat, hyperBeam});
+            mrMime1.setMovements(new Movement[] {psychic, calmMind, moonblast, shadowBall, energyBall, thunderbolt});
+            magmar1.setMovements(new Movement[] {flamethrower, firePunch, thunderPunch, brickBreak, hyperBeam, crunch});
+            tauros1.setMovements(new Movement[] {hyperBeam, earthquake, rockSlide, crunch, ironHead, quickAttack});
+            lapras1.setMovements(new Movement[] {iceBeam, surf, hydroPump, hyperBeam, waterPulse, psychic});
+            rapidash1.setMovements(new Movement[] {flamethrower, firePunch, earthquake, outrage, quickAttack, solarBeam});
+            alakazam1.setMovements(new Movement[] {psychic, shadowBall, calmMind, energyBall, focusBlast, zenHeadbutt});
+            sceptile1.setMovements(new Movement[] {leafBlade, gigaDrain, earthquake, dragonClaw, energyBall, xScissor});
+            scizor1.setMovements(new Movement[] {xScissor, ironHead, bugBuzz, brickBreak});
+            hariyama1.setMovements(new Movement[] {brickBreak, closeCombat, earthquake, rockSlide, hyperBeam, firePunch});
+            aggron1.setMovements(new Movement[] {ironHead, rockSlide, earthquake, hyperBeam, crunch, brickBreak});
+            manectric1.setMovements(new Movement[] {thunderbolt, thunderPunch, crunch, hyperBeam, flamethrower, quickAttack});
+            crawdaunt1.setMovements(new Movement[] {crunch, surf, aquaJet, hyperBeam, brickBreak, iceBeam});
+            milotic1.setMovements(new Movement[] {hydroPump, surf, iceBeam, calmMind, hyperBeam, waterPulse});
+            mewtwo1.setMovements(new Movement[] {psychic, shadowBall, calmMind, flamethrower, focusBlast, hyperBeam});
+            swampert1.setMovements(new Movement[] {earthquake, surf, iceBeam, brickBreak, hydroPump, waterPulse});
+
 
             //items
             Item revive = new Revive();
@@ -503,7 +583,7 @@ public class POOBkemonTest implements Serializable {
             //4
             Inventory inventarioAttacking = new Inventory();
             attacking.setInventory(inventarioAttacking);
-            attacking.addPokemon(machamp1);
+            attacking.addPokemon(raichu1);
             attacking.addPokemon(tyranitar1);
             attacking.addPokemon(dragonite1);
             attacking.addPokemon(blaziken1);
@@ -1588,4 +1668,60 @@ public class POOBkemonTest implements Serializable {
             e.printStackTrace();
         }
     }
+    @Test
+    public void shouldGetTheStatusEffect() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        TributeEffect paraly  = new TributeEffect("Efecto de paralizar ", "Reduce la velocidad", 2,new HashMap<String,Integer>(){{
+            put("Velocity",-50);}});
+        StatusEffect Paralyze = new StatusMovil("Paralisis", "Paralisa al pokemon reduciendo su velocidad.", 2,paraly,0.75);
+        try {
+        	Paralyze.affectPokemon(po.getPokemon("Charizard"));
+        	paraly.affectPokemon(po.getPokemon("Raichu"));
+        }catch(PoobkemonException e) {
+        	fail(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldGetInformationAboutInventoryOfATrainer() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        ArrayList<String> prue = t1.getInventory().getDeadCurrentPokemons();
+        assertFalse(prue.size() > 0);
+    }
+    @Test
+    public void shouldGetCurrentAlivePokemonsAndGetThePokemon() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        ArrayList<Pokemon> prue = t1.getInventory().getAlivePokemons();
+        ArrayList<String> pro = t1.getInventory().getCurrentAlivePokemons();
+        ArrayList<Pokemon> actualPokemon = t1.getInventory().getAlivePokemons(t1.getInventory().getAlivePokemons().get(0));
+        ArrayList<String> a = t1.getInventory().getCurrentAlivePokemonsWithoutCurrent(t1.getInventory().getAlivePokemons().get(0));
+        assertTrue(prue.size() > 0);
+        assertTrue(pro.size() > 0);
+    }
+    
+    @Test
+    public void shouldFightExpertTrainer() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("Expert");
+        Trainer t2 = po.getTrainer("tulio");
+        Trainer t3 = po.getTrainer("Defensive");
+        po.inicializateBattle(t1.getName(), t2.getName());
+        try {
+        	t1.decide(t1.getPokemonInUse());
+        	t3.decide(t3.getPokemonInUse());
+        	po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
+        }catch(PoobkemonException e) {
+        	fail(e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
 }

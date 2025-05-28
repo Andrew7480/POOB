@@ -34,8 +34,8 @@ public class DatosTwoPlayersSurvival extends JPanel {
 
     private JTextField playerOneNameField;
     private JTextField playerTwoNameField;
-    private String playerOneName = "";
-    private String playerTwoName = "";
+    public String playerOneName = "";
+    public String playerTwoName = "";
 
     private Color choiceOne;
     private Color choiceTwo;

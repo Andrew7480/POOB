@@ -64,6 +64,8 @@ public class POOBkemonGUI extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int)(screenSize.getWidth() / 1.5), (int)(screenSize.getHeight() / 1.5));
         fileChooser = new JFileChooser();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/icono.jpg"));
+        setIconImage(icon.getImage());
         prepareElementsMenu();
         prepareElementsModesOfGame();
         add(panelContenedor);
