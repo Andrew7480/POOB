@@ -47,8 +47,9 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
     }
 
     public void generateAleatory(){
-        teamsSurvival.selectionOne.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerOneName).getInventory().getPokemonsName());
-        teamsSurvival.selectionTwo.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerTwoName).getInventory().getPokemonsName());
+        //teamsSurvival.selectionOne.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerOneName).getInventory().getPokemonsName());
+        //teamsSurvival.selectionTwo.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerTwoName).getInventory().getPokemonsName());
+        teamsSurvival.reset();
         pooBkemonGUI.domain.deleteActualListOfPokemons(datos.playerOneName);
         pooBkemonGUI.domain.deleteActualListOfPokemons(datos.playerTwoName);
         pooBkemonGUI.domain.generateRandomSelectionPokemon(datos.playerOneName);
@@ -56,7 +57,7 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         teamsSurvival.inicializar();
     }
 
-    public void inicializate(String player1Name, Color color1, String player2Name, Color color2){
+    public void inicializateTeams(String player1Name, Color color1, String player2Name, Color color2){
         pooBkemonGUI.createTrainer(player1Name, color1);
         pooBkemonGUI.createTrainer(player2Name, color2);
         try {

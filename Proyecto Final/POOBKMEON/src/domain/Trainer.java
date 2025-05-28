@@ -23,6 +23,10 @@ public abstract class Trainer implements Serializable{
         
     }
 
+    public void clearPokemons(){
+        inventory.clearPokemons();
+    }
+
     /**
      * Gets the inventory of the trainer
      * 

@@ -32,6 +32,10 @@ public class Inventory implements Serializable{
         items.put(item, items.getOrDefault(item, 0) + 1);
     }
 
+    public void clearPokemons(){
+        pokemons.clear();
+    }
+
     /**
      * Counts how many of a specific item are in the inventory
      * 

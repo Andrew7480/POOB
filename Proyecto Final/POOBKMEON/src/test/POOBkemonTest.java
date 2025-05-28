@@ -519,12 +519,12 @@ public class POOBkemonTest implements Serializable {
             //1 denfensive
             Inventory inventarioDefensive = new Inventory(); 
             defensive.setInventory(inventarioDefensive);
-            defensive.addPokemon(snorlax1.copy());
-            defensive.addPokemon(rhydon1.copy());
-            defensive.addPokemon(blastoise1.copy());
-            defensive.addPokemon(gyarados1.copy());
-            defensive.addPokemon(moltres1.copy());
-            defensive.addPokemon(typhlosion1.copy());
+            defensive.addPokemon(snorlax1.copyWithMovements());
+            defensive.addPokemon(rhydon1.copyWithMovements());
+            defensive.addPokemon(blastoise1.copyWithMovements());
+            defensive.addPokemon(gyarados1.copyWithMovements());
+            defensive.addPokemon(moltres1.copyWithMovements());
+            defensive.addPokemon(typhlosion1.copyWithMovements());
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
             inventarioDefensive.addItem(revive);
@@ -535,12 +535,12 @@ public class POOBkemonTest implements Serializable {
             //2
             Inventory inventarioChanging = new Inventory();
             changing.setInventory(inventarioChanging);
-            changing.addPokemon(clefable1.copy());
-            changing.addPokemon(machamp1.copy());
-            changing.addPokemon(slaking1.copy());
-            changing.addPokemon(feraligatr1.copy());
-            changing.addPokemon(ursaring1.copy());
-            changing.addPokemon(rhydon1.copy());
+            changing.addPokemon(clefable1.copyWithMovements());
+            changing.addPokemon(machamp1.copyWithMovements());
+            changing.addPokemon(slaking1.copyWithMovements());
+            changing.addPokemon(feraligatr1.copyWithMovements());
+            changing.addPokemon(ursaring1.copyWithMovements());
+            changing.addPokemon(rhydon1.copyWithMovements());
             inventarioChanging.addItem(psNormalPotion);
             inventarioChanging.addItem(defenseNormalPotion);
             inventarioChanging.addItem(revive);
@@ -550,12 +550,12 @@ public class POOBkemonTest implements Serializable {
             //3
             Inventory inventarioChanging1 = new Inventory();
             changing1.setInventory(inventarioChanging1);
-            changing1.addPokemon(dragonite1.copy());
-            changing1.addPokemon(venusaur1.copy());
-            changing1.addPokemon(tyranitar1.copy());
-            changing1.addPokemon(gyarados1.copy());
-            changing1.addPokemon(moltres1.copy());
-            changing1.addPokemon(blaziken1.copy());
+            changing1.addPokemon(dragonite1.copyWithMovements());
+            changing1.addPokemon(venusaur1.copyWithMovements());
+            changing1.addPokemon(tyranitar1.copyWithMovements());
+            changing1.addPokemon(gyarados1.copyWithMovements());
+            changing1.addPokemon(moltres1.copyWithMovements());
+            changing1.addPokemon(blaziken1.copyWithMovements());
             inventarioChanging1.addItem(psNormalPotion);
             inventarioChanging1.addItem(defenseNormalPotion);
             inventarioChanging1.addItem(revive);
@@ -564,12 +564,12 @@ public class POOBkemonTest implements Serializable {
             //4
             Inventory inventarioAttacking = new Inventory();
             attacking.setInventory(inventarioAttacking);
-            attacking.addPokemon(raichu1.copy());
-            attacking.addPokemon(tyranitar1.copy());
-            attacking.addPokemon(dragonite1.copy());
-            attacking.addPokemon(blaziken1.copy());
-            attacking.addPokemon(gardevoir1.copy());
-            attacking.addPokemon(gyarados1.copy());
+            attacking.addPokemon(raichu1.copyWithMovements());
+            attacking.addPokemon(tyranitar1.copyWithMovements());
+            attacking.addPokemon(dragonite1.copyWithMovements());
+            attacking.addPokemon(blaziken1.copyWithMovements());
+            attacking.addPokemon(gardevoir1.copyWithMovements());
+            attacking.addPokemon(gyarados1.copyWithMovements());
             inventarioAttacking.addItem(psNormalPotion);
             inventarioAttacking.addItem(defenseNormalPotion);
             inventarioAttacking.addItem(revive);
@@ -577,12 +577,12 @@ public class POOBkemonTest implements Serializable {
             //5
             Inventory inventarioExpert = new Inventory();
             expert.setInventory(inventarioExpert);
-            expert.addPokemon(venusaur1.copy());
-            expert.addPokemon(gyarados1.copy());
-            expert.addPokemon(metagross1.copy());
-            expert.addPokemon(dragonite1.copy());
-            expert.addPokemon(gardevoir1.copy());
-            expert.addPokemon(rhydon1.copy());
+            expert.addPokemon(venusaur1.copyWithMovements());
+            expert.addPokemon(gyarados1.copyWithMovements());
+            expert.addPokemon(metagross1.copyWithMovements());
+            expert.addPokemon(dragonite1.copyWithMovements());
+            expert.addPokemon(gardevoir1.copyWithMovements());
+            expert.addPokemon(rhydon1.copyWithMovements());
             inventarioExpert.addItem(psNormalPotion);
             inventarioExpert.addItem(defenseNormalPotion);
             inventarioExpert.addItem(revive);
@@ -591,12 +591,12 @@ public class POOBkemonTest implements Serializable {
             //6
             Inventory inventarioDefensive1 = new Inventory();
             defensive1.setInventory(inventarioDefensive1);
-            defensive1.addPokemon(venusaur1.copy());
-            defensive1.addPokemon(slowbro1.copy());
-            defensive1.addPokemon(clefable1.copy());
-            defensive1.addPokemon(rhydon1.copy());
-            defensive1.addPokemon(togetic1.copy());
-            defensive1.addPokemon(tyranitar1.copy());
+            defensive1.addPokemon(venusaur1.copyWithMovements());
+            defensive1.addPokemon(slowbro1.copyWithMovements());
+            defensive1.addPokemon(clefable1.copyWithMovements());
+            defensive1.addPokemon(rhydon1.copyWithMovements());
+            defensive1.addPokemon(togetic1.copyWithMovements());
+            defensive1.addPokemon(tyranitar1.copyWithMovements());
             inventarioDefensive1.addItem(psNormalPotion);
             inventarioDefensive1.addItem(defenseNormalPotion);
             inventarioDefensive1.addItem(revive);

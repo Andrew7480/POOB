@@ -27,12 +27,7 @@ public class SelectionMovementsPanel extends JPanel{
         prepareElements();
     }
 
-    public void clearActualList(ArrayList<String> chosenPokemons){
-        chosenPokemons.clear();
-    }
-
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
-        System.out.println(chosenPokemons.size() + "AAAAAAAAAAAAAAA");
         reset();
         for (String s :chosenPokemons){
             chosenPok.add(s);

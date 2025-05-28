@@ -100,6 +100,8 @@ public class PoobkemonException extends Exception {
 
     public static final String FILE_DONT_EXIST = "El archivo con ese nombre no existe";
 
+    public static final String CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR = "MULTIPLICADORES";
+
 
     /**
      * Constructor for creating a new PoobkemonException with a specific error message.

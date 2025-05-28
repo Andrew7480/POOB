@@ -259,10 +259,9 @@ public class Pokemon implements Serializable {
         ArrayList<Movement> list = new ArrayList<>();
         for (Movement m : newMovements){
             try {
-                if (!movements.contains(m)) {
-                    list.add(m);
-                }
+                addMovement(m);
             } catch(Exception e){
+                System.out.println(e);
                 LogPOOBKEMON.record(e);
             }
         }
@@ -276,10 +275,13 @@ public class Pokemon implements Serializable {
      * @throws PoobkemonException If the movement already exists or is invalid for this Pokemon
      */
     public void addMovement(Movement mov) throws PoobkemonException{
-        if (movements.contains(mov) || mov.getMultiplicator(principalType)>1.0) {
+        if (movements.contains(mov) ) {
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         }
-        movements.add(mov);
+        if (mov.getMultiplicator(principalType)>1.0) {
+            throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
+        }
+        movements.add(mov.copy());
     }
 
     /**
@@ -724,6 +726,14 @@ public class Pokemon implements Serializable {
      */
     public Pokemon copy(){
         return new Pokemon(name,level,ps,attack,specialAttack,defense,specialDefense,velocity,principalType,secondaryType,pokedexIndex);
+    }
+    public Pokemon copyWithMovements(){
+        Pokemon newPokemon = new Pokemon(name,level,ps,attack,specialAttack,defense,specialDefense,velocity,principalType,secondaryType,pokedexIndex);
+        for (Movement m : movements){
+            try {newPokemon.addMovement(m);} 
+            catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        }
+        return newPokemon;
     }
     
     /**
