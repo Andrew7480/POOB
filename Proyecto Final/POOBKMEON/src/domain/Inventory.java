@@ -15,8 +15,7 @@ public class Inventory implements Serializable{
     /**
      * Constructor for creating a new empty Inventory
      */
-    public Inventory() {
-    }
+    public Inventory() {}
 
     /**
      * Adds an item to the inventory
@@ -266,6 +265,24 @@ public class Inventory implements Serializable{
         }
         return temp;
     }
+    public Inventory copy(){
+        Inventory newInventory = new Inventory();
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            Item itemCopia = entry.getKey(); 
+            int cantidad = entry.getValue();
+            for (int i=0; i<cantidad;i++){
+                try {newInventory.addItem(itemCopia);} 
+                catch (PoobkemonException e) {System.out.println(e.getMessage());}
+            }
+        }
+        for (Map.Entry<String, Pokemon> entry : pokemons.entrySet()) {
+            Pokemon pokemonCopia = entry.getValue().copy();
+            try {newInventory.addPokemon(pokemonCopia);} 
+            catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        }
+        return newInventory;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

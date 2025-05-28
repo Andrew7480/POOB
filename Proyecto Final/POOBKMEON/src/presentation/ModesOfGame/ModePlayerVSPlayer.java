@@ -86,7 +86,7 @@ public class ModePlayerVSPlayer extends JPanel {
             JOptionPane.showMessageDialog(null, i.getMessage());
             return;
         }catch (Exception e) {LogPOOBKEMON.record(e);}
-        pooBkemonGUI.domain.inicializateBattle(firstName,secondName);
+        pooBkemonGUI.domain.inicializateBattlePVsP(firstName,secondName);
         batalla.inicializate();
     }
     public void reset(){

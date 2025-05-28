@@ -250,6 +250,15 @@ public abstract class Trainer implements Serializable{
         return inventory.getPokemonsName();
     }
     
+    public Trainer copy() {
+        PlayerTrainer copyTrainer = new PlayerTrainer(getName(),getColor() );
+        Inventory newInventory = inventory.copy();
+        copyTrainer.setInventory(newInventory);
+        try {copyTrainer.setPokemonInUse(getPokemonInUse());} 
+        catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        return copyTrainer;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

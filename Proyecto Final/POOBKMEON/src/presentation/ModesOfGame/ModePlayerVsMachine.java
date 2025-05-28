@@ -90,7 +90,7 @@ public class ModePlayerVsMachine extends JPanel {
             JOptionPane.showMessageDialog(null, "message1: "+i.getMessage());
             return;
         }
-        pooBkemonGUI.domain.inicializateBattle(nameTrainer,trainerEscogidoMachine);
+        pooBkemonGUI.domain.inicializateBattlePVsM(nameTrainer,trainerEscogidoMachine);
         batalla.inicializate();
     }
     public void reset(){

@@ -152,17 +152,21 @@ public class POOBkemon implements Serializable{
     
     /**
      * Initializes a new battle between two trainers
-     * @param player1 Name of the first trainer
-     * @param player2 Name of the second trainer
+     * @param playerOne Name of the first trainer
+     * @param playerTwo Name of the second trainer
      */
-    public void inicializateBattle(String player1, String player2){ //mirar pues
-        Trainer trainer1 = entrenadores.get(player1);
-        Trainer trainer2 = entrenadores.get(player2);
-        //System.out.println(trainer1.toString());
-        //System.out.println(trainer2.toString());
-        battle = new Battle(trainer1, trainer2);
+    private void inicializateBattle(Trainer playerOne, Trainer playerTwo){
+        battle = new Battle(playerOne, playerTwo);
     }
-
+    public void inicializateBattleMvsM(String machineOne, String machineTwo){
+        inicializateBattle(entrenadores.get(machineOne).copy(), entrenadores.get(machineTwo).copy());
+    }
+    public void inicializateBattlePVsM(String playerOne, String machineTwo){
+        inicializateBattle(entrenadores.get(playerOne), entrenadores.get(machineTwo).copy());
+    }
+    public void inicializateBattlePVsP(String playerOne, String machineTwo){
+        inicializateBattle(entrenadores.get(playerOne), entrenadores.get(machineTwo));
+    }
     /**
      * Gets the color of the current trainer
      * @return Color object representing the current trainer's color

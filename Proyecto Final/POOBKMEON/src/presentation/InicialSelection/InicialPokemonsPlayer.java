@@ -66,7 +66,6 @@ public class InicialPokemonsPlayer extends JPanel {
                     if (selection.sizeChosenPokemon() > selection.MAX_CHANGED ){
                         JOptionPane.showMessageDialog(InicialPokemonsPlayer.this, "Solo puedes escoger uno para cambiar " + selection.MAX_CHANGED + "pokemon", 
                         "Límite excedido", JOptionPane.WARNING_MESSAGE);
-
                         return;
                     }
                     

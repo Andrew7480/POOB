@@ -60,7 +60,7 @@ public class ModeMachineVsMachine extends JPanel {
         try{
             pooBkemonGUI.domain.inicialTrainerPokemon(datos.machineTrainerFirst, "machine one");
             pooBkemonGUI.domain.inicialTrainerPokemon(datos.machineTrainerSecond, "machine two");
-            pooBkemonGUI.domain.inicializateBattle(datos.machineTrainerFirst, datos.machineTrainerSecond);
+            pooBkemonGUI.domain.inicializateBattleMvsM(datos.machineTrainerFirst, datos.machineTrainerSecond);
             batalla.inicializate(pooBkemonGUI.domain.inicialTrainerMovements(datos.machineTrainerFirst));
             changePanel("Batalla");
         } catch (Exception e){
