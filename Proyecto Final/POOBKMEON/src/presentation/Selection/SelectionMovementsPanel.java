@@ -1,5 +1,6 @@
 package presentation.Selection;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -100,14 +101,16 @@ public class SelectionMovementsPanel extends JPanel{
         panel.add(imageLabel, BorderLayout.NORTH);
 
         JLabel nameLabel = new JLabel(namePokemon, SwingConstants.CENTER);
-        panel.add(nameLabel, BorderLayout.CENTER);
+        JPanel labelPanel = new JPanel(new BorderLayout());
+        labelPanel.setOpaque(false);
+        labelPanel.add(nameLabel, BorderLayout.CENTER);
+        panel.add(labelPanel, BorderLayout.CENTER);
 
-        JPanel movesPanel = new JPanel(new GridLayout(2, 1));
-        movesPanel.setOpaque(false);
-        JPanel Arriba = new JPanel(new FlowLayout());
-        JPanel Abajo = new JPanel(new FlowLayout());
-        Arriba.setOpaque(false);
-        Abajo.setOpaque(false);
+        JPanel container = new JPanel(new BorderLayout());
+        container.setOpaque(false);
+        JPanel movesPanel = new JPanel();
+        movesPanel.setLayout(new BoxLayout(movesPanel, BoxLayout.Y_AXIS));
+        movesPanel.setOpaque(false);    
 
         for(int i = 0; i<4;i++){
             final int buttonIndex = i;
@@ -116,6 +119,8 @@ public class SelectionMovementsPanel extends JPanel{
             moveButton.setFocusPainted(false);
             moveButton.setContentAreaFilled(true);
             moveButton.setOpaque(false);
+            moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            
             moveButton.addActionListener(e -> {
             JPopupMenu popupMenu = new JPopupMenu();
 
@@ -140,14 +145,11 @@ public class SelectionMovementsPanel extends JPanel{
             popupMenu.add(scrollPane);
             popupMenu.show(moveButton, moveButton.getWidth() / 2, moveButton.getHeight() / 2);
             });
-            if (i % 2 ==0)Arriba.add(moveButton);
-            else{Abajo.add(moveButton);}
+            movesPanel.add(Box.createVerticalStrut(1));
+            movesPanel.add(moveButton);
         }
-
-        movesPanel.add(Arriba);
-        movesPanel.add(Abajo);
-        
-        panel.add(movesPanel, BorderLayout.SOUTH);
+        container.add(movesPanel, BorderLayout.CENTER);
+        panel.add(container, BorderLayout.SOUTH);
         return panel;
     }
 
