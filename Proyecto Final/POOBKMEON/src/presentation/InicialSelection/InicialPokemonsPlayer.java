@@ -31,6 +31,7 @@ public class InicialPokemonsPlayer extends JPanel {
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
+        
         selection = new SelectionInicialPokemons(po);
 
         temp.add(selection);

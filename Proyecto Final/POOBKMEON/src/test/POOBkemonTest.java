@@ -1702,7 +1702,6 @@ public class POOBkemonTest implements Serializable {
         assertTrue(prue.size() > 0);
         assertTrue(pro.size() > 0);
     }
-    
     @Test
     public void shouldFightExpertTrainer() {
         POOBkemon kemon = new POOBkemon();
@@ -1719,9 +1718,8 @@ public class POOBkemonTest implements Serializable {
         	fail(e.getMessage());
         }
     }
-    
-    
-    
-    
-    
 }
+    
+    
+    
+    

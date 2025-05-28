@@ -2,6 +2,7 @@ package presentation.Battle;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
@@ -112,8 +113,20 @@ public class BattlePanel extends JPanel {
         }
         calculatePokemonPositions();
         timerLabel = new JLabel();
-        timer = new BattleTimer(pooBkemonGUI, timerLabel);
-        
+        timer = new BattleTimer(pooBkemonGUI){
+            public void iniciarTemporizadorDeBatalla(){  
+            battleTimer = new Timer(1000, e -> {
+                pooBkemonGUI.domain.reduceTimeBattle(); 
+                timerLabel.setText("" + pooBkemonGUI.domain.getTurnTimer());
+            });
+            battleTimer.start();
+            }
+        };
+        BattleTimer tempo = new BattleTimer(pooBkemonGUI) {
+            public void iniciarTemporizadorDeBatalla(){
+                battleTimer = new Timer(1000, e -> {actualizar();});
+            }
+        };
         buttonsMovs = new ArrayList<>();
         trainerActualMovements = new ArrayList<>();
         backToOptionsBattle = new JButton("Back");
@@ -152,8 +165,11 @@ public class BattlePanel extends JPanel {
 
         JPanel upPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         upPanel.setOpaque(false);
-        JPanel timerPanel = new JPanel(new FlowLayout());
-        timerPanel.add(timerLabel);
+        JPanel timerPanel = new JPanel(new BorderLayout());
+        JLabel timerTextLabel = new JLabel("Timer");
+        timerTextLabel.setFont(pokemonFont);
+        timerPanel.add(timerTextLabel, BorderLayout.NORTH);
+        timerPanel.add(timerLabel, BorderLayout.CENTER);
         
 
         upPanel.add(cargarPartida);
@@ -397,7 +413,7 @@ public class BattlePanel extends JPanel {
     }
     
     public void actualizaInfo(){
-        info.setText(pooBkemonGUI.domain.getLastMessage());
+        info.setText("<html><body style='width: 200px'>" + pooBkemonGUI.domain.getLastMessage() + "</body></html>");
         moveLabel.setText("¿Qué movimiento debería usar " + pooBkemonGUI.domain.getCurrentPokemonName() + "?");
     }
     public void actualizarColor(){
@@ -553,8 +569,6 @@ public class BattlePanel extends JPanel {
 
         opponentStatsPanel.revalidate();
         opponentStatsPanel.repaint();
-
-        //timerLabel.setBounds(375,20,50,30);
 
         ImageIcon back = new ImageIcon(getClass().getResource("/resources/" + backgroundImage + ".JPG"));
         g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
