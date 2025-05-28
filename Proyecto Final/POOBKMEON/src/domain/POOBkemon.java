@@ -331,7 +331,6 @@ public class POOBkemon implements Serializable{
      * @param item Item to add
      */
     public void addItem(Item item){
-        System.out.println(item.getName() + "Añadir item.");
         items.put(item.getName(),item);
     }
 

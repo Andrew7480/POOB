@@ -256,16 +256,15 @@ public class Pokemon implements Serializable {
      * @param newMovements Array of Movement objects to assign to the Pokemon
      */
     public void setMovements(Movement[] newMovements){
-        ArrayList<Movement> list = new ArrayList<>();
         for (Movement m : newMovements){
             try {
                 addMovement(m);
             } catch(Exception e){
                 System.out.println(e);
-                LogPOOBKEMON.record(e);
+                //LogPOOBKEMON.record(e);
             }
         }
-        movements = list;
+        System.out.println(movements.toString());
     }
 
     /**
@@ -276,9 +275,11 @@ public class Pokemon implements Serializable {
      */
     public void addMovement(Movement mov) throws PoobkemonException{
         if (movements.contains(mov) ) {
+            System.out.println(PoobkemonException.CANT_ADD_MOVEMENT);
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         }
         if (mov.getMultiplicator(principalType)>1.0) {
+            System.out.println(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
         }
         movements.add(mov.copy());

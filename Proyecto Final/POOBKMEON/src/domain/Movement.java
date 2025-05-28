@@ -92,8 +92,13 @@ public abstract class Movement implements Attackable, Serializable{
      * @return A multiplier value representing type effectiveness (e.g. 2.0 for super effective)
      */
     public double getMultiplicator(PokemonType defender){
-            return multiplicadores[type.getIndex()][defender.getIndex()];
+            return multiplicadores[defender.getIndex()][type.getIndex()];
     }
+
+    public double getMultiplicatorDebil(PokemonType defender){
+        return multiplicadores[type.getIndex()][defender.getIndex()];
+    }
+
 
     /**
      * Gets the remaining Power Points (PP) available for this movement
