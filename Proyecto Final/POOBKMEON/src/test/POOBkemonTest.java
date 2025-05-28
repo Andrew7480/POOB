@@ -324,54 +324,6 @@ public class POOBkemonTest implements Serializable {
             Pokemon milotic    = new Pokemon("Milotic", 100, 394, 249, 289, 329, 349, 219, PokemonType.AGUA, null, 350);
             Pokemon metagross  = new Pokemon("Metagross", 100, 364, 404, 317, 394, 306, 262, PokemonType.ACERO, PokemonType.PSIQUICO, 376);
             
-
-            Pokemon venusaur1   = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, PokemonType.PLANTA, PokemonType.VENENO, 3);
-            Pokemon charizard1  = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 6);
-            Pokemon blastoise1  = new Pokemon("Blastoise", 100, 362, 291, 295, 328, 339, 280, PokemonType.AGUA, null, 9);
-            Pokemon raichu1     = new Pokemon("Raichu", 100, 324, 306, 306, 229, 284, 350, PokemonType.ELECTRICO, null, 26);
-            Pokemon nidoking1   = new Pokemon("Nidoking", 100, 364, 328, 295, 284, 273, 295, PokemonType.VENENO, PokemonType.TIERRA, 34);
-            Pokemon clefable1   = new Pokemon("Clefable", 100, 394, 251, 284, 317, 328, 251, PokemonType.HADA, null, 36);
-            Pokemon rapidash1   = new Pokemon("Rapidash", 100, 331, 289, 258, 269, 289, 339, PokemonType.FUEGO, null, 78);
-            Pokemon alakazam1   = new Pokemon("Alakazam", 100, 314, 189, 339, 369, 249, 299, PokemonType.PSIQUICO, null, 65);
-            Pokemon victreebel1 = new Pokemon("Victreebel", 100, 344, 339, 258, 289, 259, 289, PokemonType.PLANTA, PokemonType.VENENO, 71);
-            Pokemon magneton1   = new Pokemon("Magneton", 100, 261, 289, 328, 349, 239, 249, PokemonType.ELECTRICO, PokemonType.ACERO, 82);
-            Pokemon dodrio1     = new Pokemon("Dodrio", 100, 321, 349, 239, 249, 289, 339, PokemonType.NORMAL, PokemonType.VOLADOR, 85);
-            Pokemon arcanine1   = new Pokemon("Arcanine", 100, 384, 350, 317, 295, 284, 328, PokemonType.FUEGO, null, 59);
-            Pokemon machamp1    = new Pokemon("Machamp", 100, 384, 394, 251, 284, 295, 229, PokemonType.LUCHA, null, 68);
-            Pokemon slowbro1    = new Pokemon("Slowbro", 100, 394, 306, 328, 339, 273, 174, PokemonType.AGUA, PokemonType.PSIQUICO, 80);
-            Pokemon gengar1     = new Pokemon("Gengar", 100, 324, 251, 394, 240, 273, 350, PokemonType.FANTASMA, PokemonType.VENENO, 94);
-            Pokemon hitmonlee1  = new Pokemon("Hitmonlee", 100, 281, 339, 239, 249, 289, 299, PokemonType.LUCHA, null, 106);
-            Pokemon hitmonchan1 = new Pokemon("Hitmonchan", 100, 281, 289, 239, 249, 289, 299, PokemonType.LUCHA, null, 107);
-            Pokemon rhydon1     = new Pokemon("Rhydon", 100, 414, 394, 306, 262, 273, 196, PokemonType.TIERRA, PokemonType.ROCA, 112);
-            Pokemon mrMime1     = new Pokemon("Mr. Mime", 100, 304, 239, 309, 329, 289, 319, PokemonType.PSIQUICO, PokemonType.HADA, 122);
-            Pokemon magmar1     = new Pokemon("Magmar", 100, 323, 339, 239, 329, 289, 309, PokemonType.FUEGO, null, 126);
-            Pokemon tauros1     = new Pokemon("Tauros", 100, 353, 329, 239, 249, 337, 309, PokemonType.NORMAL, null, 128);
-            Pokemon gyarados1   = new Pokemon("Gyarados", 100, 394, 383, 284, 317, 328, 287, PokemonType.AGUA, PokemonType.VOLADOR, 130);
-            Pokemon lapras1     = new Pokemon("Lapras", 100, 464, 289, 259, 299, 289, 209, PokemonType.AGUA, PokemonType.HIELO, 131);
-            Pokemon snorlax1    = new Pokemon("Snorlax", 100, 524, 350, 251, 251, 350, 174, PokemonType.NORMAL, null, 143);
-            Pokemon moltres1    = new Pokemon("Moltres", 100, 384, 328, 317, 361, 284, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 146);
-            Pokemon dragonite1  = new Pokemon("Dragonite", 100, 386, 403, 328, 317, 328, 284, PokemonType.DRAGON, PokemonType.VOLADOR, 149);
-            Pokemon mewtwo1     = new Pokemon("Mewtwo", 100, 416, 349, 309, 369, 309, 359, PokemonType.PSIQUICO, null, 150);
-            Pokemon typhlosion1 = new Pokemon("Typhlosion", 100, 360, 293, 317, 328, 306, 328, PokemonType.FUEGO, null, 157);
-            Pokemon feraligatr1 = new Pokemon("Feraligatr", 100, 384, 339, 306, 295, 284, 306, PokemonType.AGUA, null, 160);
-            Pokemon togetic1    = new Pokemon("Togetic", 100, 314, 196, 284, 295, 339, 196, PokemonType.HADA, PokemonType.VOLADOR, 176);
-            Pokemon ursaring1   = new Pokemon("Ursaring", 100, 424, 394, 273, 251, 273, 229, PokemonType.NORMAL, null, 217);
-            Pokemon scizor1     = new Pokemon("Scizor", 100, 344, 389, 259, 249, 289, 259, PokemonType.BICHO, PokemonType.ACERO, 212);
-            Pokemon delibird1   = new Pokemon("Delibird", 100, 294, 229, 251, 207, 207, 273, PokemonType.HIELO, PokemonType.VOLADOR, 225);
-            Pokemon donphan1    = new Pokemon("Donphan", 100, 384, 372, 240, 372, 240, 218, PokemonType.TIERRA, null, 232);
-            Pokemon tyranitar1  = new Pokemon("Tyranitar", 100, 404, 403, 317, 350, 328, 243, PokemonType.ROCA, PokemonType.SINIESTRO, 248);
-            Pokemon sceptile1   = new Pokemon("Sceptile", 100, 344, 289, 299, 349, 299, 339, PokemonType.PLANTA, null, 254);
-            Pokemon blaziken1   = new Pokemon("Blaziken", 100, 364, 372, 284, 339, 273, 328, PokemonType.FUEGO, PokemonType.LUCHA, 257);
-            Pokemon swampert1   = new Pokemon("Swampert", 100, 404, 349, 299, 259, 299, 219, PokemonType.AGUA, PokemonType.TIERRA, 260);
-            Pokemon gardevoir1  = new Pokemon("Gardevoir", 100, 340, 251, 383, 251, 361, 284, PokemonType.PSIQUICO, PokemonType.HADA, 282);
-            Pokemon slaking1    = new Pokemon("Slaking", 100, 504, 460, 273, 328, 284, 273, PokemonType.NORMAL, null, 289);
-            Pokemon hariyama1   = new Pokemon("Hariyama", 100, 474, 359, 239, 249, 239, 199, PokemonType.LUCHA, null, 297);
-            Pokemon aggron1     = new Pokemon("Aggron", 100, 344, 429, 259, 259, 259, 199, PokemonType.ACERO, PokemonType.ROCA, 306);
-            Pokemon manectric1  = new Pokemon("Manectric", 100, 324, 249, 309, 339, 279, 319, PokemonType.ELECTRICO, null, 310);
-            Pokemon crawdaunt1  = new Pokemon("Crawdaunt", 100, 314, 349, 239, 299, 269, 209, PokemonType.AGUA, PokemonType.SINIESTRO, 342);
-            Pokemon milotic1    = new Pokemon("Milotic", 100, 394, 249, 289, 329, 349, 219, PokemonType.AGUA, null, 350);
-            Pokemon metagross1  = new Pokemon("Metagross", 100, 364, 404, 317, 394, 306, 262, PokemonType.ACERO, PokemonType.PSIQUICO, 376);
-        
             poobkemon.addPokemon(charizard);
             poobkemon.addPokemon(snorlax);
             poobkemon.addPokemon(blastoise);
@@ -419,24 +371,53 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(mewtwo);
             poobkemon.addPokemon(swampert);
 
-
-            /* 
-            poobkemon.addPokemon(charizard1);
-            poobkemon.addPokemon(snorlax1);
-            poobkemon.addPokemon(blastoise1);
-            poobkemon.addPokemon(venusaur1);
-            poobkemon.addPokemon(gengar1);
-            poobkemon.addPokemon(dragonite1);
-            poobkemon.addPokemon(togetic1);
-            poobkemon.addPokemon(tyranitar1);
-            poobkemon.addPokemon(gardevoir1);
-            poobkemon.addPokemon(metagross1);
-            poobkemon.addPokemon(donphan1);
-            poobkemon.addPokemon(machamp1);
-            poobkemon.addPokemon(delibird1);
-            poobkemon.addPokemon(raichu1);
-            */
-
+            Pokemon charizard1   = charizard.copy();
+            Pokemon venusaur1    = venusaur.copy();
+            Pokemon blastoise1   = blastoise.copy();
+            Pokemon raichu1      = raichu.copy();
+            Pokemon nidoking1    = nidoking.copy();
+            Pokemon clefable1    = clefable.copy();
+            Pokemon rapidash1    = rapidash.copy();
+            Pokemon alakazam1    = alakazam.copy();
+            Pokemon victreebel1  = victreebel.copy();
+            Pokemon magneton1    = magneton.copy();
+            Pokemon dodrio1      = dodrio.copy();
+            Pokemon arcanine1    = arcanine.copy();
+            Pokemon machamp1     = machamp.copy();
+            Pokemon slowbro1     = slowbro.copy();
+            Pokemon gengar1      = gengar.copy();
+            Pokemon hitmonlee1   = hitmonlee.copy();
+            Pokemon hitmonchan1  = hitmonchan.copy();
+            Pokemon rhydon1      = rhydon.copy();
+            Pokemon mrMime1      = mrMime.copy();
+            Pokemon magmar1      = magmar.copy();
+            Pokemon tauros1      = tauros.copy();
+            Pokemon gyarados1    = gyarados.copy();
+            Pokemon lapras1      = lapras.copy();
+            Pokemon snorlax1     = snorlax.copy();
+            Pokemon moltres1     = moltres.copy();
+            Pokemon dragonite1   = dragonite.copy();
+            Pokemon mewtwo1      = mewtwo.copy();
+            Pokemon typhlosion1  = typhlosion.copy();
+            Pokemon feraligatr1  = feraligatr.copy();
+            Pokemon togetic1     = togetic.copy();
+            Pokemon ursaring1    = ursaring.copy();
+            Pokemon scizor1      = scizor.copy();
+            Pokemon delibird1    = delibird.copy();
+            Pokemon donphan1     = donphan.copy();
+            Pokemon tyranitar1   = tyranitar.copy();
+            Pokemon sceptile1    = sceptile.copy();
+            Pokemon blaziken1    = blaziken.copy();
+            Pokemon swampert1    = swampert.copy();
+            Pokemon gardevoir1   = gardevoir.copy();
+            Pokemon slaking1     = slaking.copy();
+            Pokemon hariyama1    = hariyama.copy();
+            Pokemon aggron1      = aggron.copy();
+            Pokemon manectric1   = manectric.copy();
+            Pokemon crawdaunt1   = crawdaunt.copy();
+            Pokemon milotic1     = milotic.copy();
+            Pokemon metagross1   = metagross.copy();
+        
             charizard1.setMovements(new Movement[] {paralyze, burn, quickAttack, dragonClaw, flamethrower, airSlash});
             snorlax1.setMovements(new Movement[] {hyperBeam, dragonClaw, brickBreak, surf});
             blastoise1.setMovements(new Movement[] {surf, psychic, earthquake, hyperBeam, hydroPump, iceBeam});
@@ -538,12 +519,12 @@ public class POOBkemonTest implements Serializable {
             //1 denfensive
             Inventory inventarioDefensive = new Inventory(); 
             defensive.setInventory(inventarioDefensive);
-            defensive.addPokemon(snorlax1);
-            defensive.addPokemon(rhydon1);
-            defensive.addPokemon(blastoise1);
-            defensive.addPokemon(gyarados1);
-            defensive.addPokemon(moltres1);
-            defensive.addPokemon(typhlosion1);
+            defensive.addPokemon(snorlax1.copy());
+            defensive.addPokemon(rhydon1.copy());
+            defensive.addPokemon(blastoise1.copy());
+            defensive.addPokemon(gyarados1.copy());
+            defensive.addPokemon(moltres1.copy());
+            defensive.addPokemon(typhlosion1.copy());
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
             inventarioDefensive.addItem(revive);
@@ -554,12 +535,12 @@ public class POOBkemonTest implements Serializable {
             //2
             Inventory inventarioChanging = new Inventory();
             changing.setInventory(inventarioChanging);
-            changing.addPokemon(clefable1);
-            changing.addPokemon(machamp1);
-            changing.addPokemon(slaking1);
-            changing.addPokemon(feraligatr1);
-            changing.addPokemon(ursaring1);
-            changing.addPokemon(rhydon1);
+            changing.addPokemon(clefable1.copy());
+            changing.addPokemon(machamp1.copy());
+            changing.addPokemon(slaking1.copy());
+            changing.addPokemon(feraligatr1.copy());
+            changing.addPokemon(ursaring1.copy());
+            changing.addPokemon(rhydon1.copy());
             inventarioChanging.addItem(psNormalPotion);
             inventarioChanging.addItem(defenseNormalPotion);
             inventarioChanging.addItem(revive);
@@ -569,12 +550,12 @@ public class POOBkemonTest implements Serializable {
             //3
             Inventory inventarioChanging1 = new Inventory();
             changing1.setInventory(inventarioChanging1);
-            changing1.addPokemon(dragonite1);
-            changing1.addPokemon(venusaur1);
-            changing1.addPokemon(tyranitar1);
-            changing1.addPokemon(gyarados1);
-            changing1.addPokemon(moltres1);
-            changing1.addPokemon(blaziken1);
+            changing1.addPokemon(dragonite1.copy());
+            changing1.addPokemon(venusaur1.copy());
+            changing1.addPokemon(tyranitar1.copy());
+            changing1.addPokemon(gyarados1.copy());
+            changing1.addPokemon(moltres1.copy());
+            changing1.addPokemon(blaziken1.copy());
             inventarioChanging1.addItem(psNormalPotion);
             inventarioChanging1.addItem(defenseNormalPotion);
             inventarioChanging1.addItem(revive);
@@ -583,12 +564,12 @@ public class POOBkemonTest implements Serializable {
             //4
             Inventory inventarioAttacking = new Inventory();
             attacking.setInventory(inventarioAttacking);
-            attacking.addPokemon(raichu1);
-            attacking.addPokemon(tyranitar1);
-            attacking.addPokemon(dragonite1);
-            attacking.addPokemon(blaziken1);
-            attacking.addPokemon(gardevoir1);
-            attacking.addPokemon(gyarados1);
+            attacking.addPokemon(raichu1.copy());
+            attacking.addPokemon(tyranitar1.copy());
+            attacking.addPokemon(dragonite1.copy());
+            attacking.addPokemon(blaziken1.copy());
+            attacking.addPokemon(gardevoir1.copy());
+            attacking.addPokemon(gyarados1.copy());
             inventarioAttacking.addItem(psNormalPotion);
             inventarioAttacking.addItem(defenseNormalPotion);
             inventarioAttacking.addItem(revive);
@@ -596,12 +577,12 @@ public class POOBkemonTest implements Serializable {
             //5
             Inventory inventarioExpert = new Inventory();
             expert.setInventory(inventarioExpert);
-            expert.addPokemon(venusaur1);
-            expert.addPokemon(gyarados1);
-            expert.addPokemon(metagross1);
-            expert.addPokemon(dragonite1);
-            expert.addPokemon(gardevoir1);
-            expert.addPokemon(rhydon1);
+            expert.addPokemon(venusaur1.copy());
+            expert.addPokemon(gyarados1.copy());
+            expert.addPokemon(metagross1.copy());
+            expert.addPokemon(dragonite1.copy());
+            expert.addPokemon(gardevoir1.copy());
+            expert.addPokemon(rhydon1.copy());
             inventarioExpert.addItem(psNormalPotion);
             inventarioExpert.addItem(defenseNormalPotion);
             inventarioExpert.addItem(revive);
@@ -610,12 +591,12 @@ public class POOBkemonTest implements Serializable {
             //6
             Inventory inventarioDefensive1 = new Inventory();
             defensive1.setInventory(inventarioDefensive1);
-            defensive1.addPokemon(venusaur1);
-            defensive1.addPokemon(slowbro1);
-            defensive1.addPokemon(clefable1);
-            defensive1.addPokemon(rhydon1);
-            defensive1.addPokemon(togetic1);
-            defensive1.addPokemon(tyranitar1);
+            defensive1.addPokemon(venusaur1.copy());
+            defensive1.addPokemon(slowbro1.copy());
+            defensive1.addPokemon(clefable1.copy());
+            defensive1.addPokemon(rhydon1.copy());
+            defensive1.addPokemon(togetic1.copy());
+            defensive1.addPokemon(tyranitar1.copy());
             inventarioDefensive1.addItem(psNormalPotion);
             inventarioDefensive1.addItem(defenseNormalPotion);
             inventarioDefensive1.addItem(revive);
@@ -674,7 +655,7 @@ public class POOBkemonTest implements Serializable {
 
         int psInicial = t2.getPokemonInUse().getPs();
 
-        po.inicializateBattle("tulio", "andrew");
+        po.inicializateBattlePVsP("tulio", "andrew");
         try{
             po.movementPerformed("Hyper Beam");
             int psFinal = t2.getPokemonInUse().getPs();
@@ -692,7 +673,7 @@ public class POOBkemonTest implements Serializable {
         Trainer t2 = po.getTrainer("andrew");
         Pokemon pokemonStart = t2.getPokemonInUse();
 
-        po.inicializateBattle("tulio", "andrew");
+        po.inicializateBattlePVsP("tulio", "andrew");
         try {
             po.movementPerformed("dragonClaw");
             t2.changePokemon(t2.getInventory().getAlivePokemons().get(1));
@@ -709,7 +690,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        po.inicializateBattle("tulio", "andrew");
+        po.inicializateBattlePVsP("tulio", "andrew");
         try {
             po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
             po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
@@ -739,7 +720,7 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = po.getTrainer("Changing"); //changing
         Trainer t2 = po.getTrainer("Attacking"); //Attacking
 
-        po.inicializateBattle("Changing", "Attacking");
+        po.inicializateBattleMvsM("Changing", "Attacking");
 
         int psInicial1 = t1.getPokemonInUse().getPs();
         int psInicial2 = t2.getPokemonInUse().getPs();
@@ -763,7 +744,7 @@ public class POOBkemonTest implements Serializable {
     	Trainer t2 = new PlayerTrainer("Gary", new Color(0, 0, 255));
     	poobkemon.addTrainer(t1);
     	poobkemon.addTrainer(t2);
-    	poobkemon.inicializateBattle(t1.getName(), t2.getName());
+    	poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
     	assertEquals(t1,poobkemon.getTrainer(t1.getName()));
     	/*
     	 * Al inicializar una batalla, se agregan dos nuevos entrenadores, verificamos que si se agreguen al TreeMap que tenemos definido
@@ -921,7 +902,7 @@ public class POOBkemonTest implements Serializable {
     	Trainer t1 = poobkemon.getTrainer("Attacking");
         Trainer t2 = poobkemon.getTrainer("tulio");
     	try {
-            poobkemon.inicializateBattle(t1.getName(),t2.getName());
+            poobkemon.inicializateBattlePVsM(t1.getName(),t2.getName());
             poobkemon.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
             assertTrue(t2.getPokemonInUse().getPs() < t2.getPokemonInUse().getMaxPs());
     	}catch(PoobkemonException e) {
@@ -935,7 +916,7 @@ public class POOBkemonTest implements Serializable {
     	Trainer t1 = poobkemon.getTrainer("Defensive");
         Trainer t2 = poobkemon.getTrainer("andrew");
     	try {
-            poobkemon.inicializateBattle(t1.getName(),t2.getName());
+            poobkemon.inicializateBattlePVsM(t1.getName(),t2.getName());
             poobkemon.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
             poobkemon.movementPerformed(t2.getPokemonInUse().getMovements().get(0).getName());
 
@@ -972,7 +953,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-    	poobkemon.inicializateBattle(t1.getName(), t2.getName());
+    	poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
 		ArrayList<Trainer> listaTra = poobkemon.getBattle().getTurnTrainers(); 
 		System.out.println(listaTra.size());
 		assertTrue(listaTra.get(0).getName() == t1.getName());
@@ -984,7 +965,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         Trainer opponentTrainer = poobkemon.getBattle().getOpponentTrainer();
         assertEquals(t2.getName(), opponentTrainer.getName());
     }
@@ -995,7 +976,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         String pokemonName = poobkemon.getBattle().getCurrentPokemonName();
         assertEquals(t1.getPokemonInUse().getName(), pokemonName);
     }
@@ -1006,7 +987,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int pokemonLevel = poobkemon.getBattle().getCurrentPokemonLevel();
         assertEquals(t1.getPokemonInUse().getLevel(), pokemonLevel);
     }
@@ -1017,7 +998,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int pokemonPs = poobkemon.getBattle().getCurrentPokemonPs();
         assertEquals(t1.getPokemonInUse().getPs(), pokemonPs);
     }
@@ -1028,7 +1009,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int pokedexIndex = poobkemon.getBattle().getCurrentPokemonPokedexIndex();
         assertEquals(t1.getPokemonInUse().getPokedexIndex(), pokedexIndex);
     }
@@ -1039,7 +1020,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int maxPs = poobkemon.getBattle().getCurrentMaxPs();
         assertEquals(t1.getPokemonInUse().getMaxPs(), maxPs);
     }
@@ -1050,7 +1031,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         Color color = poobkemon.getBattle().getCurrentColor();
         assertEquals(t1.getColor(), color);
     }
@@ -1061,7 +1042,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         String pokemonName = poobkemon.getBattle().getOponentPokemonName();
         assertEquals(t2.getPokemonInUse().getName(), pokemonName);
     }
@@ -1072,7 +1053,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int pokemonLevel = poobkemon.getBattle().getOponentPokemonLevel();
         assertEquals(t2.getPokemonInUse().getLevel(), pokemonLevel);
     }
@@ -1083,7 +1064,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int pokemonPs = poobkemon.getBattle().getOponentPokemonPs();
         assertEquals(t2.getPokemonInUse().getPs(), pokemonPs);
     }
@@ -1094,7 +1075,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int pokedexIndex = poobkemon.getBattle().getOponentPokemonPokedexIndex();
         assertEquals(t2.getPokemonInUse().getPokedexIndex(), pokedexIndex);
     }
@@ -1105,7 +1086,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         int maxPs = poobkemon.getBattle().getOponentMaxPs();
         assertEquals(t2.getPokemonInUse().getMaxPs(), maxPs);
     }
@@ -1116,7 +1097,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         boolean isAlive = poobkemon.getBattle().isAliveCurrentPokemon();
         assertTrue(isAlive);
     }
@@ -1127,7 +1108,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         boolean isAlive = poobkemon.getBattle().isAliveOpponentPokemon();
         assertTrue(isAlive);
     }
@@ -1138,7 +1119,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         ArrayList<String> movements = poobkemon.getBattle().getMovementsStringCurrent();
         assertNotNull(movements);
         assertFalse(movements.isEmpty());
@@ -1150,7 +1131,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon poobkemon = kemon.deserializateGame();
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
-        poobkemon.inicializateBattle(t1.getName(), t2.getName());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
         ArrayList<String> movements = poobkemon.getBattle().getMovementsStringOponent();
         assertNotNull(movements);
         assertFalse(movements.isEmpty());
@@ -1518,7 +1499,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        po.inicializateBattle(t1.getName(), t2.getName());
+        po.inicializateBattlePVsP(t1.getName(), t2.getName());
         po.getcurrentMaxPs();
         po.getOponentMaxPs();
         po.isAliveOpponentPokemon();
@@ -1531,7 +1512,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        po.inicializateBattle(t1.getName(), t2.getName());
+        po.inicializateBattlePVsP(t1.getName(), t2.getName());
         po.getCurrentItems();
         po.getCurrentPokemons();
         po.getItemsName();
@@ -1545,7 +1526,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        po.inicializateBattle(t1.getName(), t2.getName());
+        po.inicializateBattlePVsP(t1.getName(), t2.getName());
         po.getMovementsStringCurrent();
         po.getMovementsStringOponent();
         try {
@@ -1575,7 +1556,7 @@ public class POOBkemonTest implements Serializable {
         POOBkemon po = kemon.deserializateGame();
         Trainer t1 = po.getTrainer("tulio");
         Trainer t2 = po.getTrainer("andrew");
-        po.inicializateBattle(t1.getName(), t2.getName());
+        po.inicializateBattlePVsP(t1.getName(), t2.getName());
         po.opponentIsAffected();
         po.currentIsAffected();
         po.getPokemons();
@@ -1660,7 +1641,7 @@ public class POOBkemonTest implements Serializable {
             Trainer t2 = po.getTrainer("tulio");
             charizardLvL60.setMovements(new Movement[] {sleep});
             t1.addPokemon(charizardLvL60);
-            po.inicializateBattle(t1.getName(), t2.getName());
+            po.inicializateBattlePVsP(t1.getName(), t2.getName());
             po.movementPerformed(t1.getPokemonInUse().getMovements().get(0).getName());
             po.movementPerformed(t2.getPokemonInUse().getMovements().get(0).getName());
             assertTrue(t2.getPokemonInUse().isAffected());
@@ -1709,7 +1690,7 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = po.getTrainer("Expert");
         Trainer t2 = po.getTrainer("tulio");
         Trainer t3 = po.getTrainer("Defensive");
-        po.inicializateBattle(t1.getName(), t2.getName());
+        po.inicializateBattlePVsM(t1.getName(), t2.getName());
         try {
         	t1.decide(t1.getPokemonInUse());
         	t3.decide(t3.getPokemonInUse());

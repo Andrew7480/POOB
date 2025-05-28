@@ -20,8 +20,8 @@ public class SelectionFinalSurvival extends JPanel {
     protected String secondName;
     private ModePlayerVSPlayerSurvival gameMode;
 
-    private SelectionMovementsPanel selectionOne;
-    private SelectionMovementsPanel selectionTwo;
+    public SelectionMovementsPanel selectionOne;
+    public SelectionMovementsPanel selectionTwo;
 
     private JButton doneButton;
     private JButton come;
@@ -64,9 +64,8 @@ public class SelectionFinalSurvival extends JPanel {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameMode.changePanel("Battle");
-            }
-        });
+                gameMode.inicializateGame(datos.playerOneName, datos.playerTwoName);
+            }});
         come.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
