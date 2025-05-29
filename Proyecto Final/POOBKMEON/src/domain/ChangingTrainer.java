@@ -29,7 +29,7 @@ public class ChangingTrainer extends MachineTrainer{
         Pokemon pokemonActual = actualPokemon;
         double possible = 0;
         for (Pokemon pok : p.values()){
-            double possibleMultiplicator = pok.getMovements().get(0).getMultiplicator(target.getPrincipalType());
+            double possibleMultiplicator = pok.getMovements().get(0).getMultiplicatorAtacck(target.getPrincipalType());
             if (possible < possibleMultiplicator){
                 possible = possibleMultiplicator;
                 actualPokemon = pok;

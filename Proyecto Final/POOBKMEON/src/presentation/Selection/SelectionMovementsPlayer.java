@@ -11,7 +11,8 @@ public class SelectionMovementsPlayer extends JPanel {
     private  String backgroundImage = "emerald";
     private POOBkemonGUI pooBkemonGUI;
     private JButton come;
-    private JButton doneButton; 
+    private JButton doneButton;
+    private JButton aleatory;  
     private ModePlayerVsMachine gameMode;
 
     private SelectionMovementsPanel selection;
@@ -38,12 +39,17 @@ public class SelectionMovementsPlayer extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
+        aleatory = new JButton("Aleatory");
+        
         pooBkemonGUI.styleButton(doneButton);
         pooBkemonGUI.styleButton(come);
+        pooBkemonGUI.styleButton(aleatory);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         booton.setOpaque(false);
+        booton.add(aleatory);
         booton.add(come);
         booton.add(doneButton);
+        
         down.add(booton,BorderLayout.SOUTH);
         add(down, BorderLayout.SOUTH);
     }
@@ -77,9 +83,11 @@ public class SelectionMovementsPlayer extends JPanel {
     public JButton getButtonBack(){
         return come;
     }
-
     public JButton getNextBJButton(){
         return doneButton;
+    }
+    public JButton getAleatoryButton(){
+        return aleatory;
     }
 
     public void inicializate(Color color1, ArrayList<String> pok1){

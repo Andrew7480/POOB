@@ -272,7 +272,7 @@ public class Pokemon implements Serializable {
         if (movements.contains(mov) ) {
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         }
-        if (mov.getMultiplicator(principalType)>1.0) {
+        if (mov.getMultiplicatorAtacck(principalType)>1.0) {
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
         }
         movements.add(mov.copy());

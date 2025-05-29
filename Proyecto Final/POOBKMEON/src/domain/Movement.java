@@ -91,7 +91,7 @@ public abstract class Movement implements Attackable, Serializable{
      * @param defender The PokemonType of the defending Pokemon
      * @return A multiplier value representing type effectiveness (e.g. 2.0 for super effective)
      */
-    public double getMultiplicator(PokemonType defender){
+    public double getMultiplicatorAtacck(PokemonType defender){
             return multiplicadores[defender.getIndex()][type.getIndex()];
     }
 

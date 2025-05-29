@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.util.*;
 import presentation.POOBkemonGUI;
 import presentation.ModesOfGame.ModePlayerVSPlayer;
-import presentation.Selection.SelectionMovementsPanel;
 
 
 public class SelectionMovementsTwoPlayers extends JPanel {

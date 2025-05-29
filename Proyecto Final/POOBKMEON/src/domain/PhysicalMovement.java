@@ -39,11 +39,12 @@ public class PhysicalMovement extends Movement {
         double levelFactor = (2.0 * attacker.getLevel()) / 5.0 + 2.0;
         double attackDefenseRatio = (double) attacker.getAttack() / target.getDefense();
         double damage = ((levelFactor * power * attackDefenseRatio) / 50.0) + 2.0;
-        damage *= getMultiplicator(target.getPrincipalType());
+        damage *= getMultiplicatorAtacck(target.getPrincipalType());
         damage *= 0.85 + (Math.random() * 0.15);
         target.losePS(damage);
         losePP();
-        BattleLog.getInstance().addMessage(attacker.getName() +" a realizado un movimiento fisico: " +name +" a "+target.getName()+ " daño: " + damage);
+        BattleLog.getInstance().addMessage(attacker.getName() +" a realizado un movimiento fisico: " +name +" a "+target.getName()+ " daño: " + (int)damage);
+        BattleLog.getInstance().addDamage((int)damage);
         return (int)damage;
     }
     

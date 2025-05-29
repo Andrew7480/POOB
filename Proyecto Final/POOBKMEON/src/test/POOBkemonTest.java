@@ -875,18 +875,27 @@ public class POOBkemonTest implements Serializable {
     public void shouldGenerateARandomSelectionForMovements() {
         POOBkemon kemon = new POOBkemon();
         POOBkemon poobkemon = kemon.deserializateGame();
-    	Trainer trainer1 = new PlayerTrainer("T", new Color(255,255,0));
-    	ArrayList<Movement> prueba = poobkemon.generateRandomMovementForPokemons();
-    	assertTrue(prueba.size() == 4);
+    	try{
+            ArrayList<Movement> prueba = poobkemon.generateRandomMovementForPokemon(poobkemon.getPokemon("Gengar"));
+            assertTrue(prueba.size() == 4);
+        }
+        catch(PoobkemonException e){fail();}
+    	
     }
     @Test
-    public void shouldGenerateAValidMovements() {
+    public void shouldGenerateAValidMovements() {//es debil al fantasma y si acepta normal
         POOBkemon kemon = new POOBkemon();
-        POOBkemon poobkemon = kemon.deserializateGame();
         Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
-        TreeMap<String, Movement> pruebaMovimientosValidos = poobkemon.validMovements(p);
-        assertTrue(pruebaMovimientosValidos.size() != 0);
+        kemon.addPokemon(p);
+        Movement shadowBall = new SpecialMovement("Shadow ball","Throws a ball of dark energy. You can lower the special defense.",15,80,100,PokemonType.FANTASMA,0);
+        Movement hyperBeam = new PhysicalMovement("Hyper Beam","A devastating attack that requires a turn to recharge.",5,150,90,PokemonType.NORMAL,0);
+        try{kemon.addMovement(hyperBeam);kemon.addMovement(shadowBall);}
+        catch(PoobkemonException e){System.out.println(e.getMessage());}
+
+        ArrayList<String> pruebaMovimientosValidos = kemon.validMovements(p);
+        assertTrue(pruebaMovimientosValidos.size() == 1);
     }
+
     @Test
     public void shouldBeEqualsThePokemons() {
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
@@ -905,7 +914,7 @@ public class POOBkemonTest implements Serializable {
     	POOBkemon kemon = new POOBkemon();
         POOBkemon poobkemon = kemon.deserializateGame();
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.AGUA, PokemonType.FUEGO,94);
-    	TreeMap<String,Movement> movementsNoWeak = poobkemon.validMovements(p);
+    	ArrayList<String> movementsNoWeak = poobkemon.validMovements(p);
     	assertTrue(movementsNoWeak.size() > 0);
     }
 

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import presentation.POOBkemonGUI;
 import presentation.ModesOfGame.ModePlayerVSPlayerSurvival;
-import presentation.Selection.SelectionFinalSurvival;
 
 public class DatosTwoPlayersSurvival extends JPanel {
     private String backgroundImage = "fondoAnimado2";
@@ -104,8 +103,11 @@ public class DatosTwoPlayersSurvival extends JPanel {
                     }
                     gameMode.firstName = playerOneName;
                     gameMode.secondName = playerTwoName;
+
                     gameMode.inicializateTeams(playerOneName, colorChosedPlayerOne, playerTwoName, colorChosedPlayerTwo);
                     gameMode.teamsSurvival.inicializar();
+                    gameMode.teamsSurvival.selectionOne.setColor(colorChosedPlayerOne);
+                    gameMode.teamsSurvival.selectionTwo.setColor(colorChosedPlayerTwo);
                     gameMode.changePanel("teams");
                 }catch (Exception ex) {
                     JOptionPane.showMessageDialog(DatosTwoPlayersSurvival.this, ex.getMessage());

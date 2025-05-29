@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 import presentation.POOBkemonGUI;
-import presentation.Battle.BattlePanel;
-import presentation.Battle.InventoryPanel;
-import presentation.Battle.ListPokemonAvailable;
+
 
 public class BattleContainer extends JPanel {
     protected BattlePanel battle;

@@ -52,6 +52,11 @@ public class BattlePanelMvsM extends JPanel {
     private JButton open;
     private JButton runButton;
 
+    private int damageToShow = 0;
+    private int damageAnimX, damageAnimY, damageAnimAlpha;
+    private boolean isAnimatingDamage = false;
+    private Timer damageTimer;
+
 
     public BattlePanelMvsM(POOBkemonGUI newPo) {
         pooBkemonGUI = newPo;        
@@ -150,6 +155,7 @@ public class BattlePanelMvsM extends JPanel {
                 int oldIndex = pooBkemonGUI.domain.getOponentPokemonPokedexIndex();
                 actualIndex = pooBkemonGUI.domain.getCurrentPokemonPokedexIndex();
                 pooBkemonGUI.domain.movementPerformed(randomMove);
+                animatedDamage();
                 if (!pooBkemonGUI.domain.isAliveOpponentPokemon() || oldIndex != pooBkemonGUI.domain.getOponentPokemonPokedexIndex()){
                     int newIndex = pooBkemonGUI.domain.getOponentPokemonPokedexIndex();
                     setSecondPokemon(Integer.toString(newIndex));
@@ -329,6 +335,32 @@ public class BattlePanelMvsM extends JPanel {
         xSecond = (getWidth() - scaledWidth) / 2 + scaledWidth / 2 + scaledWidth / 3;
         ySecond = (getHeight() - scaledHeight) / 2 - scaledHeight / 3;
     }
+    private void animatedDamage(){
+        showDamageAnimation(pooBkemonGUI.domain.getLastDamage());
+    }
+    private void showDamageAnimation(int damage) {
+        int scaledWidth = getWidth() / 3;
+        int scaledHeight = getHeight() / 3;
+        damageToShow = damage;
+
+        damageAnimX = xSecond - 15 + scaledWidth / 2 - 20;
+        damageAnimY = ySecond + 50 + scaledHeight / 3;
+        damageAnimAlpha = 255;
+        isAnimatingDamage = true;
+
+        if (damageTimer != null && damageTimer.isRunning()) damageTimer.stop();
+        damageTimer = new Timer(30, e -> {
+            damageAnimY -= 2;
+            damageAnimAlpha -= 10;
+            if (damageAnimAlpha <= 0) {
+                isAnimatingDamage = false;
+                ((Timer)e.getSource()).stop();
+            }
+            repaint();
+        });
+        damageTimer.start();
+        repaint();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -366,6 +398,20 @@ public class BattlePanelMvsM extends JPanel {
         if (affectVisualActual != null){
             ImageIcon effect = new ImageIcon(getClass().getResource("/resources/" + affectVisualActual + ".GIF"));
             g.drawImage(effect.getImage(), xFirst, yFirst + 50, scaledWidth, scaledHeight, this);
+        }
+        if (isAnimatingDamage) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setFont(new Font("Arial", Font.BOLD, 36));
+            Color color;
+            if (damageToShow > 100) {
+                color = new Color(255, 0, 0, Math.max(0, damageAnimAlpha)); // Rojo
+            } else {
+                color = new Color(255, 140, 0, Math.max(0, damageAnimAlpha)); // Naranja (RGB: 255,140,0)
+            }
+            g2.setColor(color);
+            String dmg = "-" + damageToShow;
+            g2.drawString(dmg, damageAnimX, damageAnimY);
+            g2.dispose();
         }
     }
 }

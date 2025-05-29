@@ -1,19 +1,16 @@
 package presentation.Selection;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
 import presentation.POOBkemonGUI;
 
-import domain.Movement;
-import domain.Pokemon;
 import java.awt.*;
 import java.util.*;
 
 public class SelectionMovementsPanel extends JPanel{
-    private POOBkemonGUI po;
+    private POOBkemonGUI poobkemonGUI;
     private JPanel centralPanel;
     private JLabel texto;
     private Color color;
@@ -22,37 +19,36 @@ public class SelectionMovementsPanel extends JPanel{
 
 
     public SelectionMovementsPanel(POOBkemonGUI newPo){
-        po = newPo;
+        poobkemonGUI = newPo;
         color = new Color(85, 85, 85, 100);
         chosenPok = new ArrayList<>();
         prepareElements();
+        //setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
     }
 
     public void infoSelectedPokemons(ArrayList <String> chosenPokemons){
         reset();
         for (String s :chosenPokemons){
             chosenPok.add(s);
-        }
-
-        ArrayList<Pokemon> temp = new ArrayList<>();
-        for (String s:chosenPokemons){
-            temp.add(po.pokemones.get(s));
             movimientosSeleccionados.put(s, new ArrayList<>(Arrays.asList("", "", "", "")));
         }
-        ArrayList<String> tempOne = new ArrayList<>();
 
-        for (String s : chosenPokemons){
-            TreeMap<String,Movement> validMoves = po.domain.validMovements(po.domain.getPokedex().get(s));
-            for (String moveKey : validMoves.keySet()){
+        for (String s :chosenPokemons){
+            ArrayList<String> tempOne = getValidMovements(s);
+            JPanel movementPanel = createMovementPanel(s, tempOne,poobkemonGUI.domain.getPokedexIndexByName(s));
+            centralPanel.add(movementPanel);
+        }    
+    }
+
+    private ArrayList<String> getValidMovements(String pokName){
+        ArrayList<String> tempOne = new ArrayList<>();
+        ArrayList<String> validMoves = poobkemonGUI.domain.validMovements(poobkemonGUI.domain.getPokedex().get(pokName));
+            for (String moveKey : validMoves){
                 tempOne.add(moveKey);
             };
-        }
-        for (int i = 0; i < chosenPokemons.size(); i++){
-            JPanel movementPanel = createMovementPanel(temp.get(i).getName(), tempOne,temp.get(i).getPokedexIndex().toString());
-            centralPanel.add(movementPanel);
-        }
-        
+        return tempOne;
     }
+
     private void prepareElements(){
         
         setLayout(new BorderLayout());
@@ -133,7 +129,7 @@ public class SelectionMovementsPanel extends JPanel{
                         int index = movesList.locationToIndex(evt.getPoint());
                         String selectedMove = movesList.getModel().getElementAt(index);
                         moveButton.setText(selectedMove);
-                        moveButton.setToolTipText(po.domain.getMovements().get(selectedMove).createMovementForToolTip());
+                        moveButton.setToolTipText(poobkemonGUI.domain.getMovements().get(selectedMove).createMovementForToolTip());
                         movimientosSeleccionados.get(namePokemon).set(buttonIndex, selectedMove);
                         popupMenu.setVisible(false);
                     }

@@ -79,6 +79,7 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
 
     public void inicializateGame(){
         pooBkemonGUI.domain.inicializateBattlePVsP(firstName, secondName);
+        survivalBatalla.inicializate();
         changePanel("Battle");
     }
 }

@@ -51,7 +51,9 @@ public class MovementState extends SpecialMovement{
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
         target.addEffect(state);
+        target.losePS(damageBase);
         BattleLog.getInstance().addMessage(attacker.getName()+" ha aplicado un estado a :" +target.getName()+ "Daño: "+ damageBase);
+        BattleLog.getInstance().addDamage(damageBase);
         losePP();
         return damageBase;
     }

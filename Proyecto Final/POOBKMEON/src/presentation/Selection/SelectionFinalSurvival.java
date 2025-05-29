@@ -82,9 +82,7 @@ public class SelectionFinalSurvival extends JPanel {
 
     public void inicializar(){
         selectionOne.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.firstName).getInventory().getPokemonsName());
-        selectionOne.setColor(new Color(0,0,255));
         selectionTwo.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.secondName).getInventory().getPokemonsName());
-        selectionTwo.setColor(new Color(255,0,0));
     }
 
 
