@@ -30,20 +30,15 @@ public class SelectionPokemonItemPlayers extends JPanel{
         setOpaque(false);
         JPanel temp = new JPanel(new GridLayout(1,2));
         temp.setOpaque(false);
-
         selectionOne = new Selection(po, new Color(1,2,4,100));
         selectionTwo = new Selection(po, new Color(30,100,30,100));
-        
         temp.add(selectionOne);
         temp.add(selectionTwo);
-
         add(temp, BorderLayout.CENTER);
-
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
-        //doneButton.setVisible(false);
         po.styleButton(doneButton);
         po.styleButton(come);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -98,9 +93,9 @@ public class SelectionPokemonItemPlayers extends JPanel{
         return doneButton;
     }
 
-    public void inicializate(Color color1, Color color2){
-        selectionOne.setColor(color1);
-        selectionTwo.setColor(color2);
+    public void inicializate(Color colorOne, Color colorTwo){
+        selectionOne.setColor(colorOne);
+        selectionTwo.setColor(colorTwo);
     }
 
     public void reset(){ 

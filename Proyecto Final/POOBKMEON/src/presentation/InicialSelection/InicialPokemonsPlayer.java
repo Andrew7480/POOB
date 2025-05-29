@@ -42,7 +42,6 @@ public class InicialPokemonsPlayer extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
-        //doneButton.setVisible(false);
         po.styleButton(doneButton);
         po.styleButton(come);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));

@@ -234,20 +234,20 @@ public class Battle implements Serializable {
      * A trainer loses if they cannot continue fighting
      */
     private void checkBattleState() throws PoobkemonException{  //no extensible??
-        Trainer trainer1 = getCurrentTrainer();
-        Trainer trainer2 = getOpponentTrainer();
-        if(!trainer1.canStillFighting()){
+        Trainer trainerOne = getCurrentTrainer();
+        Trainer trainerTwo = getOpponentTrainer();
+        if(!trainerOne.canStillFighting()){
             isOver = true;
-            winner = trainer2;
+            winner = trainerTwo;
         }
-        else if(!trainer2.canStillFighting()){
+        else if(!trainerTwo.canStillFighting()){
             isOver = true;
-            winner = trainer1;
+            winner = trainerOne;
         }
-        if(trainer1.getPokemonInUse() == null){
+        if(trainerOne.getPokemonInUse() == null){
             throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         }
-        if( trainer2.getPokemonInUse() == null){
+        if( trainerTwo.getPokemonInUse() == null){
             throw new PoobkemonException(PoobkemonException.POKEMON_DIE);
         }
         
@@ -457,7 +457,6 @@ public class Battle implements Serializable {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
             Battle battle = (Battle) in.readObject();
-            //in.close();
             return battle;
         } catch (FileNotFoundException e) {
             throw new PoobkemonException("Error al leer el archivo: " + e.getMessage());

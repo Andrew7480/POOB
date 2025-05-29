@@ -64,7 +64,7 @@ public class SelectionFinalSurvival extends JPanel {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameMode.inicializateGame(datos.playerOneName, datos.playerTwoName);
+                gameMode.inicializateGame();
             }});
         come.addActionListener(new ActionListener(){
             @Override
@@ -82,9 +82,7 @@ public class SelectionFinalSurvival extends JPanel {
 
     public void inicializar(){
         selectionOne.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.firstName).getInventory().getPokemonsName());
-        selectionOne.setColor(new Color(0,0,255));
         selectionTwo.infoSelectedPokemons(pooBkemonGUI.domain.getTrainer(gameMode.secondName).getInventory().getPokemonsName());
-        selectionTwo.setColor(new Color(255,0,0));
     }
 
 

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import presentation.POOBkemonGUI;
 import presentation.ModesOfGame.ModePlayerVSPlayerSurvival;
-import presentation.Selection.SelectionFinalSurvival;
 
 public class DatosTwoPlayersSurvival extends JPanel {
     private String backgroundImage = "fondoAnimado2";
@@ -52,8 +51,8 @@ public class DatosTwoPlayersSurvival extends JPanel {
     private void prepareElements(){
         setLayout(new BorderLayout());
         colorChooser = new JColorChooser();
-        paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png"};
-        
+        paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png","/resources/trainers/Trainer4.png",
+        "/resources/trainers/Trainer5.png","/resources/trainers/Trainer6.png","/resources/trainers/Trainer7.png","/resources/trainers/Trainer8.png"};
         prepareButtons();
         playerPanel();
     }
@@ -104,8 +103,11 @@ public class DatosTwoPlayersSurvival extends JPanel {
                     }
                     gameMode.firstName = playerOneName;
                     gameMode.secondName = playerTwoName;
+
                     gameMode.inicializateTeams(playerOneName, colorChosedPlayerOne, playerTwoName, colorChosedPlayerTwo);
                     gameMode.teamsSurvival.inicializar();
+                    gameMode.teamsSurvival.selectionOne.setColor(colorChosedPlayerOne);
+                    gameMode.teamsSurvival.selectionTwo.setColor(colorChosedPlayerTwo);
                     gameMode.changePanel("teams");
                 }catch (Exception ex) {
                     JOptionPane.showMessageDialog(DatosTwoPlayersSurvival.this, ex.getMessage());
@@ -150,31 +152,31 @@ public class DatosTwoPlayersSurvival extends JPanel {
         panelSelection.setLayout(new GridLayout(1, 2));
         panelSelection.setOpaque(false);
         
-        JPanel player1Panel = new JPanel();
-        player1Panel.setLayout(new BoxLayout(player1Panel, BoxLayout.Y_AXIS));
-        player1Panel.setOpaque(false);
+        JPanel playerOnePanel = new JPanel();
+        playerOnePanel.setLayout(new BoxLayout(playerOnePanel, BoxLayout.Y_AXIS));
+        playerOnePanel.setOpaque(false);
         
-        JLabel player1Label = new JLabel("Player One", JLabel.CENTER);
-        player1Label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        player1Label.setFont(new Font("Arial", Font.BOLD, 20));
+        JLabel playerOneLabel = new JLabel("Player One", JLabel.CENTER);
+        playerOneLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerOneLabel.setFont(new Font("Arial", Font.BOLD, 20));
         
-        player1Panel.add(player1Label);
-        player1Panel.add(Box.createVerticalStrut(10));
+        playerOnePanel.add(playerOneLabel);
+        playerOnePanel.add(Box.createVerticalStrut(10));
         
-        JPanel trainerPanel1 = createPlayerTrainer(1);
-        trainerPanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        player1Panel.add(trainerPanel1);
-        player1Panel.add(Box.createVerticalStrut(20));
+        JPanel trainerPanelOne = createPlayerTrainer(1);
+        trainerPanelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerOnePanel.add(trainerPanelOne);
+        playerOnePanel.add(Box.createVerticalStrut(20));
         
-        JPanel namePanel1 = new JPanel();
-        namePanel1.setLayout(new BoxLayout(namePanel1, BoxLayout.Y_AXIS));
-        namePanel1.setOpaque(false);
-        namePanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel namePanelOne = new JPanel();
+        namePanelOne.setLayout(new BoxLayout(namePanelOne, BoxLayout.Y_AXIS));
+        namePanelOne.setOpaque(false);
+        namePanelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JLabel nameLabel1 = new JLabel("Enter name for Player 1");
-        nameLabel1.setFont(new Font("Arial", Font.BOLD, 18));
-        nameLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePanel1.add(nameLabel1);
+        JLabel nameLabelOne = new JLabel("Enter name for Player 1");
+        nameLabelOne.setFont(new Font("Arial", Font.BOLD, 18));
+        nameLabelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
+        namePanelOne.add(nameLabelOne);
         
         playerOneNameField = new JTextField(10);
         playerOneNameField.setFont(new Font("Arial", Font.BOLD, 20));
@@ -185,42 +187,42 @@ public class DatosTwoPlayersSurvival extends JPanel {
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         playerOneNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        namePanel1.add(Box.createVerticalStrut(5));
-        namePanel1.add(playerOneNameField);
-        player1Panel.add(namePanel1);
-        player1Panel.add(Box.createVerticalStrut(15));
+        namePanelOne.add(Box.createVerticalStrut(5));
+        namePanelOne.add(playerOneNameField);
+        playerOnePanel.add(namePanelOne);
+        playerOnePanel.add(Box.createVerticalStrut(15));
         
-        JPanel colorPanel1 = new JPanel();
-        colorPanel1.setOpaque(false);
-        colorPanel1.add(chooserColorPlayerOne);
-        colorPanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        player1Panel.add(colorPanel1);
+        JPanel colorPanelOne = new JPanel();
+        colorPanelOne.setOpaque(false);
+        colorPanelOne.add(chooserColorPlayerOne);
+        colorPanelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerOnePanel.add(colorPanelOne);
         
-        JPanel player2Panel = new JPanel();
-        player2Panel.setLayout(new BoxLayout(player2Panel, BoxLayout.Y_AXIS));
-        player2Panel.setOpaque(false);
+        JPanel playerTwoPanel = new JPanel();
+        playerTwoPanel.setLayout(new BoxLayout(playerTwoPanel, BoxLayout.Y_AXIS));
+        playerTwoPanel.setOpaque(false);
         
-        JLabel player2Label = new JLabel("Player Two", JLabel.CENTER);
-        player2Label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        player2Label.setFont(new Font("Arial", Font.BOLD, 20));
+        JLabel playerTwoLabel = new JLabel("Player Two", JLabel.CENTER);
+        playerTwoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTwoLabel.setFont(new Font("Arial", Font.BOLD, 20));
         
-        player2Panel.add(player2Label);
-        player2Panel.add(Box.createVerticalStrut(10));
+        playerTwoPanel.add(playerTwoLabel);
+        playerTwoPanel.add(Box.createVerticalStrut(10));
         
-        JPanel trainerPanel2 = createPlayerTrainer(2);
-        trainerPanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        player2Panel.add(trainerPanel2);
-        player2Panel.add(Box.createVerticalStrut(20));
+        JPanel trainerPanelTwo = createPlayerTrainer(2);
+        trainerPanelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTwoPanel.add(trainerPanelTwo);
+        playerTwoPanel.add(Box.createVerticalStrut(20));
         
-        JPanel namePanel2 = new JPanel();
-        namePanel2.setLayout(new BoxLayout(namePanel2, BoxLayout.Y_AXIS));
-        namePanel2.setOpaque(false);
-        namePanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel namePanelTwo = new JPanel();
+        namePanelTwo.setLayout(new BoxLayout(namePanelTwo, BoxLayout.Y_AXIS));
+        namePanelTwo.setOpaque(false);
+        namePanelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JLabel nameLabel2 = new JLabel("Enter name for Player 2");
-        nameLabel2.setFont(new Font("Arial", Font.BOLD, 18));
-        nameLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePanel2.add(nameLabel2);
+        JLabel nameLabelTwo = new JLabel("Enter name for Player 2");
+        nameLabelTwo.setFont(new Font("Arial", Font.BOLD, 18));
+        nameLabelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        namePanelTwo.add(nameLabelTwo);
         
         playerTwoNameField = new JTextField(10);
         playerTwoNameField.setFont(new Font("Arial", Font.BOLD, 20));
@@ -231,19 +233,19 @@ public class DatosTwoPlayersSurvival extends JPanel {
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         playerTwoNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        namePanel2.add(Box.createVerticalStrut(5));
-        namePanel2.add(playerTwoNameField);
-        player2Panel.add(namePanel2);
-        player2Panel.add(Box.createVerticalStrut(15));
+        namePanelTwo.add(Box.createVerticalStrut(5));
+        namePanelTwo.add(playerTwoNameField);
+        playerTwoPanel.add(namePanelTwo);
+        playerTwoPanel.add(Box.createVerticalStrut(15));
         
-        JPanel colorPanel2 = new JPanel();
-        colorPanel2.setOpaque(false);
-        colorPanel2.add(chooserColorPlayerTwo);
-        colorPanel2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        player2Panel.add(colorPanel2);
+        JPanel colorPanelTwo = new JPanel();
+        colorPanelTwo.setOpaque(false);
+        colorPanelTwo.add(chooserColorPlayerTwo);
+        colorPanelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTwoPanel.add(colorPanelTwo);
         
-        panelSelection.add(player1Panel);
-        panelSelection.add(player2Panel);
+        panelSelection.add(playerOnePanel);
+        panelSelection.add(playerTwoPanel);
         
         add(panelSelection, BorderLayout.CENTER);
     }

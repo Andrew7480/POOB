@@ -32,7 +32,7 @@ public class AttackingTrainer extends MachineTrainer {
         Movement bestAttackMovement = null;
         double possibleAttackMovement = 0;
         for (int i = 0; i < movementsPokemon.size(); i++){
-            double attackMovement = movementsPokemon.get(i).getMultiplicator(target.getPrincipalType());
+            double attackMovement = movementsPokemon.get(i).getMultiplicatorAtacck(target.getPrincipalType());
             if (possibleAttackMovement < attackMovement && movementsPokemon.get(i).getPP() > 0){
                 possibleAttackMovement = attackMovement;
                 bestAttackMovement = movementsPokemon.get(i);

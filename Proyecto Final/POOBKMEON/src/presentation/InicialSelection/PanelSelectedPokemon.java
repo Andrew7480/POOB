@@ -107,9 +107,8 @@ public class PanelSelectedPokemon extends JPanel{
 
         centro = new JPanel(new BorderLayout());
         centro.setOpaque(false);
-        //centro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 
-        panelScroll = new JPanel(new GridLayout(4,4,1,1)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   de dominio
+        panelScroll = new JPanel(new GridLayout(4,4,1,1)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -190,32 +189,26 @@ public class PanelSelectedPokemon extends JPanel{
     public void changeImage(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
-        //po.panelBattle.setFirstPokemon(Integer.toString(primero));
-        //po.panelBattle.setSecondPokemon(Integer.toString(segundo));
         System.out.println(primero + " " + segundo);
     }
 
     public void changeImageMvsM(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
-        //po.panelMvsM.setFirstPokemon(Integer.toString(primero));
-        //po.panelMvsM.setSecondPokemon(Integer.toString(segundo));
         System.out.println(primero + " " + segundo);
     }
 
     public void changeImagePvsP(){
         int primero = po.domain.getCurrentPokemonPokedexIndex();
         int segundo = po.domain.getOponentPokemonPokedexIndex();
-        //po.panelBattle.setFirstPokemon(Integer.toString(primero));
-        //po.panelBattle.setSecondPokemon(Integer.toString(segundo));
         System.out.println(primero + " " + segundo);
     }
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){
-            Pokemon po1 = po.pokemones.get(pokemonSelected);
-            String nombre = po1.getName();
-            String ruta = po1.getPokedexIndex().toString() + ".png";
+            Pokemon poOne = po.pokemones.get(pokemonSelected);
+            String nombre = poOne.getName();
+            String ruta = poOne.getPokedexIndex().toString() + ".png";
             JButton button = createImageButton(nombre,ruta);
             buttons.add(button);
             button.addActionListener(e -> 

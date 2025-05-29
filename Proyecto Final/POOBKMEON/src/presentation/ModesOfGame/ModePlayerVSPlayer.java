@@ -90,7 +90,6 @@ public class ModePlayerVSPlayer extends JPanel {
         batalla.inicializate();
     }
     public void reset(){
-        //datos.reset();
         inventory.reset();
         movements.reset();
         inicialPoks.reset();

@@ -88,7 +88,6 @@ public class BattlePanel extends JPanel {
         int maxPs = pooBkemonGUI.domain.getcurrentMaxPs();
         setFirstPokemon(Integer.toString(pooBkemonGUI.domain.getCurrentPokemonPokedexIndex()));
         playerStatsPanel = createStatsPanel(nameCurrent, levelCurrent ,psCurrent,maxPs, true);
-
         String nameOponent = pooBkemonGUI.domain.getOponentPokemonName();
         int psOponent = pooBkemonGUI.domain.getOponentPokemonPs();
         int levelOponent = pooBkemonGUI.domain.getOponentPokemonLevel();
@@ -288,7 +287,7 @@ public class BattlePanel extends JPanel {
             moveBtn.addActionListener(e -> {
                 actualizar();
                 System.out.println("Selected move: " + moveBtn.getText());
-                gameEnd();
+                if(gameEnd()){return;}
                 int oldIndex = pooBkemonGUI.domain.getOponentPokemonPokedexIndex();
                 try{
                     pooBkemonGUI.domain.movementPerformed(moveBtn.getText());
@@ -306,7 +305,7 @@ public class BattlePanel extends JPanel {
                     System.out.println("No se hace el ataque: "+ o.getMessage());
                     if (o.getMessage().equals("El pokemon esta muerto")) JOptionPane.showMessageDialog(null, "Tu Pokemon Ha muerto","Alerta Pokemon Muerto",
                                         JOptionPane.INFORMATION_MESSAGE);
-                    gameEnd();
+                    if(gameEnd()){return;}
                     showBattleOptionsPanel();
                 }catch (Exception u) {LogPOOBKEMON.record(u);}
             });
@@ -334,7 +333,7 @@ public class BattlePanel extends JPanel {
         });
     }
 
-    public void gameEnd(){
+    public boolean gameEnd(){
         try{
             if (pooBkemonGUI.domain.GameIsOVer()){
                 timer.detenerTemporizadorDeBatalla(); //verificar
@@ -343,12 +342,14 @@ public class BattlePanel extends JPanel {
                 pooBkemonGUI.resetBattles();
                 pooBkemonGUI.domain.endBattle();
                 reset();
+                return true;
             }   }
         catch(Exception e){}
+        return false;
     }
 
     public void actualizar(){
-        gameEnd();
+        if(gameEnd()){return;}
         actualizarSacrificable();
         actualizaInfo();
         actualizarColor();
@@ -397,23 +398,23 @@ public class BattlePanel extends JPanel {
         opponentNameLabel.setText(pokemonNameOponent + " Nv. " + levelOponent);
     }
 
-    public void actualizarHealt(int health1, int health1Max, int health2, int health2Max, boolean setDirecto1, boolean setDirecto2) {
+    public void actualizarHealt(int healthOne, int health1Max, int healthTwo, int healthTwoMax, boolean setDirectoOne, boolean setDirectoTwo) {
         playerHealthBar.setMaximum(health1Max);
-        opponentHealthBar.setMaximum(health2Max);
+        opponentHealthBar.setMaximum(healthTwoMax);
 
-        if (setDirecto1 || playerHealthBar.getValue() == health1) {
-            playerHealthBar.setValue(health1);
+        if (setDirectoOne || playerHealthBar.getValue() == healthOne) {
+            playerHealthBar.setValue(healthOne);
         } else {
-            playerHealthBar.setAnimatedValue(health1);
+            playerHealthBar.setAnimatedValue(healthOne);
         }
-        if (setDirecto2 || opponentHealthBar.getValue() == health2) {
-            opponentHealthBar.setValue(health2);
+        if (setDirectoTwo || opponentHealthBar.getValue() == healthTwo) {
+            opponentHealthBar.setValue(healthTwo);
         } else {
-            opponentHealthBar.setAnimatedValue(health2);
+            opponentHealthBar.setAnimatedValue(healthTwo);
         }
 
-        playerHealthLabel.setText(health1 + "/" + health1Max);
-        opponentHealthLabel.setText(health2 + "/" + health2Max);
+        playerHealthLabel.setText(healthOne + "/" + health1Max);
+        opponentHealthLabel.setText(healthTwo + "/" + healthTwoMax);
         playerStatsPanel.repaint();
         opponentStatsPanel.repaint();
         repaint();
@@ -432,7 +433,7 @@ public class BattlePanel extends JPanel {
                 }catch (Exception e) {LogPOOBKEMON.record(e);}
                 btn.setText(move);
             }
-            index ++;
+            index++;
         }
     }
     

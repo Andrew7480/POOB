@@ -242,7 +242,6 @@ public class POOBkemonGUI extends JFrame {
         options.add(modeNormal);
         options.add(Box.createVerticalStrut(15));
         options.add(modeSurvival);
-
         return options;
     }
 
@@ -549,7 +548,7 @@ public class POOBkemonGUI extends JFrame {
             }catch(PoobkemonException h){
                 System.out.println(h.getMessage());
         }catch (Exception e) {LogPOOBKEMON.record(e);}
-     }
+        }
     }
     public void OpenBattle(){
         JFileChooser fileChooser = new JFileChooser();

@@ -159,7 +159,6 @@ public class Selection extends JPanel{
 
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
-        //doneButton.setVisible(false);
         down.add(new JLabel(" "),BorderLayout.NORTH);
         down.add(new JLabel(" "),BorderLayout.CENTER);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -185,7 +184,6 @@ public class Selection extends JPanel{
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-        //GridBagConstraints gbc = new GridBagConstraints();
         panelScroll.setOpaque(false);
         panelScroll.setBackground(color);
         
@@ -291,7 +289,6 @@ public class Selection extends JPanel{
                 Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
                 button.setIcon(new ImageIcon(scaledImage));
             }
-            //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
             e.printStackTrace();
             button.setText("No imagen");

@@ -39,7 +39,7 @@ public class PhysicalMovement extends Movement {
         double levelFactor = (2.0 * attacker.getLevel()) / 5.0 + 2.0;
         double attackDefenseRatio = (double) attacker.getAttack() / target.getDefense();
         double damage = ((levelFactor * power * attackDefenseRatio) / 50.0) + 2.0;
-        damage *= getMultiplicator(target.getPrincipalType());
+        damage *= getMultiplicatorAtacck(target.getPrincipalType());
         damage *= 0.85 + (Math.random() * 0.15);
         target.losePS(damage);
         losePP();

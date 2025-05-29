@@ -426,15 +426,29 @@ public class POOBkemon implements Serializable{
      * @param pokemon Pokemon to check movements for
      * @return TreeMap containing valid movements, with names as keys
      */
-    public TreeMap<String,Movement> validMovements(Pokemon pokemon){
-        TreeMap<String,Movement> movementsForPokemon = new TreeMap<>();
+    public ArrayList<String> validMovements(Pokemon pokemon){
+        ArrayList<String> movementsForPokemon = new ArrayList<String>();
         for(Movement movement : movements.values()) {
-            double multiplicador = movement.getMultiplicator(pokemon.getPrincipalType());
+            double multiplicador = movement.getMultiplicatorDebil(pokemon.getPrincipalType());
             if (multiplicador <= 1.0){
-                movementsForPokemon.put(movement.getName(), movement);
+                movementsForPokemon.add(movement.getName());
             }
         }
         return movementsForPokemon;
+    }
+    public ArrayList<Movement> getValidMovements(Pokemon pokemon){
+        ArrayList<Movement> movementsForPokemon = new ArrayList<>();
+        for(Movement movement : movements.values()) {
+            double multiplicador = movement.getMultiplicatorDebil(pokemon.getPrincipalType());
+            if (multiplicador <= 1.0){
+                movementsForPokemon.add(movement);
+            }
+        }
+        return movementsForPokemon;
+    }
+
+    public String getPokedexIndexByName(String name){
+        return String.valueOf(pokedex.get(name).getPokedexIndex());
     }
 
     public void generateRandomSelectionPokemon(String trainerEscogido){
@@ -444,10 +458,11 @@ public class POOBkemon implements Serializable{
         int count = 0;
         while (count < 6){
             int number = random.nextInt(generalLista.size());
-            ArrayList<Movement> p = generateRandomMovementForPokemons();
-            pokemonesEscogidos.add(generalLista.get(number));
+            String pokemonSeleccionado = generalLista.get(number);
             try{
+                ArrayList<Movement> p = generateRandomMovementForPokemon(pokedex.get(pokemonSeleccionado));
                 addNewPokemon(trainerEscogido, generalLista.get(number), p.get(0), p.get(1), p.get(2), p.get(3));
+                pokemonesEscogidos.add(pokemonSeleccionado);
                 count++;
             }catch(PoobkemonException e){
                 e.getMessage();
@@ -469,14 +484,15 @@ public class POOBkemon implements Serializable{
         return pokemonesEscogidos.get(0);
     }
 
-    public ArrayList<Movement> generateRandomMovementForPokemons(){
+    public ArrayList<Movement> generateRandomMovementForPokemon(Pokemon pok) throws PoobkemonException{
         Random random = new Random();
-        ArrayList<Movement> listaMovimientos = new ArrayList<>(movements.values());
+        ArrayList<Movement> listaMovimientos = getValidMovements(pok);
         ArrayList<Movement> listRandom = new ArrayList<>();
         while (listRandom.size() < 4){
             int number = random.nextInt(listaMovimientos.size());
-            listRandom.add(listaMovimientos.get(number));
+            if (!listRandom.contains(listaMovimientos.get(number)))listRandom.add(listaMovimientos.get(number));
         }
+        if (listRandom.size()!=4) throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         return listRandom;
     }
 

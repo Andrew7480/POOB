@@ -34,7 +34,7 @@ public class ExpertTrainer extends MachineTrainer{
         double possibleAttackMovement = 0;
         
         for (int i = 0; i < movementsPokemon.size(); i++){
-            double attackMovement = movementsPokemon.get(i).getMultiplicator(target.getPrincipalType());
+            double attackMovement = movementsPokemon.get(i).getMultiplicatorAtacck(target.getPrincipalType());
             if (possibleAttackMovement < attackMovement && movementsPokemon.get(i).getPP() > 0){
                 possibleAttackMovement = attackMovement;
                 bestAttackMovement = movementsPokemon.get(i);
@@ -42,7 +42,6 @@ public class ExpertTrainer extends MachineTrainer{
         }
         if (bestAttackMovement != null){
             try{
-                
                 bestAttackMovement.doAttackTo(actualPokemon, target);}
             catch(PoobkemonException i){
                 BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());

@@ -56,5 +56,6 @@ public interface Attackable{
      * @return The damage multiplier (0.0 for no effect, 0.5 for not very effective,
      *         1.0 for normal effectiveness, 2.0 for super effective)
      */
-    public double getMultiplicator(PokemonType defender);
+    public double getMultiplicatorAtacck(PokemonType defender);
+    public double getMultiplicatorDebil(PokemonType defender);
 }
