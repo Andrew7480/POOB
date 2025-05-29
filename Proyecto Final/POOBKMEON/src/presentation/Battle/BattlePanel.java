@@ -1,8 +1,10 @@
 package presentation.Battle;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import domain.LogPOOBKEMON;
@@ -65,7 +67,10 @@ public class BattlePanel extends JPanel {
     private JButton cargarPartida;
     private JButton guardarPartida;
 
-    
+    private int damageToShow = 0;
+    private int damageAnimX, damageAnimY, damageAnimAlpha;
+    private boolean isAnimatingDamage = false;
+    private Timer damageTimer;
 
     public BattlePanel(POOBkemonGUI newPo) {
         pooBkemonGUI = newPo;
@@ -112,6 +117,7 @@ public class BattlePanel extends JPanel {
             LogPOOBKEMON.record(e);
         }
         calculatePokemonPositions();
+
         timerLabel = new JLabel();
         timer = new BattleTimer(pooBkemonGUI){
             public void iniciarTemporizadorDeBatalla(){  
@@ -193,7 +199,7 @@ public class BattlePanel extends JPanel {
         temp.add(battleOptionsPanel, BorderLayout.CENTER);
         
         opciones.add(temp, "Opciones");
-        
+
         showBattleOptionsPanel();
         prepareElementsStyle();
     }
@@ -213,6 +219,7 @@ public class BattlePanel extends JPanel {
         pokemonButton.setPreferredSize(new Dimension(20, 25));
         runButton.setPreferredSize(new Dimension(20, 25));
     }
+
     public void movementButtons() {
         movesPanel = new JPanel(new BorderLayout());
         movesPanel.setOpaque(false);
@@ -285,6 +292,9 @@ public class BattlePanel extends JPanel {
                 int oldIndex = pooBkemonGUI.domain.getOponentPokemonPokedexIndex();
                 try{
                     pooBkemonGUI.domain.movementPerformed(moveBtn.getText());
+
+                    animatedDamage();
+
                     if (!pooBkemonGUI.domain.isAliveOpponentPokemon() || oldIndex != pooBkemonGUI.domain.getOponentPokemonPokedexIndex()){
                         int newIndex = pooBkemonGUI.domain.getOponentPokemonPokedexIndex();
                         setSecondPokemon(Integer.toString(newIndex));
@@ -325,14 +335,16 @@ public class BattlePanel extends JPanel {
     }
 
     public void gameEnd(){
-        if (pooBkemonGUI.domain.GameIsOVer()){
-            timer.detenerTemporizadorDeBatalla(); //verificar
-            JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
-            pooBkemonGUI.changePanel("inicio");
-            pooBkemonGUI.resetBattles();
-            pooBkemonGUI.domain.endBattle();
-            reset();
-        }   
+        try{
+            if (pooBkemonGUI.domain.GameIsOVer()){
+                timer.detenerTemporizadorDeBatalla(); //verificar
+                JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
+                pooBkemonGUI.changePanel("inicio");
+                pooBkemonGUI.resetBattles();
+                pooBkemonGUI.domain.endBattle();
+                reset();
+            }   }
+        catch(Exception e){}
     }
 
     public void actualizar(){
@@ -429,6 +441,7 @@ public class BattlePanel extends JPanel {
         info.setText("<html><body style='width: 200px'>" + pooBkemonGUI.domain.getLastMessage() + "</body></html>");
         moveLabel.setText("¿Qué movimiento debería usar " + pooBkemonGUI.domain.getCurrentPokemonName() + "?");
     }
+
     public void actualizarColor(){
         actualColor = pooBkemonGUI.domain.getCurrentColor();
         info.setBorder(BorderFactory.createCompoundBorder(
@@ -449,8 +462,6 @@ public class BattlePanel extends JPanel {
     public void showBattleOptionsPanel() {
         cardLayoutButtons.show(opciones,"Opciones"); 
     }
-
-
 
     public JPanel createStatsPanel(String pokemonName, int level, int health,int maxHealth, boolean isPlayer) {
 
@@ -558,6 +569,9 @@ public class BattlePanel extends JPanel {
         ySecond = (getHeight() - scaledHeight) / 2 - scaledHeight / 3;
     }
 
+    private void animatedDamage(){
+        showDamageAnimation(pooBkemonGUI.domain.getLastDamage());
+    }
 
     private void timerExpired() {
         info.setText("¡Se acabó el tiempo!");
@@ -568,7 +582,29 @@ public class BattlePanel extends JPanel {
     public void reset(){
         trainerActualMovements.clear();
     }
+    private void showDamageAnimation(int damage) {
+        int scaledWidth = getWidth() / 3;
+        int scaledHeight = getHeight() / 3;
+        damageToShow = damage;
 
+        damageAnimX = xSecond - 15 + scaledWidth / 2 - 20;
+        damageAnimY = ySecond + 50 + scaledHeight / 3;
+        damageAnimAlpha = 255;
+        isAnimatingDamage = true;
+
+        if (damageTimer != null && damageTimer.isRunning()) damageTimer.stop();
+        damageTimer = new Timer(30, e -> {
+            damageAnimY -= 2;
+            damageAnimAlpha -= 10;
+            if (damageAnimAlpha <= 0) {
+                isAnimatingDamage = false;
+                ((Timer)e.getSource()).stop();
+            }
+            repaint();
+        });
+        damageTimer.start();
+        repaint();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -606,6 +642,19 @@ public class BattlePanel extends JPanel {
             ImageIcon effect = new ImageIcon(getClass().getResource("/resources/" + affectVisualActual + ".GIF"));
             g.drawImage(effect.getImage(), xFirst, yFirst + 50, scaledWidth, scaledHeight, this);
         }
+        if (isAnimatingDamage) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setFont(new Font("Arial", Font.BOLD, 36));
+            Color color;
+            if (damageToShow > 100) {
+                color = new Color(255, 0, 0, Math.max(0, damageAnimAlpha)); // Rojo
+            } else {
+                color = new Color(255, 140, 0, Math.max(0, damageAnimAlpha)); // Naranja (RGB: 255,140,0)
+            }
+            g2.setColor(color);
+            String dmg = "-" + damageToShow;
+            g2.drawString(dmg, damageAnimX, damageAnimY);
+            g2.dispose();
+        }
     }
-
 }

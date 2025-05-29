@@ -528,6 +528,9 @@ public class POOBkemon implements Serializable{
     public String getLastMessage() {
         return BattleLog.getInstance().getLastMessage();
     }
+    public int getLastDamage(){
+        return BattleLog.getInstance().getLastDamage();
+    }
 
     /**
      * Saves the current game state to a file

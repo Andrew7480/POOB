@@ -43,7 +43,8 @@ public class SpecialMovement extends Movement {
         damage *= 0.85 + (Math.random() * 0.15);
         target.losePS(damage);
         losePP();
-        BattleLog.getInstance().addMessage(attacker.getName()+ " ha usado un movimiento especial: "+name+" ha realizado "+ damage+ " de daño a " +target.getName());
+        BattleLog.getInstance().addMessage(attacker.getName()+ " ha usado un movimiento especial: "+name+" ha realizado "+(int) damage+ " de daño a " +target.getName());
+        BattleLog.getInstance().addDamage((int)damage);
         return (int)damage;
     }
 

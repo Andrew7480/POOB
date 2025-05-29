@@ -61,7 +61,9 @@ public class MovementTribute extends SpecialMovement{
             throw new PoobkemonException(PoobkemonException.MISSED_MOVEMENT);
         }
         target.addEffect(state);
+        target.losePS(damageBase);
         BattleLog.getInstance().addMessage(attacker.getName()+" aplico movimiento atributo a: "+target.getName() +" Daño: "+ damageBase);
+        BattleLog.getInstance().addDamage(damageBase);
         losePP();
         return damageBase;
     }

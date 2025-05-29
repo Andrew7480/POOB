@@ -5,9 +5,10 @@ import java.util.*;
 
 public class BattleLog implements Serializable{
     private static BattleLog instance;
-    private final List<String> messages = new ArrayList<>();
+    private final ArrayList<String> messages = new ArrayList<>();
+    private final ArrayList<Integer> damage = new ArrayList<>();
 
-    private BattleLog() {}
+    private BattleLog(){}
 
     public static BattleLog getInstance() {
         if (instance == null) instance = new BattleLog();
@@ -17,10 +18,17 @@ public class BattleLog implements Serializable{
     public void addMessage(String msg) {
         messages.add(msg);
     }
-
-    public List<String> getMessages() {
-        return new ArrayList<>(messages);
+    public void addDamage(int damageValue) {
+        damage.add(damageValue);
     }
+
+    public int getLastDamage() {
+        if (messages.isEmpty()) {
+        return 0; 
+    }
+        return damage.getLast();
+    }
+
     public String getLastMessage() {
         if (messages.isEmpty()) {
         return "Elige tu acción"; 
@@ -28,7 +36,9 @@ public class BattleLog implements Serializable{
         return messages.getLast();
     }
 
+
     public void clear() {
         messages.clear();
+        damage.clear();
     }
 }
