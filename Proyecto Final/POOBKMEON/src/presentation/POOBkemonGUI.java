@@ -417,29 +417,41 @@ public class POOBkemonGUI extends JFrame {
     }
 
     public void styleButtonchooser(JButton button){
-        button.setFont(new Font("Times new Roman", Font.BOLD, 14));
-        button.setBackground(new Color(70, 130, 180));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        button.setPreferredSize(new Dimension(180, 35));
+        try{
+            Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/PressStart2P-Regular.ttf"));
+            fuente = fuente.deriveFont(12f);
+            button.setFont(fuente);
+            button.setBackground(new Color(70, 130, 180));
+            button.setForeground(Color.WHITE);
+            button.setFocusPainted(false);
+            button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)
+            ));
+            button.setPreferredSize(new Dimension(180, 35));
+        } catch (Exception e) {
+            LogPOOBKEMON.record(e);
+        }
     }
 
     public void styleButton(JButton button){
-        button.setFont(new Font("Times new Roman", Font.BOLD, 14));
-        button.setBackground(new Color(70, 130, 180));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        button.setPreferredSize(new Dimension(180, 35));
+        try{
+            Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/PressStart2P-Regular.ttf"));
+            fuente = fuente.deriveFont(12f);
+            button.setFont(fuente);
+            button.setBackground(new Color(70, 130, 180));
+            button.setForeground(Color.WHITE);
+            button.setFocusPainted(false);
+            button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)
+            ));
+            button.setPreferredSize(new Dimension(180, 35));
 
-        addBasicEffects(button, STANDARD_COLOR, HOVER_COLOR, PRESSED_COLOR);
+            addBasicEffects(button, STANDARD_COLOR, HOVER_COLOR, PRESSED_COLOR);
+        } catch (Exception e) {
+            LogPOOBKEMON.record(e);
+        }
     }
 
     private void addBasicEffects(JButton button, Color normalColor, Color hoverColor, Color pressedColor) {
