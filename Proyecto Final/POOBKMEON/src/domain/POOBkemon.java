@@ -483,6 +483,16 @@ public class POOBkemon implements Serializable{
     public String getFirstPokemonOfThelist(ArrayList<String> pokemonesEscogidos){
         return pokemonesEscogidos.get(0);
     }
+    public ArrayList<String> generateRandomMovementForPokemon(String pok) throws PoobkemonException{
+        if (!pokedex.containsKey(pok)) throw new PoobkemonException(PoobkemonException.POKEMON_NOT_FOUND);
+        ArrayList<Movement> movements = generateRandomMovementForPokemon(pokedex.get(pok));
+        ArrayList<String> movementNames = new ArrayList<>();
+        for (Movement m : movements) {
+            movementNames.add(m.getName());
+        }
+        return movementNames;
+        
+    }
 
     public ArrayList<Movement> generateRandomMovementForPokemon(Pokemon pok) throws PoobkemonException{
         Random random = new Random();

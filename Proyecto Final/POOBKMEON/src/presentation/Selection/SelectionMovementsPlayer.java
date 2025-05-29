@@ -103,6 +103,8 @@ public class SelectionMovementsPlayer extends JPanel {
         revalidate();
     }
 
+    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

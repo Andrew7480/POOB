@@ -12,6 +12,7 @@ public class SelectionMovementsTwoPlayers extends JPanel {
     private POOBkemonGUI po;
     private JButton come;
     private JButton doneButton; 
+    private JButton aleatory;
     private ModePlayerVSPlayer gameMode;
 
     private SelectionMovementsPanel selectionOne;
@@ -43,14 +44,18 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
+        aleatory = new JButton("Aleatory");
         po.styleButton(doneButton);
         po.styleButton(come);
+        po.styleButton(aleatory);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         booton.setOpaque(false);
+        booton.add(aleatory);
         booton.add(come);
         booton.add(doneButton);
         down.add(booton,BorderLayout.SOUTH);
         add(down, BorderLayout.SOUTH);
+        
     }
 
     private void prepareActions(){

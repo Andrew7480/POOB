@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.*;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -558,6 +557,17 @@ public class POOBkemonGUI extends JFrame {
             domain.deserializateBattle(selectedFile.getAbsolutePath());
         }
     }    
+    public ArrayList<String> aleatoryMovements(String namePokemon){
+        try{return domain.generateRandomMovementForPokemon(namePokemon);}
+        catch (PoobkemonException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return new ArrayList<>();
+        } catch (Exception e) {
+            LogPOOBKEMON.record(e);
+            return new ArrayList<>();
+        }
+    }
+
     public static void main(String args []){
         POOBkemonGUI kemon = new POOBkemonGUI();
         kemon.setLocationRelativeTo(null);
