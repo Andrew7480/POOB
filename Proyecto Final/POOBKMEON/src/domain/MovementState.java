@@ -66,7 +66,6 @@ public class MovementState extends SpecialMovement{
         return new MovementState(name, description, PP, power, precision, type, state, priority, damageBase);
     }
 
-
     /**
      * Creates an HTML-formatted tooltip description of the Movement
      * 

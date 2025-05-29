@@ -280,7 +280,7 @@ public class Inventory implements Serializable{
             }
         }
         for (Map.Entry<String, Pokemon> entry : pokemons.entrySet()) {
-            Pokemon pokemonCopia = entry.getValue().copy();
+            Pokemon pokemonCopia = entry.getValue().copyWithMovements();
             try {newInventory.addPokemon(pokemonCopia);} 
             catch (PoobkemonException e) {System.out.println(e.getMessage());}
         }

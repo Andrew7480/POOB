@@ -25,9 +25,14 @@ public class ExpertTrainer extends MachineTrainer{
      * @return The name of the selected movement to use
      */
     public String decide(Pokemon target){
+        if (actualPokemon.isAffectedByStattus()){ 
+            changePokemon();
+            return "cambio";
+        }
         ArrayList<MovementTribute> movementsPokemon = inventory.getPokemons().get(actualPokemon.getName()).getMovementsGiveAttack();
         Movement bestAttackMovement = null;
         double possibleAttackMovement = 0;
+        
         for (int i = 0; i < movementsPokemon.size(); i++){
             double attackMovement = movementsPokemon.get(i).getMultiplicator(target.getPrincipalType());
             if (possibleAttackMovement < attackMovement && movementsPokemon.get(i).getPP() > 0){
@@ -52,5 +57,14 @@ public class ExpertTrainer extends MachineTrainer{
             BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());           
         }
         return bestAttackMovement.getName();
+    }
+
+    public Trainer copy() {
+        DefensiveTrainer copyTrainer = new DefensiveTrainer(getName(),getColor() );
+        Inventory newInventory = inventory.copy();
+        copyTrainer.setInventory(newInventory);
+        try {copyTrainer.setPokemonInUse(getPokemonInUse());} 
+        catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        return copyTrainer;
     }
 }

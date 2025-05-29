@@ -134,7 +134,6 @@ public abstract class MachineTrainer extends Trainer {
     }
     @Override
     public void pokemonMovement(String mov, Pokemon target) throws PoobkemonException{
-        
     }
 
     /**
@@ -157,6 +156,7 @@ public abstract class MachineTrainer extends Trainer {
     public void inicialPokemon(String pokemon) {
         inicialPokemon();
     }
+    
     
     /**
      * Sets the first Pokemon in the inventory as the active Pokemon

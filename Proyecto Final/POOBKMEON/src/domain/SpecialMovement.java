@@ -57,6 +57,7 @@ public class SpecialMovement extends Movement {
         return new SpecialMovement(name, description, PP, power, precision, type, priority);
     }
 
+
     /**
      * Handles the reduction of PP over time
      * Calls the parent class's losePP method and logs any exceptions

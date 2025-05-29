@@ -65,6 +65,7 @@ public class BattlePanel extends JPanel {
     private JButton cargarPartida;
     private JButton guardarPartida;
 
+    
 
     public BattlePanel(POOBkemonGUI newPo) {
         pooBkemonGUI = newPo;
@@ -335,6 +336,7 @@ public class BattlePanel extends JPanel {
     }
 
     public void actualizar(){
+        gameEnd();
         actualizarSacrificable();
         actualizaInfo();
         actualizarColor();

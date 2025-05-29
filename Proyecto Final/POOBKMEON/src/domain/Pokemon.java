@@ -255,16 +255,11 @@ public class Pokemon implements Serializable {
      * 
      * @param newMovements Array of Movement objects to assign to the Pokemon
      */
-    public void setMovements(Movement[] newMovements){
+    public void setMovements(Movement[] newMovements)throws PoobkemonException{
+        if (newMovements.length!=4) throw new PoobkemonException("No se puede");
         for (Movement m : newMovements){
-            try {
-                addMovement(m);
-            } catch(Exception e){
-                System.out.println(e);
-                //LogPOOBKEMON.record(e);
-            }
+            addMovement(m);
         }
-        System.out.println(movements.toString());
     }
 
     /**
@@ -275,11 +270,9 @@ public class Pokemon implements Serializable {
      */
     public void addMovement(Movement mov) throws PoobkemonException{
         if (movements.contains(mov) ) {
-            System.out.println(PoobkemonException.CANT_ADD_MOVEMENT);
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         }
         if (mov.getMultiplicator(principalType)>1.0) {
-            System.out.println(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
         }
         movements.add(mov.copy());
@@ -586,8 +579,8 @@ public class Pokemon implements Serializable {
      * @throws PoobkemonException If the movement is not found or cannot be performed
      */
     public void useMovement(String movimiento, Pokemon target) throws PoobkemonException{
-        System.out.println(movimiento);
-        System.out.println(movements.toString());
+        System.out.println("mov: "+ movimiento);
+        System.out.println("lista : " + movements.toString());
         for (Movement m : movements){
             if(m.getName().equals(movimiento)) {
                 useMovement(m, target);
@@ -675,34 +668,6 @@ public class Pokemon implements Serializable {
         struggle.AttackToStruggle(this,target);
     }
 
-    /**
-     * Compares this Pokemon with another object for equality
-     * 
-     * @param ob The object to compare with
-     * @return true if the objects are equal, false otherwise
-     */
-    @Override
-    public boolean equals(Object ob){
-        return equals((Pokemon) ob);
-    }
-
-    /**
-     * Compares this Pokemon with another Pokemon for equality
-     * 
-     * @param pokemon The Pokemon to compare with
-     * @return true if the Pokemon are equal, false otherwise
-     */
-    public boolean equals(Pokemon pokemon){  //mirar caso null
-        return name.equals(pokemon.getName()) &&
-           level == pokemon.getLevel() &&
-           ps == pokemon.getPs() &&
-           attack == pokemon.getAttack() &&
-           specialAttack == pokemon.getSpecialAttack() &&
-           defense == pokemon.getDefense() &&
-           velocity == pokemon.getVelocity() &&
-           principalType.equals(pokemon.getPrincipalType()) &&
-           (secondaryType == null ? pokemon.getSecondaryType() == null : secondaryType.equals(pokemon.getSecondaryType()));
-    }
  
     /**
      * Gets movements that are weak against this Pokemon's type
@@ -725,7 +690,7 @@ public class Pokemon implements Serializable {
      * 
      * @return A new Pokemon object with the same attributes
      */
-    public Pokemon copy(){
+    public Pokemon copyPokemon(){
         return new Pokemon(name,level,ps,attack,specialAttack,defense,specialDefense,velocity,principalType,secondaryType,pokedexIndex);
     }
     public Pokemon copyWithMovements(){

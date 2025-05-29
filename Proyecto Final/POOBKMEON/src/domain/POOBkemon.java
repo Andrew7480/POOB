@@ -416,7 +416,7 @@ public class POOBkemon implements Serializable{
      * @throws PoobkemonException If the trainer or pokemon don't exist
      */
     public void addNewPokemon(String entrenador, String pokemon,Movement m1,Movement m2, Movement m3, Movement m4)throws PoobkemonException{
-        Pokemon pokemon1 = pokedex.get(pokemon).copy();
+        Pokemon pokemon1 = pokedex.get(pokemon).copyPokemon();
         pokemon1.setMovements(new Movement[]{m1,m2,m3,m4});
         entrenadores.get(entrenador).addPokemon(pokemon1);
     }

@@ -188,4 +188,8 @@ public abstract class Movement implements Attackable, Serializable{
     public abstract Movement copy();
 
     public abstract String createMovementForToolTip();
+    @Override
+    public String toString(){
+        return name;
+    }
 }

@@ -373,102 +373,112 @@ public class POOBkemonTest implements Serializable {
             poobkemon.addPokemon(mewtwo);
             poobkemon.addPokemon(swampert);
 
-            Pokemon charizard1   = charizard.copy();
-            Pokemon venusaur1    = venusaur.copy();
-            Pokemon blastoise1   = blastoise.copy();
-            Pokemon raichu1      = raichu.copy();
-            Pokemon nidoking1    = nidoking.copy();
-            Pokemon clefable1    = clefable.copy();
-            Pokemon rapidash1    = rapidash.copy();
-            Pokemon alakazam1    = alakazam.copy();
-            Pokemon victreebel1  = victreebel.copy();
-            Pokemon magneton1    = magneton.copy();
-            Pokemon dodrio1      = dodrio.copy();
-            Pokemon arcanine1    = arcanine.copy();
-            Pokemon machamp1     = machamp.copy();
-            Pokemon slowbro1     = slowbro.copy();
-            Pokemon gengar1      = gengar.copy();
-            Pokemon hitmonlee1   = hitmonlee.copy();
-            Pokemon hitmonchan1  = hitmonchan.copy();
-            Pokemon rhydon1      = rhydon.copy();
-            Pokemon mrMime1      = mrMime.copy();
-            Pokemon magmar1      = magmar.copy();
-            Pokemon tauros1      = tauros.copy();
-            Pokemon gyarados1    = gyarados.copy();
-            Pokemon lapras1      = lapras.copy();
-            Pokemon snorlax1     = snorlax.copy();
-            Pokemon moltres1     = moltres.copy();
-            Pokemon dragonite1   = dragonite.copy();
-            Pokemon mewtwo1      = mewtwo.copy();
-            Pokemon typhlosion1  = typhlosion.copy();
-            Pokemon feraligatr1  = feraligatr.copy();
-            Pokemon togetic1     = togetic.copy();
-            Pokemon ursaring1    = ursaring.copy();
-            Pokemon scizor1      = scizor.copy();
-            Pokemon delibird1    = delibird.copy();
-            Pokemon donphan1     = donphan.copy();
-            Pokemon tyranitar1   = tyranitar.copy();
-            Pokemon sceptile1    = sceptile.copy();
-            Pokemon blaziken1    = blaziken.copy();
-            Pokemon swampert1    = swampert.copy();
-            Pokemon gardevoir1   = gardevoir.copy();
-            Pokemon slaking1     = slaking.copy();
-            Pokemon hariyama1    = hariyama.copy();
-            Pokemon aggron1      = aggron.copy();
-            Pokemon manectric1   = manectric.copy();
-            Pokemon crawdaunt1   = crawdaunt.copy();
-            Pokemon milotic1     = milotic.copy();
-            Pokemon metagross1   = metagross.copy();
-        
-            charizard1.setMovements(new Movement[] {paralyze, burn, flamethrower, energyBall});
-            snorlax1.setMovements(new Movement[] {shadowBall,sleep});
-            blastoise1.setMovements(new Movement[] {surf, aquaJet, hydroPump, iceBeam});
-            venusaur1.setMovements(new Movement[] {paralyze, poison, gigaDrain});
-            gengar1.setMovements(new Movement[] {willOWisp, thunderbolt});
-            dragonite1.setMovements(new Movement[] {swordsDance, hyperBeam, flamethrower});
-            togetic1.setMovements(new Movement[] {psychic});
-            tyranitar1.setMovements(new Movement[] {burn});
-            gardevoir1.setMovements(new Movement[] {psychic});
-            metagross1.setMovements(new Movement[] {burn, firePunch, flamethrower});
-            donphan1.setMovements(new Movement[] {earthquake});
-            machamp1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-            delibird1.setMovements(new Movement[] {freeze, iceBeam, icePunch, xScissor});
-            raichu1.setMovements(new Movement[] {electrocuted, thunderbolt, thunderPunch});
-            nidoking1.setMovements(new Movement[] {earthquake, poison, poisonJab, earthPower});
-            clefable1.setMovements(new Movement[] {xScissor, bugBuzz, poisonJab, sludgeBomb});
-            arcanine1.setMovements(new Movement[] {flamethrower, burn, firePunch});
-            slowbro1.setMovements(new Movement[] {surf, iceBeam, hydroPump, aquaJet});
-            rhydon1.setMovements(new Movement[] {earthquake, earthPower});
-            gyarados1.setMovements(new Movement[] {surf, hydroPump, aquaJet, iceBeam});
-            moltres1.setMovements(new Movement[] {flamethrower, burn, firePunch});
-            typhlosion1.setMovements(new Movement[] {flamethrower, burn, firePunch});
-            feraligatr1.setMovements(new Movement[] {surf, hydroPump, iceBeam, aquaJet});
-            ursaring1.setMovements(new Movement[] {shadowBall, shadowClaw});
-            blaziken1.setMovements(new Movement[] {flamethrower, burn, firePunch});
-            slaking1.setMovements(new Movement[] {shadowBall});
-            victreebel1.setMovements(new Movement[] {gigaDrain, poison, energyBall, sludgeBomb});
-            magneton1.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted});
-            dodrio1.setMovements(new Movement[] {xScissor, shadowBall, shadowClaw, energyBall});
-            hitmonlee1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-            hitmonchan1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-            mrMime1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
-            magmar1.setMovements(new Movement[] {flamethrower, burn, firePunch});
-            tauros1.setMovements(new Movement[] {shadowBall, shadowClaw});
-            lapras1.setMovements(new Movement[] {iceBeam, surf, hydroPump, freeze});
-            rapidash1.setMovements(new Movement[] {flamethrower, burn, firePunch});
-            alakazam1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
-            sceptile1.setMovements(new Movement[] {gigaDrain, energyBall, leafBlade, megaDrain});
-            scizor1.setMovements(new Movement[] {burn, flamethrower, firePunch});
-            hariyama1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-            aggron1.setMovements(new Movement[] {burn, flamethrower, firePunch});
-            manectric1.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted});
-            crawdaunt1.setMovements(new Movement[] {surf, aquaJet, iceBeam, hydroPump});
-            milotic1.setMovements(new Movement[] {hydroPump, surf, aquaJet, waterPulse});
-            mewtwo1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
-            swampert1.setMovements(new Movement[] {surf, aquaJet, hydroPump, waterPulse});
+            Pokemon charizard1   = charizard.copyPokemon();
+            Pokemon venusaur1    = venusaur.copyPokemon();
+            Pokemon blastoise1   = blastoise.copyPokemon();
+            Pokemon raichu1      = raichu.copyPokemon();
+            Pokemon nidoking1    = nidoking.copyPokemon();
+            Pokemon clefable1    = clefable.copyPokemon();
+            Pokemon rapidash1    = rapidash.copyPokemon();
+            Pokemon alakazam1    = alakazam.copyPokemon();
+            Pokemon victreebel1  = victreebel.copyPokemon();
+            Pokemon magneton1    = magneton.copyPokemon();
+            Pokemon dodrio1      = dodrio.copyPokemon();
+            Pokemon arcanine1    = arcanine.copyPokemon();
+            Pokemon machamp1     = machamp.copyPokemon();
+            Pokemon slowbro1     = slowbro.copyPokemon();
+            Pokemon gengar1      = gengar.copyPokemon();
+            Pokemon hitmonlee1   = hitmonlee.copyPokemon();
+            Pokemon hitmonchan1  = hitmonchan.copyPokemon();
+            Pokemon rhydon1      = rhydon.copyPokemon();
+            Pokemon mrMime1      = mrMime.copyPokemon();
+            Pokemon magmar1      = magmar.copyPokemon();
+            Pokemon tauros1      = tauros.copyPokemon();
+            Pokemon gyarados1    = gyarados.copyPokemon();
+            Pokemon lapras1      = lapras.copyPokemon();
+            Pokemon snorlax1     = snorlax.copyPokemon();
+            Pokemon moltres1     = moltres.copyPokemon();
+            Pokemon dragonite1   = dragonite.copyPokemon();
+            Pokemon mewtwo1      = mewtwo.copyPokemon();
+            Pokemon typhlosion1  = typhlosion.copyPokemon();
+            Pokemon feraligatr1  = feraligatr.copyPokemon();
+            Pokemon togetic1     = togetic.copyPokemon();
+            Pokemon ursaring1    = ursaring.copyPokemon();
+            Pokemon scizor1      = scizor.copyPokemon();
+            Pokemon delibird1    = delibird.copyPokemon();
+            Pokemon donphan1     = donphan.copyPokemon();
+            Pokemon tyranitar1   = tyranitar.copyPokemon();
+            Pokemon sceptile1    = sceptile.copyPokemon();
+            Pokemon blaziken1    = blaziken.copyPokemon();
+            Pokemon swampert1    = swampert.copyPokemon();
+            Pokemon gardevoir1   = gardevoir.copyPokemon();
+            Pokemon slaking1     = slaking.copyPokemon();
+            Pokemon hariyama1    = hariyama.copyPokemon();
+            Pokemon aggron1      = aggron.copyPokemon();
+            Pokemon manectric1   = manectric.copyPokemon();
+            Pokemon crawdaunt1   = crawdaunt.copyPokemon();
+            Pokemon milotic1     = milotic.copyPokemon();
+            Pokemon metagross1   = metagross.copyPokemon();
+            try{charizard1.setMovements(new Movement[] {paralyze, burn, flamethrower, energyBall});
+                snorlax1.setMovements(new Movement[] {shadowBall,sleep,flamethrower,surf});
+                blastoise1.setMovements(new Movement[] {surf, aquaJet, hydroPump, iceBeam});
+                venusaur1.setMovements(new Movement[] {paralyze, poison, gigaDrain,hydroPump});
+                gengar1.setMovements(new Movement[] {willOWisp, thunderbolt,flamethrower,firePunch});
+                dragonite1.setMovements(new Movement[] {swordsDance, hyperBeam, flamethrower,firePunch});
+                delibird1.setMovements(new Movement[] {freeze, iceBeam, icePunch, xScissor});
+                raichu1.setMovements(new Movement[] {electrocuted, thunderbolt, thunderPunch,xScissor});
+                nidoking1.setMovements(new Movement[] {earthquake, poison, poisonJab, earthPower});
+                clefable1.setMovements(new Movement[] {xScissor, bugBuzz, poisonJab, sludgeBomb});
+                slowbro1.setMovements(new Movement[] {surf, iceBeam, hydroPump, aquaJet});
+                rhydon1.setMovements(new Movement[] {earthquake, earthPower,iceBeam,hydroPump});
+                gyarados1.setMovements(new Movement[] {surf, hydroPump, aquaJet, iceBeam});
+                moltres1.setMovements(new Movement[] {flamethrower, burn, firePunch,hydroPump});
+                typhlosion1.setMovements(new Movement[] {flamethrower, burn, firePunch,aquaJet});
+                feraligatr1.setMovements(new Movement[] {surf, hydroPump, iceBeam, aquaJet});
+                ursaring1.setMovements(new Movement[] {flamethrower,shadowBall, shadowClaw, hydroPump});
+                blaziken1.setMovements(new Movement[] {flamethrower, burn, firePunch, thunderbolt});
+                slaking1.setMovements(new Movement[] {shadowBall, surf, hydroPump, iceBeam});
+                victreebel1.setMovements(new Movement[] {gigaDrain, poison, energyBall, sludgeBomb});
+                donphan1.setMovements(new Movement[] {earthquake, hydroPump, icePunch,xScissor});
+                machamp1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+                magneton1.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted,bugBuzz});
+                dodrio1.setMovements(new Movement[] {xScissor, shadowBall, shadowClaw, energyBall});
+                hitmonlee1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+                hitmonchan1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+                mrMime1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
+                magmar1.setMovements(new Movement[] {flamethrower, burn, firePunch,shadowClaw});
+                tauros1.setMovements(new Movement[] {shadowBall, shadowClaw,hydroPump,surf});
+                lapras1.setMovements(new Movement[] {iceBeam, surf, hydroPump, freeze});
+                rapidash1.setMovements(new Movement[] {flamethrower, burn, firePunch,surf});
+                alakazam1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
+                sceptile1.setMovements(new Movement[] {gigaDrain, energyBall, leafBlade, megaDrain});
+                scizor1.setMovements(new Movement[] {burn, flamethrower, firePunch,surf});
+                hariyama1.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+                aggron1.setMovements(new Movement[] {burn, flamethrower, firePunch,thunderPunch});
+                manectric1.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted,aquaJet});
+                crawdaunt1.setMovements(new Movement[] {surf, aquaJet, iceBeam, hydroPump});
+                milotic1.setMovements(new Movement[] {hydroPump, surf, aquaJet, waterPulse});
+                mewtwo1.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
+                swampert1.setMovements(new Movement[] {surf, aquaJet, hydroPump, waterPulse});
+                arcanine1.setMovements(new Movement[] {psychic,hydroPump,flamethrower,firePunch});
+                togetic1.setMovements(new Movement[] {flamethrower, burn, firePunch,bugBuzz});
+                gardevoir1.setMovements(new Movement[] {psychic,hydroPump,firePunch,freeze});
+                metagross1.setMovements(new Movement[] {burn, firePunch, flamethrower, poison});
+                tyranitar1.setMovements(new Movement[] {burn,crunch,flamethrower,bravebird});
+                }
+            catch(PoobkemonException e){
+                System.out.println(e.getMessage());
+                fail();
+            }
 
-            System.out.println(arcanine1.getMovements().toString());
+            System.out.println(mewtwo1.getMovements().toString());
             System.out.println(swampert1.getMovements().toString());
+
+            Pokemon mewtwo2 = mewtwo1.copyWithMovements();
+            Pokemon swampert2 =swampert1.copyWithMovements();
+
+            System.out.println(mewtwo2.getMovements().toString());
+            System.out.println(swampert2.getMovements().toString());
 
             //items
             Item revive = new Revive();
@@ -768,6 +778,25 @@ public class POOBkemonTest implements Serializable {
     		fail("El Pokemon no fue revivido");
     	}
     }
+    @Test 
+    public void shouldCopy(){
+        Movement hyperBeam = new PhysicalMovement("Hyper Beam","A devastating attack that requires a turn to recharge.",5,150,90,PokemonType.NORMAL,0);
+        Movement quickAttack = new PhysicalMovement("Quick Attack","A fast attack that always strikes first.",30,40,100,PokemonType.NORMAL,1);
+
+        Pokemon charizard  = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 6);
+        Pokemon blastoise  = new Pokemon("Blastoise", 100, 362, 291, 295, 328, 339, 280, PokemonType.AGUA, null, 9);
+        try{charizard.setMovements(new Movement[] {hyperBeam});
+        blastoise.setMovements(new Movement[] {quickAttack});}catch(PoobkemonException e){System.out.println(e.getMessage());}
+        
+        Pokemon charizard1  = charizard.copyWithMovements();
+        Pokemon blastoise1  = blastoise.copyWithMovements();
+        
+        assertFalse(charizard.getMovements().get(0).equals(charizard1.getMovements().get(0)));
+        assertFalse(blastoise.getMovements().get(0).equals(blastoise1.getMovements().get(0)));
+        assertFalse(charizard.equals(charizard1));
+        assertFalse(blastoise.equals(blastoise1));
+    }
+
     @Test
     public void shouldAddMovementToPoobkemon() {
     	POOBkemon poobkemon = new POOBkemon();
@@ -827,7 +856,7 @@ public class POOBkemonTest implements Serializable {
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
     	Pokemon p1 = new Pokemon("Gengar",100,300,251,394,240,273,350,PokemonType.AGUA, PokemonType.DRAGON,94);
     	Movement m = new PhysicalMovement("Tackle","Physical attack",2,40,100,PokemonType.NORMAL, 0);
-    	p.setMovements(new Movement[] { m } );
+    	try{p.setMovements(new Movement[] { m } );}catch(PoobkemonException e){System.out.println(e.getMessage());}
     	int initialPs = p.getPs();
     	try {
     		m.losePP();
@@ -890,7 +919,7 @@ public class POOBkemonTest implements Serializable {
     	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
     	Pokemon charizard = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
     	Movement solarBeam = new SpecialMovement("Rayo Solar", "Absorbe luz un turno y ataca en el siguiente.", 10, 120, 100, PokemonType.PLANTA, 0);
-    	venusaur.setMovements(new Movement[] {solarBeam});
+    	try{venusaur.setMovements(new Movement[] {solarBeam});}catch(PoobkemonException e){System.out.println(e.getMessage());}
     	int inicialPs = charizard.getPs();
     	try {
     	venusaur.useMovement(solarBeam, charizard);
@@ -1437,7 +1466,6 @@ public class POOBkemonTest implements Serializable {
         	fail("Ha fallado el uso del item");
         }
     }
-    
     @Test
     public void shouldUseItemByName() {
         PlayerTrainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));

@@ -62,6 +62,15 @@ public class PlayerTrainer extends Trainer{
         inventory.useItem(namePok, item);
     }
 
+    public Trainer copy() {
+        PlayerTrainer copyTrainer = new PlayerTrainer(getName(),getColor() );
+        Inventory newInventory = inventory.copy();
+        copyTrainer.setInventory(newInventory);
+        try {copyTrainer.setPokemonInUse(getPokemonInUse());} 
+        catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        return copyTrainer;
+    }
+    
     /**
      * Decision method for the player trainer.
      * This method is likely overridden from the parent class.

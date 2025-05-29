@@ -40,4 +40,12 @@ public class ChangingTrainer extends MachineTrainer{
         }
         return actualPokemon.aleatoryMovement(target).getName();
     }
+    public Trainer copy() {
+        ChangingTrainer copyTrainer = new ChangingTrainer(getName(),getColor() );
+        Inventory newInventory = inventory.copy();
+        copyTrainer.setInventory(newInventory);
+        try {copyTrainer.setPokemonInUse(getPokemonInUse());} 
+        catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        return copyTrainer;
+    }
 }

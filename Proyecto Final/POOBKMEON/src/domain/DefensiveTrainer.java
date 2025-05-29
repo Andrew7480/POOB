@@ -52,4 +52,12 @@ public class DefensiveTrainer extends MachineTrainer{
             return "Ha hecho otra accion.";
         }
     }
+    public Trainer copy() {
+        DefensiveTrainer copyTrainer = new DefensiveTrainer(getName(),getColor() );
+        Inventory newInventory = inventory.copy();
+        copyTrainer.setInventory(newInventory);
+        try {copyTrainer.setPokemonInUse(getPokemonInUse());} 
+        catch (PoobkemonException e) {System.out.println(e.getMessage());}
+        return copyTrainer;
+    }
 }
