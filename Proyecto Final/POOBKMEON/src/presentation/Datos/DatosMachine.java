@@ -48,7 +48,8 @@ public class DatosMachine extends JPanel{
             put("Changing", "/resources/Changing.jpeg");
             put("Attacking", "/resources/Attacking.jpeg");
         }};
-        paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png"};
+        paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png","/resources/trainers/Trainer4.png",
+        "/resources/trainers/Trainer5.png","/resources/trainers/Trainer6.png","/resources/trainers/Trainer7.png","/resources/trainers/Trainer8.png"};
         gameModeChoosenOne = new ArrayList<>();
         gameModeChoosenTwo = new ArrayList<>();
         buttonsOne = new ArrayList<>();
@@ -111,30 +112,30 @@ public class DatosMachine extends JPanel{
         chooseDifficulty.setLayout(new GridLayout(1, 2));
         chooseDifficulty.setOpaque(false);
 
-        JPanel trainer1Panel = new JPanel();
-        trainer1Panel.setLayout(new BorderLayout());
-        trainer1Panel.setOpaque(false);
+        JPanel trainerOnePanel = new JPanel();
+        trainerOnePanel.setLayout(new BorderLayout());
+        trainerOnePanel.setOpaque(false);
 
-        JPanel trainer2Panel = new JPanel();
-        trainer2Panel.setLayout(new BorderLayout());
-        trainer2Panel.setOpaque(false);
+        JPanel trainerTwoPanel = new JPanel();
+        trainerTwoPanel.setLayout(new BorderLayout());
+        trainerTwoPanel.setOpaque(false);
 
-        JPanel trainerSelector1 = createTrainerSelector(1);
-        JPanel trainerSelector2 = createTrainerSelector(2);
+        JPanel trainerSelectorOne = createTrainerSelector(1);
+        JPanel trainerSelectorTwo = createTrainerSelector(2);
 
-        JPanel gameModePanel1 = createGameModePanel(1);
-        JPanel gameModePanel2 = createGameModePanel(2);
+        JPanel gameModePanelOne = createGameModePanel(1);
+        JPanel gameModePanelTwo = createGameModePanel(2);
 
-        trainer1Panel.add(new JLabel("Machine Trainer 1", JLabel.CENTER), BorderLayout.NORTH);
-        trainer1Panel.add(trainerSelector1, BorderLayout.CENTER);
-        trainer1Panel.add(gameModePanel1, BorderLayout.SOUTH);
+        trainerOnePanel.add(new JLabel("Machine Trainer 1", JLabel.CENTER), BorderLayout.NORTH);
+        trainerOnePanel.add(trainerSelectorOne, BorderLayout.CENTER);
+        trainerOnePanel.add(gameModePanelOne, BorderLayout.SOUTH);
 
-        trainer2Panel.add(new JLabel("Machine Trainer 2", JLabel.CENTER), BorderLayout.NORTH);
-        trainer2Panel.add(trainerSelector2, BorderLayout.CENTER);
-        trainer2Panel.add(gameModePanel2, BorderLayout.SOUTH);
+        trainerTwoPanel.add(new JLabel("Machine Trainer 2", JLabel.CENTER), BorderLayout.NORTH);
+        trainerTwoPanel.add(trainerSelectorTwo, BorderLayout.CENTER);
+        trainerTwoPanel.add(gameModePanelTwo, BorderLayout.SOUTH);
 
-        chooseDifficulty.add(trainer1Panel);
-        chooseDifficulty.add(trainer2Panel);
+        chooseDifficulty.add(trainerOnePanel);
+        chooseDifficulty.add(trainerTwoPanel);
 
         add(chooseDifficulty, BorderLayout.CENTER);
     }
@@ -213,10 +214,8 @@ public class DatosMachine extends JPanel{
         int width = 70, height = 70;
         Dimension smallSize = new Dimension(50, 30);
         JButton button = new JButton();
-
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-
             if (imagePath.toLowerCase().endsWith(".gif")) {
                 button.setIcon(icon);
                 button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));

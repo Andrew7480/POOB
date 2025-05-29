@@ -445,9 +445,10 @@ public class POOBkemon implements Serializable{
         while (count < 6){
             int number = random.nextInt(generalLista.size());
             ArrayList<Movement> p = generateRandomMovementForPokemons();
-            pokemonesEscogidos.add(generalLista.get(number));
+            String pokemonSeleccionado = generalLista.get(number);
             try{
                 addNewPokemon(trainerEscogido, generalLista.get(number), p.get(0), p.get(1), p.get(2), p.get(3));
+                pokemonesEscogidos.add(pokemonSeleccionado);
                 count++;
             }catch(PoobkemonException e){
                 e.getMessage();

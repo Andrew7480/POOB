@@ -42,7 +42,6 @@ public class ExpertTrainer extends MachineTrainer{
         }
         if (bestAttackMovement != null){
             try{
-                
                 bestAttackMovement.doAttackTo(actualPokemon, target);}
             catch(PoobkemonException i){
                 BattleLog.getInstance().addMessage("Fallo movimiento machine: "+ bestAttackMovement.getName()+" "+i.getMessage());

@@ -6,7 +6,6 @@ import presentation.Battle.BattleContainer;
 import presentation.POOBkemonGUI;
 import presentation.Datos.DatosTwoPlayersSurvival;
 import presentation.Selection.SelectionFinalSurvival;
-
 import domain.PoobkemonException;
 
 public class ModePlayerVSPlayerSurvival extends JPanel {
@@ -47,8 +46,6 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
     }
 
     public void generateAleatory(){
-        //teamsSurvival.selectionOne.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerOneName).getInventory().getPokemonsName());
-        //teamsSurvival.selectionTwo.clearActualList(pooBkemonGUI.domain.getTrainer(datos.playerTwoName).getInventory().getPokemonsName());
         teamsSurvival.reset();
         pooBkemonGUI.domain.deleteActualListOfPokemons(datos.playerOneName);
         pooBkemonGUI.domain.deleteActualListOfPokemons(datos.playerTwoName);
@@ -57,12 +54,14 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         teamsSurvival.inicializar();
     }
 
-    public void inicializateTeams(String player1Name, Color color1, String player2Name, Color color2){
-        pooBkemonGUI.createTrainer(player1Name, color1);
-        pooBkemonGUI.createTrainer(player2Name, color2);
+    public void inicializateTeams(String playerOneName, Color colorOne, String playerTwoName, Color colorTwo){
+        pooBkemonGUI.createTrainer(playerOneName, colorOne);
+        pooBkemonGUI.createTrainer(playerTwoName, colorTwo);
+        firstName = playerOneName;
+        secondName = playerTwoName;
         try {
-            pooBkemonGUI.domain.generateRandomSelectionPokemon(player1Name);
-            pooBkemonGUI.domain.generateRandomSelectionPokemon(player2Name);
+            pooBkemonGUI.domain.generateRandomSelectionPokemon(playerOneName);
+            pooBkemonGUI.domain.generateRandomSelectionPokemon(playerTwoName);
             }catch (Exception i) {
                 JOptionPane.showMessageDialog(null, i.getMessage());
                 return;
@@ -78,8 +77,8 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
         cardLayout.show(this,namePanel);
     }
 
-    public void inicializateGame(String playerOne, String playerTwo){
-        pooBkemonGUI.domain.inicializateBattlePVsP(playerOne, playerTwo);
+    public void inicializateGame(){
+        pooBkemonGUI.domain.inicializateBattlePVsP(firstName, secondName);
         changePanel("Battle");
     }
 }

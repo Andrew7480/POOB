@@ -128,7 +128,7 @@ public class BattleContainer extends JPanel {
         
     }
 
-        public void sacrificar(){
+    public void sacrificar(){
         opcionSacrificarTo(pooBkemonGUI.domain.getCurrentAlivePokemonsWithoutCurrent());
         System.out.println("Se ha sacrificado un pokemon.");
     }

@@ -91,11 +91,11 @@ public class SelectionMovementsTwoPlayers extends JPanel {
         return doneButton;
     }
 
-    public void inicializate(Color color1, ArrayList<String> pok1, Color color2, ArrayList<String> pok2){
-        selectionOne.setColor(color1);
-        selectionTwo.setColor(color2);
-        selectionOne.infoSelectedPokemons(pok1);
-        selectionTwo.infoSelectedPokemons(pok2);
+    public void inicializate(Color colorOne, ArrayList<String> pokOne, Color colorTwo, ArrayList<String> pokTwo){
+        selectionOne.setColor(colorOne);
+        selectionTwo.setColor(colorTwo);
+        selectionOne.infoSelectedPokemons(pokOne);
+        selectionTwo.infoSelectedPokemons(pokTwo);
     }
     
 

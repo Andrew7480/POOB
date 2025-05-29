@@ -152,12 +152,6 @@ public class InventoryPanel extends JPanel {
 
 	    centro.add(scrollContainer, BorderLayout.CENTER);
         add(centro, BorderLayout.CENTER);
-
-        //scrollContainer.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        //upPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        //down.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        //left.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        //right.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         createButtons();
     }
     public void setColor(Color newColor){
@@ -180,9 +174,9 @@ public class InventoryPanel extends JPanel {
     }
     public void createButtons() {
         for (String itemSelected : items) {
-            Item po1 = pooBkemonGUI.domain.getItems().get(itemSelected);
-            String nombre = po1.getName();
-            String ruta = po1.getName() +".png";
+            Item poOne = pooBkemonGUI.domain.getItems().get(itemSelected);
+            String nombre = poOne.getName();
+            String ruta = poOne.getName() +".png";
             JButton button = createImageButton(nombre, ruta);
             buttons.add(button);
             button.addActionListener(e -> 
@@ -246,7 +240,6 @@ public class InventoryPanel extends JPanel {
                 Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
                 button.setIcon(new ImageIcon(scaledImage));
             }
-            //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
             button.setText("No imagen");
             LogPOOBKEMON.record(e);

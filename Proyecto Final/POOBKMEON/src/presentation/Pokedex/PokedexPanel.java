@@ -2,6 +2,8 @@ package presentation.Pokedex;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.util.ArrayList;
 import presentation.*;
@@ -56,9 +58,9 @@ public class PokedexPanel extends JPanel {
 
         setupPokedexComponents();
         initSampleData();
-
         addPokedexStartupEffect();
     }
+
 
     private void setupPokedexComponents() {
         mainScreen = new JPanel();
@@ -165,13 +167,13 @@ public class PokedexPanel extends JPanel {
         typesPanel.revalidate();
         typesPanel.repaint();
         if (typeOne != null && !typeOne.isEmpty()) {
-            JPanel tipo1Panel = createTypePanel(typeOne);
-            typesPanel.add(tipo1Panel);
+            JPanel tipoOnePanel = createTypePanel(typeOne);
+            typesPanel.add(tipoOnePanel);
             typesPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         if (typeTwo != null && !typeTwo.isEmpty() && !typeTwo.equals(" ")) {
-            JPanel tipo2Panel = createTypePanel(typeTwo);
-            typesPanel.add(tipo2Panel);
+            JPanel tipoTwoPanel = createTypePanel(typeTwo);
+            typesPanel.add(tipoTwoPanel);
         }
     }
 
@@ -284,24 +286,44 @@ public class PokedexPanel extends JPanel {
         pokemones.add(new String[]{"34", "Nidoking", "Poison", "Ground", "505", "81", "102", "77", "85", "75", "85"});
         pokemones.add(new String[]{"36", "Clefable", "Fairy", "", "483", "95", "70", "73", "95", "90", "60"});
         pokemones.add(new String[]{"59", "Arcanine", "Fire", "", "555", "90", "110", "80", "100", "80", "95"});
+        pokemones.add(new String[]{"65", "Alakazam", "Psychic", "", "500", "55", "50", "45", "135", "95", "120"});
         pokemones.add(new String[]{"68", "Machamp", "Fighting", "", "505", "90", "130", "80", "65", "85", "55"});
+        pokemones.add(new String[]{"71", "Victreebel", "Grass", "Poison", "490", "80", "105", "65", "100", "70", "70"});
+        pokemones.add(new String[]{"78", "Rapidash", "Fire", "", "500", "65", "100", "70", "80", "80", "105"});
         pokemones.add(new String[]{"80", "Slowbro", "Water", "Psychic", "490", "95", "75", "110", "100", "80", "30"});
+        pokemones.add(new String[]{"82", "Magneton", "Electric", "Steel", "465", "50", "60", "95", "120", "70", "70"});
+        pokemones.add(new String[]{"85", "Dodrio", "Normal", "Flying", "470", "60", "110", "70", "60", "60", "110"});
         pokemones.add(new String[]{"94", "Gengar", "Ghost", "Poison", "500", "60", "65", "60", "130", "75", "110"});
+        pokemones.add(new String[]{"106", "Hitmonlee", "Fighting", "", "455", "50", "120", "53", "35", "110", "87"});
+        pokemones.add(new String[]{"107", "Hitmonchan", "Fighting", "", "455", "50", "105", "79", "35", "110", "76"});
+        pokemones.add(new String[]{"108", "Lickitung", "Normal", "", "385", "90", "55", "75", "60", "75", "30"});
         pokemones.add(new String[]{"112", "Rhydon", "Ground", "Rock", "485", "105", "130", "120", "45", "45", "40"});
+        pokemones.add(new String[]{"122", "Mr. Mime", "Psychic", "Fairy", "460", "40", "45", "65", "100", "120", "90"});
+        pokemones.add(new String[]{"128", "Tauros", "Normal", "", "490", "75", "100", "95", "40", "70", "110"});
         pokemones.add(new String[]{"130", "Gyarados", "Water", "Flying", "540", "95", "125", "79", "60", "100", "81"});
+        pokemones.add(new String[]{"131", "Lapras", "Water", "Ice", "535", "130", "85", "80", "85", "95", "60"});
         pokemones.add(new String[]{"143", "Snorlax", "Normal", "", "540", "160", "110", "65", "65", "110", "30"});
         pokemones.add(new String[]{"146", "Moltres", "Fire", "Flying", "580", "90", "100", "90", "125", "85", "90"});
         pokemones.add(new String[]{"149", "Dragonite", "Dragon", "Flying", "600", "91", "134", "95", "100", "100", "80"});
+        pokemones.add(new String[]{"150", "Mewtwo", "Psychic", "", "680", "106", "110", "90", "154", "90", "130"});
         pokemones.add(new String[]{"157", "Typhlosion", "Fire", "", "534", "78", "84", "78", "109", "85", "100"});
         pokemones.add(new String[]{"160", "Feraligatr", "Water", "", "530", "85", "105", "100", "79", "83", "78"});
         pokemones.add(new String[]{"176", "Togetic", "Fairy", "Flying", "405", "55", "40", "85", "80", "105", "40"});
+        pokemones.add(new String[]{"212", "Scizor", "Bug", "Steel", "500", "70", "130", "100", "55", "80", "65"});
         pokemones.add(new String[]{"217", "Ursaring", "Normal", "", "500", "90", "130", "75", "75", "75", "55"});
         pokemones.add(new String[]{"225", "Delibird", "Ice", "Flying", "330", "45", "55", "45", "65", "45", "75"});
         pokemones.add(new String[]{"232", "Donphan", "Ground", "", "500", "90", "120", "120", "60", "60", "50"});
         pokemones.add(new String[]{"248", "Tyranitar", "Rock", "Dark", "600", "100", "134", "110", "95", "100", "61"});
+        pokemones.add(new String[]{"254", "Sceptile", "Grass", "", "530", "70", "85", "65", "105", "85", "120"});
         pokemones.add(new String[]{"257", "Blaziken", "Fire", "Fighting", "530", "80", "120", "70", "110", "70", "80"});
+        pokemones.add(new String[]{"260", "Swampert", "Water", "Ground", "535", "100", "110", "90", "85", "90", "60"});
         pokemones.add(new String[]{"282", "Gardevoir", "Psychic", "Fairy", "518", "68", "65", "65", "125", "115", "80"});
         pokemones.add(new String[]{"289", "Slaking", "Normal", "", "670", "150", "160", "100", "95", "65", "100"});
+        pokemones.add(new String[]{"297", "Hariyama", "Fighting", "", "480", "144", "120", "60", "40", "60", "50"});
+        pokemones.add(new String[]{"306", "Aggron", "Steel", "Rock", "530", "70", "110", "180", "60", "60", "50"});
+        pokemones.add(new String[]{"310", "Manectric", "Electric", "", "475", "70", "75", "60", "105", "60", "105"});
+        pokemones.add(new String[]{"321", "Wailord", "Water", "", "500", "170", "90", "45", "90", "45", "60"});
+        pokemones.add(new String[]{"342", "Crawdaunt", "Water", "Dark", "468", "63", "120", "85", "90", "55", "55"});
         pokemones.add(new String[]{"376", "Metagross", "Steel", "Psychic", "600", "80", "135", "130", "95", "90", "70"});
         actualizarListaPokemones();
         currentIndex[0] = 0;

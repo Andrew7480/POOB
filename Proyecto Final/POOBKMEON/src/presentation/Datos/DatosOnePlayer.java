@@ -6,7 +6,6 @@ import domain.PoobkemonException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.*;
 
 import presentation.POOBkemonGUI;
@@ -39,7 +38,7 @@ public class DatosOnePlayer extends JPanel{
     private Color choiceOne;
 
     private ArrayList<String> gamemodeChoosen;
-    private TreeMap<String,String> gameModes; 
+    private TreeMap<String,String> gameModes;
     private ArrayList<JButton> buttons;
     private int indexPath=0;
 
@@ -59,8 +58,8 @@ public class DatosOnePlayer extends JPanel{
         chooserColor = new JButton("CHOOSE COLOR PLAYER");
         nextButton = new JButton("CONTINUE");
         resetButton = new JButton("RESET");
-        paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png"};
-
+        paths = new String[]{"/resources/trainers/Trainer1.png","/resources/trainers/Trainer2.png","/resources/trainers/Trainer3.png","/resources/trainers/Trainer4.png",
+        "/resources/trainers/Trainer5.png","/resources/trainers/Trainer6.png","/resources/trainers/Trainer7.png","/resources/trainers/Trainer8.png"};
         gameModes = new TreeMap<>(){{
             put("Defensive", "/resources/Defensive.jpeg");
             put("Expert", "/resources/Expert.jpeg");
@@ -101,7 +100,6 @@ public class DatosOnePlayer extends JPanel{
 
         JPanel buttonTrainerPanel = new JPanel(new GridLayout(1,1,0,0));
         buttonTrainerPanel.setOpaque(false);
-        //buttonTrainerPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         buttonTrainer = createImageButton("Trainer1", paths[0]);
         buttonTrainerPanel.add(buttonTrainer);
 
@@ -206,7 +204,6 @@ public class DatosOnePlayer extends JPanel{
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BorderLayout());
         dialogPanel.setPreferredSize(new Dimension(200, 100));
-        //dialogPanel.setBackground(new Color(248, 248, 216));
         dialogPanel.setBorder(BorderFactory.createLineBorder(new Color(56, 56, 56), 3));
         
         nameLabel = new JLabel("¿Whats your name?");
@@ -311,7 +308,6 @@ public class DatosOnePlayer extends JPanel{
                 Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
                 button.setIcon(new ImageIcon(scaledImage));
             }
-            //button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         }catch (Exception e) {
             button.setText("No imagen, intenta de nuevo.");
         }
@@ -320,7 +316,6 @@ public class DatosOnePlayer extends JPanel{
         button.setMaximumSize(smallSize); 
         button.setOpaque(false);
         button.setContentAreaFilled(false);
-        //button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setToolTipText(name);
         button.setPreferredSize(new Dimension(200, 40));

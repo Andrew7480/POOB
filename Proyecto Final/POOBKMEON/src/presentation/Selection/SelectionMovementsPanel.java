@@ -39,16 +39,16 @@ public class SelectionMovementsPanel extends JPanel{
             temp.add(po.pokemones.get(s));
             movimientosSeleccionados.put(s, new ArrayList<>(Arrays.asList("", "", "", "")));
         }
-        ArrayList<String> temp1 = new ArrayList<>();
+        ArrayList<String> tempOne = new ArrayList<>();
 
         for (String s : chosenPokemons){
             TreeMap<String,Movement> validMoves = po.domain.validMovements(po.domain.getPokedex().get(s));
             for (String moveKey : validMoves.keySet()){
-                temp1.add(moveKey);
+                tempOne.add(moveKey);
             };
         }
         for (int i = 0; i < chosenPokemons.size(); i++){
-            JPanel movementPanel = createMovementPanel(temp.get(i).getName(), temp1,temp.get(i).getPokedexIndex().toString());
+            JPanel movementPanel = createMovementPanel(temp.get(i).getName(), tempOne,temp.get(i).getPokedexIndex().toString());
             centralPanel.add(movementPanel);
         }
         

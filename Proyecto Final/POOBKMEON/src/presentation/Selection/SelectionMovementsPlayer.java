@@ -38,7 +38,6 @@ public class SelectionMovementsPlayer extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
-        //doneButton.setVisible(false);
         pooBkemonGUI.styleButton(doneButton);
         pooBkemonGUI.styleButton(come);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));

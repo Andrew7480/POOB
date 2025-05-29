@@ -153,15 +153,14 @@ public class ListPokemonAvailable extends JPanel{
     }
 
     private void createButtons(){
-        //System.out.println(pokemonsChosen.toString());
         for (String pokemonSelected : pokemonsChosen){
-            Pokemon po1 = po.pokemones.get(pokemonSelected);
-            String nombre = po1.getName();
-            String ruta = po1.getPokedexIndex().toString() + ".png";
+            Pokemon poOne = po.pokemones.get(pokemonSelected);
+            String nombre = poOne.getName();
+            String ruta = poOne.getPokedexIndex().toString() + ".png";
             JButton button = createImageButton(nombre,ruta);
             buttons.add(button);
             button.addActionListener(e -> selectionPokemons(button));
-            panelScroll.add(button);    
+            panelScroll.add(button);
         }
     }
 

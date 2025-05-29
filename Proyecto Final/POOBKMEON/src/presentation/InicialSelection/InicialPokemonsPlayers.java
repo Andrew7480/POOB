@@ -45,7 +45,6 @@ public class InicialPokemonsPlayers extends JPanel {
         down.setOpaque(false);
         doneButton = new JButton ("Done!");
         come = new JButton("Back..");
-        //doneButton.setVisible(false);
         po.styleButton(doneButton);
         po.styleButton(come);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -96,9 +95,9 @@ public class InicialPokemonsPlayers extends JPanel {
         return doneButton;
     }
 
-    public void inicializate(Color color1, ArrayList<String> pok1, Color color2, ArrayList<String> pok2){
-        selectionOne.inicializate(pok1, color1);
-        selectionTwo.inicializate(pok2, color2);
+    public void inicializate(Color colorOne, ArrayList<String> pokOne, Color colorTwo, ArrayList<String> pokTwo){
+        selectionOne.inicializate(pokOne, colorOne);
+        selectionTwo.inicializate(pokTwo, colorTwo);
 
     }
     

@@ -64,7 +64,7 @@ public class SelectionFinalSurvival extends JPanel {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameMode.inicializateGame(datos.playerOneName, datos.playerTwoName);
+                gameMode.inicializateGame();
             }});
         come.addActionListener(new ActionListener(){
             @Override

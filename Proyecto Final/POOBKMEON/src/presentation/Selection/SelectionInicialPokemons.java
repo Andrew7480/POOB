@@ -84,10 +84,8 @@ public class SelectionInicialPokemons extends JPanel{
 
         centro = new JPanel(new BorderLayout());
         centro.setOpaque(false);
-        //centro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 
-        panelScroll = new JPanel(new GridLayout(4,4,1,1)) { //GridBagLayout   DEBERIA SER CALCULADO FILAS Y COLUMNAS   de dominio
-            @Override
+        panelScroll = new JPanel(new GridLayout(4,4,1,1)) {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100));
@@ -132,9 +130,8 @@ public class SelectionInicialPokemons extends JPanel{
         panelScroll.setOpaque(false);
         panelScroll.setBackground(Color.BLUE);
 
-        centro.add(scrollContainer, BorderLayout.CENTER); //tal vez por eso se demora en clock?
+        centro.add(scrollContainer, BorderLayout.CENTER);
         add(centro, BorderLayout.CENTER);
-
         createButtons();
     }
 
@@ -149,9 +146,9 @@ public class SelectionInicialPokemons extends JPanel{
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){
-            Pokemon po1 = po.pokemones.get(pokemonSelected);
-            String nombre = po1.getName();
-            String ruta = po1.getPokedexIndex().toString() + ".png";
+            Pokemon poOne = po.pokemones.get(pokemonSelected);
+            String nombre = poOne.getName();
+            String ruta = poOne.getPokedexIndex().toString() + ".png";
             JButton button = createImageButton(nombre,ruta);
             buttons.add(button);
             button.addActionListener(e -> 
