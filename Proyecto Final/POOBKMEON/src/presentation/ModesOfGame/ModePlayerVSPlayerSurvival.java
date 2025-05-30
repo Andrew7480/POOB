@@ -38,9 +38,18 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
     
     private void prepareActions(){
         survivalBatalla.getRunButton().addActionListener(e ->{
+            survivalBatalla.stopTimer();
             pooBkemonGUI.changePanel("inicio");
             changePanel("Datos");
             pooBkemonGUI.domain.endBattle();
+        });
+        survivalBatalla.getSalvarPartida().addActionListener(e -> {
+            pooBkemonGUI.saveBattle("PvsPSurvival");
+            actualizar();
+        });
+        survivalBatalla.getCargarPartida().addActionListener(e -> {
+            pooBkemonGUI.OpenBattle("PvsPSurvival");
+            actualizar();
         });
     }
 
@@ -74,6 +83,9 @@ public class ModePlayerVSPlayerSurvival extends JPanel {
 
     public void changePanel(String namePanel){
         cardLayout.show(this,namePanel);
+    }
+    public void actualizar(){
+        survivalBatalla.actualizar();
     }
 
     public void inicializateGame(){

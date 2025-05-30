@@ -169,11 +169,11 @@ public class BattlePanelMvsM extends JPanel {
             }
             });
         save.addActionListener(e -> {
-            pooBkemonGUI.saveBattle();
+            pooBkemonGUI.saveBattle("MvsM");
             actualizar();
         });
         open.addActionListener(e -> {
-            pooBkemonGUI.OpenBattle();
+            pooBkemonGUI.OpenBattle("MvsM");
             actualizar();
         });
     }

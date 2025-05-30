@@ -60,9 +60,18 @@ public class ModePlayerVSPlayer extends JPanel {
 
     private void prepareActions(){
         batalla.getRunButton().addActionListener(e ->{
+            batalla.stopTimer();
             pooBkemonGUI.changePanel("inicio");
             changePanel("Datos");
             pooBkemonGUI.domain.endBattle();
+        });
+        batalla.getSalvarPartida().addActionListener(e -> {
+            pooBkemonGUI.saveBattle("PvsP");
+            actualizar();
+        });
+        batalla.getCargarPartida().addActionListener(e -> {
+            pooBkemonGUI.OpenBattle("PvsP");
+            actualizar();
         });
     }
 

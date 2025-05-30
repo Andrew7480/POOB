@@ -65,6 +65,14 @@ public class BattleContainer extends JPanel {
 
         inventoryPokemons.getDoneButton().addActionListener(e -> 
         changePokemon());
+        
+    }
+
+    public JButton getSalvarPartida(){
+        return battle.getSalvarPartida();
+    }
+    public JButton getCargarPartida(){
+        return battle.getCargarPartida();
     }
 
     private void useItem(){
@@ -166,5 +174,8 @@ public class BattleContainer extends JPanel {
     
     public JButton getRunButton(){
         return battle.getRunButton();
+    }
+    public void stopTimer(){
+        battle.stopTimer();
     }
 }

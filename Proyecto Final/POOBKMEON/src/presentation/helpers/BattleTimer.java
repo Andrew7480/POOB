@@ -1,7 +1,6 @@
 package presentation.helpers;
 
 import javax.swing.Timer;
-import javax.swing.JLabel;
 import presentation.POOBkemonGUI;
 
 public abstract class BattleTimer {

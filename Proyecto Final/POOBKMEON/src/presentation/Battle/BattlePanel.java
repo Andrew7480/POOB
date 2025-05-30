@@ -321,20 +321,24 @@ public class BattlePanel extends JPanel {
             showBattleOptionsPanel();
             showBattleOptionsPanel();
         });
-        cargarPartida.addActionListener(e -> {
-            pooBkemonGUI.OpenBattle();
-            actualizar();
-        });
-        guardarPartida.addActionListener(e -> {
-            pooBkemonGUI.saveBattle();
-            actualizar();
-        });
+    }
+
+    public JButton getSalvarPartida() {
+        return guardarPartida;
+    }
+    public JButton getCargarPartida() {
+        return cargarPartida;
+    }
+    public void stopTimer(){
+        if (timer != null) {
+            timer.detenerTemporizadorDeBatalla();
+        }
     }
 
     public boolean gameEnd(){
         try{
             if (pooBkemonGUI.domain.GameIsOVer()){
-                timer.detenerTemporizadorDeBatalla(); //verificar
+                stopTimer();
                 JOptionPane.showMessageDialog(this, "Ha ganado: "+ pooBkemonGUI.domain.getWinner(),"Se acabo!",JOptionPane.INFORMATION_MESSAGE);
                 pooBkemonGUI.changePanel("inicio");
                 pooBkemonGUI.resetBattles();

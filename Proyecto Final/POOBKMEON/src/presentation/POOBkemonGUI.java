@@ -91,8 +91,11 @@ public class POOBkemonGUI extends JFrame {
             }
         });
         openBattle.addActionListener(e -> {
-            //OpenBattle();
-
+            String prefix = JOptionPane.showInputDialog(this, "Ingrese el prefijo de la batalla a abrir:", "Abrir Batalla", JOptionPane.QUESTION_MESSAGE);
+            if (prefix != null && !prefix.trim().isEmpty()) {
+                OpenBattle(prefix.trim());
+                //AAAA
+            }
         });
         prepareMovementActions();
     }
@@ -428,7 +431,7 @@ public class POOBkemonGUI extends JFrame {
                 BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)
             ));
-            button.setPreferredSize(new Dimension(180, 35));
+            button.setPreferredSize(new Dimension(200, 35));
         } catch (Exception e) {
             LogPOOBKEMON.record(e);
         }
@@ -488,6 +491,7 @@ public class POOBkemonGUI extends JFrame {
      * Do the action of close the window
      */
     private void exit(){
+        
         int option = JOptionPane.showConfirmDialog(this, "Estas seguro de que quieres salir?",
                 "Confirmar salida", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
@@ -566,26 +570,41 @@ public class POOBkemonGUI extends JFrame {
             return domain.getTrainer(trainerEscogido).getInventory().getItemsName();
         }
 /////////////////////////////////////////////////////////////////////////////////////////
-    public void saveBattle(){
+    public void saveBattle(String prefix) {
+        System.out.println("Saving battle with prefix: " + prefix);
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            try{
-                domain.getBattle().save(selectedFile);
-            }catch(PoobkemonException h){
+            String fileName = selectedFile.getName();
+            if (!fileName.startsWith(prefix + "_")) {
+                fileName = prefix + "_" + fileName;
+            }
+            File fileWithPrefix = new File(selectedFile.getParent(), fileName);
+            try {
+                domain.getBattle().save(fileWithPrefix);
+            } catch (PoobkemonException h) {
                 System.out.println(h.getMessage());
-        }catch (Exception e) {LogPOOBKEMON.record(e);}
+            } catch (Exception e) {
+                LogPOOBKEMON.record(e);
+            }
         }
     }
-    public void OpenBattle(){
+
+    public void OpenBattle(String prefix) {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(this); 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
+            String fileName = selectedFile.getName();
+            if (!fileName.startsWith(prefix + "_")) {
+                JOptionPane.showMessageDialog(this, "El archivo seleccionado no corresponde al prefijo requerido: " + prefix, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             domain.deserializateBattle(selectedFile.getAbsolutePath());
         }
-    }    
+    }
+
     public ArrayList<String> aleatoryMovements(String namePokemon){
         try{return domain.generateRandomMovementForPokemon(namePokemon);}
         catch (PoobkemonException e) {
