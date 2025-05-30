@@ -534,9 +534,9 @@ public class POOBkemonTest implements Serializable {
             defensive.addPokemon(typhlosionOne.copyWithMovements());
             inventarioDefensive.addItem(defenseNormalPotion);
             inventarioDefensive.addItem(psNormalPotion);
-            inventarioDefensive.addItem(revive);
+            inventarioDefensive.addItem(defenseHyperPotion);
             inventarioDefensive.addItem(attackSuperPotion);
-            inventarioDefensive.addItem(revive);
+            inventarioDefensive.addItem(attackNormalPotion);
             inventarioDefensive.addItem(superPotion);
 
             //2
@@ -550,9 +550,10 @@ public class POOBkemonTest implements Serializable {
             changing.addPokemon(rhydonOne.copyWithMovements());
             inventarioChanging.addItem(psNormalPotion);
             inventarioChanging.addItem(defenseNormalPotion);
-            inventarioChanging.addItem(revive);
-            inventarioChanging.addItem(revive);
-
+            inventarioChanging.addItem(attackSHyperPotion);
+            inventarioChanging.addItem(psSuperPotion);
+            inventarioChanging.addItem(attackNormalPotion);
+            inventarioChanging.addItem(superPotion);
 
             //3
             Inventory inventarioChangingOne = new Inventory();
@@ -1731,6 +1732,132 @@ public class POOBkemonTest implements Serializable {
         }catch(PoobkemonException e) {
         	fail(e.getMessage());
         }
+    }
+    @Test
+    public void shouldGetThePokemonInUse() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon po = kemon.deserializateGame();
+        Trainer t1 = po.getTrainer("tulio");
+        Trainer t2 = po.getTrainer("andrew");
+        po.inicializateBattlePVsP(t1.getName(), t2.getName());
+        String pokemonName = po.getBattle().getCurrentPokemonName();
+        assertEquals(t1.getPokemonInUse().getName(), pokemonName);
+    }
+    @Test
+    public void shouldUseItem2(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        try {
+            poobkemon.actionUseItem(t1.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t2.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t1.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t2.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t1.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t2.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t1.getInventory().getItemsName().get(0));
+            poobkemon.actionUseItem(t2.getInventory().getItemsName().get(0));
+            assertTrue(poobkemon.getBattle().isAliveCurrentPokemon());
+        } catch (PoobkemonException e) {
+            fail("No se pudo usar el item: " + e.getMessage());
+        }
+    }
+    @Test
+    public void shouldUseItem3(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        poobkemon.inicializateBattleMvsM("Attacking", "Attacking");
+        try {
+            String name  = poobkemon.getBattle().getCurrentTrainer().getPokemonInUse().getName();
+            poobkemon.getBattle().getCurrentTrainer().getPokemonInUse().losePS(1000);
+            poobkemon.actionUseItem(name, "revive");
+            assertTrue(poobkemon.getBattle().isAliveCurrentPokemon());
+        } catch (PoobkemonException e) {
+            fail("No se pudo usar el item: " + e.getMessage());
+        }
+    }
+    @Test
+    public void shouldMachineDecideInBattle(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("Expert");
+        Trainer t2 = poobkemon.getTrainer("Attacking");
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        try {
+            poobkemon.movementPerformed("");
+            poobkemon.movementPerformed("");
+            poobkemon.movementPerformed("");
+            assertTrue(poobkemon.getBattle().isAliveCurrentPokemon());
+        } catch (PoobkemonException e) {
+            fail("No se pudo usar el item: " + e.getMessage());
+        }
+    }
+    @Test
+    public void shouldMachineDecideInBattle2(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("Changing");
+        Trainer t2 = poobkemon.getTrainer("Defensive");
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        try {
+            poobkemon.movementPerformed("");
+            poobkemon.movementPerformed("");
+            poobkemon.movementPerformed("");
+            assertTrue(poobkemon.getBattle().isAliveCurrentPokemon());
+        } catch (PoobkemonException e) {
+            fail("No se pudo usar el item: " + e.getMessage());
+        }
+    }
+    @Test
+    public void shouldDeleteAnItemFromInventory() {
+        Inventory inventory = new Inventory();
+        Item potion = new PsPotion("potion", "Restores HP", PotionType.NORMAL);
+        try {
+            inventory.addItem(potion);
+            assertTrue(inventory.contains(potion));
+            inventory.delItem(potion);
+            assertFalse(inventory.contains(potion));
+        } catch (PoobkemonException e) {
+            fail("No se pudo eliminar el item: " + e.getMessage());
+        }
+    }
+    @Test
+    public void shouldDeletePokemonsFromInventory() {
+        Inventory inventory = new Inventory();
+        Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
+                PokemonType.PLANTA, PokemonType.VENENO, 3);
+        try {
+            inventory.addPokemon(venusaur);
+            assertTrue(inventory.contains(venusaur));
+            inventory.clearPokemons();
+            assertFalse(inventory.contains(venusaur));
+        } catch (PoobkemonException e) {
+            fail("No se pudo eliminar el pokemon: " + e.getMessage());
+        }
+
+    }
+    @Test
+    public void shouldAllgets() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        assertNotNull(poobkemon.getBattle().getCurrentPokemonName());
+        assertNotNull(poobkemon.getBattle().getOponentPokemonName());
+        assertNotNull(poobkemon.getBattle().getCurrentPokemonLevel());
+        assertNotNull(poobkemon.getBattle().getOponentPokemonLevel());
+        assertNotNull(poobkemon.getBattle().getCurrentPokemonPs());
+        assertNotNull(poobkemon.getBattle().getOponentPokemonPs());
+        assertNotNull(poobkemon.getBattle().getCurrentPokemonPokedexIndex());
+        assertNotNull(poobkemon.getBattle().getOponentPokemonPokedexIndex());
+        assertNotNull(poobkemon.getBattle().getCurrentColor());
+        assertNotNull(poobkemon.getBattle().getCurrentItems());
+        assertNotNull(poobkemon.getBattle().getCurrentPokemons());
+        assertNotNull(poobkemon.getItemsName());
+        assertNotNull(poobkemon.getPokemonsName());
     }
 }
     

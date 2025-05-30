@@ -62,7 +62,7 @@ public class Inventory implements Serializable{
      * @param item The item to remove
      * @throws PoobkemonException ITEM_DONT_EXIST if the item is not in the inventory or quantity is zero
      */
-    private void delItem(Item item) throws PoobkemonException{
+    public void delItem(Item item) throws PoobkemonException{
         if (!items.containsKey(item)) throw new PoobkemonException(PoobkemonException.ITEM_DONT_EXIST);
         Integer count = items.get(item);
         if (count <= 0) throw new PoobkemonException(PoobkemonException.ITEM_DONT_EXIST);
@@ -261,6 +261,7 @@ public class Inventory implements Serializable{
         }
         return temp;
     }
+
 
     public ArrayList<String> getPokemonsName(){
         ArrayList<String> temp = new ArrayList<>();
