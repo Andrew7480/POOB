@@ -2,7 +2,6 @@ package domain;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 public abstract class Trainer implements Serializable{
     protected String name;

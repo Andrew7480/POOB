@@ -38,6 +38,8 @@ public class POOBkemonTest implements Serializable {
             TributeEffect Electrocuted  = new TributeEffect("Electrocutar ", "Le inflinge daño al inicio de turno.", 4,new HashMap<String, Integer>() {{
                 put("Attack", -20);
                 put("PS", -30);}});
+
+            Electrocuted.getStateTo();    
 // Efectos de tributo adicionales
             TributeEffect confusionEffect = new TributeEffect("Efecto de confusión", "Puede hacer que el Pokémon se ataque a sí mismo.", 3,
                     new HashMap<String, Integer>() {{
@@ -489,7 +491,8 @@ public class POOBkemonTest implements Serializable {
 
             Item superPotion = new SuperPotion("All superPotion","Aumenta los atributos basicos de un pokemon.",PotionType.SUPER);
             Item hyperPotion = new HyperPotion("All hyperPotion","Aumenta los atributos especiales de un pokemon.",PotionType.HYPER);
-
+            Potion poo= (Potion) potion;
+            poo.getPotionType();
             poobkemon.addItem(defenseNormalPotion);
             poobkemon.addItem(attackNormalPotion);
             poobkemon.addItem(psNormalPotion);
@@ -1805,6 +1808,8 @@ public class POOBkemonTest implements Serializable {
             poobkemon.movementPerformed("");
             poobkemon.movementPerformed("");
             poobkemon.movementPerformed("");
+            assertNotNull(poobkemon.getLastDamage());
+            assertNotNull(poobkemon.getLastMessage());
             assertTrue(poobkemon.getBattle().isAliveCurrentPokemon());
         } catch (PoobkemonException e) {
             fail("No se pudo usar el item: " + e.getMessage());
@@ -1824,14 +1829,39 @@ public class POOBkemonTest implements Serializable {
         }
     }
     @Test
+    public void shouldSacrificate(){
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("Attacking");
+        Trainer t2 = poobkemon.getTrainer("Attacking");
+    
+        poobkemon.inicializateBattleMvsM(t1.getName(), t2.getName());
+        try {poobkemon.isSacrificableCurrent();
+        } catch (PoobkemonException e) {
+            fail("No se sabe: " + e.getMessage());
+        }
+        try {
+            poobkemon.sacrificateCurentPokemon(t1.getPokemonInUse().getName());
+            assertTrue(poobkemon.getBattle().isAliveCurrentPokemon());
+        } catch (PoobkemonException e) {
+            fail("No se pudo sacrificar el pokemon: " + e.getMessage());
+        }
+    }
+    @Test
     public void shouldDeletePokemonsFromInventory() {
+        Trainer trainer = new PlayerTrainer("Ash", new Color(255, 0, 0));
+        trainer.getDeadCurrentPokemons();
+        trainer.getCurrentAlivePokemons();
+        
         Inventory inventory = new Inventory();
+        trainer.setInventory(inventory);
+        
         Pokemon venusaur = new Pokemon("Venusaur", 100, 364, 289, 328, 291, 328, 284, 
                 PokemonType.PLANTA, PokemonType.VENENO, 3);
         try {
             inventory.addPokemon(venusaur);
             assertTrue(inventory.contains(venusaur));
-            inventory.clearPokemons();
+            trainer.clearPokemons();
             assertFalse(inventory.contains(venusaur));
         } catch (PoobkemonException e) {
             fail("No se pudo eliminar el pokemon: " + e.getMessage());
@@ -1845,6 +1875,8 @@ public class POOBkemonTest implements Serializable {
         Trainer t1 = poobkemon.getTrainer("tulio");
         Trainer t2 = poobkemon.getTrainer("andrew");
         poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        assertNotNull(poobkemon.getCurrentAlivePokemons());
+        try{poobkemon.getWinner();assertNotNull(poobkemon.getCurrentAlivePokemonsWithoutCurrent());}catch (Exception e) {}
         assertNotNull(poobkemon.getBattle().getCurrentPokemonName());
         assertNotNull(poobkemon.getBattle().getOponentPokemonName());
         assertNotNull(poobkemon.getBattle().getCurrentPokemonLevel());
@@ -1859,6 +1891,49 @@ public class POOBkemonTest implements Serializable {
         assertNotNull(poobkemon.getItemsName());
         assertNotNull(poobkemon.getPokemonsName());
     }
+    @Test
+    public void shoulAllToString() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        assertNotNull(t1.toString());
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        assertNotNull(poobkemon.toString());
+        assertNotNull(poobkemon.getBattle().toString());
+        assertNotNull(poobkemon.getCurrentItems().toString());
+        assertNotNull(poobkemon.getCurrentPokemons().toString());
+    }
+    @Test
+    public void shouldSerializateBattle() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        try {
+            poobkemon.getBattle().save(new java.io.File("prueba"));
+            assertTrue(poobkemon.getBattle().getCurrentPokemonName() != null);
+        } catch (Exception e) {
+            fail("No se pudo serializar la batalla: " + e.getMessage());
+        }
+    }
+    @Test
+    public void shouldDeserializateBattle() {
+        POOBkemon kemon = new POOBkemon();
+        POOBkemon poobkemon = kemon.deserializateGame();
+        Trainer t1 = poobkemon.getTrainer("tulio");
+        Trainer t2 = poobkemon.getTrainer("andrew");
+        poobkemon.inicializateBattlePVsP(t1.getName(), t2.getName());
+        try {
+            poobkemon.getBattle().save(new java.io.File("prueba"));
+            poobkemon.deserializateBattle("prueba");
+            assertTrue(poobkemon.getBattle().getCurrentPokemonName() != null);
+        } catch (Exception e) {
+            fail("No se pudo deserializar la batalla: " + e.getMessage());
+        }
+    }
+
 }
     
     

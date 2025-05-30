@@ -2,8 +2,6 @@ package domain;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.swing.JOptionPane;
-
 public class Pokemon implements Serializable {
     private String name;
     private int level;

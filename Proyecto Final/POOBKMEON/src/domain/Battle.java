@@ -455,26 +455,6 @@ public class Battle implements Serializable {
         inicializateTime();
     }
 
-    public Battle open(File file) throws PoobkemonException{
-        if (!file.exists()) {
-            throw new PoobkemonException(PoobkemonException.FILE_DONT_EXIST);
-        }
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-            Battle battle = (Battle) in.readObject();
-            return battle;
-        } catch (FileNotFoundException e) {
-            throw new PoobkemonException("Error al leer el archivo: " + e.getMessage());
-        } catch (InvalidClassException e) {
-            throw new PoobkemonException("Clase Invalida: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new PoobkemonException("Clase no encontrada " + e.getMessage());
-        } catch (ClassCastException e) {
-            throw new PoobkemonException("Casteo de clase error: " + e.getMessage());
-        } catch (IOException e) {
-            throw new PoobkemonException("Posible error al serializar? " + e.getMessage());
-        }
-    }
 
     /**
      * Performs a coin toss to randomly determine which trainer goes first

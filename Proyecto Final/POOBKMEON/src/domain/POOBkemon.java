@@ -615,19 +615,6 @@ public class POOBkemon implements Serializable{
         serializateGame(fileName);
     }
 
-    public void serializateBattle(String fileName) {
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameData"));
-            if (battle != null) out.writeObject(battle);
-            out.close();
-        } catch (NotSerializableException e) {
-            System.out.println("Error al serializar: " + e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Error al guardar el juego: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
     public Battle deserializateBattle(String fileName) {
         File file = new File(fileName);
         if (!file.exists()) {

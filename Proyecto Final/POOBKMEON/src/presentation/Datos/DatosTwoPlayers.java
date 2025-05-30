@@ -78,7 +78,7 @@ public class DatosTwoPlayers extends JPanel {
         });
 
         chooserColorPlayerOne.addActionListener(e -> {
-            choiceOne = colorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
+            choiceOne = JColorChooser.showDialog(this, "Selecciona tu color", Color.BLUE);
             if (choiceOne != null) {
                 colorChosedPlayerOne = choiceOne;
                 chooserColorPlayerOne.setBackground(colorChosedPlayerOne);
@@ -91,7 +91,7 @@ public class DatosTwoPlayers extends JPanel {
         });
         
         chooserColorPlayerTwo.addActionListener(e -> {
-            choiceTwo = colorChooser.showDialog(this, "Selecciona tu color", Color.RED);
+            choiceTwo = JColorChooser.showDialog(this, "Selecciona tu color", Color.RED);
             if (choiceTwo != null) {
                 colorChosedPlayerTwo = choiceTwo;
                 chooserColorPlayerTwo.setBackground(colorChosedPlayerTwo);
