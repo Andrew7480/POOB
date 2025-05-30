@@ -6,7 +6,6 @@ import presentation.Battle.BattleContainer;
 import presentation.POOBkemonGUI;
 import presentation.Datos.DatosTwoPlayersSurvival;
 import presentation.Selection.SelectionFinalSurvival;
-import domain.PoobkemonException;
 
 public class ModePlayerVSPlayerSurvival extends JPanel {
     protected BattleContainer survivalBatalla;

@@ -85,6 +85,16 @@ public class SelectionMovementsTwoPlayers extends JPanel {
             reset();
             gameMode.changePanel("Inventory");
         });
+
+        aleatory.addActionListener(e -> {
+            try {
+                selectionOne.aleatoryMovements();
+                selectionTwo.aleatoryMovements();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(SelectionMovementsTwoPlayers.this, ex.getMessage());
+            }
+        });
+
     }
 
     public JButton getButtonBack(){

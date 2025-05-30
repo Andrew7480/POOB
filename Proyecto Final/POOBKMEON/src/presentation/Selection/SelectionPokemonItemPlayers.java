@@ -2,9 +2,10 @@ package presentation.Selection;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import presentation.ModesOfGame.ModePlayerVSPlayer;
 import presentation.POOBkemonGUI;
-import presentation.Selection.Selection;
 
 public class SelectionPokemonItemPlayers extends JPanel{
     private  String backgroundImage = "emerald";
@@ -91,6 +92,13 @@ public class SelectionPokemonItemPlayers extends JPanel{
 
     public JButton getNextBJButton(){
         return doneButton;
+    }
+
+    public ArrayList<String> getPokemonsChosenFightOne(){
+        return selectionOne.getPokemonChoosen();
+    }   
+    public ArrayList<String> getPokemonsChosenFightTwo(){
+        return selectionTwo.getPokemonChoosen();
     }
 
     public void inicializate(Color colorOne, Color colorTwo){

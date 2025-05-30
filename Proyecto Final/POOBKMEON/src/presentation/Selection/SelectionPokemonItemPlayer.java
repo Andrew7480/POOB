@@ -2,6 +2,8 @@ package presentation.Selection;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import presentation.POOBkemonGUI;
 import presentation.ModesOfGame.ModePlayerVsMachine;
 
@@ -87,6 +89,10 @@ public class SelectionPokemonItemPlayer extends JPanel{
     public JButton getNextBJButton(){
         return doneButton;
     }
+
+    public ArrayList<String> getPokemonsChosenFight(){
+        return selection.getPokemonChoosen();
+    }   
 
     public void inicializate(Color color1){
         selection.setColor(color1);

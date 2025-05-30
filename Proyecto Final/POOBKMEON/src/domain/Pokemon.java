@@ -272,7 +272,8 @@ public class Pokemon implements Serializable {
         if (movements.contains(mov) ) {
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT);
         }
-        if (mov.getMultiplicatorAtacck(principalType)>1.0) {
+        if (mov.getMultiplicatorDebil(principalType)>1.0){
+            System.out.println("El movimiento "+mov.getName()+ " de tipo "+mov.getType()+" es debil para el tipo "+principalType);
             throw new PoobkemonException(PoobkemonException.CANT_ADD_MOVEMENT_FOR_MULTIPLICATOR);
         }
         movements.add(mov.copy());
@@ -587,7 +588,7 @@ public class Pokemon implements Serializable {
                 return;
             }
         }
-        System.out.println(name +" No lo encontro con string: " + target.getName());
+        System.out.println(name +" No encontro el movimiento con string: " + target.getName());
         throw new PoobkemonException(PoobkemonException.MOVEMENT_NOT_FOUND);
     }
 

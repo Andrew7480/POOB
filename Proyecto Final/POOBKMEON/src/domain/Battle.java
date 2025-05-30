@@ -35,7 +35,7 @@ public class Battle implements Serializable {
      */
     public Battle(Trainer trainer1, Trainer trainer2){
         turnTrainers = new ArrayList<>();
-        coinToss();
+        //coinToss();
         turnTrainers.add(trainer1);
         turnTrainers.add(trainer2);
         turnIndex = 0;
@@ -54,8 +54,12 @@ public class Battle implements Serializable {
         beforAction();
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
-        System.out.println("Esta afectado de no hacer nada?" + current.getPokemonInUse().isAffectedByStattus());
-        current.pokemonMovement(move, opponent.getPokemonInUse());
+        System.out.println("Esta afectado por un estado: " + current.getPokemonInUse().isAffectedByStattus());
+        try {
+            current.pokemonMovement(move, opponent.getPokemonInUse());
+        } catch (PoobkemonException e) {
+            if (!PoobkemonException.MISSED_MOVEMENT.equals(e.getMessage())) {throw e;}
+        }
         afterAction();
     }
 
@@ -123,6 +127,7 @@ public class Battle implements Serializable {
      * Checks if the battle state has changed after an action
      */
     public void afterAction() throws PoobkemonException{
+        System.out.println("After action: ");
         Trainer current = getCurrentTrainer();
         Trainer opponent = getOpponentTrainer();
         lastAction = current.decide(opponent.getPokemonInUse());

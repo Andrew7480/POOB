@@ -53,7 +53,7 @@ public abstract class Item implements Serializable{
      * 
      * @return An HTML-formatted string containing the item's name and description
      */
-    public String createPokemonForToolTip(){
+    public String createItemForToolTip(){
         return "<html>" +
                 "<b style='font-size:12px; color:blue;'>" + name + "</b><br>" +
                 "Type: " + description + "<br>" +

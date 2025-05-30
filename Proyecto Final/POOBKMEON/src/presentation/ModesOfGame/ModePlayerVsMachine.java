@@ -1,11 +1,7 @@
 package presentation.ModesOfGame;
 import javax.swing.*;
-
-import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
 import presentation.POOBkemonGUI;

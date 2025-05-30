@@ -82,6 +82,7 @@ public class InicialPokemonsPlayers extends JPanel {
         });
 
         come.addActionListener(e -> {
+            gameMode.movements.inicializate(selectionOne.getColor(), gameMode.inventory.getPokemonsChosenFightOne(),selectionTwo.getColor(), gameMode.inventory.getPokemonsChosenFightTwo());
             reset();
             gameMode.changePanel("Movimientos");
         });

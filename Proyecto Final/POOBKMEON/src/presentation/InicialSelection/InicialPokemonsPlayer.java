@@ -79,6 +79,7 @@ public class InicialPokemonsPlayer extends JPanel {
         });
 
         come.addActionListener(e -> {
+            gameMode.movements.inicializate(selection.getColor(), gameMode.inventory.getPokemonsChosenFight());
             reset();
             gameMode.changePanel("Movimientos");
         });
@@ -98,7 +99,7 @@ public class InicialPokemonsPlayer extends JPanel {
     
 
     public void reset(){ 
-        System.out.println("resetea todo de la seleccion movimientos dos players");
+        System.out.println("resetea todo de la seleccion movimientos un player");
         selection.reset();
         repaint();
         revalidate();
