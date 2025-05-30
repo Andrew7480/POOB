@@ -3,15 +3,14 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
+
 import presentation.POOBkemonGUI;
 
-public class PanelSelectedPokemon extends JPanel{
-    private String backgroundImage = "emerald";
+public class SelectionInicialPokemons extends JPanel{
     private ArrayList<String> pokemonsChosenFight;
     private ArrayList<String> pokemonInicialChosen;
     private ArrayList<JButton> buttons;
     private JPanel panelScroll;
-    private JButton doneButton;
 
     private JPanel upPanel;
     private JScrollPane scrollPane;
@@ -20,20 +19,16 @@ public class PanelSelectedPokemon extends JPanel{
     private Color color;
     private POOBkemonGUI poobkemonGUI;
     private JLabel texto;
-    private JButton come;
-    private static final int MAX_CHANGED = 1;
+    public static final int MAX_CHANGED = 1;
 
 
-    public PanelSelectedPokemon(POOBkemonGUI newPo){
+    public SelectionInicialPokemons(POOBkemonGUI newPo){
         poobkemonGUI = newPo;
-        
         prepareElements();
-        prepareActions();
     }
+
     private void prepareElements(){
         color = new Color(0, 0, 255);
-        come = new JButton("BACK");
-        doneButton = new JButton ("Selecciona tu pokemon inicial");
         pokemonsChosenFight= new ArrayList<>();
         pokemonInicialChosen = new ArrayList<>();
         setLayout(new BorderLayout());
@@ -48,9 +43,6 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     private void prepareElementsToStart(){
-        poobkemonGUI.styleButton(come);
-        
-
         upPanel = new JPanel(new BorderLayout());
         upPanel.setOpaque(false); 
         texto = new JLabel("Player");
@@ -82,13 +74,10 @@ public class PanelSelectedPokemon extends JPanel{
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
         
-        poobkemonGUI.styleButton(doneButton);
         down.add(new JLabel(" "),BorderLayout.NORTH);
         down.add(new JLabel(" "),BorderLayout.CENTER);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         booton.setOpaque(false);
-        booton.add(come);
-        booton.add(doneButton);
         down.add(booton,BorderLayout.SOUTH);
         add(down, BorderLayout.SOUTH);
 
@@ -96,7 +85,6 @@ public class PanelSelectedPokemon extends JPanel{
         centro.setOpaque(false);
 
         panelScroll = new JPanel(new GridLayout(4,4,1,1)) {
-            @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100));
@@ -141,29 +129,12 @@ public class PanelSelectedPokemon extends JPanel{
         panelScroll.setOpaque(false);
         panelScroll.setBackground(Color.BLUE);
 
-        centro.add(scrollContainer, BorderLayout.CENTER); //tal vez por eso se demora en clock?
+        centro.add(scrollContainer, BorderLayout.CENTER);
         add(centro, BorderLayout.CENTER);
-
         createButtons();
     }
-
-    private void prepareActions(){
-        doneButton.addActionListener(e ->{
-            if (sizeChosenPokemon() < 1){
-                JOptionPane.showMessageDialog(this, "Debes escoger " + MAX_CHANGED + "pokemon para iniciar la batalla", 
-                "Límite excedido", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (sizeChosenPokemon() > MAX_CHANGED){
-                JOptionPane.showMessageDialog(this, "Solo puedes escoger uno para cambiar " + MAX_CHANGED + "pokemon", 
-                "Límite excedido", JOptionPane.WARNING_MESSAGE);
-
-                return;
-            }
-        changeImage();
-        poobkemonGUI.cardLayout.show(poobkemonGUI.panelContenedor,"battle");
-        reset();
-        });
+    public ArrayList<String> getPokemonsChosenFight(){
+        return pokemonsChosenFight;
     }
 
     public int sizeChoosen(){
@@ -173,28 +144,10 @@ public class PanelSelectedPokemon extends JPanel{
         return pokemonInicialChosen.size();
     }
 
-    public void changeImage(){
-        int primero = poobkemonGUI.domain.getCurrentPokemonPokedexIndex();
-        int segundo = poobkemonGUI.domain.getOponentPokemonPokedexIndex();
-        System.out.println(primero + " " + segundo);
-    }
-
-    public void changeImageMvsM(){
-        int primero = poobkemonGUI.domain.getCurrentPokemonPokedexIndex();
-        int segundo = poobkemonGUI.domain.getOponentPokemonPokedexIndex();
-        System.out.println(primero + " " + segundo);
-    }
-
-    public void changeImagePvsP(){
-        int primero = poobkemonGUI.domain.getCurrentPokemonPokedexIndex();
-        int segundo = poobkemonGUI.domain.getOponentPokemonPokedexIndex();
-        System.out.println(primero + " " + segundo);
-    }
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){
-            String ruta = poobkemonGUI.domain.getPokedexIndexByName(pokemonSelected) + ".png";
-            JButton button = createImageButton(pokemonSelected,ruta);
+            JButton button = poobkemonGUI.createImageButton(pokemonSelected);
             buttons.add(button);
             button.addActionListener(e -> 
             selectionPokemons(button));
@@ -203,7 +156,7 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
 
-
+/*
     private JButton createImageButton(String name,String imagePath) {
         int x=1, y=1;
         int width=50, height =50;
@@ -235,7 +188,7 @@ public class PanelSelectedPokemon extends JPanel{
         button.setToolTipText(name);
         
         return button;
-    }
+    } */
     private void setColor(Color newCorlor){
         color = newCorlor;
     }
@@ -244,30 +197,21 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     private void selectionPokemons(JButton button){
-        
-        if (pokemonInicialChosen.contains(button.getToolTipText()) ) {
-            button.setBackground(null);
-            button.setOpaque(false);
-            pokemonInicialChosen.remove(button.getToolTipText());
+        for (JButton b : buttons){
+            b.setBackground(null);
+            b.setOpaque(false);
         }
-        else{
-            button.setBackground(Color.GREEN);
-            button.setOpaque(true);
-            pokemonInicialChosen.add(button.getToolTipText());
-        }
+        pokemonInicialChosen.clear();
+        button.setBackground(Color.GREEN);
+        button.setOpaque(true);
+        pokemonInicialChosen.add(button.getToolTipText());
         System.out.println("Inicial: "+pokemonInicialChosen.toString());
     }
 
-    public JButton getBackButton(){
-        return come;
-    }
     public String getPokemonChoosed(){
         return pokemonInicialChosen.get(0);
     }
 
-    public JButton getDoneButton(){
-        return doneButton;
-    }
     public boolean isOneOption(){
         return pokemonInicialChosen.size() ==1;
     }
@@ -288,12 +232,5 @@ public class PanelSelectedPokemon extends JPanel{
         repaint();
     }
 
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        ImageIcon back = new ImageIcon(getClass().getResource("/resources/"+ backgroundImage+".JPG"));
-        g.drawImage(back.getImage(), 0, 0, getWidth(), getHeight(), this);
-    }
 
 }

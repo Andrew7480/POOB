@@ -267,43 +267,8 @@ public class Selection extends JPanel{
     public int sizeChoosen(){
         return pokemonesChoosen.size();
     }
-    private JButton createImageButton(String name,String imagePath) {
-        int x=1, y=1;
-        int width=50, height =30;
-        Dimension smallSize = new Dimension(50, 30); 
-        JButton button = new JButton();
-        button.setBounds(x, y, width, height);
-        
-        try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
-            
-            if (imagePath.toLowerCase().endsWith(".gif")){
-                button.setIcon(icon);
-                button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-            } 
-            else {
-                Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-                button.setIcon(new ImageIcon(scaledImage));
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-            button.setText("No imagen");
-        }
-        button.setPreferredSize(smallSize);
-        button.setMinimumSize(smallSize);
-        button.setMaximumSize(smallSize); 
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setToolTipText(name);
-        button.setActionCommand(name);
-        
-        return button;
-    }
     private JButton createImageButton(String pokemonName) {
-        String imagePath = pooBkemonGUI.domain.getPokedexIndexByName(pokemonName) + ".png";
-        JButton button = createImageButton(pokemonName, imagePath);
+        JButton button = pooBkemonGUI.createImageButton(pokemonName);
         button.setToolTipText(pooBkemonGUI.domain.toolTipForPokemon(pokemonName));
         ToolTipManager.sharedInstance().setInitialDelay(500);
         return button;

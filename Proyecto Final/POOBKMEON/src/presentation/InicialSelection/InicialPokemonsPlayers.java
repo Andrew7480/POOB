@@ -7,7 +7,6 @@ import java.util.*;
 
 import presentation.POOBkemonGUI;
 import presentation.ModesOfGame.ModePlayerVSPlayer;
-import presentation.Selection.SelectionInicialPokemons;
 
 public class InicialPokemonsPlayers extends JPanel {
     private  String backgroundImage = "emerald";

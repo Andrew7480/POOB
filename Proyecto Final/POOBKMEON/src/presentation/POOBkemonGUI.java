@@ -14,6 +14,7 @@ import java.awt.event.*;
 
 import presentation.ModesOfGame.*;
 import presentation.Pokedex.PokedexPanel;
+import presentation.helpers.ImageButton;
 
 public class POOBkemonGUI extends JFrame {
     private JMenuItem leave;
@@ -493,6 +494,22 @@ public class POOBkemonGUI extends JFrame {
             dispose();
             System.exit(0);
         }
+    }
+
+    public JButton createImageButton(String pokemonName) {
+        String imagePath = domain.getPokedexIndexByName(pokemonName) + ".png";
+        ImageIcon icon = null;
+        try {
+            icon = new ImageIcon(getClass().getResource("/resources/" + imagePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Image img = (icon != null) ? icon.getImage() : null;
+        JButton button = new ImageButton(pokemonName, img);
+        button.setPreferredSize(new Dimension(110, 90));
+        button.setMinimumSize(new Dimension(110, 90));
+        button.setMaximumSize(new Dimension(110, 90));
+        return button;
     }
     
     /*

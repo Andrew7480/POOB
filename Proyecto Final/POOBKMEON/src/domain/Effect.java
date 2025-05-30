@@ -1,7 +1,7 @@
 package domain;
 
 import java.io.Serializable;
-public abstract class Effect implements Serializable{
+public abstract class Effect implements Serializable{ 
 
     /** The name of the effect */
     protected String name;
