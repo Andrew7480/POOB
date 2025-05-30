@@ -3,9 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.Map.Entry;
+import domain.LogPOOBKEMON;
 
-import domain.*;  //luego mirar
 import presentation.POOBkemonGUI;
 public class Selection extends JPanel{
     private JLabel texto;
@@ -72,12 +71,10 @@ public class Selection extends JPanel{
     }
 
     private void createPotionButtons() {
-        for (Entry<String, Item> entry : pooBkemonGUI.domain.getItems().entrySet()) {
-            String nombre = entry.getKey();
-            Item item = entry.getValue();
-            String ruta = item.getName() + ".png";
-            JButton button = createPotionButton(nombre, ruta);
-            button.setToolTipText(item.createPokemonForToolTip());
+        for (String itemName: pooBkemonGUI.domain.getItemsName()) {
+            String ruta = itemName + ".png";
+            JButton button = createPotionButton(itemName, ruta);
+            button.setToolTipText(pooBkemonGUI.domain.toolTipForItem(itemName));
             ToolTipManager.sharedInstance().setInitialDelay(500);
             potionButtons.add(button);
             button.addActionListener(e -> selectPotion(button));
@@ -240,9 +237,8 @@ public class Selection extends JPanel{
 
 
     public void createButtons() {
-        for (Entry<String, Pokemon> entry : pooBkemonGUI.domain.getPokedex().entrySet()) {
-            Pokemon pokemon = entry.getValue();
-            JButton button = createImageButton(pokemon);
+        for (String pokemonName : pooBkemonGUI.domain.getPokemonsName()) {
+            JButton button = createImageButton(pokemonName);
             buttons.add(button);
             button.addActionListener(e -> 
             selectionPokemons(button)
@@ -305,11 +301,10 @@ public class Selection extends JPanel{
         
         return button;
     }
-    private JButton createImageButton(Pokemon pokemon) {
-        String name = pokemon.getName();
-        String imagePath = pokemon.getPokedexIndex() + ".png";
-        JButton button = createImageButton(name, imagePath);
-        button.setToolTipText(pokemon.createPokemonForToolTip());
+    private JButton createImageButton(String pokemonName) {
+        String imagePath = pooBkemonGUI.domain.getPokedexIndexByName(pokemonName) + ".png";
+        JButton button = createImageButton(pokemonName, imagePath);
+        button.setToolTipText(pooBkemonGUI.domain.toolTipForPokemon(pokemonName));
         ToolTipManager.sharedInstance().setInitialDelay(500);
         return button;
     }

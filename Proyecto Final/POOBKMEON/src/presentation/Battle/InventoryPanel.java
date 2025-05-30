@@ -1,7 +1,6 @@
 package presentation.Battle;
 import java.awt.*;
 import javax.swing.*;
-import domain.Item;
 import domain.LogPOOBKEMON;
 import domain.PoobkemonException;
 
@@ -174,10 +173,10 @@ public class InventoryPanel extends JPanel {
     }
     public void createButtons() {
         for (String itemSelected : items) {
-            Item poOne = pooBkemonGUI.domain.getItems().get(itemSelected);
-            String nombre = poOne.getName();
-            String ruta = poOne.getName() +".png";
-            JButton button = createImageButton(nombre, ruta);
+            String ruta = itemSelected +".png";
+
+            JButton button = createImageButton(itemSelected, ruta);
+
             buttons.add(button);
             button.addActionListener(e -> 
             selectionItems(button)

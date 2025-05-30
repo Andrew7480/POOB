@@ -3,11 +3,10 @@ import java.awt.*;
 import javax.swing.*;
 
 import domain.LogPOOBKEMON;
-import domain.Pokemon;
-import domain.PoobkemonException;
 import java.awt.event.*;
 import java.util.*;
 import presentation.POOBkemonGUI;
+
 public class ListPokemonAvailable extends JPanel{
     private String backgroundImage = "emerald";
     private ArrayList<String> pokemonsChosen;
@@ -16,28 +15,28 @@ public class ListPokemonAvailable extends JPanel{
     private JPanel panelScroll;
     private JButton doneButton;
     private Color color;
-    private POOBkemonGUI po;
+    private POOBkemonGUI poobKemonGUI;
     private JLabel texto;
     private JButton come;
     public int MAX_CHANGED = 1;
 
     public ListPokemonAvailable(POOBkemonGUI newPo){
-        po = newPo;
+        poobKemonGUI = newPo;
         color = new Color(0, 0, 255);
         come = new JButton("Back");
         doneButton = new JButton ("Change");
         prepareActions();
     }
     public void inicializate(){
-        pokemonsChosen = po.domain.getCurrentPokemons();
+        pokemonsChosen = poobKemonGUI.domain.getCurrentPokemons();
         pokemonChange = new ArrayList<>();
-        setColor(po.domain.getCurrentColor());
+        setColor(poobKemonGUI.domain.getCurrentColor());
         prepareElements();
     }
 
     private void prepareElements(){
         
-        po.styleButton(come);
+        poobKemonGUI.styleButton(come);
         buttons = new ArrayList<>();
 
         setLayout(new BorderLayout());
@@ -75,7 +74,7 @@ public class ListPokemonAvailable extends JPanel{
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
         
-        po.styleButton(doneButton);
+        poobKemonGUI.styleButton(doneButton);
         down.add(new JLabel(" "),BorderLayout.NORTH);
         down.add(new JLabel(" "),BorderLayout.CENTER);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -154,10 +153,8 @@ public class ListPokemonAvailable extends JPanel{
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosen){
-            Pokemon poOne = po.pokemones.get(pokemonSelected);
-            String nombre = poOne.getName();
-            String ruta = poOne.getPokedexIndex().toString() + ".png";
-            JButton button = createImageButton(nombre,ruta);
+            String ruta = poobKemonGUI.domain.getPokedexIndexByName(pokemonSelected) + ".png";
+            JButton button = createImageButton(pokemonSelected,ruta);
             buttons.add(button);
             button.addActionListener(e -> selectionPokemons(button));
             panelScroll.add(button);
@@ -223,8 +220,8 @@ public class ListPokemonAvailable extends JPanel{
 
     public void actualizar(){
         reset();
-        color = po.domain.getCurrentColor();
-        pokemonsChosen = po.domain.getCurrentPokemons();
+        color = poobKemonGUI.domain.getCurrentColor();
+        pokemonsChosen = poobKemonGUI.domain.getCurrentPokemons();
         pokemonChange.clear();    
         inicializate();
     }

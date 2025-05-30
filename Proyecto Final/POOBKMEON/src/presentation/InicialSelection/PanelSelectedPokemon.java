@@ -1,21 +1,8 @@
 package presentation.InicialSelection;
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import domain.Pokemon;
-import domain.PoobkemonException;
-import domain.Trainer;
-
 import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.Map.Entry;
-
 import presentation.POOBkemonGUI;
 
 public class PanelSelectedPokemon extends JPanel{
@@ -31,14 +18,14 @@ public class PanelSelectedPokemon extends JPanel{
     private JPanel centro;
 
     private Color color;
-    private POOBkemonGUI po;
+    private POOBkemonGUI poobkemonGUI;
     private JLabel texto;
     private JButton come;
     private static final int MAX_CHANGED = 1;
 
 
     public PanelSelectedPokemon(POOBkemonGUI newPo){
-        po = newPo;
+        poobkemonGUI = newPo;
         
         prepareElements();
         prepareActions();
@@ -61,7 +48,7 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     private void prepareElementsToStart(){
-        po.styleButton(come);
+        poobkemonGUI.styleButton(come);
         
 
         upPanel = new JPanel(new BorderLayout());
@@ -95,7 +82,7 @@ public class PanelSelectedPokemon extends JPanel{
         JPanel down = new JPanel(new BorderLayout());
         down.setOpaque(false);
         
-        po.styleButton(doneButton);
+        poobkemonGUI.styleButton(doneButton);
         down.add(new JLabel(" "),BorderLayout.NORTH);
         down.add(new JLabel(" "),BorderLayout.CENTER);
         JPanel booton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -174,7 +161,7 @@ public class PanelSelectedPokemon extends JPanel{
                 return;
             }
         changeImage();
-        po.cardLayout.show(po.panelContenedor,"battle");
+        poobkemonGUI.cardLayout.show(poobkemonGUI.panelContenedor,"battle");
         reset();
         });
     }
@@ -187,29 +174,27 @@ public class PanelSelectedPokemon extends JPanel{
     }
 
     public void changeImage(){
-        int primero = po.domain.getCurrentPokemonPokedexIndex();
-        int segundo = po.domain.getOponentPokemonPokedexIndex();
+        int primero = poobkemonGUI.domain.getCurrentPokemonPokedexIndex();
+        int segundo = poobkemonGUI.domain.getOponentPokemonPokedexIndex();
         System.out.println(primero + " " + segundo);
     }
 
     public void changeImageMvsM(){
-        int primero = po.domain.getCurrentPokemonPokedexIndex();
-        int segundo = po.domain.getOponentPokemonPokedexIndex();
+        int primero = poobkemonGUI.domain.getCurrentPokemonPokedexIndex();
+        int segundo = poobkemonGUI.domain.getOponentPokemonPokedexIndex();
         System.out.println(primero + " " + segundo);
     }
 
     public void changeImagePvsP(){
-        int primero = po.domain.getCurrentPokemonPokedexIndex();
-        int segundo = po.domain.getOponentPokemonPokedexIndex();
+        int primero = poobkemonGUI.domain.getCurrentPokemonPokedexIndex();
+        int segundo = poobkemonGUI.domain.getOponentPokemonPokedexIndex();
         System.out.println(primero + " " + segundo);
     }
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){
-            Pokemon poOne = po.pokemones.get(pokemonSelected);
-            String nombre = poOne.getName();
-            String ruta = poOne.getPokedexIndex().toString() + ".png";
-            JButton button = createImageButton(nombre,ruta);
+            String ruta = poobkemonGUI.domain.getPokedexIndexByName(pokemonSelected) + ".png";
+            JButton button = createImageButton(pokemonSelected,ruta);
             buttons.add(button);
             button.addActionListener(e -> 
             selectionPokemons(button));

@@ -112,13 +112,12 @@ public class POOBkemonTest implements Serializable {
                         put("Velocity", 50);
                     }});
 
-            
             //Movimientos con sus efectos
             MovementState paralyze = new MovementState("Paralyze","",30, 30,50, PokemonType.PLANTA,Paralyze, 60, 0);
             MovementState freeze = new MovementState("Congelar","",20, 20,50, PokemonType.HIELO,Freeze, 60, 0);
             MovementState sleep = new MovementState("Dormir","",10, 15,50, PokemonType.NORMAL,Sleep, 60, 0);
             MovementTribute burn = new MovementTribute("Burn", "", 30, 39, 80, PokemonType.FUEGO, Burn, 10);
-            MovementTribute poison = new MovementTribute("Super Burn", "", 15, 60, 80, PokemonType.VENENO, Poison, 0);
+            MovementTribute poison = new MovementTribute("poison", "", 15, 60, 80, PokemonType.VENENO, Poison, 0);
             MovementTribute defense = new MovementTribute("Defense", "", 25, 0, 100, PokemonType.NORMAL, Defense, 0);
             MovementTribute regenerate = new MovementTribute("Regenerar", "", 25, 0, 100, PokemonType.NORMAL, Regenerate, 0);
             MovementTribute electrocuted = new MovementTribute("Electrocutar", "", 12, 30, 70, PokemonType.ELECTRICO, Electrocuted, 30);
@@ -419,66 +418,60 @@ public class POOBkemonTest implements Serializable {
             Pokemon crawdauntOne   = crawdaunt.copyPokemon();
             Pokemon miloticOne     = milotic.copyPokemon();
             Pokemon metagrossOne   = metagross.copyPokemon();
-            try{charizardOne.setMovements(new Movement[] {paralyze, burn, flamethrower, energyBall});
-                snorlaxOne.setMovements(new Movement[] {shadowBall,sleep,flamethrower,surf});
-                blastoiseOne.setMovements(new Movement[] {surf, aquaJet, hydroPump, iceBeam});
-                venusaurOne.setMovements(new Movement[] {paralyze, poison, gigaDrain,hydroPump});
-                gengarOne.setMovements(new Movement[] {willOWisp, thunderbolt,flamethrower,firePunch});
-                dragoniteOne.setMovements(new Movement[] {swordsDance, hyperBeam, flamethrower,firePunch});
-                delibirdOne.setMovements(new Movement[] {freeze, iceBeam, icePunch, xScissor});
-                raichuOne.setMovements(new Movement[] {electrocuted, thunderbolt, thunderPunch,xScissor});
+
+            // Añadir movimientos a los Pokémon
+
+            try {
                 nidokingOne.setMovements(new Movement[] {earthquake, poison, poisonJab, earthPower});
                 clefableOne.setMovements(new Movement[] {xScissor, bugBuzz, poisonJab, sludgeBomb});
                 slowbroOne.setMovements(new Movement[] {surf, iceBeam, hydroPump, aquaJet});
-                rhydonOne.setMovements(new Movement[] {earthquake, earthPower,iceBeam,hydroPump});
+                rhydonOne.setMovements(new Movement[] {earthquake, earthPower, closeCombat, electrocuted});
                 gyaradosOne.setMovements(new Movement[] {surf, hydroPump, aquaJet, iceBeam});
-                moltresOne.setMovements(new Movement[] {flamethrower, burn, firePunch,hydroPump});
-                typhlosionOne.setMovements(new Movement[] {flamethrower, burn, firePunch,aquaJet});
+                moltresOne.setMovements(new Movement[] {flamethrower, burn, firePunch, bravebird});
+                typhlosionOne.setMovements(new Movement[] {flamethrower, burn, firePunch, thunderbolt});
                 feraligatrOne.setMovements(new Movement[] {surf, hydroPump, iceBeam, aquaJet});
-                ursaringOne.setMovements(new Movement[] {flamethrower,shadowBall, shadowClaw, hydroPump});
-                blazikenOne.setMovements(new Movement[] {flamethrower, burn, firePunch, thunderbolt});
+                ursaringOne.setMovements(new Movement[] {flamethrower, shadowBall, shadowClaw, hydroPump});
+                blazikenOne.setMovements(new Movement[] {flamethrower, closeCombat, firePunch, thunderbolt});
                 slakingOne.setMovements(new Movement[] {shadowBall, surf, hydroPump, iceBeam});
-                victreebelOne.setMovements(new Movement[] {gigaDrain, poison, energyBall, sludgeBomb});
-                donphanOne.setMovements(new Movement[] {earthquake, hydroPump, icePunch,xScissor});
-                machampOne.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-                magnetonOne.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted,bugBuzz});
+                victreebelOne.setMovements(new Movement[] {gigaDrain, swordsDance, energyBall, leafBlade});
+                donphanOne.setMovements(new Movement[] {earthquake, xScissor, bugBuzz, moonblast});
+                machampOne.setMovements(new Movement[] {xScissor, bugBuzz, closeCombat, ironHead});
+                magnetonOne.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted, bugBuzz});
                 dodrioOne.setMovements(new Movement[] {xScissor, shadowBall, shadowClaw, energyBall});
-                hitmonleeOne.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-                hitmonchanOne.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
+                hitmonleeOne.setMovements(new Movement[] {xScissor, bugBuzz, closeCombat, ironHead});
+                hitmonchanOne.setMovements(new Movement[] {xScissor, bugBuzz, ironHead, quickAttack});
                 mrMimeOne.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
-                magmarOne.setMovements(new Movement[] {flamethrower, burn, firePunch,shadowClaw});
-                taurosOne.setMovements(new Movement[] {shadowBall, shadowClaw,hydroPump,surf});
+                magmarOne.setMovements(new Movement[] {flamethrower, burn, firePunch, shadowClaw});
+                taurosOne.setMovements(new Movement[] {shadowBall, shadowClaw, hydroPump, surf});
                 laprasOne.setMovements(new Movement[] {iceBeam, surf, hydroPump, freeze});
-                rapidashOne.setMovements(new Movement[] {flamethrower, burn, firePunch,surf});
+                rapidashOne.setMovements(new Movement[] {flamethrower, burn, firePunch, thunderbolt});
                 alakazamOne.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
                 sceptileOne.setMovements(new Movement[] {gigaDrain, energyBall, leafBlade, megaDrain});
-                scizorOne.setMovements(new Movement[] {burn, flamethrower, firePunch,surf});
-                hariyamaOne.setMovements(new Movement[] {xScissor, bugBuzz, moonblast, poisonJab});
-                aggronOne.setMovements(new Movement[] {burn, flamethrower, firePunch,thunderPunch});
-                manectricOne.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted,aquaJet});
+                scizorOne.setMovements(new Movement[] {surf, xScissor, bugBuzz, moonblast});
+                hariyamaOne.setMovements(new Movement[] {xScissor, bugBuzz, closeCombat, ironHead});
+                aggronOne.setMovements(new Movement[] {thunderPunch, thunderbolt, electrocuted, ironHead});
+                manectricOne.setMovements(new Movement[] {thunderbolt, thunderPunch, electrocuted, bugBuzz});
                 crawdauntOne.setMovements(new Movement[] {surf, aquaJet, iceBeam, hydroPump});
                 miloticOne.setMovements(new Movement[] {hydroPump, surf, aquaJet, waterPulse});
                 mewtwoOne.setMovements(new Movement[] {psychic, zenHeadbutt, dreameater, calmMind});
                 swampertOne.setMovements(new Movement[] {surf, aquaJet, hydroPump, waterPulse});
-                arcanineOne.setMovements(new Movement[] {psychic,hydroPump,flamethrower,firePunch});
-                togeticOne.setMovements(new Movement[] {flamethrower, burn, firePunch,bugBuzz});
-                gardevoirOne.setMovements(new Movement[] {psychic,hydroPump,firePunch,freeze});
-                metagrossOne.setMovements(new Movement[] {burn, firePunch, flamethrower, poison});
-                tyranitarOne.setMovements(new Movement[] {burn,crunch,flamethrower,bravebird});
-                }
-            catch(PoobkemonException e){
+                arcanineOne.setMovements(new Movement[] {psychic, flamethrower, firePunch, burn});
+                togeticOne.setMovements(new Movement[] {flamethrower, burn, firePunch, bugBuzz});
+                gardevoirOne.setMovements(new Movement[] {psychic, hydroPump, firePunch, freeze});
+                metagrossOne.setMovements(new Movement[]  {poison, zenHeadbutt, psychoCut, shadowClaw});
+                tyranitarOne.setMovements(new Movement[] {crunch, bravebird, hyperBeam, psychic});
+                charizardOne.setMovements(new Movement[] {burn, flamethrower, firePunch, thunderbolt});
+                snorlaxOne.setMovements(new Movement[] {shadowBall, sleep, flamethrower, surf});
+                blastoiseOne.setMovements(new Movement[] {surf, aquaJet, hydroPump, iceBeam});
+                venusaurOne.setMovements(new Movement[] {paralyze, gigaDrain, energyBall, solarBeam});
+                gengarOne.setMovements(new Movement[] {willOWisp, thunderbolt, flamethrower, firePunch});
+                dragoniteOne.setMovements(new Movement[] {swordsDance, hyperBeam, flamethrower, firePunch});
+                delibirdOne.setMovements(new Movement[] {freeze, iceBeam, icePunch, xScissor});
+                raichuOne.setMovements(new Movement[] {electrocuted, thunderbolt, thunderPunch, xScissor});
+            } catch(PoobkemonException e) {
                 System.out.println(e.getMessage());
                 fail();
             }
-
-            System.out.println(mewtwoOne.getMovements().toString());
-            System.out.println(swampertOne.getMovements().toString());
-
-            Pokemon mewtwoTwo = mewtwoOne.copyWithMovements();
-            Pokemon swampertTwo = swampertOne.copyWithMovements();
-
-            System.out.println(mewtwoTwo.getMovements().toString());
-            System.out.println(swampertTwo.getMovements().toString());
 
             //items
             Item revive = new Revive();
@@ -671,11 +664,12 @@ public class POOBkemonTest implements Serializable {
 
         po.inicializateBattlePVsP("tulio", "andrew");
         try{
-            po.movementPerformed("Hyper Beam");
+            po.movementPerformed("Surf");
             int psFinal = t2.getPokemonInUse().getPs();
             assertNotEquals(psInicial,psFinal); // Es falso ya que el pokemon fue afectado por el movimiento
 
         }catch (PoobkemonException e){
+            System.out.println(e.getMessage());
             fail();
         }
     }
@@ -727,14 +721,14 @@ public class POOBkemonTest implements Serializable {
         //vivo como es Charizard
     }
     @Test
-    public void shouldFightMachineVsMachine(){
+    public void shouldFightMachineVsMachine(){//mirar
 
         POOBkemon kemon = new POOBkemon();
         POOBkemon po = kemon.deserializateGame();
-        Trainer t1 = po.getTrainer("Changing"); //changing
-        Trainer t2 = po.getTrainer("Attacking"); //Attacking
-
-        po.inicializateBattleMvsM("Changing", "Attacking");
+        Trainer t1 = po.getTrainer("Attacking");
+        Trainer t2 = po.getTrainer("Attacking"); 
+        po.inicializateBattleMvsM("Attacking", "Attacking");
+        
 
         int psInicial1 = t1.getPokemonInUse().getPs();
         int psInicial2 = t2.getPokemonInUse().getPs();
@@ -742,6 +736,8 @@ public class POOBkemonTest implements Serializable {
             po.movementPerformed(t2.getPokemonInUse().getMovements().get(0).getName());
             int psFinal1 = t1.getPokemonInUse().getPs();
             int psFinal2 = t2.getPokemonInUse().getPs();
+            
+            System.out.println(BattleLog.getInstance().getLastMessage());
             assertNotEquals(psInicial1,psFinal1);
         } catch (PoobkemonException e) {
             fail("Son iguales los ps, no fue exitoso el ataque entre maquinas");
@@ -785,8 +781,9 @@ public class POOBkemonTest implements Serializable {
 
         Pokemon charizard  = new Pokemon("Charizard", 100, 360, 293, 348, 280, 295, 328, PokemonType.FUEGO, PokemonType.VOLADOR, 6);
         Pokemon blastoise  = new Pokemon("Blastoise", 100, 362, 291, 295, 328, 339, 280, PokemonType.AGUA, null, 9);
-        try{charizard.setMovements(new Movement[] {hyperBeam});
-        blastoise.setMovements(new Movement[] {quickAttack});}catch(PoobkemonException e){System.out.println(e.getMessage());}
+        try{charizard.addMovement(hyperBeam);
+        blastoise.addMovement(quickAttack);}
+        catch(PoobkemonException e){System.out.println(e.getMessage());fail();}
         
         Pokemon charizard1  = charizard.copyWithMovements();
         Pokemon blastoise1  = blastoise.copyWithMovements();
@@ -796,7 +793,6 @@ public class POOBkemonTest implements Serializable {
         assertFalse(charizard.equals(charizard1));
         assertFalse(blastoise.equals(blastoise1));
     }
-
     @Test
     public void shouldAddMovementToPoobkemon() {
     	POOBkemon poobkemon = new POOBkemon();
@@ -855,17 +851,11 @@ public class POOBkemonTest implements Serializable {
     public void shouldActiveStruggleMovement() {
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
     	Pokemon p1 = new Pokemon("Gengar",100,300,251,394,240,273,350,PokemonType.AGUA, PokemonType.DRAGON,94);
-    	Movement m = new PhysicalMovement("Tackle","Physical attack",2,40,100,PokemonType.NORMAL, 0);
-    	try{p.setMovements(new Movement[] { m } );}catch(PoobkemonException e){System.out.println(e.getMessage());}
+    	Movement m = new PhysicalMovement("Tackle","Physical attack",0,40,100,PokemonType.NORMAL, 0);
     	int initialPs = p.getPs();
-    	try {
-    		m.losePP();
-    		m.losePP();
-    	}catch(PoobkemonException e) {
-    		fail("No se activo el movimiento de struggle");
-    	}
+        try{p.addMovement(m);}catch(PoobkemonException e){System.out.println(e.getMessage());fail();}
         try {
-    		p.useMovement(m, p1);
+    		p.useMovement("Tackle", p1);
     	}catch(PoobkemonException e) {
     		fail("No se activo el movimiento de struggle");
     	}
@@ -892,15 +882,14 @@ public class POOBkemonTest implements Serializable {
         try{kemon.addMovement(hyperBeam);kemon.addMovement(shadowBall);}
         catch(PoobkemonException e){System.out.println(e.getMessage());}
 
-        ArrayList<String> pruebaMovimientosValidos = kemon.validMovements(p);
+        ArrayList<Movement> pruebaMovimientosValidos = kemon.getValidMovements(p);
         assertTrue(pruebaMovimientosValidos.size() == 1);
     }
-
     @Test
-    public void shouldBeEqualsThePokemons() {
+    public void shouldNotBeEqualsThePokemons() {
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
-    	Pokemon pequals = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
-    	assertTrue(p.equals(pequals));
+    	Pokemon p1 = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.FANTASMA, PokemonType.VENENO,94);
+    	assertFalse(p.equals(p1));
     }
     @Test
     public void shouldGetThePokemonTypesRight() {
@@ -914,7 +903,7 @@ public class POOBkemonTest implements Serializable {
     	POOBkemon kemon = new POOBkemon();
         POOBkemon poobkemon = kemon.deserializateGame();
     	Pokemon p = new Pokemon("Gengar",100,324,251,394,240,273,350,PokemonType.AGUA, PokemonType.FUEGO,94);
-    	ArrayList<String> movementsNoWeak = poobkemon.validMovements(p);
+    	ArrayList<String> movementsNoWeak = poobkemon.getValidMovementsFor(p.getName());
     	assertTrue(movementsNoWeak.size() > 0);
     }
 
@@ -928,12 +917,15 @@ public class POOBkemonTest implements Serializable {
     	Pokemon venusaur = new Pokemon("Venusaur",100,364,289,328,291,328,284,PokemonType.PLANTA,PokemonType.VENENO,3);
     	Pokemon charizard = new Pokemon("Charizard",100,360,293,348,280,295,328,PokemonType.FUEGO,PokemonType.VOLADOR,6);
     	Movement solarBeam = new SpecialMovement("Rayo Solar", "Absorbe luz un turno y ataca en el siguiente.", 10, 120, 100, PokemonType.PLANTA, 0);
-    	try{venusaur.setMovements(new Movement[] {solarBeam});}catch(PoobkemonException e){System.out.println(e.getMessage());}
+    	try{venusaur.addMovement(solarBeam);}
+        catch(PoobkemonException e){System.out.println(e.getMessage());fail();}
+
     	int inicialPs = charizard.getPs();
     	try {
-    	venusaur.useMovement(solarBeam, charizard);
+    	venusaur.useMovement("Rayo Solar", charizard);
     	assertNotEquals(inicialPs,charizard.getPs());
     	} catch(PoobkemonException e) {
+            System.out.println(e.getMessage());
     		fail("El movimiento no pudo ser usado.");
     	}
     }

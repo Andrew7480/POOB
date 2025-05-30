@@ -385,6 +385,30 @@ public class POOBkemon implements Serializable{
     public TreeMap<String, Pokemon> getPokedex(){
         return pokedex;
     }
+    public TreeMap<String, String> getPokedexNameIndex(){
+        TreeMap<String, String> pokedexNameIndex = new TreeMap<>();
+        for (String key : pokedex.keySet()) {
+            pokedexNameIndex.put(key, String.valueOf(pokedex.get(key).getPokedexIndex()));
+        }
+        return pokedexNameIndex;
+    }
+    public ArrayList<String> getPokedexNames(){
+        return new ArrayList<>(pokedex.keySet());
+    }
+    public String toolTipForPokemon(String name){
+        if (pokedex.containsKey(name)){
+            Pokemon pokemon = pokedex.get(name);
+            return pokemon.createPokemonForToolTip();
+        }
+        return "";
+    }
+    public String toolTipForItem(String name){
+        if (items.containsKey(name)){
+            Item item = items.get(name);
+            return item.createItemForToolTip();
+        }
+        return "";
+    }
 
     /**
      * Gets all trainers in the game
@@ -420,29 +444,36 @@ public class POOBkemon implements Serializable{
         pokemon1.setMovements(new Movement[]{m1,m2,m3,m4});
         entrenadores.get(entrenador).addPokemon(pokemon1);
     }
+    public void addNewPokemon(String entrenador, String pokemon,String m1,String m2, String m3, String m4)throws PoobkemonException{
+        Pokemon pokemon1 = pokedex.get(pokemon).copyPokemon();
+        Movement mov1 = movements.get(m1);
+        Movement mov2 = movements.get(m2);
+        Movement mov3 = movements.get(m3);
+        Movement mov4 = movements.get(m4);
+        if (mov1 == null || mov2 == null || mov3 == null || mov4 == null) {
+            throw new PoobkemonException(PoobkemonException.MOVEMENT_NOT_FOUND);
+        }
+        pokemon1.setMovements(new Movement[]{mov1, mov2, mov3, mov4});
+        entrenadores.get(entrenador).addPokemon(pokemon1);
+    }
 
     /**
      * Gets all valid movements for a specific pokemon
      * @param pokemon Pokemon to check movements for
      * @return TreeMap containing valid movements, with names as keys
      */
-    public ArrayList<String> validMovements(Pokemon pokemon){
-        ArrayList<String> movementsForPokemon = new ArrayList<String>();
-        for(Movement movement : movements.values()) {
-            double multiplicador = movement.getMultiplicatorDebil(pokemon.getPrincipalType());
-            if (multiplicador <= 1.0){
-                movementsForPokemon.add(movement.getName());
-            }
-        }
+    public ArrayList<String> getValidMovementsFor(String pokemonName){
+        ArrayList<String> movementsForPokemon = new ArrayList<>();
+        ArrayList<Movement> movements = getValidMovements(pokedex.get(pokemonName));
+        for(Movement movement : movements) {movementsForPokemon.add(movement.getName());}
         return movementsForPokemon;
     }
+
     public ArrayList<Movement> getValidMovements(Pokemon pokemon){
         ArrayList<Movement> movementsForPokemon = new ArrayList<>();
         for(Movement movement : movements.values()) {
             double multiplicador = movement.getMultiplicatorDebil(pokemon.getPrincipalType());
-            if (multiplicador <= 1.0){
-                movementsForPokemon.add(movement);
-            }
+            if (multiplicador <= 1.0) movementsForPokemon.add(movement);
         }
         return movementsForPokemon;
     }
@@ -491,7 +522,6 @@ public class POOBkemon implements Serializable{
             movementNames.add(m.getName());
         }
         return movementNames;
-        
     }
 
     public ArrayList<Movement> generateRandomMovementForPokemon(Pokemon pok) throws PoobkemonException{

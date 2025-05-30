@@ -1,7 +1,6 @@
 package presentation.Battle;
 import java.util.ArrayList;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import domain.LogPOOBKEMON;
 import domain.PoobkemonException;

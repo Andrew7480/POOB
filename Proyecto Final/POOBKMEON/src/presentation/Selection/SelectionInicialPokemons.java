@@ -1,7 +1,6 @@
 package presentation.Selection;
 import java.awt.*;
 import javax.swing.*;
-import domain.Pokemon;
 import java.awt.event.*;
 import java.util.*;
 
@@ -18,13 +17,13 @@ public class SelectionInicialPokemons extends JPanel{
     private JPanel centro;
 
     private Color color;
-    private POOBkemonGUI po;
+    private POOBkemonGUI poobkemonGUI;
     private JLabel texto;
     public static final int MAX_CHANGED = 1;
 
 
     public SelectionInicialPokemons(POOBkemonGUI newPo){
-        po = newPo;
+        poobkemonGUI = newPo;
         prepareElements();
     }
 
@@ -134,7 +133,9 @@ public class SelectionInicialPokemons extends JPanel{
         add(centro, BorderLayout.CENTER);
         createButtons();
     }
-
+    public ArrayList<String> getPokemonsChosenFight(){
+        return pokemonsChosenFight;
+    }
 
     public int sizeChoosen(){
         return pokemonsChosenFight.size();
@@ -146,10 +147,8 @@ public class SelectionInicialPokemons extends JPanel{
 
     private void createButtons(){
         for (String pokemonSelected : pokemonsChosenFight){
-            Pokemon poOne = po.pokemones.get(pokemonSelected);
-            String nombre = poOne.getName();
-            String ruta = poOne.getPokedexIndex().toString() + ".png";
-            JButton button = createImageButton(nombre,ruta);
+            String ruta = poobkemonGUI.domain.getPokedexIndexByName(pokemonSelected) + ".png";
+            JButton button = createImageButton(pokemonSelected,ruta);
             buttons.add(button);
             button.addActionListener(e -> 
             selectionPokemons(button));

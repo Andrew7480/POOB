@@ -1,5 +1,8 @@
 package presentation;
-import domain.*;
+//import domain.*; //MIRAR
+import domain.POOBkemon;
+import domain.PoobkemonException;
+import domain.LogPOOBKEMON;
 
 import java.io.File;
 import java.util.*;
@@ -33,8 +36,7 @@ public class POOBkemonGUI extends JFrame {
     private JPanel modesOfGameSurvival;
 
     public POOBkemon domain = new POOBkemon();
-    public TreeMap<String,Pokemon> pokemones;
-    public TreeMap<String, Movement> movimientos;
+
 
     private static final Color STANDARD_COLOR = new Color(70, 130, 180);
     private static final Color EXTERNAL_COLOR = new Color(30, 30, 180);
@@ -49,8 +51,6 @@ public class POOBkemonGUI extends JFrame {
      */
     public POOBkemonGUI(){
         domain = domain.deserializateGame();
-        pokemones = domain.getPokedex();
-        movimientos = domain.getMovements();
         prepareElements();
         prepareActions();
     }
@@ -445,7 +445,7 @@ public class POOBkemonGUI extends JFrame {
                 BorderFactory.createLineBorder(new Color(40, 100, 150), 2),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)
             ));
-            button.setPreferredSize(new Dimension(180, 35));
+            button.setPreferredSize(new Dimension(240, 35));
 
             addBasicEffects(button, STANDARD_COLOR, HOVER_COLOR, PRESSED_COLOR);
         } catch (Exception e) {
@@ -537,7 +537,7 @@ public class POOBkemonGUI extends JFrame {
         public void addPokemonsToTrainer(String trainerEscogido,HashMap<String, ArrayList<String>> pokemonsWithAll) throws PoobkemonException{
             HashMap<String, ArrayList<String>> lista = pokemonsWithAll;
             for (Map.Entry<String, ArrayList<String>> entry : lista.entrySet()) {
-                domain.addNewPokemon(trainerEscogido, entry.getKey(), movimientos.get(entry.getValue().get(0)).copy(), movimientos.get(entry.getValue().get(1)).copy(), movimientos.get(entry.getValue().get(2)).copy(), movimientos.get(entry.getValue().get(3)).copy());   
+                domain.addNewPokemon(trainerEscogido, entry.getKey(), entry.getValue().get(0), entry.getValue().get(1),entry.getValue().get(2), entry.getValue().get(3));   
             }
         }
 

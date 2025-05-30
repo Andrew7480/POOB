@@ -67,7 +67,7 @@ public class SelectionMovementsPlayer extends JPanel {
                     }
                     gameMode.pokemonsWithMovs = selection.getPokemonMovs();
                     gameMode.inicialPoks.inicializate(selection.getColor(), selection.getPokemonChoosen());
-                   gameMode.changePanel("Iniciales");
+                    gameMode.changePanel("Iniciales");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(SelectionMovementsPlayer.this, ex.getMessage());
                 }
@@ -77,6 +77,13 @@ public class SelectionMovementsPlayer extends JPanel {
         come.addActionListener(e -> {
             reset();
             gameMode.changePanel("Inventory");
+        });
+        aleatory.addActionListener(e -> {
+            try {
+                selection.aleatoryMovements();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(SelectionMovementsPlayer.this, ex.getMessage());
+            }
         });
     }
 
@@ -102,7 +109,6 @@ public class SelectionMovementsPlayer extends JPanel {
         repaint();
         revalidate();
     }
-
     
 
     @Override
